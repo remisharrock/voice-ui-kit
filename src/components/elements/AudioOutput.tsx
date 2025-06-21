@@ -1,0 +1,53 @@
+import React, { useId } from "react";
+import { useRTVIClientMediaDevices } from "@pipecat-ai/client-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+
+interface AudioOutputProps {
+  className?: string;
+}
+
+export const AudioOutput: React.FC<AudioOutputProps> = ({ className }) => {
+  const { availableSpeakers, selectedSpeaker, updateSpeaker } =
+    useRTVIClientMediaDevices();
+
+  const handleDeviceChange = (deviceId: string) => {
+    updateSpeaker(deviceId);
+  };
+
+  const id = useId();
+
+  return (
+    <div className="flex items-center gap-4">
+      <label
+        htmlFor={id}
+        className="text-sm font-medium text-muted-foreground whitespace-nowrap"
+      >
+        Audio Output
+      </label>
+      <Select
+        value={selectedSpeaker?.deviceId || ""}
+        onValueChange={handleDeviceChange}
+      >
+        <SelectTrigger id={id} className={cn("border-none w-full", className)}>
+          <SelectValue placeholder="Select a speaker" />
+        </SelectTrigger>
+        <SelectContent>
+          {availableSpeakers.map((device) => (
+            <SelectItem key={device.deviceId} value={device.deviceId}>
+              {device.label || `Speaker ${device.deviceId.slice(0, 5)}`}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+};
+
+export default AudioOutput;
