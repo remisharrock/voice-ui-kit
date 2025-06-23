@@ -3,10 +3,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme static {
-  --font-sans:
-    "Geist Variable", "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono:
-    "Geist Mono Variable", "SF Mono", Consolas, "Roboto Mono", monospace;
+  --font-sans: "Geist", "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", "SF Mono", Consolas, "Roboto Mono", monospace;
 
   --shadow-long:
     0px 89px 36px rgba(0, 0, 0, 0.01), 0px 50px 30px rgba(0, 0, 0, 0.03),
