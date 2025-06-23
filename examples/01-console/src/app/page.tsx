@@ -1,27 +1,21 @@
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+"use client";
 
-import { ConsoleTemplate } from ".";
+import { ConsoleTemplate, ThemeProvider } from "@pipecat-ai/voice-ui-kit";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ThemeProvider storageKey="pipecat-ui-theme">
+export default function Home() {
+  return (
+    <ThemeProvider>
       <div className="w-full h-dvh bg-background">
         <ConsoleTemplate
+          transportType="daily"
           onConnect={async () => {
-            const response = await fetch(import.meta.env.VITE_PCC_API_URL, {
+            // Call the connect serverless function and get the room URL and token from Daily
+            const response = await fetch("/api/connect", {
               method: "POST",
-              mode: "cors",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${import.meta.env.VITE_PCC_API_KEY}`,
-              },
               body: JSON.stringify({
                 createDailyRoom: true,
               }),
             });
-
             if (!response.ok) {
               throw new Error("Failed to connect to Pipecat");
             }
@@ -41,5 +35,5 @@ createRoot(document.getElementById("root")!).render(
         />
       </div>
     </ThemeProvider>
-  </StrictMode>,
-);
+  );
+}

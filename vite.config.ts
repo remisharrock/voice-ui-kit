@@ -9,6 +9,8 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       exclude: ["**/*.stories.*", "**/*.test.*"],
+      outDir: "dist",
+      rollupTypes: true,
     }),
   ],
 
@@ -21,41 +23,23 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        // Main entry - core components
         index: path.resolve(__dirname, "src/index.ts"),
-
-        // WebGL visualizers - three.js NOT bundled
-        "visualizers/webgl": path.resolve(
-          __dirname,
-          "src/vizualizers/webgl/index.ts",
-        ),
       },
       formats: ["es", "cjs"],
-      fileName: (format, entryName) => {
-        const ext = format === "es" ? "es.js" : "cjs.js";
-        return `${entryName}.${ext}`;
-      },
+      fileName: (format, entryName) =>
+        `${entryName}.${format === "es" ? "mjs" : "cjs"}`,
     },
 
     rollupOptions: {
       external: [
-        // React - always external
+        // React
         "react",
         "react-dom",
         "react/jsx-runtime",
 
-        // Three.js - always external (peer dependency)
+        // Three.js (for WebGL visualizers)
         "three",
-        /^three\//, // Also externalize three.js submodules
-
-        // Chart.js - external (peer dependency for metrics)
-        "chart.js",
-        "react-chartjs-2",
-
-        // Transport libraries - external (peer dependencies)
-        "@daily-co/daily-js",
-        "@pipecat-ai/daily-transport",
-        "@pipecat-ai/small-webrtc-transport",
+        /^three\//,
       ],
 
       output: {
