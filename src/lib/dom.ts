@@ -1,5 +1,5 @@
 export function getPipecatUiNamespace(): string {
-  return ".pipecat-ui";
+  return ".voice-ui-kit";
 }
 
 export function getPipecatUIContainer(): HTMLElement {

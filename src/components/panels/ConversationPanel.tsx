@@ -2,7 +2,7 @@ import Conversation from "@/components/elements/Conversation";
 import Metrics from "@/components/elements/Metrics";
 import { Panel, PanelContent, PanelHeader } from "@/components/ui/panel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LineChartIcon, MessagesSquareIcon } from "lucide-react";
+import { LineChartIcon, MessagesSquareIcon } from "@/icons";
 
 export const ConversationPanel: React.FC = () => {
   return (

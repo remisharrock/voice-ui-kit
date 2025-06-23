@@ -1,6 +1,14 @@
 "use client";
 
-import { MicIcon } from "@/icons";
+import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/buttongroup";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDownIcon, MicIcon, MicOffIcon } from "@/icons";
 import {
   RTVIClientMicToggle,
   useRTVIClient,
@@ -8,15 +16,6 @@ import {
   VoiceVisualizer,
 } from "@pipecat-ai/client-react";
 import { memo, useEffect } from "react";
-import { ButtonGroup } from "@/components/ui/buttongroup";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ChevronDownIcon, MicOffIcon } from "lucide-react";
 
 const UserAudio: React.FC = () => {
   const client = useRTVIClient();

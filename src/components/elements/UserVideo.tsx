@@ -1,18 +1,18 @@
-import {
-  RTVIClientCamToggle,
-  RTVIClientVideo,
-  useRTVIClientMediaDevices,
-} from "@pipecat-ai/client-react";
-import { ChevronDownIcon, VideoIcon, VideoOffIcon } from "lucide-react";
-import { ButtonGroup } from "@/components/ui/buttongroup";
 import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/buttongroup";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ChevronDownIcon, VideoIcon, VideoOffIcon } from "@/icons";
 import { cn } from "@/lib/utils";
+import {
+  RTVIClientCamToggle,
+  RTVIClientVideo,
+  useRTVIClientMediaDevices,
+} from "@pipecat-ai/client-react";
 
 export const UserVideo: React.FC = () => {
   const { availableCams, selectedCam, updateCam } = useRTVIClientMediaDevices();
