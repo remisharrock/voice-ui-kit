@@ -26,7 +26,6 @@
     "LICENSE"
   ],
   "peerDependencies": {
-    "@daily-co/daily-js": "^0.79.0",
     "@pipecat-ai/daily-transport": "^0.4.0",
     "@pipecat-ai/small-webrtc-transport": "^0.4.0",
     "react": ">=16.8.0 || >=17.0.0 || >=18.0.0",
@@ -35,9 +34,6 @@
   },
   "peerDependenciesMeta": {
     "three": {
-      "optional": true
-    },
-    "@daily-co/daily-js": {
       "optional": true
     },
     "@pipecat-ai/daily-transport": {
@@ -56,6 +52,7 @@
     "ladle": "npx ladle serve"
   },
   "dependencies": {
+    "@daily-co/daily-js": "^0.79.0",
     "@pipecat-ai/client-js": "^0.4.1",
     "@pipecat-ai/client-react": "^0.4.1",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
@@ -74,7 +71,6 @@
     "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {
-    "@daily-co/daily-js": "^0.79.0",
     "@eslint/js": "^9.25.0",
     "@fontsource-variable/geist": "^5.2.6",
     "@fontsource-variable/geist-mono": "^5.2.6",

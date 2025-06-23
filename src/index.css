@@ -44,26 +44,10 @@
   --color-chart-3: oklch(0.398 0.07 227.392);
   --color-chart-4: oklch(0.828 0.189 84.429);
   --color-chart-5: oklch(0.769 0.188 70.08);
-
-  --animate-fade-in: fade-in 2s linear forwards;
-
-  @keyframes fade-in {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
 }
 
 :root {
   --height-panel-header: 40px;
-}
-
-@variant md {
-  :root {
-  }
 }
 
 .dark {
