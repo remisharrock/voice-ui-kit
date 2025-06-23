@@ -1,7 +1,7 @@
 import * as React from "react";
-import { EllipsisVerticalIcon } from "lucide-react";
 import * as ResizablePrimitive from "react-resizable-panels";
 
+import { EllipsisVerticalIcon } from "@/icons";
 import { cn } from "@/lib/utils";
 
 function ResizablePanelGroup({
@@ -58,4 +58,4 @@ function ResizableHandle({
   );
 }
 
-export { ResizablePanelGroup, ResizablePanel, ResizableHandle };
+export { ResizableHandle, ResizablePanel, ResizablePanelGroup };

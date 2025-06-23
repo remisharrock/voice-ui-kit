@@ -24,6 +24,13 @@ import {
 } from "@/components/ui/resizable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
+  BotIcon,
+  ChevronsLeftRightEllipsisIcon,
+  InfoIcon,
+  MessagesSquareIcon,
+  MicIcon,
+} from "@/icons";
+import {
   RTVIClient,
   type RTVIClientOptions,
   type RTVIClientParams,
@@ -33,13 +40,6 @@ import { RTVIClientAudio, RTVIClientProvider } from "@pipecat-ai/client-react";
 import { DailyTransport } from "@pipecat-ai/daily-transport";
 import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
 import deepEqual from "fast-deep-equal";
-import {
-  BotIcon,
-  ChevronsLeftRightEllipsisIcon,
-  InfoIcon,
-  MessagesSquareIcon,
-  MicIcon,
-} from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export interface ConsoleTemplateProps {

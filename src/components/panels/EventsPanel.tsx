@@ -1,11 +1,3 @@
-import { RTVIEvent } from "@pipecat-ai/client-js";
-import {
-  useRTVIClient,
-  useRTVIClientEvent,
-  useRTVIClientTransportState,
-} from "@pipecat-ai/client-react";
-import { FunnelIcon } from "lucide-react";
-import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
   Panel,
@@ -13,7 +5,15 @@ import {
   PanelHeader,
   PanelTitle,
 } from "@/components/ui/panel";
+import { FunnelIcon } from "@/icons";
 import { cn } from "@/lib/utils";
+import { RTVIEvent } from "@pipecat-ai/client-js";
+import {
+  useRTVIClient,
+  useRTVIClientEvent,
+  useRTVIClientTransportState,
+} from "@pipecat-ai/client-react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 
 interface EventData {
   event: RTVIEvent | string;

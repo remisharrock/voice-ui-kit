@@ -6,20 +6,17 @@ IMAGE GOES HERE
 
 Components, hooks and template apps for building React voice AI applications quickly. Designed to support and accelerate [Pipecat AI](https://github.com/pipecat-ai/pipecat) development.
 
-- 🔬 **Debug Console** – Flexible, modular console UI to test, measure performance, and improve your Pipecat apps
+- 🔬 **Debug Console** – Flexible, modular console UI to test and benchmark your Pipecat apps
 
 - 🔌 **Headless components** – Construct your own UIs with building blocks for voice, video, and real-time AI interactions
 
 - 🚀 **Drop-in templates** – Fully-featured, configurable UIs for developing and showcasing Pipecat apps
 
-- 📦 **Modular architecture** – Use complete templates or compose your own custom interfaces
-
-- 💅 **Fully customizable** – Built on Tailwind 4 with CSS variables. Extend the built-in theme or bring your own
+- 💅 **Fully customizable** – Built on Tailwind 4 and styled with CSS variables. Extend the built-in theme or bring your own
 
 - 📱 **Responsive design** – Optimized for desktop, tablet, and mobile devices
 
 - ⭐ **Example apps** – Real-world implementations demonstrating best practices
-
 
 
 ## Quickstart

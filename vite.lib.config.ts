@@ -21,10 +21,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        // Main entry - core components
         index: path.resolve(__dirname, "src/index.ts"),
 
-        // WebGL visualizers - three.js NOT bundled
+        // Separate entry for WebGL visualizers for better tree-shaking
         "visualizers/webgl": path.resolve(
           __dirname,
           "src/vizualizers/webgl/index.ts",
@@ -39,14 +38,14 @@ export default defineConfig({
 
     rollupOptions: {
       external: [
-        // React - always external
+        // React
         "react",
         "react-dom",
         "react/jsx-runtime",
 
-        // Three.js - always external (peer dependency)
+        // Three.js (for WebGL visualizers)
         "three",
-        /^three\//, // Also externalize three.js submodules
+        /^three\//,
 
         // Chart.js - external (peer dependency for metrics)
         "chart.js",
