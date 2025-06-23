@@ -9,6 +9,8 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       exclude: ["**/*.stories.*", "**/*.test.*"],
+      outDir: "dist",
+      rollupTypes: true,
     }),
   ],
 
@@ -22,18 +24,10 @@ export default defineConfig({
     lib: {
       entry: {
         index: path.resolve(__dirname, "src/index.ts"),
-
-        // Separate entry for WebGL visualizers for better tree-shaking
-        "visualizers/webgl": path.resolve(
-          __dirname,
-          "src/vizualizers/webgl/index.ts",
-        ),
       },
       formats: ["es", "cjs"],
-      fileName: (format, entryName) => {
-        const ext = format === "es" ? "es.js" : "cjs.js";
-        return `${entryName}.${ext}`;
-      },
+      fileName: (format, entryName) =>
+        `${entryName}.${format === "es" ? "mjs" : "cjs"}`,
     },
 
     rollupOptions: {
@@ -46,15 +40,6 @@ export default defineConfig({
         // Three.js (for WebGL visualizers)
         "three",
         /^three\//,
-
-        // Chart.js - external (peer dependency for metrics)
-        "chart.js",
-        "react-chartjs-2",
-
-        // Transport libraries - external (peer dependencies)
-        "@daily-co/daily-js",
-        "@pipecat-ai/daily-transport",
-        "@pipecat-ai/small-webrtc-transport",
       ],
 
       output: {

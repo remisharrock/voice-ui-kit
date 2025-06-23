@@ -21,6 +21,15 @@ Components, hooks and template apps for building React voice AI applications qui
 
 ## Quickstart
 
+### Install the library
+
+
+### Optional: install suggested theme fonts
+
+```shell
+npm i @fontsource-variable/geist @fontsource-variable/geist-mono
+```
+
 Connect to a Pipecat AI app using out-of-the-box console template:
 
 ```typescript
