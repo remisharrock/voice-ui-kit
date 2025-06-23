@@ -1,4 +1,4 @@
-# [DRAFT] Pipecat Voice UI Kit
+# Pipecat Voice UI Kit
 
 IMAGE GOES HERE
 
@@ -6,7 +6,7 @@ IMAGE GOES HERE
 
 Components, hooks and template apps for building React voice AI applications quickly. Designed to support and accelerate [Pipecat AI](https://github.com/pipecat-ai/pipecat) development.
 
-- 🔬 **Debug Console** – Flexible, modular console UI to test and benchmark your Pipecat apps
+- 🔬 **Debug console** – Flexible, modular console UI to test and benchmark your Pipecat apps
 
 - 🔌 **Headless components** – Construct your own UIs with building blocks for voice, video, and real-time AI interactions
 
@@ -23,33 +23,45 @@ Components, hooks and template apps for building React voice AI applications qui
 
 ### Install the library
 
+```shell
+npm i @pipecat-ai/voice-ui-kit
+```
 
-### Optional: install suggested theme fonts
+*Optional - install recommended fonts for default theme*:
 
 ```shell
 npm i @fontsource-variable/geist @fontsource-variable/geist-mono
 ```
 
-Connect to a Pipecat AI app using out-of-the-box console template:
+### Use the console template to chat with a Pipecat Bot:
 
 ```typescript
-...
+// Optional: recommended fonts
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+
+// Styles
+import "@pipecat-ai/voice-ui-kit/styles.css";
+
+import { ConsoleTemplate, ThemeProvider } from "@pipecat-ai/voice-ui-kit";
+
+// Render Console template in full screen container
+export default function App() {
+  return (
+    <ThemeProvider>
+      <div className="w-full h-dvh bg-background">
+        <ConsoleTemplate
+          onConnect={ async () => {
+            // ... bot connect logic here
+          }}
+        />
+      </div>
+    </ThemeProvider>
+  );
+}
 ```
 
 *Need a Pipecat agent to play with quickly? Check out this example and deploy in seconds to Pipecat Cloud!*
-
-Drop-in a template UI to your own project:
-
-```template
-...
-```
-
-Construct your own UI with component building blocks:
-
-```typescript
-...
-```
-
 
 ## What's included?
 
