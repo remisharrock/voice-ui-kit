@@ -211,7 +211,7 @@ export const EventsPanel: React.FC<Props> = ({ collapsed = false }) => {
     if (!isScrolledToBottom.current) return;
     scrollRef.current.scrollTo({
       top: scrollRef.current.scrollHeight,
-      behavior: "smooth",
+      behavior: "instant",
     });
   }, [events]);
 
