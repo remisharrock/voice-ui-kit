@@ -9,11 +9,13 @@ type ThemeProviderProps = {
 };
 
 type ThemeProviderState = {
+  resolvedTheme: "dark" | "light";
   theme: Theme;
   setTheme: (theme: Theme) => void;
 };
 
 const initialState: ThemeProviderState = {
+  resolvedTheme: "light",
   theme: "system",
   setTheme: () => null,
 };
@@ -65,6 +67,12 @@ export function ThemeProvider({
       }
       setTheme(theme);
     },
+    resolvedTheme:
+      theme === "system"
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light"
+        : theme,
   };
 
   return (

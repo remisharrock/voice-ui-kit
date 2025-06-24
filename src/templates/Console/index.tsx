@@ -13,6 +13,7 @@ import ConversationPanel from "@/components/panels/ConversationPanel";
 import { EventsPanel } from "@/components/panels/EventsPanel";
 import { InfoPanel } from "@/components/panels/InfoPanel";
 import ThemeModeToggle from "@/components/ThemeModeToggle";
+import { useTheme } from "@/components/ThemeProvider";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -75,6 +76,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
 
   const clientRef = useRef<RTVIClient | null>(null);
   const previousClientOptions = useRef<Partial<RTVIClientOptions>>({});
+
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     if (!deepEqual(previousClientOptions.current, clientOptions)) {
@@ -186,7 +189,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
     <RTVIClientProvider client={rtviClient}>
       <div className="grid grid-cols-1 grid-rows-[min-content_1fr] sm:grid-rows-[min-content_1fr_auto] h-full w-full overflow-auto">
         <div className="flex items-center justify-between p-2 bg-background sm:relative top-0 w-full z-10">
-          <PipecatLogo className="h-6 w-auto" />
+          <PipecatLogo className="h-6 w-auto" color={resolvedTheme === "dark" ? "#ffffff" : "#171717"} />
           <strong className="hidden sm:block">Pipecat Playground</strong>
           <div className="flex items-center gap-4">
             <ThemeModeToggle />
