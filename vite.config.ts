@@ -24,6 +24,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: path.resolve(__dirname, "src/index.ts"),
+        webgl: path.resolve(__dirname, "src/visualizers/webgl/index.ts"),
       },
       formats: ["es", "cjs"],
       fileName: (format, entryName) =>
@@ -36,17 +37,12 @@ export default defineConfig({
         "react",
         "react-dom",
         "react/jsx-runtime",
-
-        // Three.js (for WebGL visualizers)
-        "three",
-        /^three\//,
       ],
 
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
-          three: "THREE",
         },
       },
     },
