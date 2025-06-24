@@ -48,6 +48,7 @@ import { useEffect, useRef, useState } from "react";
 export interface ConsoleTemplateProps {
   audioCodec?: string;
   clientOptions?: Partial<RTVIClientOptions>;
+  noThemeSwitch?: boolean;
   onConnect: () => Promise<Response>;
   transportType?: "daily" | "smallwebrtc";
   videoCodec?: string;
@@ -63,6 +64,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
     params: defaultParams,
   },
   onConnect,
+  noThemeSwitch = false,
   transportType = "daily",
   videoCodec = "default",
 }) => {
@@ -192,7 +194,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
           <PipecatLogo className="h-6 w-auto" color={resolvedTheme === "dark" ? "#ffffff" : "#171717"} />
           <strong className="hidden sm:block">Pipecat Playground</strong>
           <div className="flex items-center gap-4">
-            <ThemeModeToggle />
+            {!noThemeSwitch && <ThemeModeToggle />}
             <ConnectButton
               onConnect={handleConnect}
               onDisconnect={handleDisconnect}
