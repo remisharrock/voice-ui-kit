@@ -74,7 +74,7 @@ const UserAudio: React.FC = () => {
               <ChevronDownIcon size={16} />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
+          <DropdownMenuContent align="end">
             {availableMics.map((mic) => (
               <DropdownMenuCheckboxItem
                 key={mic.deviceId}

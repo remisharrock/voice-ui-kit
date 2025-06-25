@@ -33,6 +33,7 @@ import {
   MessagesSquareIcon,
   MicIcon,
 } from "@/icons";
+import { cn } from "@/lib/utils";
 import {
   RTVIClient,
   type RTVIClientOptions,
@@ -46,11 +47,73 @@ import deepEqual from "fast-deep-equal";
 import { useEffect, useRef, useState } from "react";
 
 export interface ConsoleTemplateProps {
+  /**
+   * Sets the audio codec. Only applicable for SmallWebRTC transport.
+   * Defaults to "default" which uses the browser's default codec.
+   */
   audioCodec?: string;
+  /**
+   * Options for configuring the RTVI client.
+   */
   clientOptions?: Partial<RTVIClientOptions>;
+  /**
+   * Disables audio output for the bot. The bot may still send audio, but it won't be played.
+   */
+  noAudioOutput?: boolean;
+  /**
+   * Disables audio visualization for the bot.
+   * The bot may still send audio, but it won't be visualized.
+   */
+  noBotAudio?: boolean;
+  /**
+   * Disables video visualization for the bot.
+   * The bot may still send video, but it won't be displayed.
+   */
+  noBotVideo?: boolean;
+  /**
+   * Disables the conversation panel.
+   * The bot may still send messages, but they won't be displayed.
+   */
+  noConversation?: boolean;
+  /**
+   * Disables the logo in the header.
+   */
+  noLogo?: boolean;
+  /**
+   * Disables the metrics panel.
+   * The bot may still send metrics, but they won't be displayed.
+   */
+  noMetrics?: boolean;
+  /**
+   * Disables the theme switcher in the header.
+   * Useful when there's an application-level theme switcher or when the theme is controlled globally.
+   */
   noThemeSwitch?: boolean;
+  /**
+   * Disables user audio input entirely.
+   */
+  noUserAudio?: boolean;
+  /**
+   * Disables user video input entirely.
+   */
+  noUserVideo?: boolean;
   onConnect: () => Promise<Response>;
+  /**
+   * Title displayed in the header.
+   * Defaults to "Pipecat Playground".
+   */
+  title?: string;
+  /**
+   * Type of transport to use for the RTVI client.
+   * - "daily" for Daily Transport
+   * - "smallwebrtc" for SmallWebRTC Transport
+   * Defaults to "daily".
+   */
   transportType?: "daily" | "smallwebrtc";
+  /**
+   * Sets the video codec. Only applicable for SmallWebRTC transport.
+   * Defaults to "default" which uses the browser's default codec.
+   */
   videoCodec?: string;
 }
 
@@ -64,7 +127,16 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
     params: defaultParams,
   },
   onConnect,
+  noAudioOutput = false,
+  noBotAudio = false,
+  noBotVideo = false,
+  noConversation = false,
+  noLogo = false,
+  noMetrics = false,
   noThemeSwitch = false,
+  noUserAudio = false,
+  noUserVideo = false,
+  title = "Pipecat Playground",
   transportType = "daily",
   videoCodec = "default",
 }) => {
@@ -118,8 +190,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
         break;
     }
     const client = new RTVIClient({
-      enableCam: false,
-      enableMic: true,
+      enableCam: !noUserVideo,
+      enableMic: !noUserAudio,
       customConnectHandler: (async (_params, timeout) => {
         if (transportType === "smallwebrtc") {
           return Promise.resolve();
@@ -187,13 +259,24 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
     );
   }
 
+  const noBotArea = noBotAudio && noBotVideo;
+  const noConversationPanel = noConversation && noMetrics;
+  const noDevices = noAudioOutput && noUserAudio && noUserVideo;
+
   return (
     <RTVIClientProvider client={rtviClient}>
       <div className="grid grid-cols-1 grid-rows-[min-content_1fr] sm:grid-rows-[min-content_1fr_auto] h-full w-full overflow-auto">
-        <div className="flex items-center justify-between p-2 bg-background sm:relative top-0 w-full z-10">
-          <PipecatLogo className="h-6 w-auto" color={resolvedTheme === "dark" ? "#ffffff" : "#171717"} />
-          <strong className="hidden sm:block">Pipecat Playground</strong>
-          <div className="flex items-center gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-[150px_1fr_150px] gap-2 items-center justify-center p-2 bg-background sm:relative top-0 w-full z-10">
+          {noLogo ? (
+            <span className="h-6" />
+          ) : (
+            <PipecatLogo
+              className="h-6 w-auto"
+              color={resolvedTheme === "dark" ? "#ffffff" : "#171717"}
+            />
+          )}
+          <strong className="hidden sm:block text-center">{title}</strong>
+          <div className="flex items-center justify-end gap-4">
             {!noThemeSwitch && <ThemeModeToggle />}
             <ConnectButton
               onConnect={handleConnect}
@@ -205,34 +288,53 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
           <ResizablePanelGroup direction="vertical" className="h-full">
             <ResizablePanel defaultSize={70} minSize={50}>
               <ResizablePanelGroup direction="horizontal">
-                <ResizablePanel
-                  className="flex flex-col gap-2 p-2"
-                  defaultSize={15}
-                  maxSize={30}
-                  minSize={9}
-                  collapsible
-                  collapsedSize={8}
-                  onCollapse={() => setIsBotAreaCollapsed(true)}
-                  onExpand={() => setIsBotAreaCollapsed(false)}
-                >
-                  <BotAudioPanel
-                    className="max-h-[calc(50%-4px)] mt-auto"
-                    collapsed={isBotAreaCollapsed}
-                  />
-                  <BotVideoPanel
-                    className="max-h-[calc(50%-4px)] mb-auto"
-                    collapsed={isBotAreaCollapsed}
-                  />
-                </ResizablePanel>
-                <ResizableHandle withHandle />
-                <ResizablePanel
-                  className="h-full p-2"
-                  defaultSize={60}
-                  minSize={40}
-                >
-                  <ConversationPanel />
-                </ResizablePanel>
-                <ResizableHandle withHandle />
+                {!noBotArea && (
+                  <>
+                    <ResizablePanel
+                      className="flex flex-col gap-2 p-2"
+                      defaultSize={15}
+                      maxSize={30}
+                      minSize={9}
+                      collapsible
+                      collapsedSize={8}
+                      onCollapse={() => setIsBotAreaCollapsed(true)}
+                      onExpand={() => setIsBotAreaCollapsed(false)}
+                    >
+                      {!noBotAudio && (
+                        <BotAudioPanel
+                          className={cn({
+                            "max-h-[calc(50%-4px)] mt-auto": !noBotVideo,
+                          })}
+                          collapsed={isBotAreaCollapsed}
+                        />
+                      )}
+                      {!noBotVideo && (
+                        <BotVideoPanel
+                          className={cn({
+                            "max-h-[calc(50%-4px)] mb-auto": !noBotAudio,
+                          })}
+                          collapsed={isBotAreaCollapsed}
+                        />
+                      )}
+                    </ResizablePanel>
+                    <ResizableHandle withHandle />
+                  </>
+                )}
+                {!noConversationPanel && (
+                  <>
+                    <ResizablePanel
+                      className="h-full p-2"
+                      defaultSize={60}
+                      minSize={40}
+                    >
+                      <ConversationPanel
+                        noConversation={noConversation}
+                        noMetrics={noMetrics}
+                      />
+                    </ResizablePanel>
+                    <ResizableHandle withHandle />
+                  </>
+                )}
                 <ResizablePanel
                   id="info-panel"
                   collapsible
@@ -255,21 +357,23 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                           <ClientStatus />
                         </PopoverContent>
                       </Popover>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button variant="ghost" size="icon">
-                            <MicIcon size={16} />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent
-                          className="flex flex-col gap-2"
-                          side="left"
-                        >
-                          <UserAudio />
-                          <UserVideo />
-                          <AudioOutput />
-                        </PopoverContent>
-                      </Popover>
+                      {!noDevices && (
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                              <MicIcon size={16} />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent
+                            className="flex flex-col gap-2"
+                            side="left"
+                          >
+                            {!noUserAudio && <UserAudio />}
+                            {!noUserVideo && <UserVideo />}
+                            {!noAudioOutput && <AudioOutput />}
+                          </PopoverContent>
+                        </Popover>
+                      )}
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button variant="ghost" size="icon">
@@ -286,6 +390,9 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                     </div>
                   ) : (
                     <InfoPanel
+                      noAudioOutput={noAudioOutput}
+                      noUserAudio={noUserAudio}
+                      noUserVideo={noUserVideo}
                       participantId={participantId}
                       sessionId={sessionId}
                     />
@@ -306,34 +413,56 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
           </ResizablePanelGroup>
         </div>
         <Tabs
-          defaultValue="bot"
+          defaultValue={
+            noBotArea ? (noConversationPanel ? "info" : "conversation") : "bot"
+          }
           className="flex flex-col gap-0 sm:hidden overflow-hidden"
         >
           <div className="flex flex-col overflow-hidden">
-            <TabsContent
-              value="bot"
-              className="flex-1 overflow-auto flex flex-col gap-4 p-2"
-            >
-              <BotAudioPanel />
-              <BotVideoPanel />
-            </TabsContent>
-            <TabsContent value="conversation" className="flex-1 overflow-auto">
-              <ConversationPanel />
-            </TabsContent>
+            {!noBotArea && (
+              <TabsContent
+                value="bot"
+                className="flex-1 overflow-auto flex flex-col gap-4 p-2"
+              >
+                {!noBotAudio && <BotAudioPanel />}
+                {!noBotVideo && <BotVideoPanel />}
+              </TabsContent>
+            )}
+            {!noConversationPanel && (
+              <TabsContent
+                value="conversation"
+                className="flex-1 overflow-auto"
+              >
+                <ConversationPanel
+                  noConversation={noConversation}
+                  noMetrics={noMetrics}
+                />
+              </TabsContent>
+            )}
             <TabsContent value="info" className="flex-1 overflow-auto p-2">
-              <InfoPanel participantId={participantId} sessionId={sessionId} />
+              <InfoPanel
+                noAudioOutput={noAudioOutput}
+                noUserAudio={noUserAudio}
+                noUserVideo={noUserVideo}
+                participantId={participantId}
+                sessionId={sessionId}
+              />
             </TabsContent>
             <TabsContent value="events" className="flex-1 overflow-auto">
               <EventsPanel />
             </TabsContent>
           </div>
           <TabsList className="w-full h-12 rounded-none z-10 mt-auto shrink-0">
-            <TabsTrigger value="bot">
-              <BotIcon />
-            </TabsTrigger>
-            <TabsTrigger value="conversation">
-              <MessagesSquareIcon />
-            </TabsTrigger>
+            {!noBotArea && (
+              <TabsTrigger value="bot">
+                <BotIcon />
+              </TabsTrigger>
+            )}
+            {!noConversationPanel && (
+              <TabsTrigger value="conversation">
+                <MessagesSquareIcon />
+              </TabsTrigger>
+            )}
             <TabsTrigger value="info">
               <InfoIcon />
             </TabsTrigger>
@@ -342,7 +471,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
             </TabsTrigger>
           </TabsList>
         </Tabs>
-        <RTVIClientAudio />
+        {!noAudioOutput && <RTVIClientAudio />}
       </div>
     </RTVIClientProvider>
   );

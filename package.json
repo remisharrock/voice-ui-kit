@@ -11,6 +11,11 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./webgl": {
+      "types": "./dist/webgl.d.ts",
+      "import": "./dist/webgl.mjs",
+      "require": "./dist/webgl.cjs"
+    },
     "./styles": "./dist/voice-ui-kit.css",
     "./styles.css": "./dist/voice-ui-kit.css"
   },
