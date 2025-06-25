@@ -11,11 +11,21 @@ import {
 } from "@/components/ui/panel";
 
 interface Props {
+  noAudioOutput?: boolean;
+  noUserAudio?: boolean;
+  noUserVideo?: boolean;
   participantId?: string;
   sessionId?: string;
 }
 
-export const InfoPanel: React.FC<Props> = ({ participantId, sessionId }) => {
+export const InfoPanel: React.FC<Props> = ({
+  noAudioOutput = false,
+  noUserAudio = false,
+  noUserVideo = false,
+  participantId,
+  sessionId,
+}) => {
+  const noDevices = noAudioOutput && noUserAudio && noUserVideo;
   return (
     <Panel className="h-full overflow-y-auto overflow-x-hidden">
       <PanelHeader variant="inline">
@@ -24,14 +34,18 @@ export const InfoPanel: React.FC<Props> = ({ participantId, sessionId }) => {
       <PanelContent>
         <ClientStatus />
       </PanelContent>
-      <PanelHeader className="border-t border-t-border" variant="inline">
-        <PanelTitle>Devices</PanelTitle>
-      </PanelHeader>
-      <PanelContent>
-        <UserAudio />
-        <UserVideo />
-        <AudioOutput />
-      </PanelContent>
+      {!noDevices && (
+        <>
+          <PanelHeader className="border-t border-t-border" variant="inline">
+            <PanelTitle>Devices</PanelTitle>
+          </PanelHeader>
+          <PanelContent>
+            {!noUserAudio && <UserAudio />}
+            {!noUserVideo && <UserVideo />}
+            {!noAudioOutput && <AudioOutput />}
+          </PanelContent>
+        </>
+      )}
       <PanelHeader className="border-t border-t-border" variant="inline">
         <PanelTitle>Session</PanelTitle>
       </PanelHeader>
