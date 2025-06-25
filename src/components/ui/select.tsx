@@ -12,13 +12,13 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const selectTriggerVariants = cva(
-  "border-input text-foreground data-[placeholder]:text-muted-foreground font-mono text-xs [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between rounded-lg border bg-transparent whitespace-nowrap transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "vkui:border-input vkui:text-foreground vkui:data-[placeholder]:text-muted-foreground vkui:font-mono vkui:text-xs vkui:[&_svg:not([class*='text-'])]:text-muted-foreground vkui:focus-visible:border-ring vkui:focus-visible:ring-ring/50 vkui:aria-invalid:ring-destructive/20 vkui:dark:aria-invalid:ring-destructive/40 vkui:aria-invalid:border-destructive vkui:dark:bg-input/30 vkui:dark:hover:bg-input/50 vkui:flex w-fit vkui:items-center vkui:justify-between vkui:rounded-lg vkui:border vkui:bg-transparent vkui:whitespace-nowrap vkui:transition-[color,box-shadow] vkui:outline-none vkui:focus-visible:ring-[3px] vkui:disabled:cursor-not-allowed vkui:disabled:opacity-50 vkui:*:data-[slot=select-value]:line-clamp-1 vkui:*:data-[slot=select-value]:flex vkui:*:data-[slot=select-value]:items-center vkui:*:data-[slot=select-value]:gap-2 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0",
   {
     variants: {
       size: {
-        default: "h-8 pl-3 pr-2.5 py-2 gap-2 [&_svg]:size-3.5",
-        sm: "h-7 pl-3 pr-2.5 py-1.5 gap-2 [&_svg]:size-3.5",
-        lg: "h-10 px-3.5 py-2.5 gap-3 [&_svg]:size-4",
+        default: "vkui:h-8 vkui:pl-3 vkui:pr-2.5 vkui:py-2 vkui:gap-2 vkui:[&_svg]:size-3.5",
+        sm: "vkui:h-7 vkui:pl-3 vkui:pr-2.5 vkui:py-1.5 vkui:gap-2 vkui:[&_svg]:size-3.5",
+        lg: "vkui:h-10 vkui:px-3.5 vkui:py-2.5 vkui:gap-3 vkui:[&_svg]:size-4",
       },
     },
     defaultVariants: {
@@ -56,12 +56,12 @@ function SelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       data-size={size}
-      className={cn(selectTriggerVariants({ size }), "truncate", className)}
+      className={cn(selectTriggerVariants({ size }), "vkui:truncate", className)}
       {...props}
     >
-      <span className="truncate flex-1 min-w-0">{children}</span>
+      <span className="vkui:truncate vkui:flex-1 vkui:min-w-0">{children}</span>
       <SelectPrimitive.Icon asChild>
-        <SelectChevronIcon className="opacity-50 flex-none" />
+        <SelectChevronIcon className="vkui:opacity-50 vkui:flex-none" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -71,7 +71,7 @@ function SelectGuide({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       data-slot="select-guide"
-      className={cn("text-subtle font-sans", className)}
+      className={cn("vkui:text-subtle vkui:font-sans", className)}
       {...props}
     />
   );
@@ -88,9 +88,9 @@ function SelectContent({
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
-          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto rounded-md border shadow-md",
+          "vkui:bg-popover vkui:text-popover-foreground vkui:data-[state=open]:animate-in vkui:data-[state=closed]:animate-out vkui:data-[state=closed]:fade-out-0 vkui:data-[state=open]:fade-in-0 vkui:data-[state=closed]:zoom-out-95 vkui:data-[state=open]:zoom-in-95 vkui:data-[side=bottom]:slide-in-from-top-2 vkui:data-[side=left]:slide-in-from-right-2 vkui:data-[side=right]:slide-in-from-left-2 vkui:data-[side=top]:slide-in-from-bottom-2 vkui:relative vkui:z-50 vkui:max-h-(--radix-select-content-available-height) vkui:min-w-[8rem] vkui:origin-(--radix-select-content-transform-origin) vkui:overflow-x-hidden vkui:overflow-y-auto vkui:rounded-md vkui:border vkui:shadow-md",
           position === "popper" &&
-            "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+            "vkui:data-[side=bottom]:translate-y-1 vkui:data-[side=left]:-translate-x-1 vkui:data-[side=right]:translate-x-1 vkui:data-[side=top]:-translate-y-1",
           className,
         )}
         position={position}
@@ -99,9 +99,9 @@ function SelectContent({
         <SelectScrollUpButton />
         <SelectPrimitive.Viewport
           className={cn(
-            "p-1",
+            "vkui:p-1",
             position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1",
+              "vkui:h-[var(--radix-select-trigger-height)] vkui:w-full vkui:min-w-[var(--radix-select-trigger-width)] vkui:scroll-my-1",
           )}
         >
           {children}
@@ -121,12 +121,12 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+        "vkui:focus:bg-accent vkui:focus:text-accent-foreground vkui:[&_svg:not([class*='text-'])]:text-muted-foreground vkui:relative vkui:flex vkui:w-full vkui:cursor-default vkui:items-center vkui:gap-2 vkui:rounded-sm vkui:py-1.5 vkui:pr-8 vkui:pl-2 vkui:text-sm vkui:outline-hidden vkui:select-none vkui:data-[disabled]:pointer-events-none vkui:data-[disabled]:opacity-50 [&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 vkui:[&_svg:not([class*='size-'])]:size-4 vkui:*:[span]:last:flex vkui:*:[span]:last:items-center vkui:*:[span]:last:gap-2",
         className,
       )}
       {...props}
     >
-      <span className="absolute right-2 flex size-3.5 items-center justify-center">
+      <span className="vkui:absolute vkui:right-2 vkui:flex vkui:size-3.5 vkui:items-center vkui:justify-center">
         <SelectPrimitive.ItemIndicator>
           <CheckIcon className="size-4" />
         </SelectPrimitive.ItemIndicator>
@@ -143,7 +143,7 @@ function SelectSeparator({
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn("bg-border pointer-events-none -mx-1 my-1 h-px", className)}
+      className={cn("vkui:bg-border vkui:pointer-events-none vkui:-mx-1 vkui:my-1 vkui:h-px", className)}
       {...props}
     />
   );
@@ -157,7 +157,7 @@ function SelectScrollUpButton({
     <SelectPrimitive.ScrollUpButton
       data-slot="select-scroll-up-button"
       className={cn(
-        "flex cursor-default items-center justify-center py-1",
+        "vkui:flex vkui:cursor-default vkui:items-center vkui:justify-center vkui:py-1",
         className,
       )}
       {...props}
@@ -175,7 +175,7 @@ function SelectScrollDownButton({
     <SelectPrimitive.ScrollDownButton
       data-slot="select-scroll-down-button"
       className={cn(
-        "flex cursor-default items-center justify-center py-1",
+        "vkui:flex vkui:cursor-default vkui:items-center vkui:justify-center vkui:py-1",
         className,
       )}
       {...props}

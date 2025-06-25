@@ -15,35 +15,35 @@ export const ConversationPanel: React.FC<Props> = ({
 }) => {
   const defaultValue = noConversation ? "metrics" : "conversation";
   return (
-    <Tabs className="h-full" defaultValue={defaultValue}>
-      <Panel className="h-full max-sm:border-none">
+    <Tabs className="vkui:h-full" defaultValue={defaultValue}>
+      <Panel className="vkui:h-full vkui:max-sm:border-none">
         <PanelHeader>
           <TabsList>
             {!noConversation && (
-              <TabsTrigger className="text-mono-upper" value="conversation">
+              <TabsTrigger className="vkui:text-mono-upper" value="conversation">
                 <MessagesSquareIcon size={16} />
                 Conversation
               </TabsTrigger>
             )}
             {!noMetrics && (
-              <TabsTrigger className="text-mono-upper" value="metrics">
+              <TabsTrigger className="vkui:text-mono-upper" value="metrics">
                 <LineChartIcon size={16} />
                 Metrics
               </TabsTrigger>
             )}
           </TabsList>
         </PanelHeader>
-        <PanelContent className="p-0! overflow-hidden h-full">
+        <PanelContent className="vkui:p-0! vkui:overflow-hidden vkui:h-full">
           {!noConversation && (
             <TabsContent
               value="conversation"
-              className="overflow-hidden h-full"
+              className="vkui:overflow-hidden vkui:h-full"
             >
               <Conversation />
             </TabsContent>
           )}
           {!noMetrics && (
-            <TabsContent value="metrics" className="h-full">
+            <TabsContent value="metrics" className="vkui:h-full">
               <Metrics />
             </TabsContent>
           )}

@@ -10,7 +10,7 @@ function Tabs({
   return (
     <TabsPrimitive.Root
       data-slot="tabs"
-      className={cn("flex flex-col gap-2", className)}
+      className={cn("vkui:flex vkui:flex-col vkui:gap-2", className)}
       {...props}
     />
   );
@@ -24,7 +24,7 @@ function TabsList({
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        "bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]",
+        "vkui:bg-muted vkui:text-muted-foreground vkui:inline-flex vkui:h-9 vkui:w-fit vkui:items-center vkui:justify-center vkui:rounded-lg p-[3px]",
         className,
       )}
       {...props}
@@ -40,7 +40,7 @@ function TabsTrigger({
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        "data-[state=active]:bg-background data-[state=active]:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring hover:bg-muted-foreground/10 dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 text-foreground inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "vkui:data-[state=active]:bg-background vkui:data-[state=active]:text-foreground vkui:focus-visible:border-ring vkui:focus-visible:ring-ring/50 vkui:focus-visible:outline-ring vkui:hover:bg-muted-foreground/10 vkui:dark:data-[state=active]:border-input vkui:dark:data-[state=active]:bg-input/30 vkui:text-foreground vkui:inline-flex vkui:h-[calc(100%-1px)] vkui:flex-1 vkui:items-center vkui:justify-center vkui:gap-1.5 vkui:rounded-md vkui:border vkui:border-transparent vkui:px-2 vkui:py-1 vkui:text-sm vkui:font-medium vkui:whitespace-nowrap vkui:transition-[color,box-shadow] vkui:focus-visible:ring-[3px] vkui:focus-visible:outline-1 vkui:disabled:pointer-events-none vkui:disabled:opacity-50 vkui:data-[state=active]:shadow-sm vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -57,7 +57,7 @@ function TabsContent({
       data-slot="tabs-content"
       forceMount
       className={cn(
-        "flex-1 outline-none data-[state=inactive]:hidden",
+        "vkui:flex-1 vkui:outline-none vkui:data-[state=inactive]:hidden",
         className,
       )}
       {...props}

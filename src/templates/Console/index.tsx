@@ -265,18 +265,18 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
 
   return (
     <RTVIClientProvider client={rtviClient}>
-      <div className="grid grid-cols-1 grid-rows-[min-content_1fr] sm:grid-rows-[min-content_1fr_auto] h-full w-full overflow-auto">
-        <div className="grid grid-cols-2 sm:grid-cols-[150px_1fr_150px] gap-2 items-center justify-center p-2 bg-background sm:relative top-0 w-full z-10">
+      <div className="vkui:grid vkui:grid-cols-1 vkui:grid-rows-[min-content_1fr] vkui:sm:grid-rows-[min-content_1fr_auto] vkui:h-full vkui:w-full vkui:overflow-auto">
+        <div className="vkui:grid vkui:grid-cols-2 vkui:sm:grid-cols-[150px_1fr_150px] vkui:gap-2 vkui:items-center vkui:justify-center vkui:p-2 vkui:bg-background vkui:sm:relative vkui:top-0 vkui:w-full vkui:z-10">
           {noLogo ? (
-            <span className="h-6" />
+            <span className="vkui:h-6" />
           ) : (
             <PipecatLogo
-              className="h-6 w-auto"
+              className="vkui:h-6 vkui:w-auto"
               color={resolvedTheme === "dark" ? "#ffffff" : "#171717"}
             />
           )}
-          <strong className="hidden sm:block text-center">{title}</strong>
-          <div className="flex items-center justify-end gap-4">
+          <strong className="vkui:hidden vkui:sm:block vkui:text-center">{title}</strong>
+          <div className="vkui:flex vkui:items-center vkui:justify-end vkui:gap-4">
             {!noThemeSwitch && <ThemeModeToggle />}
             <ConnectButton
               onConnect={handleConnect}
@@ -284,14 +284,14 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
             />
           </div>
         </div>
-        <div className="hidden sm:block">
-          <ResizablePanelGroup direction="vertical" className="h-full">
+        <div className="vkui:hidden vkui:sm:block">
+          <ResizablePanelGroup direction="vertical" className="vkui:h-full">
             <ResizablePanel defaultSize={70} minSize={50}>
               <ResizablePanelGroup direction="horizontal">
                 {!noBotArea && (
                   <>
                     <ResizablePanel
-                      className="flex flex-col gap-2 p-2"
+                      className="vkui:flex vkui:flex-col vkui:gap-2 vkui:p-2"
                       defaultSize={15}
                       maxSize={30}
                       minSize={9}
@@ -303,7 +303,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                       {!noBotAudio && (
                         <BotAudioPanel
                           className={cn({
-                            "max-h-[calc(50%-4px)] mt-auto": !noBotVideo,
+                            "vkui:max-h-[calc(50%-4px)] vkui:mt-auto": !noBotVideo,
                           })}
                           collapsed={isBotAreaCollapsed}
                         />
@@ -311,7 +311,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                       {!noBotVideo && (
                         <BotVideoPanel
                           className={cn({
-                            "max-h-[calc(50%-4px)] mb-auto": !noBotAudio,
+                            "vkui:max-h-[calc(50%-4px)] vkui:mb-auto": !noBotAudio,
                           })}
                           collapsed={isBotAreaCollapsed}
                         />
@@ -323,7 +323,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                 {!noConversationPanel && (
                   <>
                     <ResizablePanel
-                      className="h-full p-2"
+                      className="vkui:h-full vkui:p-2"
                       defaultSize={60}
                       minSize={40}
                     >
@@ -343,10 +343,10 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                   defaultSize={20}
                   onCollapse={() => setIsInfoPanelCollapsed(true)}
                   onExpand={() => setIsInfoPanelCollapsed(false)}
-                  className="p-2"
+                  className="vkui:p-2"
                 >
                   {isInfoPanelCollapsed ? (
-                    <div className="flex flex-col items-center justify-center gap-4 h-full">
+                    <div className="vkui:flex vkui:flex-col vkui:items-center vkui:justify-center vkui:gap-4 vkui:h-full">
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button variant="ghost" size="icon">
@@ -365,7 +365,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent
-                            className="flex flex-col gap-2"
+                            className="vkui:flex vkui:flex-col vkui:gap-2"
                             side="left"
                           >
                             {!noUserAudio && <UserAudio />}
@@ -416,13 +416,13 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
           defaultValue={
             noBotArea ? (noConversationPanel ? "info" : "conversation") : "bot"
           }
-          className="flex flex-col gap-0 sm:hidden overflow-hidden"
+          className="vkui:flex vkui:flex-col vkui:gap-0 vkui:sm:hidden vkui:overflow-hidden"
         >
-          <div className="flex flex-col overflow-hidden">
+          <div className="vkui:flex vkui:flex-col vkui:overflow-hidden">
             {!noBotArea && (
               <TabsContent
                 value="bot"
-                className="flex-1 overflow-auto flex flex-col gap-4 p-2"
+                className="vkui:flex-1 vkui:overflow-auto vkui:flex vkui:flex-col vkui:gap-4 vkui:p-2"
               >
                 {!noBotAudio && <BotAudioPanel />}
                 {!noBotVideo && <BotVideoPanel />}
@@ -431,7 +431,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
             {!noConversationPanel && (
               <TabsContent
                 value="conversation"
-                className="flex-1 overflow-auto"
+                className="vkui:flex-1 vkui:overflow-auto"
               >
                 <ConversationPanel
                   noConversation={noConversation}
@@ -439,7 +439,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                 />
               </TabsContent>
             )}
-            <TabsContent value="info" className="flex-1 overflow-auto p-2">
+            <TabsContent value="info" className="vkui:flex-1 vkui:overflow-auto vkui:p-2">
               <InfoPanel
                 noAudioOutput={noAudioOutput}
                 noUserAudio={noUserAudio}
@@ -448,11 +448,11 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                 sessionId={sessionId}
               />
             </TabsContent>
-            <TabsContent value="events" className="flex-1 overflow-auto">
+            <TabsContent value="events" className="vkui:flex-1 vkui:overflow-auto">
               <EventsPanel />
             </TabsContent>
           </div>
-          <TabsList className="w-full h-12 rounded-none z-10 mt-auto shrink-0">
+          <TabsList className="vkui:w-full vkui:h-12 vkui:rounded-none vkui:z-10 vkui:mt-auto vkui:shrink-0">
             {!noBotArea && (
               <TabsTrigger value="bot">
                 <BotIcon />

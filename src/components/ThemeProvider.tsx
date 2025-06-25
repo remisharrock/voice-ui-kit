@@ -44,19 +44,19 @@ export function ThemeProvider({
 
     const root = window.document.documentElement;
 
-    root.classList.remove("light", "dark");
+    root.classList.remove("vkui:light", "vkui:dark");
 
     if (theme === "system") {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
         .matches
-        ? "dark"
-        : "light";
+        ? "vkui:dark"
+        : "vkui:light";
 
       root.classList.add(systemTheme);
       return;
     }
 
-    root.classList.add(theme);
+    root.classList.add(`vkui:${theme}`);
   }, [theme, mounted]);
 
   const value = {
@@ -74,6 +74,10 @@ export function ThemeProvider({
           : "light"
         : theme,
   };
+
+  useEffect(() => {
+    value.setTheme(defaultTheme);
+  }, [defaultTheme]);
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>

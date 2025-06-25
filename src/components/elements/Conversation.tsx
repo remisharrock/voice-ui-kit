@@ -60,21 +60,21 @@ export const Conversation: React.FC = () => {
 
   if (messages.length > 0) {
     return (
-      <div ref={scrollRef} className="h-full overflow-y-auto p-4">
-        <div className="grid grid-cols-[min-content_1fr] gap-x-4 gap-y-2">
+      <div ref={scrollRef} className="vkui:h-full vkui:overflow-y-auto vkui:p-4">
+        <div className="vkui:grid vkui:grid-cols-[min-content_1fr] vkui:gap-x-4 vkui:gap-y-2">
           {messages.map((message, index) => (
             <Fragment key={index}>
               <div
-                className={cn("font-semibold font-mono text-xs leading-6", {
-                  "text-blue-500": message.role === "user",
-                  "text-purple-500": message.role === "assistant",
+                className={cn("vkui:font-semibold vkui:font-mono vkui:text-xs vkui:leading-6", {
+                  "vkui:text-blue-500": message.role === "user",
+                  "vkui:text-purple-500": message.role === "assistant",
                 })}
               >
                 {message.role}
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="vkui:flex vkui:flex-col vkui:gap-2">
                 {message.content || <Thinking />}
-                <div className="self-end text-xs text-gray-500 mb-1">
+                <div className="vkui:self-end vkui:text-xs vkui:text-gray-500 vkui:mb-1">
                   {new Date(message.createdAt).toLocaleTimeString()}
                 </div>
               </div>
@@ -87,8 +87,8 @@ export const Conversation: React.FC = () => {
 
   if (isConnecting) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-muted-foreground text-sm">
+      <div className="vkui:flex vkui:items-center vkui:justify-center vkui:h-full">
+        <div className="vkui:text-muted-foreground vkui:text-sm">
           Connecting to agent...
         </div>
       </div>
@@ -97,12 +97,12 @@ export const Conversation: React.FC = () => {
 
   if (!isConnected) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-center p-4">
-          <div className="text-muted-foreground mb-2">
+      <div className="vkui:flex vkui:items-center vkui:justify-center vkui:h-full">
+        <div className="vkui:text-center vkui:p-4">
+          <div className="vkui:text-muted-foreground vkui:mb-2">
             Not connected to agent
           </div>
-          <p className="text-sm text-muted-foreground max-w-md">
+          <p className="vkui:text-sm vkui:text-muted-foreground vkui:max-w-md">
             Connect to an agent to see conversation messages in real-time.
           </p>
         </div>
@@ -111,8 +111,8 @@ export const Conversation: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="text-muted-foreground text-sm">
+    <div className="vkui:flex vkui:items-center vkui:justify-center vkui:h-full">
+      <div className="vkui:text-muted-foreground vkui:text-sm">
         Waiting for messages...
       </div>
     </div>

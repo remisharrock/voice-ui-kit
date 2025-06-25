@@ -24,7 +24,7 @@ export const BotVideoPanel: React.FC<BotVideoPanelProps> = ({
   return (
     <Panel
       className={cn(className, {
-        "border-none": collapsed,
+        "vkui:border-none": collapsed,
       })}
     >
       {!collapsed && (
@@ -33,19 +33,19 @@ export const BotVideoPanel: React.FC<BotVideoPanelProps> = ({
         </PanelHeader>
       )}
       <PanelContent
-        className={cn("relative overflow-hidden", {
-          "p-0!": collapsed,
+        className={cn("vkui:relative vkui:overflow-hidden", {
+          "vkui:p-0!": collapsed,
         })}
       >
         <RTVIClientVideo
           participant="bot"
-          className="aspect-video bg-muted rounded-sm max-h-full"
+          className="vkui:aspect-video vkui:bg-muted vkui:rounded-sm vkui:max-h-full"
           fit="contain"
         />
         {!track && (
-          <div className="absolute inset-0 flex gap-1 items-center justify-center">
+          <div className="vkui:absolute vkui:inset-0 vkui:flex vkui:gap-1 vkui:items-center vkui:justify-center">
             <VideoOffIcon size={16} />
-            {!collapsed && <span className="font-mono text-xs">No video</span>}
+            {!collapsed && <span className="vkui:font-mono vkui:text-xs">No video</span>}
           </div>
         )}
       </PanelContent>

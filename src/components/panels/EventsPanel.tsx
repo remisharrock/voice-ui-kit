@@ -225,27 +225,27 @@ export const EventsPanel: React.FC<Props> = ({ collapsed = false }) => {
   return (
     <Panel
       className={cn(
-        "bg-secondary/20 h-full rounded-none! max-sm:border-none sm:mt-2",
+        "vkui:bg-secondary/20 vkui:h-full vkui:rounded-none! vkui:max-sm:border-none vkui:sm:border-x-0 vkui:sm:mt-2",
         {
-          "bg-secondary opacity-50": collapsed,
+          "vkui:bg-secondary vkui:opacity-50": collapsed,
         },
       )}
     >
       <PanelHeader
-        className={cn("gap-4 justify-start items-center", {
-          "py-2!": collapsed,
+        className={cn("vkui:gap-4 vkui:justify-start vkui:items-center", {
+          "vkui:py-2!": collapsed,
         })}
       >
         <PanelTitle>Events</PanelTitle>
         {!collapsed && (
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+          <div className="vkui:relative">
+            <div className="vkui:absolute vkui:inset-y-0 vkui:left-0 vkui:flex vkui:items-center vkui:pl-2 vkui:pointer-events-none">
               <FunnelIcon size={16} />
             </div>
             <Input
               type="text"
               placeholder="Filter"
-              className="bg-secondary max-w-48 ps-8"
+              className="vkui:bg-secondary vkui:max-w-48 vkui:ps-8"
               onChange={(e) => {
                 setFilter(e.target.value.toLowerCase());
               }}
@@ -254,14 +254,14 @@ export const EventsPanel: React.FC<Props> = ({ collapsed = false }) => {
         )}
       </PanelHeader>
       {!collapsed && (
-        <PanelContent ref={scrollRef} className="overflow-y-auto">
-          <div className="grid grid-cols-[min-content_min-content_1fr] gap-x-4 gap-y-2 items-center font-mono text-xs">
+        <PanelContent ref={scrollRef} className="vkui:overflow-y-auto">
+          <div className="vkui:grid vkui:grid-cols-[min-content_min-content_1fr] vkui:gap-x-4 vkui:gap-y-2 vkui:items-center vkui:font-mono vkui:text-xs">
             {filteredEvents.map((eventData, index) => (
               <Fragment key={index}>
-                <div className="text-xs text-muted-foreground">
+                <div className="vkui:text-xs vkui:text-muted-foreground">
                   {eventData.time}
                 </div>
-                <div className="font-semibold">{eventData.event}</div>
+                <div className="vkui:font-semibold">{eventData.event}</div>
                 <div>{eventData.message}</div>
               </Fragment>
             ))}

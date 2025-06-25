@@ -24,10 +24,10 @@ export const AudioOutput: React.FC<AudioOutputProps> = ({ className }) => {
   const id = useId();
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="vkui:flex vkui:items-center vkui:gap-4">
       <label
         htmlFor={id}
-        className="text-sm font-medium text-muted-foreground whitespace-nowrap"
+        className="vkui:text-sm vkui:font-medium vkui:text-muted-foreground vkui:whitespace-nowrap"
       >
         Audio Output
       </label>
@@ -35,7 +35,7 @@ export const AudioOutput: React.FC<AudioOutputProps> = ({ className }) => {
         value={selectedSpeaker?.deviceId || ""}
         onValueChange={handleDeviceChange}
       >
-        <SelectTrigger id={id} className={cn("border-none w-full", className)}>
+        <SelectTrigger id={id} className={cn("vkui:border-none vkui:w-full", className)}>
           <SelectValue placeholder="Select a speaker" />
         </SelectTrigger>
         <SelectContent align="end">

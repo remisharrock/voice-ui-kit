@@ -22,17 +22,17 @@ export const SessionInfo: React.FC<{
 
   return (
     <DataList
-      className="w-full overflow-hidden"
+      className="vkui:w-full vkui:overflow-hidden"
       data={{
         Transport: transportTypeName,
         "Session ID": sessionId ? (
-          <CopyText className="justify-end" iconSize={12} text={sessionId} />
+          <CopyText className="vkui:justify-end" iconSize={12} text={sessionId} />
         ) : (
           "---"
         ),
         "Participant ID": participantId ? (
           <CopyText
-            className="justify-end"
+            className="vkui:justify-end"
             iconSize={12}
             text={participantId}
           />

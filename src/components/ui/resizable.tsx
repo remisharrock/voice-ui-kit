@@ -12,7 +12,7 @@ function ResizablePanelGroup({
     <ResizablePrimitive.PanelGroup
       data-slot="resizable-panel-group"
       className={cn(
-        "flex h-full w-full data-[panel-group-direction=vertical]:flex-col",
+        "vkui:flex vkui:h-full vkui:w-full vkui:data-[panel-group-direction=vertical]:flex-col",
         className,
       )}
       {...props}
@@ -37,7 +37,7 @@ function ResizableHandle({
     <ResizablePrimitive.PanelResizeHandle
       data-slot="resizable-handle"
       className={cn(
-        "focus-visible:ring-ring relative flex w-px items-center justify-center after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-hidden data-[panel-group-direction=vertical]:h-px data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:h-1 data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:-translate-y-1/2 data-[panel-group-direction=vertical]:after:translate-x-0 [&[data-panel-group-direction=vertical]>div]:rotate-90",
+        "vkui:focus-visible:ring-ring vkui:relative vkui:flex vkui:w-px vkui:items-center vkui:justify-center vkui:after:absolute vkui:after:inset-y-0 vkui:after:left-1/2 vkui:after:w-1 vkui:after:-translate-x-1/2 vkui:focus-visible:ring-1 vkui:focus-visible:ring-offset-1 focus-visible:outline-hidden vkui:data-[panel-group-direction=vertical]:h-px vkui:data-[panel-group-direction=vertical]:w-full vkui:data-[panel-group-direction=vertical]:after:left-0 vkui:data-[panel-group-direction=vertical]:after:h-1 vkui:data-[panel-group-direction=vertical]:after:w-full vkui:data-[panel-group-direction=vertical]:after:-translate-y-1/2 vkui:data-[panel-group-direction=vertical]:after:translate-x-0 vkui:[&[data-panel-group-direction=vertical]>div]:rotate-90",
         className,
       )}
       {...props}
@@ -45,9 +45,9 @@ function ResizableHandle({
       {withHandle && (
         <div
           className={cn(
-            "border-transparent z-10 flex h-8 w-4 items-center justify-center rounded-xs border",
+            "vkui:border-transparent vkui:z-10 vkui:flex vkui:h-8 vkui:w-4 vkui:items-center vkui:justify-center vkui:rounded-xs vkui:border",
             {
-              "h-4 w-8": props["aria-orientation"] === "horizontal",
+              "vkui:h-4 vkui:w-8": props["aria-orientation"] === "horizontal",
             },
           )}
         >
