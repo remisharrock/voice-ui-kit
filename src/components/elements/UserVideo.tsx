@@ -50,7 +50,7 @@ export const UserVideo: React.FC = () => {
                     <ChevronDownIcon />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent align="end">
                   {availableCams.map((cam) => (
                     <DropdownMenuCheckboxItem
                       key={cam.deviceId}
