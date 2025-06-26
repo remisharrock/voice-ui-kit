@@ -34,7 +34,7 @@ const UserAudio: React.FC = () => {
 
   if (!hasAudio) {
     return (
-      <div className="flex items-center gap-2 bg-muted rounded-md p-2 text-muted-foreground font-mono text-sm">
+      <div className="vkui:flex vkui:items-center vkui:gap-2 vkui:bg-muted vkui:rounded-md vkui:p-2 vkui:text-muted-foreground vkui:font-mono vkui:text-sm">
         <MicOffIcon size={16} />
         Audio disabled
       </div>
@@ -42,13 +42,13 @@ const UserAudio: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <ButtonGroup className="w-full">
+    <div className="vkui:flex vkui:flex-col vkui:gap-2">
+      <ButtonGroup className="vkui:w-full">
         <RTVIClientMicToggle>
           {({ isMicEnabled, onClick }) => (
             <Button
               onClick={onClick}
-              className="flex-1 justify-start"
+              className="vkui:flex-1 vkui:justify-start"
               variant="secondary"
             >
               {isMicEnabled ? <MicIcon size={16} /> : <MicOffIcon size={16} />}
@@ -68,7 +68,7 @@ const UserAudio: React.FC = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              className="border-s border-border p-2! flex-none"
+              className="vkui:border-s vkui:border-border vkui:p-2! vkui:flex-none"
               variant="secondary"
             >
               <ChevronDownIcon size={16} />

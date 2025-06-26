@@ -8,12 +8,12 @@ interface DataListProps {
 const DataList: React.FC<DataListProps> = ({ data, className = "" }) => {
   return (
     <dl
-      className={`text-sm grid grid-cols-[1fr_2fr] gap-2 items-center ${className}`}
+      className={`vkui:text-sm vkui:grid vkui:grid-cols-[1fr_2fr] vkui:gap-2 vkui:items-center ${className}`}
     >
       {Object.entries(data).map(([key, value]) => (
         <React.Fragment key={key}>
-          <dt className="text-muted-foreground">{key}</dt>
-          <dd className="text-right font-mono text-xs min-w-0 truncate">
+          <dt className="vkui:text-muted-foreground">{key}</dt>
+          <dd className="vkui:text-right vkui:font-mono vkui:text-xs vkui:min-w-0 vkui:truncate">
             {value}
           </dd>
         </React.Fragment>

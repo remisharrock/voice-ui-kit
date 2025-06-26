@@ -27,7 +27,7 @@ export const InfoPanel: React.FC<Props> = ({
 }) => {
   const noDevices = noAudioOutput && noUserAudio && noUserVideo;
   return (
-    <Panel className="h-full overflow-y-auto overflow-x-hidden">
+    <Panel className="vkui:h-full vkui:overflow-y-auto vkui:overflow-x-hidden">
       <PanelHeader variant="inline">
         <PanelTitle>Status</PanelTitle>
       </PanelHeader>
@@ -36,7 +36,7 @@ export const InfoPanel: React.FC<Props> = ({
       </PanelContent>
       {!noDevices && (
         <>
-          <PanelHeader className="border-t border-t-border" variant="inline">
+          <PanelHeader className="vkui:border-t vkui:border-t-border" variant="inline">
             <PanelTitle>Devices</PanelTitle>
           </PanelHeader>
           <PanelContent>
@@ -46,7 +46,7 @@ export const InfoPanel: React.FC<Props> = ({
           </PanelContent>
         </>
       )}
-      <PanelHeader className="border-t border-t-border" variant="inline">
+      <PanelHeader className="vkui:border-t vkui:border-t-border" variant="inline">
         <PanelTitle>Session</PanelTitle>
       </PanelHeader>
       <PanelContent>

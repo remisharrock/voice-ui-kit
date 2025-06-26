@@ -29,8 +29,8 @@ export const ClientStatus: React.FC = () => {
       data={{
         Client: (
           <span
-            className={cn("uppercase", {
-              "text-emerald-500":
+            className={cn("vkui:uppercase", {
+              "vkui:text-emerald-500":
                 transportState === "connected" || transportState === "ready",
             })}
           >
@@ -38,9 +38,9 @@ export const ClientStatus: React.FC = () => {
           </span>
         ),
         Agent: agentConnecting ? (
-          <span className="uppercase">Connecting...</span>
+          <span className="vkui:uppercase">Connecting...</span>
         ) : isBotConnected ? (
-          <span className="text-emerald-500 uppercase">Connected</span>
+          <span className="vkui:text-emerald-500 vkui:uppercase">Connected</span>
         ) : (
           "---"
         ),

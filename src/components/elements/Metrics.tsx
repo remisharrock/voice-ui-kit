@@ -177,32 +177,32 @@ export const Metrics: React.FC = () => {
 
   if (hasMetrics || hasTokenMetrics) {
     return (
-      <div className="@container/metrics grid gap-6 items-start p-4 max-h-full overflow-auto">
+      <div className="vkui:@container/metrics vkui:grid vkui:gap-6 vkui:items-start vkui:p-4 vkui:max-h-full vkui:overflow-auto">
         {hasTokenMetrics && (
           <>
-            <h2 className="text-xl font-semibold">Token Usage</h2>
-            <div className="grid grid-cols-1 @xl/metrics:grid-cols-2 @3xl/metrics:grid-cols-3 gap-4">
-              <div className="bg-card rounded-md p-3 shadow-sm">
-                <div className="text-sm text-muted-foreground">
+            <h2 className="vkui:text-xl vkui:font-semibold">Token Usage</h2>
+            <div className="vkui:grid vkui:grid-cols-1 vkui:@xl/metrics:grid-cols-2 vkui:@3xl/metrics:grid-cols-3 vkui:gap-4">
+              <div className="vkui:bg-card vkui:rounded-md vkui:p-3 vkui:shadow-sm">
+                <div className="vkui:text-sm vkui:text-muted-foreground">
                   Prompt Tokens
                 </div>
-                <div className="text-2xl font-medium">
+                <div className="vkui:text-2xl vkui:font-medium">
                   {tokenMetrics.prompt_tokens}
                 </div>
               </div>
-              <div className="bg-card rounded-md p-3 shadow-sm">
-                <div className="text-sm text-muted-foreground">
+              <div className="vkui:bg-card vkui:rounded-md vkui:p-3 vkui:shadow-sm">
+                <div className="vkui:text-sm vkui:text-muted-foreground">
                   Completion Tokens
                 </div>
-                <div className="text-2xl font-medium">
+                <div className="vkui:text-2xl vkui:font-medium">
                   {tokenMetrics.completion_tokens}
                 </div>
               </div>
-              <div className="bg-card rounded-md p-3 shadow-sm">
-                <div className="text-sm text-muted-foreground">
+              <div className="vkui:bg-card vkui:rounded-md vkui:p-3 vkui:shadow-sm">
+                <div className="vkui:text-sm vkui:text-muted-foreground">
                   Total Tokens
                 </div>
-                <div className="text-2xl font-medium">
+                <div className="vkui:text-2xl vkui:font-medium">
                   {tokenMetrics.total_tokens}
                 </div>
               </div>
@@ -211,15 +211,15 @@ export const Metrics: React.FC = () => {
         )}
         {hasMetrics && (
           <>
-            <h2 className="text-xl font-semibold">TTFB Metrics</h2>
-            <div className="grid grid-cols-1 @xl/metrics:grid-cols-2 @3xl/metrics:grid-cols-3 gap-4">
+            <h2 className="vkui:text-xl vkui:font-semibold">TTFB Metrics</h2>
+            <div className="vkui:grid vkui:grid-cols-1 vkui:@xl/metrics:grid-cols-2 vkui:@3xl/metrics:grid-cols-3 vkui:gap-4">
               {Object.entries(metrics).map(([processorName, data]) => (
                 <div
                   key={processorName}
-                  className="bg-card border rounded-lg shadow-sm p-3 h-60"
+                  className="vkui:bg-card vkui:border vkui:rounded-lg vkui:shadow-sm vkui:p-3 vkui:h-60"
                 >
-                  <h3 className="mb-2">{processorName}</h3>
-                  <div className="h-44">
+                  <h3 className="vkui:mb-2">{processorName}</h3>
+                  <div className="vkui:h-44">
                     <Line
                       data={generateChartData(processorName, data)}
                       options={chartOptions}
@@ -236,8 +236,8 @@ export const Metrics: React.FC = () => {
 
   if (isConnecting) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-muted-foreground text-sm">
+      <div className="vkui:flex vkui:items-center vkui:justify-center vkui:h-full">
+        <div className="vkui:text-muted-foreground vkui:text-sm">
           Connecting to agent...
         </div>
       </div>
@@ -246,12 +246,12 @@ export const Metrics: React.FC = () => {
 
   if (!isConnected) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="text-center p-4">
-          <div className="text-muted-foreground mb-2">
+      <div className="vkui:flex vkui:items-center vkui:justify-center vkui:h-full">
+        <div className="vkui:text-center vkui:p-4">
+          <div className="vkui:text-muted-foreground vkui:mb-2">
             Not connected to agent
           </div>
-          <p className="text-sm text-muted-foreground max-w-md">
+          <p className="vkui:text-sm vkui:text-muted-foreground vkui:max-w-md">
             Connect to an agent to view metrics in real-time.
           </p>
         </div>
@@ -260,8 +260,8 @@ export const Metrics: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="text-muted-foreground text-sm">
+    <div className="vkui:flex vkui:items-center vkui:justify-center vkui:h-full">
+      <div className="vkui:text-muted-foreground vkui:text-sm">
         Waiting for metrics data...
       </div>
     </div>

@@ -33,15 +33,15 @@ export const CopyText: React.FC<CopyTextProps> = ({
   };
 
   return (
-    <div className={cn("flex items-center overflow-hidden w-full", className)}>
-      <span className="truncate min-w-0">{text}</span>
+    <div className={cn("vkui:flex vkui:items-center vkui:overflow-hidden vkui:w-full", className)}>
+      <span className="vkui:truncate vkui:min-w-0">{text}</span>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
               size="icon-sm"
-              className="flex-none"
+              className="vkui:flex-none"
               onClick={copyToClipboard}
               aria-label="Copy to clipboard"
             >

@@ -8,7 +8,7 @@ function Panel({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="panel"
       className={cn(
-        "@container/panel bg-card text-card-foreground flex flex-col rounded-panel border",
+        "vkui:@container/panel vkui:bg-card vkui:text-card-foreground vkui:flex vkui:flex-col vkui:rounded-panel vkui:border",
         className,
       )}
       {...props}
@@ -16,12 +16,12 @@ function Panel({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-const PanelHeaderVariants = cva("@container/panel-header", {
+const PanelHeaderVariants = cva("vkui:@container/panel-header", {
   variants: {
     variant: {
       default:
-        "border-b flex items-center justify-center h-panel-header text-card-foreground p-2 @xs/panel:p-3 @md/panel:p-4",
-      inline: "items-start text-foreground p-2 @xs/panel:p-3 @md/panel:p-4",
+        "vkui:border-b vkui:flex vkui:items-center vkui:justify-center vkui:text-card-foreground vkui:p-2 vkui:@xs/panel:p-3 vkui:@md/panel:p-4",
+      inline: "vkui:items-start vkui:text-foreground vkui:p-2 vkui:@xs/panel:p-3 vkui:@md/panel:p-4",
     },
   },
   defaultVariants: {
@@ -47,7 +47,7 @@ function PanelTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="panel-title"
-      className={cn("text-mono-upper", className)}
+      className={cn("vkui:text-mono-upper", className)}
       {...props}
     />
   );
@@ -58,7 +58,7 @@ function PanelContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="panel-content"
       className={cn(
-        "text-foreground flex flex-col p-2 gap-2 @xs/panel:p-3 @xs/panel:gap-3 @md/panel:p-4 @md/panel:gap-4",
+        "vkui:text-foreground vkui:flex vkui:flex-col vkui:p-2 vkui:gap-2 vkui:@xs/panel:p-3 vkui:@xs/panel:gap-3 vkui:@md/panel:p-4 vkui:@md/panel:gap-4",
         className,
       )}
       {...props}
@@ -71,7 +71,7 @@ function PanelFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="panel-footer"
       className={cn(
-        "flex items-center p-2 @xs/panel:p-3 @md/panel:p-4",
+        "vkui:flex vkui:items-center vkui:p-2 vkui:@xs/panel:p-3 vkui:@md/panel:p-4",
         className,
       )}
       {...props}
@@ -83,7 +83,7 @@ function PanelActions({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="panel-actions"
-      className={cn("flex items-center gap-1 @xs/panel:gap-2", className)}
+      className={cn("vkui:flex vkui:items-center vkui:gap-1 vkui:@xs/panel:gap-2", className)}
       {...props}
     />
   );

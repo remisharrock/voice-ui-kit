@@ -21,25 +21,25 @@ export const UserVideo: React.FC = () => {
     <RTVIClientCamToggle>
       {({ isCamEnabled, onClick }) => (
         <div
-          className={cn("bg-muted rounded-xl relative", {
-            "aspect-video": isCamEnabled,
-            "h-12": !isCamEnabled,
+          className={cn("vkui:bg-muted vkui:rounded-xl vkui:relative", {
+            "vkui:aspect-video": isCamEnabled,
+            "vkui:h-12": !isCamEnabled,
           })}
         >
           <RTVIClientVideo
-            className={cn("rounded-xl", {
-              hidden: !isCamEnabled,
+            className={cn("vkui:rounded-xl", {
+              "vkui:hidden": !isCamEnabled,
             })}
             participant="local"
           />
           {!isCamEnabled && (
-            <div className="absolute h-full left-28 flex items-center justify-start rounded-xl">
-              <div className="text-muted-foreground font-mono text-sm">
+            <div className="vkui:absolute vkui:h-full vkui:left-28 vkui:flex vkui:items-center vkui:justify-start vkui:rounded-xl">
+              <div className="vkui:text-muted-foreground vkui:font-mono vkui:text-sm">
                 Camera is off
               </div>
             </div>
           )}
-          <div className="absolute bottom-2 left-2">
+          <div className="vkui:absolute vkui:bottom-2 vkui:left-2">
             <ButtonGroup>
               <Button variant="outline" onClick={onClick}>
                 {isCamEnabled ? <VideoIcon /> : <VideoOffIcon />}

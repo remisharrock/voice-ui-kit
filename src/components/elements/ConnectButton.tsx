@@ -24,7 +24,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
         return {
           children: "Connect",
           variant: "default",
-          className: "bg-green-600 hover:bg-green-700",
+          className: "vkui:bg-green-600 vkui:hover:bg-green-700",
         };
       case "authenticating":
       case "connecting":
@@ -36,7 +36,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
         return {
           children: "Connect",
           variant: "default",
-          className: "bg-green-600 hover:bg-green-700",
+          className: "vkui:bg-green-600 vkui:hover:bg-green-700",
         };
     }
   };

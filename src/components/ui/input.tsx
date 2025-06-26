@@ -4,13 +4,13 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const inputVariants = cva(
-  "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex w-full min-w-0 rounded-md border bg-transparent px-3 text-foreground transition-[color,box-shadow] outline-none file:inline-flex file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "vkui:file:text-foreground vkui:placeholder:text-muted-foreground vkui:selection:bg-primary vkui:selection:text-primary-foreground vkui:dark:bg-input/30 vkui:border-input vkui:flex vkui:w-full vkui:min-w-0 vkui:rounded-md vkui:border vkui:bg-transparent vkui:px-3 vkui:text-foreground vkui:transition-[color,box-shadow] vkui:outline-none vkui:file:inline-flex vkui:file:border-0 vkui:file:bg-transparent vkui:file:text-sm vkui:file:font-medium vkui:disabled:pointer-events-none vkui:disabled:cursor-not-allowed vkui:disabled:opacity-50 vkui:md:text-sm vkui:focus-visible:border-ring vkui:focus-visible:ring-ring/50 vkui:focus-visible:ring-[3px] vkui:aria-invalid:ring-destructive/20 vkui:dark:aria-invalid:ring-destructive/40 vkui:aria-invalid:border-destructive",
   {
     variants: {
       size: {
-        sm: "h-7 px-2.5 py-1 text-sm",
-        default: "h-8 px-3 py-1",
-        lg: "h-10 px-3 py-2 rounded-lg",
+        sm: "vkui:h-7 vkui:px-2.5 vkui:py-1 vkui:text-sm",
+        default: "vkui:h-8 vkui:px-3 vkui:py-1",
+        lg: "vkui:h-10 vkui:px-3 vkui:py-2 vkui:rounded-lg",
       },
     },
     defaultVariants: {
