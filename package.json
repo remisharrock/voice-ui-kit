@@ -3,6 +3,21 @@
   "version": "0.0.1-rc.4",
   "type": "module",
   "license": "BSD-2-Clause",
+  "repository": {
+    "type": "git",
+    "url": "github:pipecat-ai/voice-ui-kit"
+  },
+  "author": "Daily (https://daily.co)",
+  "contributors": [
+    {
+      "name": "Christian Stuff",
+      "url": "https://github.com/Regaddi"
+    },
+    {
+      "name": "Jon Taylor",
+      "url": "https://github.com/jptaylor"
+    }
+  ],
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
