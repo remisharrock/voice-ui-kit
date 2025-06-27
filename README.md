@@ -1,7 +1,5 @@
 # Pipecat Voice UI Kit
 
-IMAGE GOES HERE
-
 [Documentations](./docs) | [Examples](./examples) | [Quickstart](#Quickstart)
 
 Components, hooks and template apps for building React voice AI applications quickly. Designed to support and accelerate [Pipecat AI](https://github.com/pipecat-ai/pipecat) development.
