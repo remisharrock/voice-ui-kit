@@ -84,6 +84,14 @@ export interface ConsoleTemplateProps {
    */
   noMetrics?: boolean;
   /**
+   * Disables the session info panel.
+   */
+  noSessionInfo?: boolean;
+  /**
+   * Disables the status info panel.
+   */
+  noStatusInfo?: boolean;
+  /**
    * Disables the theme switcher in the header.
    * Useful when there's an application-level theme switcher or when the theme is controlled globally.
    */
@@ -134,6 +142,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   noConversation = false,
   noLogo = false,
   noMetrics = false,
+  noSessionInfo = false,
+  noStatusInfo = false,
   noThemeSwitch = false,
   noUserAudio = false,
   noUserVideo = false,
@@ -263,6 +273,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   const noBotArea = noBotAudio && noBotVideo;
   const noConversationPanel = noConversation && noMetrics;
   const noDevices = noAudioOutput && noUserAudio && noUserVideo;
+  const noInfoPanel = noStatusInfo && noDevices && noSessionInfo;
 
   return (
     <RTVIClientProvider client={rtviClient}>
@@ -322,7 +333,9 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                         />
                       )}
                     </ResizablePanel>
-                    <ResizableHandle withHandle />
+                    {(!noConversationPanel || !noInfoPanel) && (
+                      <ResizableHandle withHandle />
+                    )}
                   </>
                 )}
                 {!noConversationPanel && (
@@ -337,72 +350,80 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                         noMetrics={noMetrics}
                       />
                     </ResizablePanel>
-                    <ResizableHandle withHandle />
+                    {!noInfoPanel && <ResizableHandle withHandle />}
                   </>
                 )}
-                <ResizablePanel
-                  id="info-panel"
-                  collapsible
-                  collapsedSize={4}
-                  minSize={15}
-                  defaultSize={20}
-                  onCollapse={() => setIsInfoPanelCollapsed(true)}
-                  onExpand={() => setIsInfoPanelCollapsed(false)}
-                  className="vkui:p-2"
-                >
-                  {isInfoPanelCollapsed ? (
-                    <div className="vkui:flex vkui:flex-col vkui:items-center vkui:justify-center vkui:gap-4 vkui:h-full">
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button variant="ghost" size="icon">
-                            <ChevronsLeftRightEllipsisIcon size={16} />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent side="left">
-                          <ClientStatus />
-                        </PopoverContent>
-                      </Popover>
-                      {!noDevices && (
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                              <MicIcon size={16} />
-                            </Button>
-                          </PopoverTrigger>
-                          <PopoverContent
-                            className="vkui:flex vkui:flex-col vkui:gap-2"
-                            side="left"
-                          >
-                            {!noUserAudio && <UserAudio />}
-                            {!noUserVideo && <UserVideo />}
-                            {!noAudioOutput && <AudioOutput />}
-                          </PopoverContent>
-                        </Popover>
-                      )}
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button variant="ghost" size="icon">
-                            <InfoIcon size={16} />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent side="left">
-                          <SessionInfo
-                            sessionId={sessionId}
-                            participantId={participantId}
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </div>
-                  ) : (
-                    <InfoPanel
-                      noAudioOutput={noAudioOutput}
-                      noUserAudio={noUserAudio}
-                      noUserVideo={noUserVideo}
-                      participantId={participantId}
-                      sessionId={sessionId}
-                    />
-                  )}
-                </ResizablePanel>
+                {!noInfoPanel && (
+                  <ResizablePanel
+                    id="info-panel"
+                    collapsible
+                    collapsedSize={4}
+                    minSize={15}
+                    defaultSize={20}
+                    onCollapse={() => setIsInfoPanelCollapsed(true)}
+                    onExpand={() => setIsInfoPanelCollapsed(false)}
+                    className="vkui:p-2"
+                  >
+                    {isInfoPanelCollapsed ? (
+                      <div className="vkui:flex vkui:flex-col vkui:items-center vkui:justify-center vkui:gap-4 vkui:h-full">
+                        {!noStatusInfo && (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                <ChevronsLeftRightEllipsisIcon size={16} />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent side="left">
+                              <ClientStatus />
+                            </PopoverContent>
+                          </Popover>
+                        )}
+                        {!noDevices && (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                <MicIcon size={16} />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent
+                              className="vkui:flex vkui:flex-col vkui:gap-2"
+                              side="left"
+                            >
+                              {!noUserAudio && <UserAudio />}
+                              {!noUserVideo && <UserVideo />}
+                              {!noAudioOutput && <AudioOutput />}
+                            </PopoverContent>
+                          </Popover>
+                        )}
+                        {!noSessionInfo && (
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button variant="ghost" size="icon">
+                                <InfoIcon size={16} />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent side="left">
+                              <SessionInfo
+                                sessionId={sessionId}
+                                participantId={participantId}
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        )}
+                      </div>
+                    ) : (
+                      <InfoPanel
+                        noAudioOutput={noAudioOutput}
+                        noSessionInfo={noSessionInfo}
+                        noStatusInfo={noStatusInfo}
+                        noUserAudio={noUserAudio}
+                        noUserVideo={noUserVideo}
+                        participantId={participantId}
+                        sessionId={sessionId}
+                      />
+                    )}
+                  </ResizablePanel>
+                )}
               </ResizablePanelGroup>
             </ResizablePanel>
             <ResizableHandle withHandle />
