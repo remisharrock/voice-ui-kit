@@ -120,11 +120,13 @@ const defaultParams: RTVIClientParams = {
   baseUrl: "noop",
 };
 
+const defaultClientOptions: Partial<RTVIClientOptions> = {
+  params: defaultParams,
+};
+
 export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   audioCodec = "default",
-  clientOptions = {
-    params: defaultParams,
-  },
+  clientOptions = defaultClientOptions,
   onConnect,
   noAudioOutput = false,
   noBotAudio = false,
