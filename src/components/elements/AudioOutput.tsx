@@ -43,7 +43,10 @@ export const AudioOutput: React.FC<AudioOutputProps> = ({ className }) => {
         </SelectTrigger>
         <SelectContent align="end">
           {availableSpeakers.map((device) => (
-            <SelectItem key={device.deviceId} value={device.deviceId}>
+            <SelectItem
+              key={device.deviceId || "empty"}
+              value={device.deviceId || "empty"}
+            >
               {device.label || `Speaker ${device.deviceId.slice(0, 5)}`}
             </SelectItem>
           ))}
