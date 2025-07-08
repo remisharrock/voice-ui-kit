@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   // Check if required environment variables are set
   if (!process.env.BOT_START_URL) {
     return NextResponse.json(
@@ -10,8 +10,6 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const body = await request.json();
-
     // Prepare headers - make API key optional
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
@@ -26,7 +24,9 @@ export async function POST(request: NextRequest) {
       method: "POST",
       mode: "cors",
       headers,
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        createDailyRoom: true,
+      }),
     });
 
     if (!response.ok) {
@@ -39,7 +39,10 @@ export async function POST(request: NextRequest) {
       throw new Error(data.error);
     }
 
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json({
+      room_url: data.dailyRoom,
+      token: data.dailyToken,
+    }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: `Failed to process connection request: ${error}` },
