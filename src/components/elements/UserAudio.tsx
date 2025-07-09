@@ -15,7 +15,7 @@ import {
   useRTVIClientMediaDevices,
   VoiceVisualizer,
 } from "@pipecat-ai/client-react";
-import { memo, useEffect } from "react";
+import { useEffect } from "react";
 
 const UserAudio: React.FC = () => {
   const client = useRTVIClient();
@@ -91,4 +91,4 @@ const UserAudio: React.FC = () => {
   );
 };
 
-export default memo(UserAudio);
+export default UserAudio;

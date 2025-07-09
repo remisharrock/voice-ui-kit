@@ -53,3 +53,5 @@ export const ClientStatus: React.FC = () => {
     />
   );
 };
+
+export default ClientStatus;

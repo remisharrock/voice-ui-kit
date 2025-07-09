@@ -10,7 +10,7 @@ interface PipecatLogoProps {
 
 const aspectRatio = 45 / 26;
 
-const PipecatLogo: React.FC<PipecatLogoProps> = ({
+export const PipecatLogo: React.FC<PipecatLogoProps> = ({
   className = "",
   alt = "Pipecat Logo",
   color = "#171717",

@@ -77,3 +77,5 @@ export const InfoPanel: React.FC<Props> = ({
     </Panel>
   );
 };
+
+export default InfoPanel;

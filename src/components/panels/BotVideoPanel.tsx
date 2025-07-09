@@ -54,3 +54,5 @@ export const BotVideoPanel: React.FC<BotVideoPanelProps> = ({
     </Panel>
   );
 };
+
+export default BotVideoPanel;

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-function LayoutSection({
+export function LayoutSection({
   key,
   className,
   ...props
@@ -8,4 +8,4 @@ function LayoutSection({
   return <section data-section={key} className={cn(className)} {...props} />;
 }
 
-export { LayoutSection };
+export default LayoutSection;

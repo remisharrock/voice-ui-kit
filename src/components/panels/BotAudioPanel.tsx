@@ -97,3 +97,5 @@ export const BotAudioPanel: React.FC<BotAudioPanelProps> = ({
     </Panel>
   );
 };
+
+export default BotAudioPanel;
