@@ -1,4 +1,3 @@
-import { useTheme } from "@/components/ThemeProvider";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -6,6 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useTheme } from "@/hooks/useTheme";
 import { MoonIcon, SunIcon } from "@/icons";
 
 export function ThemeModeToggle() {
@@ -34,4 +34,5 @@ export function ThemeModeToggle() {
     </DropdownMenu>
   );
 }
+
 export default ThemeModeToggle;
