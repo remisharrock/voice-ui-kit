@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useRTVIClientTransportState } from "@pipecat-ai/client-react";
+import { usePipecatClientTransportState } from "@pipecat-ai/client-react";
 import { cn } from "@/lib/utils";
 
 export type ConnectButtonProps = {
@@ -16,7 +16,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
   onConnect,
   onDisconnect,
 }) => {
-  const transportState = useRTVIClientTransportState();
+  const transportState = usePipecatClientTransportState();
 
   const getButtonProps = (): React.ComponentProps<typeof Button> => {
     switch (transportState) {

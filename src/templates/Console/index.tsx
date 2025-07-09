@@ -35,12 +35,16 @@ import {
 } from "@/icons";
 import { cn } from "@/lib/utils";
 import {
-  RTVIClient,
-  type RTVIClientOptions,
-  type RTVIClientParams,
+  type ConnectionEndpoint,
+  PipecatClient,
+  type PipecatClientOptions,
   Transport,
+  type TransportConnectionParams,
 } from "@pipecat-ai/client-js";
-import { RTVIClientAudio, RTVIClientProvider } from "@pipecat-ai/client-react";
+import {
+  PipecatClientAudio,
+  PipecatClientProvider,
+} from "@pipecat-ai/client-react";
 import { DailyTransport } from "@pipecat-ai/daily-transport";
 import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
 import { useEffect, useState } from "react";
@@ -54,7 +58,11 @@ export interface ConsoleTemplateProps {
   /**
    * Options for configuring the RTVI client.
    */
-  clientOptions?: Partial<RTVIClientOptions>;
+  clientOptions?: Partial<PipecatClientOptions>;
+  /**
+   * Parameters for connecting to the transport.
+   */
+  connectParams?: TransportConnectionParams | ConnectionEndpoint;
   /**
    * Disables audio output for the bot. The bot may still send audio, but it won't be played.
    */
@@ -104,7 +112,6 @@ export interface ConsoleTemplateProps {
    * Disables user video input entirely.
    */
   noUserVideo?: boolean;
-  onConnect: () => Promise<Response>;
   /**
    * Title displayed in the header.
    * Defaults to "Pipecat Playground".
@@ -124,18 +131,12 @@ export interface ConsoleTemplateProps {
   videoCodec?: string;
 }
 
-const defaultParams: RTVIClientParams = {
-  baseUrl: "noop",
-};
-
-const defaultClientOptions: Partial<RTVIClientOptions> = {
-  params: defaultParams,
-};
+const defaultClientOptions: Partial<PipecatClientOptions> = {};
 
 export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   audioCodec = "default",
   clientOptions = defaultClientOptions,
-  onConnect,
+  connectParams,
   noAudioOutput = false,
   noBotAudio = false,
   noBotVideo = false,
@@ -156,7 +157,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   const [isEventsPanelCollapsed, setIsEventsPanelCollapsed] = useState(false);
   const [sessionId, setSessionId] = useState("");
   const [participantId, setParticipantId] = useState("");
-  const [rtviClient, setRtviClient] = useState<RTVIClient | null>(null);
+  const [client, setClient] = useState<PipecatClient | null>(null);
   const [isClientReady, setIsClientReady] = useState(false);
 
   const { resolvedTheme } = useTheme();
@@ -179,34 +180,10 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
           });
           break;
       }
-      const client = new RTVIClient({
+      const pcClient = new PipecatClient({
         enableCam: !noUserVideo,
         enableMic: !noUserAudio,
-        customConnectHandler: (async (_params, timeout) => {
-          if (transportType === "smallwebrtc") {
-            return Promise.resolve();
-          }
-          try {
-            const response = await onConnect();
-            clearTimeout(timeout);
-            if (response.ok) {
-              return response.json();
-            }
-            return Promise.reject(
-              new Error(`Connection failed: ${response.status}`),
-            );
-          } catch (err) {
-            return Promise.reject(err);
-          }
-        }) as (
-          params: RTVIClientParams,
-          timeout: NodeJS.Timeout | undefined,
-          abortController: AbortController,
-        ) => Promise<void>,
         ...clientOptions,
-        params: {
-          ...(clientOptions.params ?? defaultParams),
-        },
         transport: (clientOptions?.transport as Transport) ?? transport,
         callbacks: {
           onParticipantJoined: (participant) => {
@@ -220,23 +197,23 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
           },
         },
       });
-      client.initDevices();
-      setRtviClient(client);
+      pcClient.initDevices();
+      setClient(pcClient);
       setIsClientReady(true);
       return () => {
         /**
          * Disconnect client when component unmounts or options change.
          */
-        client.disconnect();
+        pcClient.disconnect();
       };
     },
-    [clientOptions, noUserAudio, noUserVideo, onConnect, transportType],
+    [clientOptions, noUserAudio, noUserVideo, transportType],
   );
 
   useEffect(
     function updateSmallWebRTCCodecs() {
-      if (!rtviClient || transportType !== "smallwebrtc") return;
-      const transport = rtviClient.transport as SmallWebRTCTransport;
+      if (!client || transportType !== "smallwebrtc") return;
+      const transport = client.transport as SmallWebRTCTransport;
       if (audioCodec) {
         transport.setAudioCodec(audioCodec);
       }
@@ -244,25 +221,25 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
         transport.setVideoCodec(videoCodec);
       }
     },
-    [audioCodec, rtviClient, videoCodec, transportType],
+    [audioCodec, client, videoCodec, transportType],
   );
 
   const handleConnect = async () => {
-    if (!rtviClient) return;
+    if (!client) return;
     try {
-      await rtviClient.connect();
+      await client.connect(connectParams);
     } catch {
-      await rtviClient.disconnect();
+      await client.disconnect();
     }
   };
 
   const handleDisconnect = async () => {
-    if (!rtviClient) return;
-    await rtviClient.disconnect();
+    if (!client) return;
+    await client.disconnect();
   };
 
   // Return loading state until client is ready (prevents hydration mismatch)
-  if (!isClientReady || !rtviClient) {
+  if (!isClientReady || !client) {
     return (
       <div className="flex items-center justify-center h-full w-full">
         <div>Loading...</div>
@@ -276,7 +253,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   const noInfoPanel = noStatusInfo && noDevices && noSessionInfo;
 
   return (
-    <RTVIClientProvider client={rtviClient}>
+    <PipecatClientProvider client={client}>
       <div className="vkui:grid vkui:grid-cols-1 vkui:grid-rows-[min-content_1fr] vkui:sm:grid-rows-[min-content_1fr_auto] vkui:h-full vkui:w-full vkui:overflow-auto">
         <div className="vkui:grid vkui:grid-cols-2 vkui:sm:grid-cols-[150px_1fr_150px] vkui:gap-2 vkui:items-center vkui:justify-center vkui:p-2 vkui:bg-background vkui:sm:relative vkui:top-0 vkui:w-full vkui:z-10">
           {noLogo ? (
@@ -503,8 +480,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
             </TabsTrigger>
           </TabsList>
         </Tabs>
-        {!noAudioOutput && <RTVIClientAudio />}
+        {!noAudioOutput && <PipecatClientAudio />}
       </div>
-    </RTVIClientProvider>
+    </PipecatClientProvider>
   );
 };

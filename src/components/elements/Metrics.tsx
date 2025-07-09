@@ -1,7 +1,7 @@
 import { RTVIEvent } from "@pipecat-ai/client-js";
 import {
+  usePipecatClientTransportState,
   useRTVIClientEvent,
-  useRTVIClientTransportState,
 } from "@pipecat-ai/client-react";
 import { useState } from "react";
 import { Line } from "react-chartjs-2";
@@ -52,7 +52,7 @@ export const Metrics: React.FC = () => {
   const [metrics, setMetrics] = useState<MetricsState>({});
   const [tokenMetrics, setTokenMetrics] = useState<Partial<TokenMetrics>>({});
 
-  const transportState = useRTVIClientTransportState();
+  const transportState = usePipecatClientTransportState();
 
   useRTVIClientEvent(RTVIEvent.Connected, () => {
     setMetrics({});

@@ -10,16 +10,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDownIcon, MicIcon, MicOffIcon } from "@/icons";
 import {
-  RTVIClientMicToggle,
-  useRTVIClient,
-  useRTVIClientMediaDevices,
+  PipecatClientMicToggle,
+  usePipecatClient,
+  usePipecatClientMediaDevices,
   VoiceVisualizer,
 } from "@pipecat-ai/client-react";
 import { memo, useEffect } from "react";
 
 const UserAudio: React.FC = () => {
-  const client = useRTVIClient();
-  const { availableMics, selectedMic, updateMic } = useRTVIClientMediaDevices();
+  const client = usePipecatClient();
+  const { availableMics, selectedMic, updateMic } =
+    usePipecatClientMediaDevices();
 
   // @ts-expect-error _options is protected, but can be totally accessed in JS
   const hasAudio = client?._options?.enableMic;
@@ -44,7 +45,7 @@ const UserAudio: React.FC = () => {
   return (
     <div className="vkui:flex vkui:flex-col vkui:gap-2">
       <ButtonGroup className="vkui:w-full">
-        <RTVIClientMicToggle>
+        <PipecatClientMicToggle>
           {({ isMicEnabled, onClick }) => (
             <Button
               onClick={onClick}
@@ -64,7 +65,7 @@ const UserAudio: React.FC = () => {
               />
             </Button>
           )}
-        </RTVIClientMicToggle>
+        </PipecatClientMicToggle>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

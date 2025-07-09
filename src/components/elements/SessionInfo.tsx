@@ -1,20 +1,20 @@
 import CopyText from "@/components/elements/CopyText";
 import DataList from "@/components/elements/DataList";
 import Daily from "@daily-co/daily-js";
-import { useRTVIClient } from "@pipecat-ai/client-react";
+import { usePipecatClient } from "@pipecat-ai/client-react";
 
 export const SessionInfo: React.FC<{
   sessionId?: string;
   participantId?: string;
 }> = ({ sessionId, participantId }) => {
-  const rtviClient = useRTVIClient();
+  const client = usePipecatClient();
 
   let transportTypeName = "Unknown";
-  if (rtviClient && "dailyCallClient" in rtviClient.transport) {
+  if (client && "dailyCallClient" in client.transport) {
     transportTypeName = `Daily (v${Daily.version()})`;
   } else if (
     // @ts-expect-error - __proto__ not typed
-    rtviClient?.transport.__proto__.constructor.SERVICE_NAME ===
+    client?.transport.__proto__.constructor.SERVICE_NAME ===
     "small-webrtc-transport"
   ) {
     transportTypeName = "Small WebRTC";
@@ -43,7 +43,7 @@ export const SessionInfo: React.FC<{
         ) : (
           "---"
         ),
-        RTVI: rtviClient?.version || "---",
+        RTVI: client?.version || "---",
       }}
     />
   );

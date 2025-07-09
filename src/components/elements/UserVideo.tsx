@@ -9,16 +9,17 @@ import {
 import { ChevronDownIcon, VideoIcon, VideoOffIcon } from "@/icons";
 import { cn } from "@/lib/utils";
 import {
-  RTVIClientCamToggle,
-  RTVIClientVideo,
-  useRTVIClientMediaDevices,
+  PipecatClientCamToggle,
+  PipecatClientVideo,
+  usePipecatClientMediaDevices,
 } from "@pipecat-ai/client-react";
 
 export const UserVideo: React.FC = () => {
-  const { availableCams, selectedCam, updateCam } = useRTVIClientMediaDevices();
+  const { availableCams, selectedCam, updateCam } =
+    usePipecatClientMediaDevices();
 
   return (
-    <RTVIClientCamToggle>
+    <PipecatClientCamToggle>
       {({ isCamEnabled, onClick }) => (
         <div
           className={cn("vkui:bg-muted vkui:rounded-xl vkui:relative", {
@@ -26,7 +27,7 @@ export const UserVideo: React.FC = () => {
             "vkui:h-12": !isCamEnabled,
           })}
         >
-          <RTVIClientVideo
+          <PipecatClientVideo
             className={cn("vkui:rounded-xl", {
               "vkui:hidden": !isCamEnabled,
             })}
@@ -66,7 +67,7 @@ export const UserVideo: React.FC = () => {
           </div>
         </div>
       )}
-    </RTVIClientCamToggle>
+    </PipecatClientCamToggle>
   );
 };
 export default UserVideo;

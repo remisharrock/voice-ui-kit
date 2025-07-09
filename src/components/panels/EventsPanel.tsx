@@ -9,9 +9,9 @@ import { FunnelIcon } from "@/icons";
 import { cn } from "@/lib/utils";
 import { RTVIEvent } from "@pipecat-ai/client-js";
 import {
-  useRTVIClient,
+  usePipecatClient,
+  usePipecatClientTransportState,
   useRTVIClientEvent,
-  useRTVIClientTransportState,
 } from "@pipecat-ai/client-react";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 
@@ -26,7 +26,7 @@ interface Props {
 }
 
 export const EventsPanel: React.FC<Props> = ({ collapsed = false }) => {
-  const client = useRTVIClient();
+  const client = usePipecatClient();
   const [events, setEvents] = useState<EventData[]>([]);
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -44,7 +44,7 @@ export const EventsPanel: React.FC<Props> = ({ collapsed = false }) => {
     });
   }, []);
 
-  const transportState = useRTVIClientTransportState();
+  const transportState = usePipecatClientTransportState();
   const lastTransportState = useRef("");
   useEffect(() => {
     if (transportState === lastTransportState.current) return;
@@ -84,16 +84,8 @@ export const EventsPanel: React.FC<Props> = ({ collapsed = false }) => {
   useRTVIClientEvent(RTVIEvent.BotReady, (botData) => {
     addEvent({
       event: RTVIEvent.BotReady,
-      message: `Bot ready (v${botData.version})`,
+      message: `Bot ready (v${botData.version}): ${JSON.stringify(botData.about ?? {})}`,
       time: new Date().toLocaleTimeString(),
-    });
-    if (!botData.config) return;
-    botData.config.forEach((config) => {
-      addEvent({
-        event: RTVIEvent.BotReady,
-        message: `${config.service}: ${JSON.stringify(config.options)}`,
-        time: new Date().toLocaleTimeString(),
-      });
     });
   });
 

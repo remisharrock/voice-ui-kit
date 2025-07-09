@@ -7,8 +7,8 @@ import {
 import { VideoOffIcon } from "@/icons";
 import { cn } from "@/lib/utils";
 import {
-  RTVIClientVideo,
-  useRTVIClientMediaTrack,
+  PipecatClientVideo,
+  usePipecatClientMediaTrack,
 } from "@pipecat-ai/client-react";
 
 interface BotVideoPanelProps {
@@ -20,7 +20,7 @@ export const BotVideoPanel: React.FC<BotVideoPanelProps> = ({
   className,
   collapsed = false,
 }) => {
-  const track = useRTVIClientMediaTrack("video", "bot");
+  const track = usePipecatClientMediaTrack("video", "bot");
   return (
     <Panel
       className={cn(className, {
@@ -37,7 +37,7 @@ export const BotVideoPanel: React.FC<BotVideoPanelProps> = ({
           "vkui:p-0!": collapsed,
         })}
       >
-        <RTVIClientVideo
+        <PipecatClientVideo
           participant="bot"
           className="vkui:aspect-video vkui:bg-muted vkui:rounded-sm vkui:max-h-full"
           fit="contain"
