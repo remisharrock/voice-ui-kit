@@ -5,7 +5,7 @@ interface DataListProps {
   className?: string;
 }
 
-const DataList: React.FC<DataListProps> = ({ data, className = "" }) => {
+export const DataList: React.FC<DataListProps> = ({ data, className = "" }) => {
   return (
     <dl
       className={`vkui:text-sm vkui:grid vkui:grid-cols-[1fr_2fr] vkui:gap-2 vkui:items-center ${className}`}

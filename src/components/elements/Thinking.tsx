@@ -4,7 +4,7 @@ interface ThinkingProps {
   className?: string;
 }
 
-const Thinking: React.FC<ThinkingProps> = ({ className = "" }) => {
+export const Thinking: React.FC<ThinkingProps> = ({ className = "" }) => {
   const [dots, setDots] = useState(1);
 
   useEffect(() => {

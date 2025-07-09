@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/panel";
 import { MicOffIcon } from "@/icons";
 import {
-  useRTVIClientMediaTrack,
+  usePipecatClientMediaTrack,
   VoiceVisualizer,
 } from "@pipecat-ai/client-react";
 import { useEffect, useRef, useState } from "react";
@@ -26,7 +26,7 @@ export const BotAudioPanel: React.FC<BotAudioPanelProps> = ({
   className,
   collapsed = false,
 }) => {
-  const track = useRTVIClientMediaTrack("audio", "bot");
+  const track = usePipecatClientMediaTrack("audio", "bot");
 
   const [maxHeight, setMaxHeight] = useState(48);
   const [width, setWidth] = useState(4);
@@ -97,3 +97,5 @@ export const BotAudioPanel: React.FC<BotAudioPanelProps> = ({
     </Panel>
   );
 };
+
+export default BotAudioPanel;

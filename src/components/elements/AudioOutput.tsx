@@ -1,5 +1,5 @@
 import React, { useId } from "react";
-import { useRTVIClientMediaDevices } from "@pipecat-ai/client-react";
+import { usePipecatClientMediaDevices } from "@pipecat-ai/client-react";
 import {
   Select,
   SelectContent,
@@ -15,7 +15,7 @@ interface AudioOutputProps {
 
 export const AudioOutput: React.FC<AudioOutputProps> = ({ className }) => {
   const { availableSpeakers, selectedSpeaker, updateSpeaker } =
-    useRTVIClientMediaDevices();
+    usePipecatClientMediaDevices();
 
   const handleDeviceChange = (deviceId: string) => {
     updateSpeaker(deviceId);

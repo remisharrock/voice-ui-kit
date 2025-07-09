@@ -1,4 +1,4 @@
-import { useRTVIClientTransportState } from "@pipecat-ai/client-react";
+import { usePipecatClientTransportState } from "@pipecat-ai/client-react";
 import { Fragment, useCallback, useEffect, useRef } from "react";
 import useConversation from "@/hooks/useConversation";
 import { cn } from "@/lib/utils";
@@ -8,7 +8,7 @@ export const Conversation: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isScrolledToBottom = useRef(true);
 
-  const transportState = useRTVIClientTransportState();
+  const transportState = usePipecatClientTransportState();
 
   const maybeScrollToBottom = useCallback(() => {
     if (!scrollRef.current) return;
