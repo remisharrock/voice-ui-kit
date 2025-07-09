@@ -19,7 +19,7 @@ const inputVariants = cva(
   },
 );
 
-function Input({
+export function Input({
   className,
   type,
   size,
@@ -36,4 +36,4 @@ function Input({
   );
 }
 
-export { Input, inputVariants };
+export default Input;

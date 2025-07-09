@@ -263,3 +263,5 @@ export const EventsPanel: React.FC<Props> = ({ collapsed = false }) => {
     </Panel>
   );
 };
+
+export default EventsPanel;

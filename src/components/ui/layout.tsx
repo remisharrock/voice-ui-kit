@@ -1,11 +1,13 @@
 import { cn } from "@/lib/utils";
 
-function LayoutSection({
-  key,
+export function LayoutSection({
   className,
+  sectionKey,
   ...props
-}: React.ComponentProps<"section"> & { key: string }) {
-  return <section data-section={key} className={cn(className)} {...props} />;
+}: React.ComponentProps<"section"> & { sectionKey: string }) {
+  return (
+    <section data-section={sectionKey} className={cn(className)} {...props} />
+  );
 }
 
-export { LayoutSection };
+export default LayoutSection;
