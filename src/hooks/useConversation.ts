@@ -79,6 +79,19 @@ export const useConversation = ({ onMessageAdded }: Props = {}) => {
       );
       const lastBotMessage = prev[lastBotMessageIndex];
 
+      if (!lastBotMessage) {
+        const newMessage: ConversationMessage = {
+          role: "assistant",
+          content: data.text,
+          createdAt: now.toISOString(),
+          updatedAt: now.toISOString(),
+        };
+        onMessageAdded?.(newMessage);
+        return [...prev, newMessage]
+          .sort(sortByCreatedAt)
+          .filter(filterEmptyMessages);
+      }
+
       // Bump potential empty last message
       if (!lastBotMessage.content) {
         const newMessages = prev.slice();
@@ -129,6 +142,7 @@ export const useConversation = ({ onMessageAdded }: Props = {}) => {
         (msg) => msg.role === "assistant",
       );
       const lastBotMessage = prev[lastBotMessageIndex];
+      if (!lastBotMessage) return prev;
       if (
         lastBotMessage &&
         lastBotMessage.role === "assistant" &&
