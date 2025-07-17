@@ -28,7 +28,7 @@ export interface AppProps {
   children: React.ReactNode;
 }
 
-export interface HelperChildrenProps {
+export interface HelperChildProps {
   handleConnect?: () => Promise<void>;
   handleDisconnect?: () => Promise<void>;
 }
@@ -134,7 +134,7 @@ export const AudioClientHelper = ({
     ? cloneElement(children, {
         handleConnect,
         handleDisconnect,
-      } as HelperChildrenProps)
+      } as HelperChildProps)
     : children;
 
   return (

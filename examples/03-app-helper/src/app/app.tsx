@@ -1,10 +1,10 @@
 import {
   Button,
   FullScreenContainer,
-  HelperChildrenProps,
+  HelperChildProps,
 } from "@pipecat-ai/voice-ui-kit";
 
-export const App = ({ handleConnect }: HelperChildrenProps) => {
+export const App = ({ handleConnect }: HelperChildProps) => {
   return (
     <FullScreenContainer>
       <Button onClick={() => handleConnect?.()}>Connect</Button>
