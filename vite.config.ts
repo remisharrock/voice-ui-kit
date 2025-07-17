@@ -24,6 +24,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: path.resolve(__dirname, "src/index.ts"),
+        metrics: path.resolve(__dirname, "src/components/metrics/index.ts"),
         webgl: path.resolve(__dirname, "src/visualizers/webgl/index.ts"),
       },
       formats: ["es", "cjs"],
@@ -37,10 +38,16 @@ export default defineConfig({
         "react",
         "react-dom",
         "react/jsx-runtime",
+        "@daily-co/daily-js",
+        "@pipecat-ai/client-js",
+        "@pipecat-ai/client-react",
+        "@pipecat-ai/daily-transport",
+        "@pipecat-ai/small-webrtc-transport",
       ],
 
       output: {
         globals: {
+          "@daily-co/daily-js": "Daily",
           react: "React",
           "react-dom": "ReactDOM",
         },

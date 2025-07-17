@@ -97,4 +97,12 @@
     letter-spacing: var(--vkui-tracking-wider);
     line-height: 1;
   }
+
+  .vkui\:button-group.vkui\:flex-row > *:not(:first-child):not(:last-child) {
+    border-radius: 0 !important;
+  }
+
+  .vkui\:button-group.vkui\:flex-col > *:not(:first-child):not(:last-child) {
+    border-radius: 0 !important;
+  }
 }

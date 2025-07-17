@@ -3,8 +3,6 @@ import {
   usePipecatClientTransportState,
   useRTVIClientEvent,
 } from "@pipecat-ai/client-react";
-import { useState } from "react";
-import { Line } from "react-chartjs-2";
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -16,6 +14,8 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
+import { useState } from "react";
+import { Line } from "react-chartjs-2";
 import { cn } from "../../lib/utils";
 
 // Register Chart.js components
