@@ -21,8 +21,8 @@ import {
 import { useEffect } from "react";
 
 interface Props {
-  variant: ButtonVariant;
-  size: ButtonSize;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   buttonProps?: Partial<React.ComponentProps<typeof Button>>;
   classNames?: {
     container?: string;
