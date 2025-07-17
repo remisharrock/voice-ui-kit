@@ -16,16 +16,23 @@ Components, hooks and template apps for building React voice AI applications qui
 
 - ⭐ **Example apps** – Real-world implementations demonstrating best practices
 
-
 ## Quickstart
 
 ### Install the library
 
 ```shell
-npm i @pipecat-ai/voice-ui-kit
+npm i @pipecat-ai/voice-ui-kit @pipecat-ai/client-js @pipecat-ai/client-react
 ```
 
-*Optional - install recommended fonts for default theme*:
+_You will also have to install one of the supported transport packages_
+
+```shell
+npm i @pipecat-ai/daily-transport
+# or
+npm i @pipecat-ai/small-webrtc-transport
+```
+
+_Optional - install recommended fonts for default theme_:
 
 ```shell
 npm i @fontsource-variable/geist @fontsource-variable/geist-mono
@@ -59,7 +66,7 @@ export default function App() {
 }
 ```
 
-*Need a Pipecat agent to play with quickly? Check out this example and deploy in seconds to Pipecat Cloud!*
+_Need a Pipecat agent to play with quickly? Check out this example and deploy in seconds to Pipecat Cloud!_
 
 ## What's included?
 
@@ -74,31 +81,31 @@ export default function App() {
 ### How to use it
 
 - Components
-    - How to use, link to docs
+  - How to use, link to docs
 
 - Elements
-    - How to use, link to docs
+  - How to use, link to docs
 
 - Voice visualizers
-    - How to use, link to docs
-    - Using WebGL visualizers
+  - How to use, link to docs
+  - Using WebGL visualizers
 
 - Templates
-    - How to use, link to docs
+  - How to use, link to docs
 
-    - Figma file (coming soon)
+  - Figma file (coming soon)
 
 ## Styling and themeing
 
 - Use with or without styles
 
 - Customizing the included theme
-    - shadcn variables list
-    - TW4 variables list
-    - changing the icon liberary
+  - shadcn variables list
+  - TW4 variables list
+  - changing the icon liberary
 
 - Scoping to avoid conflicts
- - working with TW3
+- working with TW3
 
 ## Example projects
 
@@ -109,5 +116,3 @@ export default function App() {
 ### Extending with your own components
 
 - Ladle / component stories
-
-
