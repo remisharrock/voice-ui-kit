@@ -5,6 +5,9 @@ export function FullScreenContainer({
   ...props
 }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("w-full h-dvh bg-background", className)} {...props} />
+    <div
+      className={cn("w-full h-dvh vkui:bg-background", className)}
+      {...props}
+    />
   );
 }

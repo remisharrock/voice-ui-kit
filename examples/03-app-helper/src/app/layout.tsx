@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-
-import "./globals.css";
+import { Lexend } from "next/font/google";
 
 import "@pipecat-ai/voice-ui-kit/styles.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import "./globals.css";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const lexendSans = Lexend({
+  variable: "--font-lexend",
   subsets: ["latin"],
 });
 
@@ -26,11 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className={`${lexendSans.variable} antialiased`}>{children}</body>
     </html>
   );
 }

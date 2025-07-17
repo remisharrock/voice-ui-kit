@@ -1,10 +1,10 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui";
 import { LoaderIcon } from "@/icons";
 import {
   type ConnectionEndpoint,
   PipecatClient,
+  type PipecatClientOptions,
   type TransportConnectionParams,
 } from "@pipecat-ai/client-js";
 import {
@@ -13,41 +13,32 @@ import {
 } from "@pipecat-ai/client-react";
 import { DailyTransport } from "@pipecat-ai/daily-transport";
 import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
-import {
-  cloneElement,
-  isValidElement,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { cloneElement, isValidElement, useEffect, useState } from "react";
 import { ThemeProvider } from "../ThemeProvider";
 
 export interface AppProps {
   connectParams: TransportConnectionParams | ConnectionEndpoint;
   transportType: "smallwebrtc" | "daily";
+  clientOptions?: PipecatClientOptions;
   children: React.ReactNode;
 }
 
 export interface HelperChildProps {
   handleConnect?: () => Promise<void>;
   handleDisconnect?: () => Promise<void>;
+  error?: string;
 }
 
 export const AudioClientHelper = ({
   connectParams,
   transportType,
+  clientOptions,
   children,
 }: AppProps) => {
   const [client, setClient] = useState<PipecatClient | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const isMounted = useRef(false);
 
   useEffect(() => {
-    if (isMounted.current) return;
-    isMounted.current = true;
-
-    if (typeof window === "undefined") return;
-
     let transport: DailyTransport | SmallWebRTCTransport;
     switch (transportType) {
       case "smallwebrtc":
@@ -63,13 +54,7 @@ export const AudioClientHelper = ({
       enableCam: false,
       enableMic: true,
       transport: transport,
-      callbacks: {
-        onError: () => {
-          setError(
-            "An error occured connecting to agent. It may be that the agent is at capacity. Please try again later.",
-          );
-        },
-      },
+      ...clientOptions,
     });
     setClient(pcClient);
 
@@ -79,7 +64,7 @@ export const AudioClientHelper = ({
        */
       pcClient.disconnect();
     };
-  }, [connectParams, transportType]);
+  }, [connectParams, transportType, clientOptions]);
 
   const handleConnect = async () => {
     if (
@@ -113,27 +98,11 @@ export const AudioClientHelper = ({
     );
   }
 
-  if (error) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <Card className="shadow-long">
-          <CardContent>
-            <div className="bg-destructive text-background font-semibold text-center p-3 rounded-lg flex flex-col gap-2">
-              An error occured connecting to agent.
-              <p className="text-sm font-medium text-balanced text-background/80">
-                It may be that the agent is at capacity. Please try again later.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
   const childrenWithProps = isValidElement(children)
     ? cloneElement(children, {
         handleConnect,
         handleDisconnect,
+        error,
       } as HelperChildProps)
     : children;
 
