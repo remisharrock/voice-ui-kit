@@ -28,6 +28,7 @@ const buttonVariants = cva(
           "vkui:h-8 vkui:px-4 vkui:py-2 vkui:has-[>svg]:px-3 vkui:[&_svg:not([class*='size-'])]:size-5",
         sm: "vkui:h-7 vkui:rounded-lg vkui:gap-1.5 vkui:px-3 vkui:has-[>svg]:px-2.5 vkui:[&_svg:not([class*='size-'])]:size-4",
         lg: "vkui:h-10 vkui:rounded-lg vkui:px-6 vkui:has-[>svg]:px-4 vkui:[&_svg:not([class*='size-'])]:size-5",
+        xl: "vkui:h-12 vkui:rounded-xl vkui:px-8 vkui:text-lg vkui:has-[>svg]:px-6 vkui:[&_svg:not([class*='size-'])]:size-5",
         icon: "vkui:h-8 vkui:w-8 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-5",
         "icon-sm":
           "vkui:h-7 vkui:w-7 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-4",
@@ -57,6 +58,12 @@ const buttonVariants = cva(
         isIcon: true,
         className:
           "vkui:size-10 vkui:@max-xs/panel:size-9 vkui:rounded-lg vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+      },
+      {
+        size: "xl",
+        isIcon: true,
+        className:
+          "vkui:size-12 vkui:rounded-xl vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
       },
     ],
     defaultVariants: {

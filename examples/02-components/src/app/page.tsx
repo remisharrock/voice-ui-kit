@@ -1,20 +1,17 @@
 "use client";
 
-import {
-  ConsoleTemplate,
-  FullScreenContainer,
-  ThemeProvider,
-} from "@pipecat-ai/voice-ui-kit";
+import { FullScreenContainer, ThemeProvider } from "@pipecat-ai/voice-ui-kit";
+import { App } from "./components/App";
 
 export default function Home() {
   return (
     <ThemeProvider>
       <FullScreenContainer>
-        <ConsoleTemplate
+        <App
+          transportType="daily"
           connectParams={{
             endpoint: "/api/connect",
           }}
-          transportType="daily"
         />
       </FullScreenContainer>
     </ThemeProvider>

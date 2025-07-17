@@ -34,7 +34,7 @@ interface Props {
   visualizerProps?: Partial<React.ComponentProps<typeof VoiceVisualizer>>;
 }
 
-const UserAudio: React.FC<Props> = ({
+export const UserAudio: React.FC<Props> = ({
   buttonProps = {},
   classNames = {},
   dropdownButtonProps = {},
@@ -46,8 +46,7 @@ const UserAudio: React.FC<Props> = ({
   const { availableMics, selectedMic, updateMic } =
     usePipecatClientMediaDevices();
 
-  // @ts-expect-error _options is protected, but can be totally accessed in JS
-  const hasAudio = client?._options?.enableMic;
+  const hasAudio = client?.isMicEnabled;
 
   useEffect(() => {
     if (!client) return;

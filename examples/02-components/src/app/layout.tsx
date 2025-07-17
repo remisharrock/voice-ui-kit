@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Voice UI Kit - Console Template Example",
+  title: "Voice UI Kit - Component UI Example",
 };
 
 export default function RootLayout({
