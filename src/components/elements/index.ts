@@ -4,7 +4,6 @@ export * from "./ConnectButton";
 export * from "./Conversation";
 export * from "./CopyText";
 export * from "./DataList";
-export * from "./Metrics";
 export * from "./SessionInfo";
 export * from "./Thinking";
 export * from "./UserAudio";

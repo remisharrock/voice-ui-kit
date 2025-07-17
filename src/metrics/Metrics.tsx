@@ -16,7 +16,7 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
-import { cn } from "../../lib/utils";
+import { cn } from "../lib/utils";
 
 // Register Chart.js components
 ChartJS.register(
