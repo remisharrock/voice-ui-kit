@@ -7,7 +7,10 @@ import {
   PipecatClient,
   type TransportConnectionParams,
 } from "@pipecat-ai/client-js";
-import { PipecatClientProvider } from "@pipecat-ai/client-react";
+import {
+  PipecatClientAudio,
+  PipecatClientProvider,
+} from "@pipecat-ai/client-react";
 import { DailyTransport } from "@pipecat-ai/daily-transport";
 import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
 import {
@@ -138,6 +141,7 @@ export const AudioClientHelper = ({
     <ThemeProvider>
       <PipecatClientProvider client={client!}>
         {childrenWithProps}
+        <PipecatClientAudio />
       </PipecatClientProvider>
     </ThemeProvider>
   );
