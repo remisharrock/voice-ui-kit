@@ -38,10 +38,10 @@
   --color-mute-foreground: oklch(97% 0.05 25.331);
 
   /* VKUI */
-  --color-device-active: oklch(79.2% 0.209 151.711);
-  --color-device-active-foreground: oklch(98.2% 0.018 155.826);
-  --color-device-inactive: oklch(63.7% 0.237 25.331);
-  --color-device-inactive-foreground: oklch(97.1% 0.013 17.38);
+  --color-active: oklch(69.6% 0.17 162.48);
+  --color-active-foreground: oklch(97.9% 0.021 166.113);
+  --color-inactive: oklch(63.7% 0.237 25.331);
+  --color-inactive-foreground: oklch(97.1% 0.013 17.38);
   --color-chart-1: oklch(0.646 0.222 41.116);
   --color-chart-2: oklch(0.6 0.118 184.704);
   --color-chart-3: oklch(0.398 0.07 227.392);
@@ -75,10 +75,10 @@
   --vkui-color-active-foreground: oklch(98.2% 0.018 155.826);
 
   /* VKUI */
-  --color-device-active: oklch(79.2% 0.209 151.711);
-  --color-device-active-foreground: oklch(98.2% 0.018 155.826);
-  --color-device-inactive: oklch(63.7% 0.237 25.331);
-  --color-device-inactive-foreground: oklch(97.1% 0.013 17.38);
+  --color-active: oklch(79.2% 0.209 151.711);
+  --color-active-foreground: oklch(98.2% 0.018 155.826);
+  --color-inactive: oklch(63.7% 0.237 25.331);
+  --color-inactive-foreground: oklch(97.1% 0.013 17.38);
   --vkui-color-chart-1: oklch(0.488 0.243 264.376);
   --vkui-color-chart-2: oklch(0.696 0.17 162.48);
   --vkui-color-chart-3: oklch(0.769 0.188 70.08);

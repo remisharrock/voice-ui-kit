@@ -89,7 +89,7 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
                 "vkui:flex-1 vkui:justify-start",
                 classNames.button,
               )}
-              variant={isMicEnabled ? variant : "muted"}
+              variant={isMicEnabled ? variant : "inactive"}
               size={size}
               {...buttonProps}
             >

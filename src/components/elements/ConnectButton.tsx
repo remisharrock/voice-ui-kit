@@ -1,15 +1,20 @@
 import { Button } from "@/components/ui/button";
+import type { ButtonSize, ButtonVariant } from "@/components/ui/buttonVariants";
 import { cn } from "@/lib/utils";
 import { type TransportState } from "@pipecat-ai/client-js";
 import { usePipecatClientTransportState } from "@pipecat-ai/client-react";
 import React from "react";
-import type { ButtonSize } from "../ui/buttonVariants";
 
-type StateContent = {
-  children: React.ReactNode;
-  variant: React.ComponentProps<typeof Button>["variant"];
-  className?: string;
-};
+export type ConnectButtonStateContent = Partial<
+  Record<
+    TransportState,
+    {
+      children: React.ReactNode;
+      variant: ButtonVariant;
+      className?: string;
+    }
+  >
+>;
 
 export type ConnectButtonProps = {
   className?: string;
@@ -17,26 +22,27 @@ export type ConnectButtonProps = {
   onClick?: () => void;
   onDisconnect?: () => void;
   size?: ButtonSize;
-  stateContent?: Record<TransportState, StateContent>;
+  stateContent?: ConnectButtonStateContent;
 };
 
-export const ConnectButton: React.FC<ConnectButtonProps> = ({
+export const ConnectButtonComponent: React.FC<
+  ConnectButtonProps & {
+    transportState: TransportState;
+  }
+> = ({
   className: passedClassName,
   onClick,
   onConnect,
   onDisconnect,
   stateContent,
   size = "default",
+  transportState,
 }) => {
-  const transportState = usePipecatClientTransportState();
-
   const getButtonProps = (): React.ComponentProps<typeof Button> => {
-    // Prioritize stateContent over default content
-    if (stateContent) {
-      return stateContent[transportState];
+    if (stateContent && stateContent[transportState]) {
+      return stateContent[transportState]!;
     }
 
-    // Default content
     switch (transportState) {
       case "disconnected":
         return {
@@ -80,6 +86,12 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
       {children}
     </Button>
   );
+};
+
+export const ConnectButton = (props: ConnectButtonProps) => {
+  const transportState = usePipecatClientTransportState();
+
+  return <ConnectButtonComponent transportState={transportState} {...props} />;
 };
 
 export default ConnectButton;

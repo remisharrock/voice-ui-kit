@@ -7,19 +7,19 @@ export const buttonVariants = cva(
       variant: {
         default:
           "vkui:bg-primary vkui:text-primary-foreground vkui:hover:bg-primary/90 vkui:border vkui:border-transparent",
+        secondary:
+          "vkui:bg-secondary vkui:border vkui:border-transparent vkui:text-secondary-foreground vkui:hover:bg-secondary/60 vkui:focus-visible:border-secondary",
+        outline:
+          "vkui:text-foreground vkui:border vkui:bg-background vkui:hover:bg-accent vkui:dark:bg-input/30 vkui:dark:border-input vkui:dark:hover:bg-input/50 vkui:focus-visible:border-ring",
         destructive:
           "vkui:bg-destructive vkui:text-white vkui:hover:bg-destructive/90 vkui:focus-visible:ring-destructive/20 vkui:dark:focus-visible:ring-destructive/40 vkui:dark:bg-destructive/60",
         active:
           "vkui:bg-active vkui:text-active-foreground vkui:hover:bg-active/90 vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40 vkui:dark:bg-active/60",
-        outline:
-          "vkui:text-foreground vkui:border vkui:bg-background vkui:hover:bg-accent vkui:dark:bg-input/30 vkui:dark:border-input vkui:dark:hover:bg-input/50 vkui:focus-visible:border-ring",
-        secondary:
-          "vkui:bg-secondary vkui:border vkui:border-transparent vkui:text-secondary-foreground vkui:hover:bg-secondary/60 vkui:focus-visible:border-secondary",
+        inactive:
+          "vkui:bg-inactive vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40 vkui:dark:bg-inactive/60",
         ghost:
           "vkui:text-foreground vkui:border vkui:border-transparent vkui:hover:bg-accent vkui:hover:text-accent-foreground vkui:dark:hover:bg-accent/50",
         link: "vkui:text-primary vkui:underline-offset-4 vkui:hover:underline vkui:border vkui:border-transparent",
-        muted:
-          "vkui:bg-mute vkui:border vkui:border-transparent vkui:text-mute-foreground vkui:hover:bg-mute/80 vkui:focus-visible:ring-mute/20 vkui:dark:focus-visible:ring-mute/40",
       },
       size: {
         default:
@@ -85,7 +85,9 @@ export const buttonVariantOptions = [
   "secondary",
   "ghost",
   "link",
-  "muted",
+  "active",
+  "inactive",
+  "destructive",
 ] as const;
 export const buttonSizeOptions = ["default", "sm", "lg", "xl"] as const;
 
