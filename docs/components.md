@@ -19,10 +19,12 @@ Button that updates contextually based on the current transport state.
 **Example:**
 
 ```tsx
+import { ConnectButton } from "@pipecat-ai/voice-ui-kit";
+
 <ConnectButton 
     size="lg"
-    onConnect={() => console.log("connecting");}
-    onConnect={() => console.log("disconnecting");}
+    onConnect={() => console.log("connecting")}
+    onConnect={() => console.log("disconnecting")}
     stateContent={{
         disconnected: {
             variant: "outline",

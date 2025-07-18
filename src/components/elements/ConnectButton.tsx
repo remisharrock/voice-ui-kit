@@ -80,17 +80,15 @@ export const ConnectButtonComponent: React.FC<
           children: "Connect",
           variant: "default",
         };
-      case "authenticating":
-      case "connecting":
-        return { children: "Connecting...", variant: "default" };
       case "connected":
       case "ready":
         return { children: "Disconnect", variant: "destructive" };
+      case "disconnecting":
+        return { children: "Disconnecting...", variant: "destructive" };
+      case "error":
+        return { children: "Error", variant: "default" };
       default:
-        return {
-          children: "Connect",
-          variant: "active",
-        };
+        return { children: "Connecting...", variant: "default" };
     }
   };
 
@@ -115,7 +113,7 @@ export const ConnectButtonComponent: React.FC<
       variant={variant}
       size={size}
       disabled={!["disconnected", "ready"].includes(transportState)}
-      isLoading={!["disconnected", "ready"].includes(transportState)}
+      isLoading={!["disconnected", "ready", "error"].includes(transportState)}
       className={cn(className, passedClassName)}
     >
       {children}
