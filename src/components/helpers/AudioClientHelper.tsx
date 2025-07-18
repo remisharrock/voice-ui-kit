@@ -16,19 +16,55 @@ import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
 import { cloneElement, isValidElement, useEffect, useState } from "react";
 import { ThemeProvider } from "../ThemeProvider";
 
+/**
+ * Props for the AudioClientHelper component.
+ */
 export interface AppProps {
+  /** Connection parameters for the Pipecat client */
   connectParams: TransportConnectionParams | ConnectionEndpoint;
+  /** Type of transport to use for the connection */
   transportType: "smallwebrtc" | "daily";
+  /** Optional configuration options for the Pipecat client */
   clientOptions?: PipecatClientOptions;
+  /** Child components to render with the client context */
   children: React.ReactNode;
 }
 
+/**
+ * Props that are passed to child components by the AudioClientHelper.
+ */
 export interface HelperChildProps {
+  /** Function to initiate a connection to the session */
   handleConnect?: () => Promise<void>;
+  /** Function to disconnect from the current session */
   handleDisconnect?: () => Promise<void>;
+  /** Error message if connection fails */
   error?: string;
 }
 
+/**
+ * AudioClientHelper component that provides a configured Pipecat client with audio capabilities.
+ *
+ * This component:
+ * - Initializes a Pipecat client with the specified transport type
+ * - Provides connection and disconnection handlers
+ * - Wraps children in the necessary providers (ThemeProvider, PipecatClientProvider)
+ * - Handles error states and loading states
+ * - Automatically disconnects the client when unmounting
+ *
+ * @param props - Configuration for the audio client including connection params and transport type
+ * @returns A provider component that wraps children with client context and handlers
+ *
+ * @example
+ * ```tsx
+ * <AudioClientHelper
+ *   connectParams={...}
+ *   transportType="daily"
+ * >
+ *   <YourComponent />
+ * </AudioClientHelper>
+ * ```
+ */
 export const AudioClientHelper = ({
   connectParams,
   transportType,
@@ -38,6 +74,10 @@ export const AudioClientHelper = ({
   const [client, setClient] = useState<PipecatClient | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  /**
+   * Initializes the Pipecat client with the specified transport type.
+   * Creates a new client instance when transport type or connection params change.
+   */
   useEffect(() => {
     let transport: DailyTransport | SmallWebRTCTransport;
     switch (transportType) {
@@ -66,6 +106,11 @@ export const AudioClientHelper = ({
     };
   }, [connectParams, transportType, clientOptions]);
 
+  /**
+   * Initiates a connection to the session using the configured client.
+   * Only allows connection from specific states (initialized, disconnected, error).
+   * Clears any previous errors and handles connection failures.
+   */
   const handleConnect = async () => {
     if (
       !client ||
@@ -85,11 +130,16 @@ export const AudioClientHelper = ({
     }
   };
 
+  /**
+   * Disconnects from the current session.
+   * Safely handles the case where no client is available.
+   */
   const handleDisconnect = async () => {
     if (!client) return;
     await client.disconnect();
   };
 
+  // Show loading state while client is being initialized
   if (!client) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -98,6 +148,10 @@ export const AudioClientHelper = ({
     );
   }
 
+  /**
+   * Clones child elements and injects the helper props (handleConnect, handleDisconnect, error).
+   * This allows child components to access the connection handlers and error state.
+   */
   const childrenWithProps = isValidElement(children)
     ? cloneElement(children, {
         handleConnect,
