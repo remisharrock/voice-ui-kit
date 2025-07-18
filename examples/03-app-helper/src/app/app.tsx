@@ -1,50 +1,18 @@
-import { usePipecatClientTransportState } from "@pipecat-ai/client-react";
 import {
-  Button,
   Card,
   CardContent,
   CardHeader,
+  ConnectButton,
   FullScreenContainer,
   HelperChildProps,
   InfoIcon,
 } from "@pipecat-ai/voice-ui-kit";
-import { useCallback, useMemo } from "react";
 
 export const App = ({
   handleConnect,
   handleDisconnect,
   error,
 }: HelperChildProps) => {
-  const state = usePipecatClientTransportState();
-
-  const buttonLabel = useMemo(() => {
-    switch (state) {
-      case "initializing":
-      case "initialized":
-        return "Initializing...";
-      case "authenticating":
-        return "Authenticating...";
-      case "connecting":
-      case "connected":
-        return "Connecting...";
-      case "ready":
-        return "Disconnect";
-      case "error":
-        return "Error";
-      case "disconnected":
-      default:
-        return "Try live chat";
-    }
-  }, [state]);
-
-  const handleButtonClick = useCallback(() => {
-    if (state === "disconnected") {
-      handleConnect?.();
-    } else {
-      handleDisconnect?.();
-    }
-  }, [state, handleConnect, handleDisconnect]);
-
   if (error) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -65,15 +33,11 @@ export const App = ({
     <FullScreenContainer>
       <div className="p-5">
         <div className="mx-auto max-w-xl bg-black 5 text-white p-12 rounded-2xl">
-          {state}
-          <Button
-            onClick={handleButtonClick}
+          <ConnectButton
             size="lg"
-            disabled={!["disconnected", "ready"].includes(state)}
-            isLoading={!["disconnected", "ready"].includes(state)}
-          >
-            {buttonLabel}
-          </Button>
+            onConnect={handleConnect}
+            onDisconnect={handleDisconnect}
+          />
         </div>
       </div>
     </FullScreenContainer>

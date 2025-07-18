@@ -1,13 +1,23 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
-import { usePipecatClientTransportState } from "@pipecat-ai/client-react";
 import { cn } from "@/lib/utils";
+import { type TransportState } from "@pipecat-ai/client-js";
+import { usePipecatClientTransportState } from "@pipecat-ai/client-react";
+import React from "react";
+import type { ButtonSize } from "../ui/buttonVariants";
+
+type StateContent = {
+  children: React.ReactNode;
+  variant: React.ComponentProps<typeof Button>["variant"];
+  className?: string;
+};
 
 export type ConnectButtonProps = {
   className?: string;
   onConnect?: () => void;
   onClick?: () => void;
   onDisconnect?: () => void;
+  size?: ButtonSize;
+  stateContent?: Record<TransportState, StateContent>;
 };
 
 export const ConnectButton: React.FC<ConnectButtonProps> = ({
@@ -15,16 +25,23 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
   onClick,
   onConnect,
   onDisconnect,
+  stateContent,
+  size = "default",
 }) => {
   const transportState = usePipecatClientTransportState();
 
   const getButtonProps = (): React.ComponentProps<typeof Button> => {
+    // Prioritize stateContent over default content
+    if (stateContent) {
+      return stateContent[transportState];
+    }
+
+    // Default content
     switch (transportState) {
       case "disconnected":
         return {
           children: "Connect",
           variant: "default",
-          className: "vkui:bg-green-600 vkui:hover:bg-green-700",
         };
       case "authenticating":
       case "connecting":
@@ -35,8 +52,7 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
       default:
         return {
           children: "Connect",
-          variant: "default",
-          className: "vkui:bg-green-600 vkui:hover:bg-green-700",
+          variant: "active",
         };
     }
   };
@@ -54,10 +70,12 @@ export const ConnectButton: React.FC<ConnectButtonProps> = ({
 
   return (
     <Button
-      className={cn(className, passedClassName)}
       onClick={handleClick}
       variant={variant}
-      disabled={transportState === "connecting"}
+      size={size}
+      disabled={!["disconnected", "ready"].includes(transportState)}
+      isLoading={!["disconnected", "ready"].includes(transportState)}
+      className={cn(className, passedClassName)}
     >
       {children}
     </Button>

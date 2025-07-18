@@ -9,6 +9,8 @@ export const buttonVariants = cva(
           "vkui:bg-primary vkui:text-primary-foreground vkui:hover:bg-primary/90 vkui:border vkui:border-transparent",
         destructive:
           "vkui:bg-destructive vkui:text-white vkui:hover:bg-destructive/90 vkui:focus-visible:ring-destructive/20 vkui:dark:focus-visible:ring-destructive/40 vkui:dark:bg-destructive/60",
+        active:
+          "vkui:bg-active vkui:text-active-foreground vkui:hover:bg-active/90 vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40 vkui:dark:bg-active/60",
         outline:
           "vkui:text-foreground vkui:border vkui:bg-background vkui:hover:bg-accent vkui:dark:bg-input/30 vkui:dark:border-input vkui:dark:hover:bg-input/50 vkui:focus-visible:border-ring",
         secondary:
