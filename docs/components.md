@@ -1,9 +1,9 @@
 # Components
 
 
-### ConnectButton
+## [ConnectButton](../src/components/elements/ConnectButton.tsx)
 
-Button that updates based on transport state. 
+Button that updates contextually based on the current transport state. 
 
 **Optional props**
 
@@ -34,7 +34,7 @@ Button that updates based on transport state.
 ```
 
 
-### UserAudioControl
+## UserAudioControl
 
 ...
 
