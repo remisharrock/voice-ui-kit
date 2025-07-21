@@ -10,6 +10,7 @@ export function Button({
   className,
   variant,
   size,
+  state,
   isIcon,
   isLoading = false,
   asChild = false,
@@ -25,7 +26,9 @@ export function Button({
     return (
       <Comp
         data-slot="button"
-        className={cn(buttonVariants({ variant, size, isIcon, className }))}
+        className={cn(
+          buttonVariants({ variant, size, state, isIcon, className }),
+        )}
         {...props}
         disabled
       >
@@ -38,7 +41,9 @@ export function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, isIcon, className }))}
+      className={cn(
+        buttonVariants({ variant, size, state, isIcon, className }),
+      )}
       {...props}
     />
   );

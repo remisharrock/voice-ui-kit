@@ -80,7 +80,6 @@ export const ConnectButtonComponent: React.FC<
           children: "Connect",
           variant: "default",
         };
-      case "connected":
       case "ready":
         return { children: "Disconnect", variant: "destructive" };
       case "disconnecting":
@@ -100,7 +99,7 @@ export const ConnectButtonComponent: React.FC<
    */
   const handleClick = () => {
     onClick?.();
-    if (transportState === "connected") {
+    if (["ready", "connected"].includes(transportState)) {
       onDisconnect?.();
     } else {
       onConnect?.();

@@ -33,6 +33,11 @@ export const buttonVariants = cva(
         "icon-xs":
           "vkui:h-6 vkui:w-6 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-3",
       },
+      state: {
+        default: "",
+        active: "",
+        inactive: "",
+      },
       isIcon: {
         true: "",
         false: "",
@@ -63,10 +68,21 @@ export const buttonVariants = cva(
         className:
           "vkui:size-12 vkui:rounded-xl vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
       },
+      {
+        variant: "default",
+        state: "active",
+        className: "vkui:bg-active vkui:text-active-foreground",
+      },
+      {
+        variant: "default",
+        state: "inactive",
+        className: "vkui:bg-inactive vkui:text-inactive-foreground",
+      },
     ],
     defaultVariants: {
       variant: "default",
       size: "default",
+      state: "default",
       isIcon: false,
     },
   },
@@ -90,5 +106,6 @@ export const buttonVariantOptions = [
   "destructive",
 ] as const;
 export const buttonSizeOptions = ["default", "sm", "lg", "xl"] as const;
+export const buttonStateOptions = ["default", "active", "inactive"] as const;
 
 export default buttonVariants;
