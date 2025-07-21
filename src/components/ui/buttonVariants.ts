@@ -71,12 +71,38 @@ export const buttonVariants = cva(
       {
         variant: "default",
         state: "active",
-        className: "vkui:bg-active vkui:text-active-foreground",
+        className:
+          "vkui:bg-active vkui:text-active-foreground vkui:hover:bg-active/90 vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40",
       },
       {
         variant: "default",
         state: "inactive",
-        className: "vkui:bg-inactive vkui:text-inactive-foreground",
+        className:
+          "vkui:bg-inactive vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
+      },
+      {
+        variant: "secondary",
+        state: "active",
+        className:
+          "vkui:bg-active vkui:text-active-foreground vkui:hover:bg-active/90 vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40 vkui:focus-visible:border-active",
+      },
+      {
+        variant: "secondary",
+        state: "inactive",
+        className:
+          "vkui:bg-inactive vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40 vkui:focus-visible:border-inactive",
+      },
+      {
+        variant: "outline",
+        state: "active",
+        className:
+          "vkui:bg-active-accent vkui:text-active vkui:border-active vkui:dark:bg-active-accent vkui:dark:border-active vkui:focus-visible:border-active vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40",
+      },
+      {
+        variant: "outline",
+        state: "inactive",
+        className:
+          "vkui:bg-inactive-accent vkui:text-inactive vkui:border-inactive vkui:dark:bg-inactive-accent vkui:dark:border-inactive vkui:focus-visible:border-inactive vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
       },
     ],
     defaultVariants: {
@@ -94,6 +120,9 @@ export type ButtonVariant = NonNullable<
 export type ButtonSize = NonNullable<
   Parameters<typeof buttonVariants>[0]
 >["size"];
+export type ButtonState = NonNullable<
+  Parameters<typeof buttonVariants>[0]
+>["state"];
 
 export const buttonVariantOptions = [
   "default",

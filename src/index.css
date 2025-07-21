@@ -42,7 +42,7 @@
   --color-active-foreground: oklch(97.9% 0.021 166.113);
   --color-active-ring: oklch(69.6% 0.17 162.48 / 20%);
   --color-active-accent: oklch(69.6% 0.17 162.48 / 10%);
-  --color-inactive: oklch(57.7% 0.245 27.325);
+  --color-inactive: oklch(0.7022 0.1892 22.23);
   --color-inactive-foreground: oklch(97.1% 0.013 17.38);
   --color-inactive-ring: oklch(57.7% 0.245 27.325 / 20%);
   --color-inactive-accent: oklch(57.7% 0.245 27.325 / 10%);
@@ -77,14 +77,14 @@
   --vkui-color-mute-foreground: oklch(97% 0.05 27.325);
 
   /* VKUI */
-  --vkui-color-active: oklch(79.2% 0.209 151.711);
-  --vkui-color-active-foreground: oklch(98.2% 0.018 155.826);
-  --vkui-color-active-ring: oklch(79.2% 0.209 151.711 / 40%);
-  --vkui-color-active-accent: oklch(79.2% 0.209 151.711 / 20%);
-  --vkui-color-inactive: oklch(57.7% 0.245 27.325);
-  --vkui-color-inactive-foreground: oklch(97.1% 0.013 17.38);
-  --vkui-color-inactive-ring: oklch(57.7% 0.245 27.325 / 40%);
-  --vkui-color-inactive-accent: oklch(57.7% 0.245 27.325 / 20%);
+  --vkui-color-active: oklch(0.7019 0.15768 160.4375);
+  --vkui-color-active-foreground: oklch(0.9793 0.0207 166.11);
+  --vkui-color-active-ring: oklch(0.7019 0.15768 160.4375 / 40%);
+  --vkui-color-active-accent: oklch(0.7019 0.15768 160.4375 / 20%);
+  --vkui-color-inactive: oklch(0.7022 0.1892 22.23);
+  --vkui-color-inactive-foreground: oklch(0.9705 0.0129 17.38);
+  --vkui-color-inactive-ring: oklch(0.7022 0.1892 22.23 / 20%);
+  --vkui-color-inactive-accent: oklch(0.7022 0.1892 22.23 / 10%);
   --vkui-color-chart-1: oklch(0.488 0.243 264.376);
   --vkui-color-chart-2: oklch(0.696 0.17 162.48);
   --vkui-color-chart-3: oklch(0.769 0.188 70.08);
