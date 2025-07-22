@@ -1,5 +1,5 @@
 @import "tailwindcss" prefix(vkui);
-@import "tw-animate-css";
+@import "tw-animate-css" prefix(vkui);
 
 @custom-variant dark (&:is(.vkui\:dark *));
 
