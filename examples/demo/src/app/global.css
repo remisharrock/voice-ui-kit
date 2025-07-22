@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@import "@pipecat-ai/voice-ui-kit/styles";
+
+body {
+  font-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

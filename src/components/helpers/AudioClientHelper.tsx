@@ -1,12 +1,10 @@
 "use client";
 
-import { LoaderIcon } from "@/icons";
 import {
   type ConnectionEndpoint,
   PipecatClient,
   type PipecatClientOptions,
   type TransportConnectionParams,
-  type TransportState,
 } from "@pipecat-ai/client-js";
 import {
   PipecatClientAudio,
@@ -14,7 +12,7 @@ import {
 } from "@pipecat-ai/client-react";
 import { DailyTransport } from "@pipecat-ai/daily-transport";
 import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
-import { cloneElement, isValidElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeProvider } from "../ThemeProvider";
 
 /**
@@ -27,8 +25,13 @@ export interface AppProps {
   transportType: "smallwebrtc" | "daily";
   /** Optional configuration options for the Pipecat client */
   clientOptions?: PipecatClientOptions;
-  /** Child components to render with the client context */
-  children: React.ReactNode;
+  /**
+   * Render prop function that receives helper props and returns React nodes.
+   *
+   * @param props - HelperChildProps including connection handlers, loading, and error state
+   * @returns React.ReactNode
+   */
+  children: (props: HelperChildProps) => React.ReactNode;
 }
 
 /**
@@ -39,10 +42,10 @@ export interface HelperChildProps {
   handleConnect?: () => Promise<void>;
   /** Function to disconnect from the current session */
   handleDisconnect?: () => Promise<void>;
-  /** Current transport state */
-  transportState?: TransportState;
+  /** Loading state */
+  loading?: boolean;
   /** Error message if connection fails */
-  error?: string;
+  error?: string | null;
 }
 
 /**
@@ -64,7 +67,14 @@ export interface HelperChildProps {
  *   connectParams={...}
  *   transportType="daily"
  * >
- *   <YourComponent />
+ *   {({ handleConnect, handleDisconnect, loading, error }) => (
+ *     <YourComponent
+ *       handleConnect={handleConnect}
+ *       handleDisconnect={handleDisconnect}
+ *       loading={loading}
+ *       error={error}
+ *     />
+ *   )}
  * </AudioClientHelper>
  * ```
  */
@@ -142,30 +152,22 @@ export const AudioClientHelper = ({
     await client.disconnect();
   };
 
-  // Show loading state while client is being initialized
-  if (!client) {
-    return (
-      <LoaderIcon className="vkui:animate-spin vkui:opacity-50" size={32} />
-    );
-  }
-
   /**
-   * Clones child elements and injects the helper props (handleConnect, handleDisconnect, error).
-   * This allows child components to access the connection handlers and error state.
+   * Show loading state while client is being initialized.
    */
-  const childrenWithProps = isValidElement(children)
-    ? cloneElement(children, {
-        handleConnect,
-        handleDisconnect,
-        transportState: client.state,
-        error,
-      } as HelperChildProps)
-    : children;
+  if (!client) {
+    return children({ loading: true, error: null });
+  }
 
   return (
     <ThemeProvider>
       <PipecatClientProvider client={client!}>
-        {childrenWithProps}
+        {children({
+          handleConnect,
+          handleDisconnect,
+          loading: false,
+          error,
+        })}
         <PipecatClientAudio />
       </PipecatClientProvider>
     </ThemeProvider>

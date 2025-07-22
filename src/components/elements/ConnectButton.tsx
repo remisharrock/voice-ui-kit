@@ -37,6 +37,8 @@ export type ConnectButtonProps = {
   onDisconnect?: () => void;
   /** Size of the button component */
   size?: ButtonSize;
+  /** Default variant of the button component */
+  defaultVariant?: ButtonVariant;
   /** Custom state content configuration for different transport states */
   stateContent?: ConnectButtonStateContent;
 };
@@ -59,6 +61,7 @@ export const ConnectButtonComponent: React.FC<
   onDisconnect,
   stateContent,
   size = "default",
+  defaultVariant = "default",
   transportState,
 }) => {
   /**
@@ -75,19 +78,25 @@ export const ConnectButtonComponent: React.FC<
 
     // Default content based on transport state
     switch (transportState) {
+      case "initialized":
+      case "initializing":
       case "disconnected":
         return {
           children: "Connect",
-          variant: "default",
+          variant: defaultVariant,
         };
       case "ready":
-        return { children: "Disconnect", variant: "destructive" };
+        return {
+          children: "Disconnect",
+          variant: defaultVariant,
+          className: "vkui:text-destructive",
+        };
       case "disconnecting":
-        return { children: "Disconnecting...", variant: "destructive" };
+        return { children: "Disconnecting...", variant: defaultVariant };
       case "error":
-        return { children: "Error", variant: "default" };
+        return { children: "Error", variant: defaultVariant };
       default:
-        return { children: "Connecting...", variant: "default" };
+        return { children: "Connecting...", variant: defaultVariant };
     }
   };
 
@@ -111,8 +120,14 @@ export const ConnectButtonComponent: React.FC<
       onClick={handleClick}
       variant={variant}
       size={size}
-      disabled={!["disconnected", "ready"].includes(transportState)}
-      isLoading={!["disconnected", "ready", "error"].includes(transportState)}
+      disabled={
+        !["disconnected", "initialized", "ready"].includes(transportState)
+      }
+      isLoading={
+        !["disconnected", "initialized", "ready", "error"].includes(
+          transportState,
+        )
+      }
       className={cn(className, passedClassName)}
     >
       {children}

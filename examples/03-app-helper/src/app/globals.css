@@ -1,8 +1,0 @@
-@import "tailwindcss";
-
-@theme static {
-  --vkui-font-sans: "Lexend", sans-serif;
-
-  --vkui-color-primary: #ff0000;
-  --vkui-color-primary-foreground: #ffffff;
-}

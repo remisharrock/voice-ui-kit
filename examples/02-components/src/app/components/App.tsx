@@ -14,6 +14,7 @@ import {
   Card,
   CardContent,
   ConnectButton,
+  ControlBar,
   LoaderIcon,
   PipecatLogo,
   TranscriptOverlay,
@@ -21,7 +22,6 @@ import {
 } from "@pipecat-ai/voice-ui-kit";
 import { PlasmaVisualizer } from "@pipecat-ai/voice-ui-kit/webgl";
 import { useEffect, useRef, useState } from "react";
-import { Controls } from "./Controls";
 
 export interface AppProps {
   connectParams: TransportConnectionParams | ConnectionEndpoint;
@@ -156,7 +156,7 @@ export const App = ({ connectParams, transportType }: AppProps) => {
                 </div>
               )}
               {state === "connected" && (
-                <Controls onEndSession={() => client?.disconnect()} />
+                <ControlBar onEndSession={() => client?.disconnect()} />
               )}
             </main>
           </div>
