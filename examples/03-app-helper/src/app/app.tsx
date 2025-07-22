@@ -1,45 +1,20 @@
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  ConnectButton,
-  FullScreenContainer,
+  ControlBar,
   HelperChildProps,
-  InfoIcon,
+  TranscriptOverlay,
 } from "@pipecat-ai/voice-ui-kit";
+import { PlasmaVisualizer } from "@pipecat-ai/voice-ui-kit/webgl";
 
-export const App = ({
-  handleConnect,
-  handleDisconnect,
-  error,
-}: HelperChildProps) => {
-  if (error) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <Card className="vkui:shadow-long min-w-md gap-0" destructive>
-          <CardHeader className="vkui:font-semibold flex flex-row items-center">
-            <InfoIcon size={24} />
-            An Error Occurred
-          </CardHeader>
-          <CardContent>
-            <p className="vkui:text-sm vkui:text-balanced">{error}</p>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
+export const App = ({ handleConnect, handleDisconnect }: HelperChildProps) => {
   return (
-    <FullScreenContainer>
-      <div className="p-5">
-        <div className="mx-auto max-w-xl bg-black 5 text-white p-12 rounded-2xl">
-          <ConnectButton
-            size="lg"
-            onConnect={handleConnect}
-            onDisconnect={handleDisconnect}
-          />
-        </div>
+    <main className="relative flex flex-col gap-0 h-full w-full justify-end items-center">
+      <PlasmaVisualizer />
+      <div className="absolute inset-0 flex flex-col gap-4 items-center justify-center">
+        <TranscriptOverlay participant="remote" className="max-w-md" />
       </div>
-    </FullScreenContainer>
+      <div className="relative z-10 h-1/2 flex flex-col w-full items-center justify-center animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <ControlBar onConnect={handleConnect} onDisconnect={handleDisconnect} />
+      </div>
+    </main>
   );
 };

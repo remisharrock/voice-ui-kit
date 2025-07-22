@@ -1,18 +1,37 @@
 "use client";
 
-import { AudioClientHelper } from "@pipecat-ai/voice-ui-kit";
+import {
+  AudioClientHelper,
+  ErrorCard,
+  FullScreenContainer,
+  LoaderSpinner,
+} from "@pipecat-ai/voice-ui-kit";
 
 import { App } from "./app";
 
 export default function Home() {
   return (
-    <AudioClientHelper
-      transportType="daily"
-      connectParams={{
-        endpoint: "/api/connect",
-      }}
-    >
-      <App />
-    </AudioClientHelper>
+    <FullScreenContainer>
+      <AudioClientHelper
+        transportType="daily"
+        connectParams={{
+          endpoint: "/api/connect",
+        }}
+      >
+        {({ handleConnect, handleDisconnect, loading, error }) =>
+          loading ? (
+            <LoaderSpinner />
+          ) : error ? (
+            <ErrorCard error={error} />
+          ) : (
+            <App
+              handleConnect={handleConnect}
+              handleDisconnect={handleDisconnect}
+              error={error}
+            />
+          )
+        }
+      </AudioClientHelper>
+    </FullScreenContainer>
   );
 }
