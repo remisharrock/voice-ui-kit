@@ -4,3 +4,5 @@ export {
   type PlasmaProps,
   type PlasmaRef,
 } from "./Plasma";
+
+export { PlasmaVisualizer } from "./PlasmaVisualizer";
