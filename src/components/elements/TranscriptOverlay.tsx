@@ -48,7 +48,9 @@ export const TranscriptOverlayComponent = ({
     <div
       className={cn(
         transcriptOverlayVariants({ size }),
-        turnEnd ? "animate-out fade-out duration-1000 fill-mode-forwards" : "",
+        turnEnd
+          ? "vkui:animate-out vkui:fade-out vkui:duration-1000 vkui:fill-mode-forwards"
+          : "",
         className,
       )}
     >
@@ -62,7 +64,7 @@ export const TranscriptOverlay = ({
   className,
   size = "default",
 }: Props) => {
-  const [transcript, setTranscript] = useState<string>("");
+  const [transcript, setTranscript] = useState<string[]>([]);
   const [turnEnd, setIsTurnEnd] = useState(false);
 
   useRTVIClientEvent(
@@ -74,11 +76,11 @@ export const TranscriptOverlay = ({
         }
 
         if (turnEnd) {
-          setTranscript("");
+          setTranscript([]);
           setIsTurnEnd(false);
         }
 
-        setTranscript((prev) => prev + event.text + " ");
+        setTranscript((prev) => [...prev, event.text]);
       },
       [turnEnd, participant],
     ),
@@ -90,10 +92,23 @@ export const TranscriptOverlay = ({
       if (participant === "local") {
         return;
       }
-
       setIsTurnEnd(true);
     }, [participant]),
   );
+
+  useRTVIClientEvent(
+    RTVIEvent.BotTtsStopped,
+    useCallback(() => {
+      if (participant === "local") {
+        return;
+      }
+      setIsTurnEnd(true);
+    }, [participant]),
+  );
+
+  if (transcript.length === 0) {
+    return null;
+  }
 
   return (
     <TranscriptOverlayComponent
@@ -101,7 +116,7 @@ export const TranscriptOverlay = ({
       turnEnd={turnEnd}
       className={className}
     >
-      <TranscriptOverlayPartComponent text={transcript.trim()} />
+      <TranscriptOverlayPartComponent text={transcript.join(" ")} />
     </TranscriptOverlayComponent>
   );
 };

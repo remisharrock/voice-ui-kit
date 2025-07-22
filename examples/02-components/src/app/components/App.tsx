@@ -16,6 +16,7 @@ import {
   ConnectButton,
   LoaderIcon,
   PipecatLogo,
+  TranscriptOverlay,
   XIcon,
 } from "@pipecat-ai/voice-ui-kit";
 import { PlasmaVisualizer } from "@pipecat-ai/voice-ui-kit/webgl";
@@ -147,7 +148,12 @@ export const App = ({ connectParams, transportType }: AppProps) => {
                 </div>
               )}
               {state === "connected" && (
-                <div className="absolute w-full h-full flex items-center justify-center"></div>
+                <div className="absolute w-full h-full flex items-center justify-center">
+                  <TranscriptOverlay
+                    participant="remote"
+                    className="vkui:max-w-md"
+                  />
+                </div>
               )}
               {state === "connected" && (
                 <Controls onEndSession={() => client?.disconnect()} />
