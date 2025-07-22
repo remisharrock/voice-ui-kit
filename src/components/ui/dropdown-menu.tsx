@@ -45,7 +45,7 @@ function DropdownMenuContent({
         data-slot="dropdown-menu-content"
         sideOffset={sideOffset}
         className={cn(
-          "vkui:bg-popover vkui:text-popover-foreground vkui:data-[state=open]:animate-in vkui:data-[state=closed]:animate-out vkui:data-[state=closed]:fade-out-0 vkui:data-[state=open]:fade-in-0 vkui:data-[state=closed]:zoom-out-95 vkui:data-[state=open]:zoom-in-95 vkui:data-[side=bottom]:slide-in-from-top-2 vkui:data-[side=left]:slide-in-from-right-2 vkui:data-[side=right]:slide-in-from-left-2 vkui:data-[side=top]:slide-in-from-bottom-2 vkui:z-50 vkui:max-h-(--radix-dropdown-menu-content-available-height) vkui:min-w-[8rem] vkui:origin-(--radix-dropdown-menu-content-transform-origin) vkui:overflow-x-hidden vkui:overflow-y-auto vkui:rounded-md vkui:border vkui:p-1 vkui:shadow-md",
+          "vkui:bg-popover vkui:text-popover-foreground vkui:data-[state=open]:animate-in vkui:data-[state=closed]:animate-out vkui:data-[state=closed]:fade-out-0 vkui:data-[state=open]:fade-in-0 vkui:data-[state=closed]:zoom-out-95 vkui:data-[state=open]:zoom-in-95 vkui:data-[side=bottom]:slide-in-from-top-2 vkui:data-[side=left]:slide-in-from-right-2 vkui:data-[side=right]:slide-in-from-left-2 vkui:data-[side=top]:slide-in-from-bottom-2 vkui:z-50 vkui:max-h-(--radix-dropdown-menu-content-available-height) vkui:min-w-[8rem] vkui:origin-(--radix-dropdown-menu-content-transform-origin) vkui:overflow-x-hidden vkui:overflow-y-auto vkui:rounded-element vkui:border vkui:p-1 vkui:shadow-short",
           className,
         )}
         {...props}
@@ -96,6 +96,7 @@ function DropdownMenuCheckboxItem({
       data-slot="dropdown-menu-checkbox-item"
       className={cn(
         "vkui:focus:bg-accent vkui:focus:text-accent-foreground vkui:relative vkui:flex vkui:cursor-default vkui:items-center vkui:gap-2 vkui:rounded-sm vkui:py-1.5 vkui:pr-2 vkui:pl-8 vkui:text-sm vkui:outline-hidden vkui:select-none vkui:data-[disabled]:pointer-events-none vkui:data-[disabled]:opacity-50 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 vkui:[&_svg:not([class*='size-'])]:size-4",
+        checked && "vkui:font-medium vkui:bg-accent",
         className,
       )}
       checked={checked}
@@ -103,7 +104,7 @@ function DropdownMenuCheckboxItem({
     >
       <span className="vkui:pointer-events-none vkui:absolute vkui:left-2 vkui:flex size-3.5 vkui:items-center vkui:justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
-          <CheckIcon className="size-4" />
+          <CheckIcon />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -131,7 +132,7 @@ function DropdownMenuRadioItem({
     <DropdownMenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
       className={cn(
-        "vkui:focus:bg-accent vkui:focus:text-accent-foreground vkui:relative vkui:flex vkui:cursor-default vkui:items-center vkui:gap-2 vkui:rounded-sm vkui:py-1.5 vkui:pr-2 vkui:pl-8 vkui:text-sm vkui:outline-hidden vkui:select-none vkui:data-[disabled]:pointer-events-none vkui:data-[disabled]:opacity-50 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 vkui:[&_svg:not([class*='size-'])]:size-4",
+        "vkui:focus:bg-accent vkui:focus:text-accent-foreground vkui:relative vkui:flex vkui:cursor-default vkui:items-center vkui:gap-2 vkui:rounded-panel vkui:py-1.5 vkui:pr-2 vkui:pl-8 vkui:text-sm vkui:outline-hidden vkui:select-none vkui:data-[disabled]:pointer-events-none vkui:data-[disabled]:opacity-50 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 vkui:[&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}

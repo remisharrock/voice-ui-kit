@@ -8,12 +8,6 @@ import {
   type ButtonState,
   type ButtonVariant,
 } from "@/components/ui/buttonVariants";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { ChevronDownIcon, MicIcon, MicOffIcon } from "@/icons";
 import { cn } from "@/lib/utils";
 import { VoiceVisualizer } from "@/visualizers";
@@ -24,6 +18,7 @@ import {
   usePipecatClientMediaDevices,
 } from "@pipecat-ai/client-react";
 import { useEffect } from "react";
+import { DeviceDropDown } from "./DeviceDropDown";
 
 interface Props {
   variant?: ButtonVariant;
@@ -127,37 +122,29 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
         )}
       </Button>
       {!noDevicePicker && (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              className={cn(
-                "vkui:p-2! vkui:flex-none vkui:z-0",
-                classNames.dropdownMenuTrigger,
-              )}
-              variant={variant}
-              size={size}
-              isIcon
-              {...dropdownButtonProps}
-            >
-              <ChevronDownIcon size={16} />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            className={cn(classNames.dropdownMenuContent)}
+        <DeviceDropDown
+          menuLabel="Microphone device"
+          availableDevices={availableMics}
+          selectedDevice={selectedMic}
+          updateDevice={updateMic}
+          classNames={{
+            dropdownMenuContent: classNames.dropdownMenuContent,
+            dropdownMenuCheckboxItem: classNames.dropdownMenuCheckboxItem,
+          }}
+        >
+          <Button
+            className={cn(
+              "vkui:p-2! vkui:flex-none vkui:z-0",
+              classNames.dropdownMenuTrigger,
+            )}
+            variant={variant}
+            size={size}
+            isIcon
+            {...dropdownButtonProps}
           >
-            {availableMics?.map((mic) => (
-              <DropdownMenuCheckboxItem
-                key={mic.deviceId}
-                checked={selectedMic?.deviceId === mic.deviceId}
-                onCheckedChange={() => updateMic?.(mic.deviceId)}
-                className={cn(classNames.dropdownMenuCheckboxItem)}
-              >
-                {mic.label || `Mic ${mic.deviceId.slice(0, 5)}`}
-              </DropdownMenuCheckboxItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+            <ChevronDownIcon size={16} />
+          </Button>
+        </DeviceDropDown>
       )}
     </>
   );
