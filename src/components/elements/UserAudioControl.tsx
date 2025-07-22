@@ -2,7 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/buttongroup";
-import type { ButtonSize, ButtonVariant } from "@/components/ui/buttonVariants";
+import {
+  type ButtonSize,
+  type ButtonState,
+  type ButtonVariant,
+} from "@/components/ui/buttonVariants";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -11,21 +15,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronDownIcon, MicIcon, MicOffIcon } from "@/icons";
 import { cn } from "@/lib/utils";
+import { VoiceVisualizer } from "@/visualizers";
 import {
   type OptionalMediaDeviceInfo,
   PipecatClientMicToggle,
   usePipecatClient,
   usePipecatClientMediaDevices,
-  VoiceVisualizer,
 } from "@pipecat-ai/client-react";
 import { useEffect } from "react";
 
 interface Props {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  state?: ButtonState;
   buttonProps?: Partial<React.ComponentProps<typeof Button>>;
   classNames?: {
-    container?: string;
     button?: string;
     buttongroup?: string;
     dropdownMenuTrigger?: string;
@@ -36,15 +40,19 @@ interface Props {
   noDevicePicker?: boolean;
   noVisualizer?: boolean;
   visualizerProps?: Partial<React.ComponentProps<typeof VoiceVisualizer>>;
+  noAudio?: boolean;
   noAudioText?: string | null;
 }
 
 interface ComponentProps extends Props {
+  onClick?: () => void;
   isMicEnabled?: boolean;
-  availableMics: MediaDeviceInfo[];
-  selectedMic: OptionalMediaDeviceInfo;
-  updateMic: (deviceId: string) => void;
+  availableMics?: MediaDeviceInfo[];
+  selectedMic?: OptionalMediaDeviceInfo;
+  updateMic?: (deviceId: string) => void;
 }
+
+const btnClasses = "vkui:flex-1 vkui:w-full vkui:z-10 vkui:justify-start";
 
 export const UserAudioComponent: React.FC<ComponentProps> = ({
   variant = "secondary",
@@ -56,95 +64,112 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
   noVisualizer = false,
   visualizerProps = {},
   isMicEnabled = false,
+  state,
   availableMics,
   selectedMic,
   updateMic,
+  noAudio,
   noAudioText = "Audio disabled",
+  onClick,
 }) => {
-  if (!isMicEnabled) {
+  if (noAudio || buttonProps?.isLoading) {
     return (
       <Button
         variant={variant}
         size={size}
         {...buttonProps}
         disabled
-        className={cn(classNames.container)}
+        className={cn(
+          btnClasses,
+          buttonProps?.isLoading && "vkui:justify-center",
+          classNames.button,
+        )}
       >
-        <MicOffIcon />
-        {noAudioText}
+        {!buttonProps?.isLoading && (
+          <>
+            <span className="vkui:flex-1">{noAudioText}</span>
+            <MicOffIcon />
+          </>
+        )}
       </Button>
     );
   }
 
-  return (
-    <div
-      className={cn("vkui:flex vkui:flex-col vkui:gap-2", classNames.container)}
-    >
-      <ButtonGroup className={cn("vkui:w-full", classNames.buttongroup)}>
-        <PipecatClientMicToggle>
-          {({ isMicEnabled, onClick }) => (
-            <Button
-              onClick={onClick}
-              className={cn(
-                "vkui:flex-1 vkui:justify-start",
-                classNames.button,
-              )}
-              variant={isMicEnabled ? variant : "inactive"}
-              size={size}
-              {...buttonProps}
-            >
-              {isMicEnabled ? <MicIcon /> : <MicOffIcon />}
-              {!noVisualizer && (
-                <VoiceVisualizer
-                  participantType="local"
-                  backgroundColor="transparent"
-                  barColor={isMicEnabled ? "#00bc7d" : "#999999"}
-                  barCount={10}
-                  barGap={2}
-                  barMaxHeight={20}
-                  barOrigin="center"
-                  barWidth={3}
-                  {...visualizerProps}
-                />
-              )}
-            </Button>
-          )}
-        </PipecatClientMicToggle>
-        {!noDevicePicker && (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                className={cn(
-                  "vkui:border-s vkui:border-border vkui:p-2! vkui:flex-none",
-                  classNames.dropdownMenuTrigger,
-                )}
-                variant={variant}
-                size={size}
-                isIcon
-                {...dropdownButtonProps}
-              >
-                <ChevronDownIcon size={16} />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className={cn(classNames.dropdownMenuContent)}
-            >
-              {availableMics.map((mic) => (
-                <DropdownMenuCheckboxItem
-                  key={mic.deviceId}
-                  checked={selectedMic?.deviceId === mic.deviceId}
-                  onCheckedChange={() => updateMic(mic.deviceId)}
-                  className={cn(classNames.dropdownMenuCheckboxItem)}
-                >
-                  {mic.label || `Mic ${mic.deviceId.slice(0, 5)}`}
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+  const button = (
+    <>
+      <Button
+        onClick={onClick}
+        className={cn(btnClasses, classNames.button)}
+        variant={variant}
+        state={state || (isMicEnabled ? "default" : "inactive")}
+        size={size}
+        {...buttonProps}
+      >
+        {isMicEnabled ? <MicIcon /> : <MicOffIcon />}
+        {!noVisualizer && (
+          <VoiceVisualizer
+            participantType="local"
+            backgroundColor="transparent"
+            barCount={10}
+            barGap={2}
+            barMaxHeight={size === "lg" ? 24 : size === "xl" ? 36 : 20}
+            barOrigin="center"
+            barWidth={3}
+            className="vkui:mx-auto"
+            {...visualizerProps}
+          />
         )}
-      </ButtonGroup>
-    </div>
+      </Button>
+      {!noDevicePicker && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              className={cn(
+                "vkui:p-2! vkui:flex-none vkui:z-0",
+                classNames.dropdownMenuTrigger,
+              )}
+              variant={variant}
+              size={size}
+              isIcon
+              {...dropdownButtonProps}
+            >
+              <ChevronDownIcon size={16} />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="end"
+            className={cn(classNames.dropdownMenuContent)}
+          >
+            {availableMics?.map((mic) => (
+              <DropdownMenuCheckboxItem
+                key={mic.deviceId}
+                checked={selectedMic?.deviceId === mic.deviceId}
+                onCheckedChange={() => updateMic?.(mic.deviceId)}
+                className={cn(classNames.dropdownMenuCheckboxItem)}
+              >
+                {mic.label || `Mic ${mic.deviceId.slice(0, 5)}`}
+              </DropdownMenuCheckboxItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+    </>
+  );
+
+  if (noDevicePicker) {
+    return button;
+  }
+
+  return (
+    <ButtonGroup
+      className={cn(
+        "vkui:w-full",
+        variant !== "outline" && "vkui:gap-[2px]",
+        classNames.buttongroup,
+      )}
+    >
+      {button}
+    </ButtonGroup>
   );
 };
 
@@ -154,6 +179,7 @@ export const UserAudioControl: React.FC<Props> = ({ ...props }) => {
     usePipecatClientMediaDevices();
 
   const hasAudio = client?.isMicEnabled;
+  const loading = hasAudio === null;
 
   useEffect(() => {
     if (!client) return;
@@ -164,13 +190,23 @@ export const UserAudioControl: React.FC<Props> = ({ ...props }) => {
   }, [client]);
 
   return (
-    <UserAudioComponent
-      isMicEnabled={hasAudio}
-      availableMics={availableMics}
-      selectedMic={selectedMic}
-      updateMic={updateMic}
-      {...props}
-    />
+    <PipecatClientMicToggle>
+      {({ isMicEnabled, onClick }) => (
+        <UserAudioComponent
+          noAudio={!hasAudio}
+          onClick={onClick}
+          isMicEnabled={isMicEnabled}
+          availableMics={availableMics}
+          selectedMic={selectedMic}
+          updateMic={updateMic}
+          state={isMicEnabled ? "default" : "inactive"}
+          buttonProps={{
+            isLoading: loading,
+          }}
+          {...props}
+        />
+      )}
+    </PipecatClientMicToggle>
   );
 };
 
