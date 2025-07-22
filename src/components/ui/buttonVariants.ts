@@ -131,4 +131,39 @@ export const buttonVariantOptions = [
 export const buttonSizeOptions = ["default", "sm", "lg", "xl"] as const;
 export const buttonStateOptions = ["default", "active", "inactive"] as const;
 
+export const buttonAccentColorMap: Record<
+  (typeof buttonVariantOptions)[number],
+  Record<(typeof buttonStateOptions)[number], string>
+> = {
+  default: {
+    default: "--vkui-color-active",
+    inactive: "--vkui-color-inactive-foreground",
+    active: "--vkui-color-active",
+  },
+  secondary: {
+    default: "--vkui-color-active",
+    inactive: "--vkui-color-inactive-foreground",
+    active: "--vkui-color-active",
+  },
+  outline: {
+    default: "--vkui-color-active",
+    inactive: "--vkui-color-inactive",
+    active: "--vkui-color-active",
+  },
+  destructive: {
+    default: "--vkui-color-background",
+    inactive: "--vkui-color-background",
+    active: "--vkui-color-background",
+  },
+  ghost: {
+    default: "--vkui-color-active",
+    inactive: "--vkui-color-border",
+    active: "--vkui-color-active",
+  },
+  link: {
+    default: "--vkui-color-active",
+    inactive: "--vkui-color-inactive",
+    active: "--vkui-color-active",
+  },
+};
 export default buttonVariants;

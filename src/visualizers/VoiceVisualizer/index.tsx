@@ -31,6 +31,23 @@ export const VoiceVisualizer: React.FC<Props> = React.memo(
     className,
   }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const resolvedBarColorRef = useRef<string>("black");
+
+    // Resolve the color only when barColor changes
+    useEffect(() => {
+      function resolveColor(color: string) {
+        if (!color) return "black";
+        if (color.startsWith("--")) {
+          return (
+            getComputedStyle(document.documentElement)
+              .getPropertyValue(color)
+              .trim() || "black"
+          );
+        }
+        return color;
+      }
+      resolvedBarColorRef.current = resolveColor(barColor);
+    }, [barColor]);
 
     const track: MediaStreamTrack | null = usePipecatClientMediaTrack(
       "audio",
@@ -133,6 +150,8 @@ export const VoiceVisualizer: React.FC<Props> = React.memo(
 
         const adjustedCircleRadius = barWidth / 2;
 
+        const resolvedBarColor = resolvedBarColorRef.current;
+
         bands.forEach((band, i) => {
           const startIndex = getFrequencyBinIndex(band.startFreq);
           const endIndex = getFrequencyBinIndex(band.endFreq);
@@ -195,15 +214,15 @@ export const VoiceVisualizer: React.FC<Props> = React.memo(
             canvasCtx.moveTo(x + barWidth / 2, yTop);
             canvasCtx.lineTo(x + barWidth / 2, yBottom);
             canvasCtx.lineWidth = barWidth;
-            canvasCtx.strokeStyle = barColor;
+            canvasCtx.strokeStyle = resolvedBarColor;
             canvasCtx.stroke();
           } else {
-            drawInactiveCircle(adjustedCircleRadius, barColor, x, yTop);
+            drawInactiveCircle(adjustedCircleRadius, resolvedBarColor, x, yTop);
           }
         });
 
         if (!isActive) {
-          drawInactiveCircles(adjustedCircleRadius, barColor);
+          drawInactiveCircles(adjustedCircleRadius, resolvedBarColor);
         }
 
         requestAnimationFrame(drawSpectrum);
@@ -273,7 +292,6 @@ export const VoiceVisualizer: React.FC<Props> = React.memo(
       };
     }, [
       backgroundColor,
-      barColor,
       barCount,
       barGap,
       barLineCap,
@@ -281,6 +299,7 @@ export const VoiceVisualizer: React.FC<Props> = React.memo(
       barOrigin,
       barWidth,
       track,
+      barColor,
     ]);
 
     return (

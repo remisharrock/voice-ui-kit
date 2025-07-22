@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/buttongroup";
 import {
+  buttonAccentColorMap,
   type ButtonSize,
   type ButtonState,
   type ButtonVariant,
@@ -95,13 +96,17 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
     );
   }
 
+  const buttonState = state || (isMicEnabled ? "default" : "inactive");
+  const accentColor =
+    buttonAccentColorMap[variant || "default"]?.[buttonState] || "black";
+
   const button = (
     <>
       <Button
         onClick={onClick}
         className={cn(btnClasses, classNames.button)}
         variant={variant}
-        state={state || (isMicEnabled ? "default" : "inactive")}
+        state={buttonState}
         size={size}
         {...buttonProps}
       >
@@ -115,6 +120,7 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
             barMaxHeight={size === "lg" ? 24 : size === "xl" ? 36 : 20}
             barOrigin="center"
             barWidth={3}
+            barColor={accentColor}
             className="vkui:mx-auto"
             {...visualizerProps}
           />
