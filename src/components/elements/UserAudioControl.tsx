@@ -166,7 +166,7 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
   );
 };
 
-export const UserAudioControl: React.FC<Props> = ({ ...props }) => {
+export const UserAudioControl: React.FC<Props> = (props) => {
   const client = usePipecatClient();
   const { availableMics, selectedMic, updateMic } =
     usePipecatClientMediaDevices();

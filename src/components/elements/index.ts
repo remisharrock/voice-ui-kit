@@ -8,4 +8,4 @@ export * from "./PipecatLogo";
 export * from "./SessionInfo";
 export * from "./Thinking";
 export * from "./UserAudioControl";
-export * from "./UserVideo";
+export * from "./UserVideoControl";

@@ -5,8 +5,8 @@ import { ClientStatus } from "@/components/elements/ClientStatus";
 import ConnectButton from "@/components/elements/ConnectButton";
 import PipecatLogo from "@/components/elements/PipecatLogo";
 import { SessionInfo } from "@/components/elements/SessionInfo";
-import UserAudio from "@/components/elements/UserAudioControl";
-import UserVideo from "@/components/elements/UserVideo";
+import UserAudioControl from "@/components/elements/UserAudioControl";
+import UserVideoControl from "@/components/elements/UserVideoControl";
 import { BotAudioPanel } from "@/components/panels/BotAudioPanel";
 import { BotVideoPanel } from "@/components/panels/BotVideoPanel";
 import ConversationPanel from "@/components/panels/ConversationPanel";
@@ -366,8 +366,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                               className="vkui:flex vkui:flex-col vkui:gap-2"
                               side="left"
                             >
-                              {!noUserAudio && <UserAudio />}
-                              {!noUserVideo && <UserVideo />}
+                              {!noUserAudio && <UserAudioControl />}
+                              {!noUserVideo && <UserVideoControl />}
                               {!noAudioOutput && <AudioOutput />}
                             </PopoverContent>
                           </Popover>

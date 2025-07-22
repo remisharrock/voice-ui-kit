@@ -1,8 +1,8 @@
 import AudioOutput from "@/components/elements/AudioOutput";
 import { ClientStatus } from "@/components/elements/ClientStatus";
 import { SessionInfo } from "@/components/elements/SessionInfo";
-import UserAudio from "@/components/elements/UserAudioControl";
-import UserVideo from "@/components/elements/UserVideo";
+import UserAudioControl from "@/components/elements/UserAudioControl";
+import UserVideoControl from "@/components/elements/UserVideoControl";
 import {
   Panel,
   PanelContent,
@@ -55,8 +55,8 @@ export const InfoPanel: React.FC<Props> = ({
             <PanelTitle>Devices</PanelTitle>
           </PanelHeader>
           <PanelContent>
-            {!noUserAudio && <UserAudio />}
-            {!noUserVideo && <UserVideo />}
+            {!noUserAudio && <UserAudioControl />}
+            {!noUserVideo && <UserVideoControl />}
             {!noAudioOutput && <AudioOutput />}
           </PanelContent>
         </>
