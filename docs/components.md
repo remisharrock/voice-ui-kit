@@ -73,32 +73,23 @@ Helper component that provides a configured Pipecat client with audio capabiliti
 | `connectParams` | `TransportConnectionParams \| ConnectionEndpoint` | Connection parameters for the Pipecat client |
 | `transportType` | `"smallwebrtc" \| "daily"` | Type of transport to use for the connection |
 | `clientOptions?` | `PipecatClientOptions` | Optional configuration options for the Pipecat client |
-| `children?` | `React.ReactNode` | Child components to render with the client context |
+| `children` | `(props: HelperChildProps) => React.ReactNode` | Render prop function that receives connection helpers, loading, and error state |
 
-**Child Component Props**
+**Child Render Prop Arguments**
 
-The AudioClientHelper injects the following props into its children:
+The function passed as `children` receives the following props:
 
 | Prop | Type | Description |
 |------|------|-------------|
 | `handleConnect` | `() => Promise<void>` | Function to initiate a connection to the session |
 | `handleDisconnect` | `() => Promise<void>` | Function to disconnect from the current session |
-| `error` | `string` | Error message if connection fails |
+| `loading` | `boolean` | Indicates if the client is still initializing |
+| `error` | `string \| null` | Error message if connection fails |
 
 **Example:**
 
 ```tsx
 import { AudioClientHelper } from "@pipecat-ai/voice-ui-kit";
-
-const MyApp = ({ handleConnect, handleDisconnect, error }) => {
-  return (
-    <div>
-      {error && <div>Error: {error}</div>}
-      <button onClick={handleConnect}>Connect</button>
-      <button onClick={handleDisconnect}>Disconnect</button>
-    </div>
-  );
-};
 
 <AudioClientHelper
     connectParams={{
@@ -106,7 +97,14 @@ const MyApp = ({ handleConnect, handleDisconnect, error }) => {
     }}
     transportType="daily"
 >
-    <MyApp />
+    {({ handleConnect, handleDisconnect, loading, error }) => (
+      <div>
+        {loading && <div>Loading...</div>}
+        {error && <div>Error: {error}</div>}
+        <button onClick={handleConnect}>Connect</button>
+        <button onClick={handleDisconnect}>Disconnect</button>
+      </div>
+    )}
 </AudioClientHelper>
 ```
 
