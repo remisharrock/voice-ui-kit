@@ -83,8 +83,8 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
       >
         {!buttonProps?.isLoading && (
           <>
-            <span className="vkui:flex-1">{noAudioText}</span>
             <MicOffIcon />
+            <span className="vkui:flex-1">{noAudioText}</span>
           </>
         )}
       </Button>

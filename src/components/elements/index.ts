@@ -1,6 +1,7 @@
 export * from "./AudioOutput";
 export * from "./ClientStatus";
 export * from "./ConnectButton";
+export * from "./ControlBar";
 export * from "./Conversation";
 export * from "./CopyText";
 export * from "./DataList";

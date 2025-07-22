@@ -10,7 +10,7 @@ function Card({
     <div
       data-slot="card"
       className={cn(
-        "vkui:bg-card vkui:text-card-foreground vkui:flex vkui:flex-col vkui:gap-2 vkui:md:gap-3 vkui:rounded-2xl vkui:border vkui:border-border vkui:p-2 vkui:md:p-3",
+        "vkui:bg-card vkui:text-card-foreground vkui:flex vkui:flex-col vkui:gap-2 vkui:md:gap-3 vkui:rounded-2xl vkui:p-2 vkui:md:p-3",
         props.destructive && "vkui:text-destructive vkui:border-destructive",
         className,
       )}

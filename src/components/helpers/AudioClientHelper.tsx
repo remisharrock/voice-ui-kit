@@ -6,6 +6,7 @@ import {
   PipecatClient,
   type PipecatClientOptions,
   type TransportConnectionParams,
+  type TransportState,
 } from "@pipecat-ai/client-js";
 import {
   PipecatClientAudio,
@@ -38,6 +39,8 @@ export interface HelperChildProps {
   handleConnect?: () => Promise<void>;
   /** Function to disconnect from the current session */
   handleDisconnect?: () => Promise<void>;
+  /** Current transport state */
+  transportState?: TransportState;
   /** Error message if connection fails */
   error?: string;
 }
@@ -142,9 +145,7 @@ export const AudioClientHelper = ({
   // Show loading state while client is being initialized
   if (!client) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <LoaderIcon className="animate-spin opacity-50" size={32} />
-      </div>
+      <LoaderIcon className="vkui:animate-spin vkui:opacity-50" size={32} />
     );
   }
 
@@ -156,6 +157,7 @@ export const AudioClientHelper = ({
     ? cloneElement(children, {
         handleConnect,
         handleDisconnect,
+        transportState: client.state,
         error,
       } as HelperChildProps)
     : children;
