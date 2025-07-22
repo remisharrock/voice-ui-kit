@@ -13,8 +13,7 @@ export default function Home() {
         <ConsoleTemplate
           transportType="smallwebrtc"
           connectParams={{
-            baseUrl: "http://localhost:7860",
-            endpoint: "/api/offer",
+            connectionUrl: "/api/offer",
           }}
           noUserVideo={true}
         />
