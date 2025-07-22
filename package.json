@@ -76,6 +76,7 @@
     "ladle": "npx ladle serve"
   },
   "dependencies": {
+    "@pipecat-ai/voice-ui-kit": "^0.0.3",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@radix-ui/react-popover": "^1.1.14",
     "@radix-ui/react-select": "^2.2.5",

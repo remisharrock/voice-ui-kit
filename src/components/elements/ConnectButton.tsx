@@ -79,6 +79,8 @@ export const ConnectButtonComponent: React.FC<
     // Default content based on transport state
     switch (transportState) {
       case "disconnected":
+      case "initialized":
+      case "initializing":
         return {
           children: "Connect",
           variant: defaultVariant,
@@ -117,8 +119,14 @@ export const ConnectButtonComponent: React.FC<
       onClick={handleClick}
       variant={variant}
       size={size}
-      disabled={!["disconnected", "ready"].includes(transportState)}
-      isLoading={!["disconnected", "ready", "error"].includes(transportState)}
+      disabled={
+        !["disconnected", "ready", "initialized"].includes(transportState)
+      }
+      isLoading={
+        !["disconnected", "ready", "error", "initialized"].includes(
+          transportState,
+        )
+      }
       className={cn(className, passedClassName)}
     >
       {children}
