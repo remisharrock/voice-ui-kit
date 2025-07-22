@@ -1,4 +1,7 @@
-import { usePipecatClientMediaTrack } from "@pipecat-ai/client-react";
+import {
+  usePipecatClientMediaTrack,
+  usePipecatClientTransportState,
+} from "@pipecat-ai/client-react";
 import { useEffect, useRef } from "react";
 import { Plasma, type PlasmaConfig, type PlasmaRef } from ".";
 
@@ -41,28 +44,25 @@ const connectedConfig: PlasmaConfig = {
   ...defaultConfig,
 };
 
-export const PlasmaVisualizer = ({
-  state,
-}: {
-  state: "idle" | "connecting" | "connected" | "disconnected";
-}) => {
+export const PlasmaVisualizer = () => {
+  const transportState = usePipecatClientTransportState();
   const audioTrack = usePipecatClientMediaTrack("audio", "bot");
 
   const shaderRef = useRef<PlasmaRef>(null);
 
   useEffect(() => {
-    switch (state) {
-      case "connecting":
-        shaderRef.current?.updateConfig(thinkingConfig);
+    switch (transportState) {
+      case "disconnected":
+        shaderRef.current?.updateConfig(defaultConfig);
         break;
-      case "connected":
+      case "ready":
         shaderRef.current?.updateConfig(connectedConfig);
         break;
       default:
-        shaderRef.current?.updateConfig(defaultConfig);
+        shaderRef.current?.updateConfig(thinkingConfig);
         break;
     }
-  }, [state]);
+  }, [transportState]);
 
   return (
     <Plasma

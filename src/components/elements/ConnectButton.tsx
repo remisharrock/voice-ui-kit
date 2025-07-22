@@ -78,8 +78,6 @@ export const ConnectButtonComponent: React.FC<
 
     // Default content based on transport state
     switch (transportState) {
-      case "initialized":
-      case "initializing":
       case "disconnected":
         return {
           children: "Connect",
@@ -89,14 +87,13 @@ export const ConnectButtonComponent: React.FC<
         return {
           children: "Disconnect",
           variant: defaultVariant,
-          className: "vkui:text-destructive",
         };
       case "disconnecting":
-        return { children: "Disconnecting...", variant: defaultVariant };
+        return { children: "Disconnecting...", variant: "secondary" };
       case "error":
-        return { children: "Error", variant: defaultVariant };
+        return { children: "Error", variant: "destructive" };
       default:
-        return { children: "Connecting...", variant: defaultVariant };
+        return { children: "Connecting...", variant: "secondary" };
     }
   };
 
@@ -120,14 +117,8 @@ export const ConnectButtonComponent: React.FC<
       onClick={handleClick}
       variant={variant}
       size={size}
-      disabled={
-        !["disconnected", "initialized", "ready"].includes(transportState)
-      }
-      isLoading={
-        !["disconnected", "initialized", "ready", "error"].includes(
-          transportState,
-        )
-      }
+      disabled={!["disconnected", "ready"].includes(transportState)}
+      isLoading={!["disconnected", "ready", "error"].includes(transportState)}
       className={cn(className, passedClassName)}
     >
       {children}

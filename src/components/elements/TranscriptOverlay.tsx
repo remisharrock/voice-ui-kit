@@ -2,7 +2,10 @@
 
 import { cn } from "@/lib/utils";
 import { type BotTTSTextData, RTVIEvent } from "@pipecat-ai/client-js";
-import { useRTVIClientEvent } from "@pipecat-ai/client-react";
+import {
+  usePipecatClientTransportState,
+  useRTVIClientEvent,
+} from "@pipecat-ai/client-react";
 import { cva } from "class-variance-authority";
 import { useCallback, useState } from "react";
 
@@ -66,6 +69,7 @@ export const TranscriptOverlay = ({
 }: Props) => {
   const [transcript, setTranscript] = useState<string[]>([]);
   const [turnEnd, setIsTurnEnd] = useState(false);
+  const transportState = usePipecatClientTransportState();
 
   useRTVIClientEvent(
     RTVIEvent.BotTtsText,
@@ -106,7 +110,7 @@ export const TranscriptOverlay = ({
     }, [participant]),
   );
 
-  if (transcript.length === 0) {
+  if (transcript.length === 0 || transportState !== "ready") {
     return null;
   }
 
