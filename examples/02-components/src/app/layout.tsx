@@ -3,8 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "./globals.css";
 
-import "@pipecat-ai/voice-ui-kit/styles.css";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

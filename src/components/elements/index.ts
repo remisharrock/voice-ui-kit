@@ -7,5 +7,6 @@ export * from "./DataList";
 export * from "./PipecatLogo";
 export * from "./SessionInfo";
 export * from "./Thinking";
+export * from "./TranscriptOverlay";
 export * from "./UserAudioControl";
 export * from "./UserVideoControl";

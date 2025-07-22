@@ -4,7 +4,6 @@ import { Plasma, type PlasmaConfig, type PlasmaRef } from ".";
 
 const defaultConfig: PlasmaConfig = {
   effectScale: 0.55,
-  effectCenter: { x: 0, y: 0 },
   ringDistance: 0,
   ringBounce: 0.0,
   ringVariance: 0.35,
@@ -40,7 +39,6 @@ const thinkingConfig: PlasmaConfig = {
 
 const connectedConfig: PlasmaConfig = {
   ...defaultConfig,
-  effectCenter: { x: 0, y: 0.1 },
 };
 
 export const PlasmaVisualizer = ({
@@ -70,7 +68,7 @@ export const PlasmaVisualizer = ({
     <Plasma
       ref={shaderRef}
       initialConfig={defaultConfig}
-      className="absolute inset-0 pointer-events-none animate-fade-in z-0"
+      className="vkui:absolute vkui:inset-0 vkui:pointer-events-none vkui:animate-fade-in vkui:z-0"
       audioTrack={audioTrack}
     />
   );

@@ -11,15 +11,15 @@ import {
 import { DailyTransport } from "@pipecat-ai/daily-transport";
 import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
 import {
-  Button,
   Card,
   CardContent,
+  ConnectButton,
   LoaderIcon,
   PipecatLogo,
   XIcon,
 } from "@pipecat-ai/voice-ui-kit";
+import { PlasmaVisualizer } from "@pipecat-ai/voice-ui-kit/webgl";
 import { useEffect, useRef, useState } from "react";
-import { AgentVisualization } from "./AgentAudioViz";
 import { Controls } from "./Controls";
 
 export interface AppProps {
@@ -60,7 +60,6 @@ export const App = ({ connectParams, transportType }: AppProps) => {
         transport: transport,
         callbacks: {
           onTransportStateChanged: (state: TransportState) => {
-            console.log(state);
             switch (state) {
               case "connecting":
               case "authenticating":
@@ -141,19 +140,14 @@ export const App = ({ connectParams, transportType }: AppProps) => {
         <div className="flex flex-col h-full">
           <div className="relative bg-background overflow-hidden flex-1 shadow-long/[0.02]">
             <main className="flex flex-col gap-0 h-full relative justify-end items-center">
-              <AgentVisualization state={state} />
+              <PlasmaVisualizer state={state} />
               {["idle", "connecting"].includes(state) && (
                 <div className="absolute w-full h-full flex items-center justify-center">
-                  <Button
-                    size="xl"
-                    variant={state !== "idle" ? "secondary" : "default"}
-                    onClick={handleStartSession}
-                    disabled={state !== "idle"}
-                    isLoading={state !== "idle"}
-                  >
-                    {state !== "idle" ? "Connecting..." : "Start session"}
-                  </Button>
+                  <ConnectButton size="xl" onConnect={handleStartSession} />
                 </div>
+              )}
+              {state === "connected" && (
+                <div className="absolute w-full h-full flex items-center justify-center"></div>
               )}
               {state === "connected" && (
                 <Controls onEndSession={() => client?.disconnect()} />
