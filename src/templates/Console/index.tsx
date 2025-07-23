@@ -5,8 +5,8 @@ import { ClientStatus } from "@/components/elements/ClientStatus";
 import ConnectButton from "@/components/elements/ConnectButton";
 import PipecatLogo from "@/components/elements/PipecatLogo";
 import { SessionInfo } from "@/components/elements/SessionInfo";
-import UserAudio from "@/components/elements/UserAudio";
-import UserVideo from "@/components/elements/UserVideo";
+import UserAudioControl from "@/components/elements/UserAudioControl";
+import UserVideoControl from "@/components/elements/UserVideoControl";
 import { BotAudioPanel } from "@/components/panels/BotAudioPanel";
 import { BotVideoPanel } from "@/components/panels/BotVideoPanel";
 import ConversationPanel from "@/components/panels/ConversationPanel";
@@ -45,8 +45,14 @@ import {
   PipecatClientAudio,
   PipecatClientProvider,
 } from "@pipecat-ai/client-react";
-import { DailyTransport } from "@pipecat-ai/daily-transport";
-import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
+import {
+  DailyTransport,
+  type DailyTransportConstructorOptions,
+} from "@pipecat-ai/daily-transport";
+import {
+  SmallWebRTCTransport,
+  type SmallWebRTCTransportConstructorOptions,
+} from "@pipecat-ai/small-webrtc-transport";
 import { useEffect, useState } from "react";
 
 export interface ConsoleTemplateProps {
@@ -170,11 +176,15 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
       let transport: DailyTransport | SmallWebRTCTransport;
       switch (transportType) {
         case "smallwebrtc":
-          transport = new SmallWebRTCTransport();
+          transport = new SmallWebRTCTransport(
+            connectParams as SmallWebRTCTransportConstructorOptions,
+          );
           break;
         case "daily":
         default:
-          transport = new DailyTransport();
+          transport = new DailyTransport(
+            connectParams as DailyTransportConstructorOptions,
+          );
           transport.dailyCallClient.on("meeting-session-updated", (event) => {
             setSessionId(event.meetingSession.id);
           });
@@ -207,7 +217,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
         pcClient.disconnect();
       };
     },
-    [clientOptions, noUserAudio, noUserVideo, transportType],
+    [clientOptions, noUserAudio, noUserVideo, transportType, connectParams],
   );
 
   useEffect(
@@ -227,7 +237,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   const handleConnect = async () => {
     if (!client) return;
     try {
-      await client.connect(connectParams);
+      await client.connect();
     } catch {
       await client.disconnect();
     }
@@ -366,8 +376,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                               className="vkui:flex vkui:flex-col vkui:gap-2"
                               side="left"
                             >
-                              {!noUserAudio && <UserAudio />}
-                              {!noUserVideo && <UserVideo />}
+                              {!noUserAudio && <UserAudioControl />}
+                              {!noUserVideo && <UserVideoControl />}
                               {!noAudioOutput && <AudioOutput />}
                             </PopoverContent>
                           </Popover>

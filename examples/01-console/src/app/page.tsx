@@ -1,18 +1,23 @@
 "use client";
 
-import { ConsoleTemplate, ThemeProvider } from "@pipecat-ai/voice-ui-kit";
+import {
+  ConsoleTemplate,
+  FullScreenContainer,
+  ThemeProvider,
+} from "@pipecat-ai/voice-ui-kit";
 
 export default function Home() {
   return (
     <ThemeProvider>
-      <div className="w-full h-dvh bg-background">
+      <FullScreenContainer>
         <ConsoleTemplate
+          transportType="smallwebrtc"
           connectParams={{
-            endpoint: "/api/connect",
+            connectionUrl: "/api/offer",
           }}
-          transportType="daily"
+          noUserVideo={true}
         />
-      </div>
+      </FullScreenContainer>
     </ThemeProvider>
   );
 }

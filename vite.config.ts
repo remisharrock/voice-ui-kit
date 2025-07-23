@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
@@ -5,6 +6,7 @@ import dts from "vite-plugin-dts";
 
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     react(),
     dts({
       insertTypesEntry: true,
@@ -24,7 +26,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: path.resolve(__dirname, "src/index.ts"),
-        metrics: path.resolve(__dirname, "src/metrics/index.ts"),
+        metrics: path.resolve(__dirname, "src/components/metrics/index.ts"),
         webgl: path.resolve(__dirname, "src/visualizers/webgl/index.ts"),
       },
       formats: ["es", "cjs"],

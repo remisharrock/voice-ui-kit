@@ -1,6 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { LoaderIcon, VolumeOffIcon } from "@/icons";
 import type { Story, StoryDefault } from "@ladle/react";
+import {
+  type ButtonSize,
+  buttonSizeOptions,
+  type ButtonState,
+  buttonStateOptions,
+  type ButtonVariant,
+  buttonVariantOptions,
+} from "./buttonVariants";
 
 export default {
   title: "Primitives",
@@ -8,19 +16,21 @@ export default {
 
 export const ButtonPrimary: Story<{
   label: string;
-  variant: "default" | "outline" | "secondary" | "ghost" | "link";
-  size: "default" | "sm" | "lg";
+  variant: ButtonVariant;
+  size: ButtonSize;
+  state: ButtonState;
   isDisabled: boolean;
   isLoading: boolean;
   withIcon: boolean;
-}> = ({ label, variant, size, isDisabled, isLoading, withIcon }) => (
+}> = ({ label, variant, size, state, isDisabled, isLoading, withIcon }) => (
   <Button
     variant={variant}
     size={size}
+    state={state}
     disabled={isDisabled}
     isLoading={isLoading}
   >
-    {withIcon && <VolumeOffIcon />}
+    {withIcon && !isLoading && <VolumeOffIcon />}
     {label}
   </Button>
 );
@@ -28,18 +38,25 @@ export const ButtonPrimary: Story<{
 ButtonPrimary.args = {
   label: "My Button",
   variant: "default",
+  state: "default",
   isDisabled: false,
   isLoading: false,
   withIcon: false,
 };
+
 ButtonPrimary.argTypes = {
   variant: {
-    options: ["default", "outline", "secondary", "ghost", "link"],
+    options: buttonVariantOptions,
     control: { type: "select" },
     defaultValue: "default",
   },
   size: {
-    options: ["default", "sm", "lg"],
+    options: buttonSizeOptions,
+    control: { type: "select" },
+    defaultValue: "default",
+  },
+  state: {
+    options: buttonStateOptions,
     control: { type: "select" },
     defaultValue: "default",
   },
@@ -48,15 +65,17 @@ ButtonPrimary.argTypes = {
 ButtonPrimary.storyName = "Button";
 
 export const ButtonIcon: Story<{
-  variant: "default" | "outline" | "secondary" | "ghost" | "link";
-  size: "default" | "sm" | "lg";
+  variant: ButtonVariant;
+  size: ButtonSize;
+  state: ButtonState;
   isDisabled: boolean;
   isLoading: boolean;
-}> = ({ variant, size, isDisabled, isLoading }) => (
+}> = ({ variant, size, state, isDisabled, isLoading }) => (
   <Button
     isIcon
     variant={variant}
     size={size}
+    state={state}
     disabled={isDisabled || isLoading}
   >
     {isLoading ? (
@@ -70,18 +89,24 @@ export const ButtonIcon: Story<{
 ButtonIcon.args = {
   variant: "default",
   size: "default",
+  state: "default",
   isDisabled: false,
   isLoading: false,
 };
 
 ButtonIcon.argTypes = {
   variant: {
-    options: ["default", "outline", "secondary", "ghost", "link"],
+    options: buttonVariantOptions,
     control: { type: "select" },
     defaultValue: "default",
   },
   size: {
-    options: ["default", "sm", "lg"],
+    options: buttonSizeOptions,
+    control: { type: "select" },
+    defaultValue: "default",
+  },
+  state: {
+    options: buttonStateOptions,
     control: { type: "select" },
     defaultValue: "default",
   },
