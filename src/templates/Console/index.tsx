@@ -45,14 +45,8 @@ import {
   PipecatClientAudio,
   PipecatClientProvider,
 } from "@pipecat-ai/client-react";
-import {
-  DailyTransport,
-  type DailyTransportConstructorOptions,
-} from "@pipecat-ai/daily-transport";
-import {
-  SmallWebRTCTransport,
-  type SmallWebRTCTransportConstructorOptions,
-} from "@pipecat-ai/small-webrtc-transport";
+import { DailyTransport } from "@pipecat-ai/daily-transport";
+import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
 import { useEffect, useState } from "react";
 
 export interface ConsoleTemplateProps {
@@ -176,15 +170,11 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
       let transport: DailyTransport | SmallWebRTCTransport;
       switch (transportType) {
         case "smallwebrtc":
-          transport = new SmallWebRTCTransport(
-            connectParams as SmallWebRTCTransportConstructorOptions,
-          );
+          transport = new SmallWebRTCTransport();
           break;
         case "daily":
         default:
-          transport = new DailyTransport(
-            connectParams as DailyTransportConstructorOptions,
-          );
+          transport = new DailyTransport();
           transport.dailyCallClient.on("meeting-session-updated", (event) => {
             setSessionId(event.meetingSession.id);
           });
@@ -217,7 +207,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
         pcClient.disconnect();
       };
     },
-    [clientOptions, noUserAudio, noUserVideo, transportType, connectParams],
+    [clientOptions, noUserAudio, noUserVideo, transportType],
   );
 
   useEffect(
@@ -237,7 +227,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   const handleConnect = async () => {
     if (!client) return;
     try {
-      await client.connect();
+      await client.connect(connectParams);
     } catch {
       await client.disconnect();
     }

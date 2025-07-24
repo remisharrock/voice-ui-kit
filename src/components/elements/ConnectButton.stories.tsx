@@ -1,5 +1,5 @@
 import type { Story, StoryDefault } from "@ladle/react";
-import type { TransportState } from "@pipecat-ai/client-js";
+import { type TransportState, TransportStateEnum } from "@pipecat-ai/client-js";
 import {
   type ButtonSize,
   buttonSizeOptions,
@@ -11,18 +11,7 @@ import {
   type ConnectButtonStateContent,
 } from "./ConnectButton";
 
-const transportStateOptions = [
-  "disconnected",
-  "initializing",
-  "initialized",
-  "authenticating",
-  "authenticated",
-  "connecting",
-  "connected",
-  "ready",
-  "disconnecting",
-  "error",
-] satisfies TransportState[];
+const transportStateOptions = Object.values(TransportStateEnum);
 
 export default {
   title: "Components",

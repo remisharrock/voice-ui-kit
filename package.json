@@ -1,6 +1,6 @@
 {
   "name": "@pipecat-ai/voice-ui-kit",
-  "version": "0.1.0-rc.2",
+  "version": "0.1.0",
   "type": "module",
   "license": "BSD-2-Clause",
   "repository": {
@@ -40,11 +40,11 @@
     "LICENSE"
   ],
   "peerDependencies": {
-    "@pipecat-ai/client-js": ">=1.0.0",
-    "@pipecat-ai/client-react": ">=1.0.0",
+    "@daily-co/daily-js": ">=0.80.0",
+    "@pipecat-ai/client-js": ">=1.0.1",
+    "@pipecat-ai/client-react": ">=1.0.1",
     "@pipecat-ai/daily-transport": ">=1.0.0",
     "@pipecat-ai/small-webrtc-transport": ">=1.0.0",
-    "@daily-co/daily-js": ">=0.80.0",
     "react": ">=16.8.0 || >=17.0.0 || >=18.0.0",
     "react-dom": ">=16.8.0 || >=17.0.0 || >=18.0.0",
     "three": ">=0.140.0"
@@ -56,11 +56,11 @@
     },
     "@pipecat-ai/client-js": {
       "optional": false,
-      "version": "^1.0.0"
+      "version": "^1.0.1"
     },
     "@pipecat-ai/client-react": {
       "optional": false,
-      "version": "^1.0.0"
+      "version": "^1.0.1"
     },
     "@pipecat-ai/daily-transport": {
       "optional": true,
@@ -100,8 +100,8 @@
     "@daily-co/daily-js": "^0.80.0",
     "@eslint/js": "^9.25.0",
     "@ladle/react": "^5.0.3",
-    "@pipecat-ai/client-js": "^1.0.0",
-    "@pipecat-ai/client-react": "^1.0.0",
+    "@pipecat-ai/client-js": "^1.0.1",
+    "@pipecat-ai/client-react": "^1.0.1",
     "@pipecat-ai/daily-transport": "^1.0.0",
     "@pipecat-ai/small-webrtc-transport": "^1.0.0",
     "@tailwindcss/vite": "^4.1.11",
