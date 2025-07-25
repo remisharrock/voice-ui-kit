@@ -2,5 +2,4 @@
     "buildCommand": "cd .. && npm install --include=dev && npm run build && cd docs && npm run build",
     "installCommand": "cd .. && npm install --include=dev",
     "outputDirectory": ".next",
-    "rootDirectory": "docs"
 }
