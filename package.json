@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "type": "module",
   "license": "BSD-2-Clause",
+  "workspaces": [
+    "docs",
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "github:pipecat-ai/voice-ui-kit"
