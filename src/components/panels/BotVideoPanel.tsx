@@ -43,10 +43,12 @@ export const BotVideoPanel: React.FC<BotVideoPanelProps> = ({
           fit="contain"
         />
         {!track && (
-          <div className="vkui:absolute vkui:inset-0 vkui:flex vkui:gap-1 vkui:items-center vkui:justify-center">
+          <div className="vkui:text-muted-foreground vkui:absolute vkui:inset-0 vkui:flex vkui:gap-2 vkui:items-center vkui:justify-center">
             <VideoOffIcon size={16} />
             {!collapsed && (
-              <span className="vkui:font-mono vkui:text-xs">No video</span>
+              <span className="vkui:font-mono vkui:text-xs vkui:font-medium">
+                No video
+              </span>
             )}
           </div>
         )}

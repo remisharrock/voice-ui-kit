@@ -136,7 +136,16 @@ export interface ConsoleTemplateProps {
    */
   videoCodec?: string;
 
+  /**
+   * Whether to collapse the info panel by default.
+   * When true, the info panel will be collapsed on initial render.
+   */
   collapseInfoPanel?: boolean;
+  /**
+   * Custom logo component to display in the header.
+   * If provided, this will replace the default Pipecat logo.
+   * Accepts any valid React element.
+   */
   logoComponent?: React.ReactNode;
 }
 
@@ -236,6 +245,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
 
   const handleConnect = async () => {
     if (!client) return;
+    setError(null);
     try {
       await client.connect(connectParams);
     } catch (error) {
@@ -246,6 +256,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
 
   const handleDisconnect = async () => {
     if (!client) return;
+    setError(null);
     await client.disconnect();
   };
 
