@@ -137,13 +137,14 @@
 }
 
 @layer components {
-  .vkui\:text-mono-upper {
+  .vkui\:mono-upper {
     font-family: var(--vkui-font-mono);
     font-weight: var(--vkui-font-weight-bold);
     font-size: var(--vkui-text-xs);
     line-height: var(--tw-leading, var(--vkui-text-xs--line-height));
     letter-spacing: var(--vkui-tracking-wider);
     line-height: 1;
+    text-transform: uppercase;
   }
 
   .vkui\:button-group.vkui\:flex-row > *:not(:first-child):not(:last-child) {

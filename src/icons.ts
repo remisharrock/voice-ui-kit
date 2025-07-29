@@ -8,6 +8,7 @@ import {
   ChevronsUpDown,
   ChevronUp,
   Circle,
+  CircleAlert,
   Ellipsis,
   EllipsisVertical,
   Funnel,
@@ -59,3 +60,4 @@ export const BotIcon = Bot;
 export const ChevronsLeftRightEllipsisIcon = ChevronsLeftRightEllipsis;
 export const InfoIcon = Info;
 export const LogoutIcon = LogOut;
+export const CircleAlertIcon = CircleAlert;

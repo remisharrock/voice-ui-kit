@@ -1,5 +1,3 @@
-import React, { useId } from "react";
-import { usePipecatClientMediaDevices } from "@pipecat-ai/client-react";
 import {
   Select,
   SelectContent,
@@ -7,7 +5,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+import { usePipecatClientMediaDevices } from "@pipecat-ai/client-react";
+import React, { useId } from "react";
 
 interface AudioOutputProps {
   className?: string;
@@ -27,7 +26,7 @@ export const AudioOutput: React.FC<AudioOutputProps> = ({ className }) => {
     <div className="vkui:flex vkui:items-center vkui:gap-4">
       <label
         htmlFor={id}
-        className="vkui:text-sm vkui:font-medium vkui:text-muted-foreground vkui:whitespace-nowrap"
+        className="vkui:text-sm vkui:font-medium vkui:text-muted-foreground vkui:whitespace-nowrap vkui:flex-1"
       >
         Audio Output
       </label>
@@ -35,10 +34,7 @@ export const AudioOutput: React.FC<AudioOutputProps> = ({ className }) => {
         value={selectedSpeaker?.deviceId || ""}
         onValueChange={handleDeviceChange}
       >
-        <SelectTrigger
-          id={id}
-          className={cn("vkui:border-none vkui:w-full", className)}
-        >
+        <SelectTrigger id={id} className={className} variant="ghost">
           <SelectValue placeholder="Select a speaker" />
         </SelectTrigger>
         <SelectContent align="end">

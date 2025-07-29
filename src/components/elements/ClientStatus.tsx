@@ -1,10 +1,12 @@
+import DataList from "@/components/elements/DataList";
+import { LoaderIcon } from "@/icons";
+import { TextDashBlankslate } from "@/index";
+import { cn } from "@/lib/utils";
+import { RTVIEvent } from "@pipecat-ai/client-js";
 import {
   usePipecatClientTransportState,
   useRTVIClientEvent,
 } from "@pipecat-ai/client-react";
-import DataList from "@/components/elements/DataList";
-import { cn } from "@/lib/utils";
-import { RTVIEvent } from "@pipecat-ai/client-js";
 import { useState } from "react";
 
 interface Props {
@@ -15,6 +17,40 @@ interface Props {
   noAgentState?: boolean;
   noClientState?: boolean;
 }
+
+export const ClientStatusComponent = ({
+  className,
+  transportState,
+}: {
+  className?: string;
+  transportState?: string;
+}) => {
+  return (
+    <span
+      className={cn(
+        "vkui:mono-upper vkui:text-muted-foreground vkui:font-medium vkui:flex vkui:items-center vkui:gap-1.5 vkui:leading-none vkui:justify-end",
+        {
+          "vkui:text-active":
+            transportState === "connected" || transportState === "ready",
+          "vkui:text-destructive": transportState === "error",
+          "vkui:text-subtle": !transportState,
+          "vkui:animate-pulse": [
+            "authenticating",
+            "authenticated",
+            "connecting",
+          ].includes(transportState || ""),
+        },
+        className,
+      )}
+    >
+      {transportState || <TextDashBlankslate />}
+      {transportState &&
+        ["authenticating", "authenticated", "connecting"].includes(
+          transportState,
+        ) && <LoaderIcon size={12} className="vkui:animate-spin" />}
+    </span>
+  );
+};
 
 export const ClientStatus: React.FC<Props> = ({
   classNames = {},
@@ -47,38 +83,16 @@ export const ClientStatus: React.FC<Props> = ({
 
   const data: React.ComponentProps<typeof DataList>["data"] = {};
   if (!noClientState) {
-    data["Client"] = (
-      <span
-        className={cn(
-          "vkui:uppercase",
-          {
-            "vkui:text-emerald-500":
-              transportState === "connected" || transportState === "ready",
-          },
-          classNames.clientValue,
-        )}
-      >
-        {transportState}
-      </span>
-    );
+    data["Client"] = <ClientStatusComponent transportState={transportState} />;
   }
 
   if (!noAgentState) {
     data["Agent"] = isBotConnected ? (
-      <span
-        className={cn(
-          "vkui:text-emerald-500 vkui:uppercase",
-          classNames.agentValue,
-        )}
-      >
-        Connected
-      </span>
+      <ClientStatusComponent transportState="connected" />
     ) : agentConnecting ? (
-      <span className={cn("vkui:uppercase", classNames.agentValue)}>
-        Connecting...
-      </span>
+      <ClientStatusComponent transportState="connecting" />
     ) : (
-      "---"
+      <ClientStatusComponent />
     );
   }
 

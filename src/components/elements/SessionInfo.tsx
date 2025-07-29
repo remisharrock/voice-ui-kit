@@ -1,5 +1,6 @@
 import CopyText from "@/components/elements/CopyText";
 import DataList from "@/components/elements/DataList";
+import { TextDashBlankslate } from "@/index";
 import Daily from "@daily-co/daily-js";
 import { usePipecatClient } from "@pipecat-ai/client-react";
 
@@ -41,7 +42,7 @@ export const SessionInfo: React.FC<Props> = ({
     data["Session ID"] = sessionId ? (
       <CopyText className="vkui:justify-end" iconSize={12} text={sessionId} />
     ) : (
-      "---"
+      <TextDashBlankslate />
     );
   }
   if (!noParticipantId) {
@@ -52,11 +53,11 @@ export const SessionInfo: React.FC<Props> = ({
         text={participantId}
       />
     ) : (
-      "---"
+      <TextDashBlankslate />
     );
   }
   if (!noRTVIVersion) {
-    data["RTVI"] = client?.version || "---";
+    data["RTVI"] = client?.version || <TextDashBlankslate />;
   }
 
   return (

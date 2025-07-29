@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { CopyCheckIcon, CopyIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import React, { useState } from "react";
 
 interface CopyTextProps {
   className?: string;
@@ -45,8 +45,9 @@ export const CopyText: React.FC<CopyTextProps> = ({
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
-              size="icon-sm"
-              className="vkui:flex-none"
+              isIcon
+              size="sm"
+              className="vkui:flex-none vkui:text-muted-foreground"
               onClick={copyToClipboard}
               aria-label="Copy to clipboard"
             >

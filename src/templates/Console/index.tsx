@@ -13,7 +13,14 @@ import ConversationPanel from "@/components/panels/ConversationPanel";
 import { EventsPanel } from "@/components/panels/EventsPanel";
 import { InfoPanel } from "@/components/panels/InfoPanel";
 import ThemeModeToggle from "@/components/ThemeModeToggle";
+import {
+  Banner,
+  BannerClose,
+  BannerIcon,
+  BannerTitle,
+} from "@/components/ui/banner";
 import { Button } from "@/components/ui/button";
+import { LoaderSpinner } from "@/components/ui/loaders";
 import {
   Popover,
   PopoverContent,
@@ -25,10 +32,10 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useTheme } from "@/hooks/useTheme";
 import {
   BotIcon,
   ChevronsLeftRightEllipsisIcon,
+  CircleAlertIcon,
   InfoIcon,
   MessagesSquareIcon,
   MicIcon,
@@ -38,7 +45,6 @@ import {
   type ConnectionEndpoint,
   PipecatClient,
   type PipecatClientOptions,
-  Transport,
   type TransportConnectionParams,
 } from "@pipecat-ai/client-js";
 import {
@@ -47,7 +53,7 @@ import {
 } from "@pipecat-ai/client-react";
 import { DailyTransport } from "@pipecat-ai/daily-transport";
 import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export interface ConsoleTemplateProps {
   /**
@@ -129,6 +135,9 @@ export interface ConsoleTemplateProps {
    * Defaults to "default" which uses the browser's default codec.
    */
   videoCodec?: string;
+
+  collapseInfoPanel?: boolean;
+  logoComponent?: React.ReactNode;
 }
 
 const defaultClientOptions: Partial<PipecatClientOptions> = {};
@@ -151,6 +160,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   title = "Pipecat Playground",
   transportType = "daily",
   videoCodec = "default",
+  collapseInfoPanel = false,
+  logoComponent,
 }) => {
   const [isBotAreaCollapsed, setIsBotAreaCollapsed] = useState(false);
   const [isInfoPanelCollapsed, setIsInfoPanelCollapsed] = useState(false);
@@ -159,8 +170,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   const [participantId, setParticipantId] = useState("");
   const [client, setClient] = useState<PipecatClient | null>(null);
   const [isClientReady, setIsClientReady] = useState(false);
-
-  const { resolvedTheme } = useTheme();
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(
     function initClient() {
@@ -184,7 +194,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
         enableCam: !noUserVideo,
         enableMic: !noUserAudio,
         ...clientOptions,
-        transport: (clientOptions?.transport as Transport) ?? transport,
+        transport: clientOptions?.transport ?? transport,
         callbacks: {
           onParticipantJoined: (participant) => {
             setParticipantId(participant.id || "");
@@ -228,7 +238,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
     if (!client) return;
     try {
       await client.connect(connectParams);
-    } catch {
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Unknown error");
       await client.disconnect();
     }
   };
@@ -241,8 +252,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   // Return loading state until client is ready (prevents hydration mismatch)
   if (!isClientReady || !client) {
     return (
-      <div className="flex items-center justify-center h-full w-full">
-        <div>Loading...</div>
+      <div className="vkui:flex vkui:items-center vkui:justify-center vkui:h-full vkui:w-full">
+        <LoaderSpinner />
       </div>
     );
   }
@@ -254,20 +265,31 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
 
   return (
     <PipecatClientProvider client={client}>
+      {error && (
+        <Banner
+          variant="destructive"
+          className="vkui:animate-in vkui:fade-in vkui:duration-300"
+        >
+          <BannerIcon icon={CircleAlertIcon} />
+          <BannerTitle>
+            Unable to connect. Please check web console for errors.
+          </BannerTitle>
+          <BannerClose variant="destructive" />
+        </Banner>
+      )}
       <div className="vkui:grid vkui:grid-cols-1 vkui:grid-rows-[min-content_1fr] vkui:sm:grid-rows-[min-content_1fr_auto] vkui:h-full vkui:w-full vkui:overflow-auto">
         <div className="vkui:grid vkui:grid-cols-2 vkui:sm:grid-cols-[150px_1fr_150px] vkui:gap-2 vkui:items-center vkui:justify-center vkui:p-2 vkui:bg-background vkui:sm:relative vkui:top-0 vkui:w-full vkui:z-10">
           {noLogo ? (
             <span className="vkui:h-6" />
           ) : (
-            <PipecatLogo
-              className="vkui:h-6 vkui:w-auto"
-              color={resolvedTheme === "dark" ? "#ffffff" : "#171717"}
-            />
+            (logoComponent ?? (
+              <PipecatLogo className="vkui:h-6 vkui:w-auto vkui:text-foreground" />
+            ))
           )}
           <strong className="vkui:hidden vkui:sm:block vkui:text-center">
             {title}
           </strong>
-          <div className="vkui:flex vkui:items-center vkui:justify-end vkui:gap-4">
+          <div className="vkui:flex vkui:items-center vkui:justify-end vkui:gap-3">
             {!noThemeSwitch && <ThemeModeToggle />}
             <ConnectButton
               onConnect={handleConnect}
@@ -282,10 +304,10 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                 {!noBotArea && (
                   <>
                     <ResizablePanel
-                      className="vkui:flex vkui:flex-col vkui:gap-2 vkui:p-2"
-                      defaultSize={15}
+                      className="vkui:flex vkui:flex-col vkui:gap-2 vkui:p-2 vkui:xl:gap-4"
+                      defaultSize={26}
                       maxSize={30}
-                      minSize={9}
+                      minSize={10}
                       collapsible
                       collapsedSize={8}
                       onCollapse={() => setIsBotAreaCollapsed(true)}
@@ -319,8 +341,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                   <>
                     <ResizablePanel
                       className="vkui:h-full vkui:p-2"
-                      defaultSize={60}
-                      minSize={40}
+                      defaultSize={collapseInfoPanel ? 70 : 47}
+                      minSize={30}
                     >
                       <ConversationPanel
                         noConversation={noConversation}
@@ -335,8 +357,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                     id="info-panel"
                     collapsible
                     collapsedSize={4}
+                    defaultSize={collapseInfoPanel ? 4 : 27}
                     minSize={15}
-                    defaultSize={20}
                     onCollapse={() => setIsInfoPanelCollapsed(true)}
                     onExpand={() => setIsInfoPanelCollapsed(false)}
                     className="vkui:p-2"

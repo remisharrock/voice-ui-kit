@@ -8,7 +8,7 @@ function Panel({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="panel"
       className={cn(
-        "vkui:@container/panel vkui:bg-card vkui:text-card-foreground vkui:flex vkui:flex-col vkui:rounded-panel vkui:border",
+        "vkui:group vkui:@container/panel vkui:bg-card vkui:text-card-foreground vkui:flex vkui:flex-col vkui:rounded-panel vkui:border",
         className,
       )}
       {...props}
@@ -22,7 +22,9 @@ const PanelHeaderVariants = cva("vkui:@container/panel-header", {
       default:
         "vkui:border-b vkui:flex vkui:items-center vkui:justify-center vkui:text-card-foreground vkui:p-2 vkui:@xs/panel:p-3 vkui:@md/panel:p-4",
       inline:
-        "vkui:items-start vkui:text-foreground vkui:p-2 vkui:@xs/panel:p-3 vkui:@md/panel:p-4",
+        "vkui:items-start vkui:text-foreground vkui:p-2 vkui:@xs/panel:p-3 vkui:@md/panel:p-4 vkui:group-has-data-[slot=panel-content]:pb-0",
+      noPadding:
+        "vkui:border-b vkui:flex vkui:items-center vkui:justify-center vkui:text-card-foreground",
     },
   },
   defaultVariants: {
@@ -38,7 +40,7 @@ function PanelHeader({
   return (
     <div
       data-slot="panel-header"
-      className={cn(PanelHeaderVariants({ variant, className }), className)}
+      className={cn(PanelHeaderVariants({ variant }), className)}
       {...props}
     />
   );
@@ -48,7 +50,7 @@ function PanelTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="panel-title"
-      className={cn("vkui:text-mono-upper", className)}
+      className={cn("vkui:mono-upper", className)}
       {...props}
     />
   );
@@ -59,7 +61,7 @@ function PanelContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="panel-content"
       className={cn(
-        "vkui:text-foreground vkui:flex vkui:flex-col vkui:p-2 vkui:gap-2 vkui:@xs/panel:p-3 vkui:@xs/panel:gap-3 vkui:@md/panel:p-4 vkui:@md/panel:gap-4",
+        "vkui:text-foreground vkui:flex vkui:flex-col vkui:gap-2 vkui:p-2 vkui:@xs/panel:p-3 vkui:@xs/panel:gap-3 vkui:@md/panel:p-4 vkui:@md/panel:gap-4",
         className,
       )}
       {...props}

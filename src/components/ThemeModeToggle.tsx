@@ -14,7 +14,7 @@ export function ThemeModeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost">
+        <Button variant="ghost" isIcon>
           <SunIcon className="vkui:h-[1.2rem] vkui:w-[1.2rem] vkui:scale-100 vkui:rotate-0 vkui:transition-all vkui:dark:scale-0 vkui:dark:-rotate-90" />
           <MoonIcon className="vkui:absolute vkui:h-[1.2rem] vkui:w-[1.2rem] vkui:scale-0 vkui:rotate-90 vkui:transition-all vkui:dark:scale-100 vkui:dark:rotate-0" />
           <span className="vkui:sr-only">Toggle theme</span>
