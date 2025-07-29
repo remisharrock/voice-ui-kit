@@ -42,7 +42,21 @@ jobs:
         id: bump_version
         run: |
           if [ "${{ github.event.inputs.version_type }}" = "rc" ]; then
-            npm version prerelease --preid=rc
+            # For RC, we want to increment the prerelease number, not the patch version
+            CURRENT_VERSION=$(npm run --silent version)
+            if [[ "$CURRENT_VERSION" == *"-rc."* ]]; then
+              # Already an RC version, increment the RC number
+              npm version prerelease --preid=rc
+            else
+              # Not an RC version, create the first RC by appending -rc.0
+              # We need to manually set this since npm version prerelease increments patch first
+              BASE_VERSION=$(echo $CURRENT_VERSION | sed 's/-rc\.[0-9]*//')
+              NEW_VERSION="${BASE_VERSION}-rc.0"
+              npm version $NEW_VERSION --no-git-tag-version
+              git add package.json
+              git commit -m "Bump version to $NEW_VERSION"
+              git tag "v$NEW_VERSION"
+            fi
           else
             npm version ${{ github.event.inputs.version_type }}
           fi
