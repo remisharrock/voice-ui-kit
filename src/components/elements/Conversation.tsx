@@ -104,7 +104,7 @@ export const Conversation: React.FC<ConversationProps> = ({
             <Fragment key={index}>
               <div
                 className={cn(
-                  "vkui:font-semibold vkui:font-mono vkui:text-xs vkui:leading-6",
+                  "vkui:font-semibold vkui:font-mono vkui:text-xs vkui:leading-6 vkui:w-max",
                   {
                     "vkui:text-client": message.role === "user",
                     "vkui:text-agent": message.role === "assistant",

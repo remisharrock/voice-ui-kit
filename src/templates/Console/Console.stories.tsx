@@ -14,6 +14,9 @@ export const Default = () => (
         connectionUrl: "http://localhost:7860/api/offer",
       }}
       noUserVideo={true}
+      conversationElementProps={{
+        assistantLabel: "my-assistant",
+      }}
     />
   </FullScreenContainer>
 );
