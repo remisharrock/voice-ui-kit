@@ -11,7 +11,7 @@ export const Default = () => (
     <ConsoleTemplate
       transportType="smallwebrtc"
       connectParams={{
-        connectionUrl: "/api/offer",
+        connectionUrl: "http://localhost:7860/api/offer",
       }}
       noUserVideo={true}
     />

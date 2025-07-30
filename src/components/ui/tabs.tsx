@@ -40,7 +40,7 @@ function TabsTrigger({
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        "vkui:data-[state=active]:bg-background vkui:data-[state=active]:text-foreground vkui:focus-visible:border-ring vkui:focus-visible:ring-ring/50 vkui:focus-visible:outline-ring vkui:hover:bg-muted-foreground/10 vkui:dark:data-[state=active]:border-input vkui:dark:data-[state=active]:bg-input/30 vkui:text-foreground vkui:inline-flex vkui:h-[calc(100%-1px)] vkui:flex-1 vkui:items-center vkui:justify-center vkui:gap-1.5 vkui:rounded-sm vkui:border vkui:border-transparent vkui:px-2 vkui:py-1 vkui:text-xs vkui:font-bold vkui:whitespace-nowrap vkui:transition-[color,box-shadow] vkui:focus-visible:ring-[3px] vkui:focus-visible:outline-1 vkui:disabled:pointer-events-none vkui:disabled:opacity-50 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 vkui:mono-upper",
+        "vkui:data-[state=active]:bg-background vkui:data-[state=active]:text-foreground vkui:focus-visible:border-ring vkui:focus-visible:ring-ring/50 vkui:focus-visible:outline-ring vkui:hover:bg-muted-foreground/10 vkui:text-foreground vkui:inline-flex vkui:h-[calc(100%-1px)] vkui:flex-1 vkui:items-center vkui:justify-center vkui:gap-1.5 vkui:rounded-sm vkui:border vkui:border-transparent vkui:px-2 vkui:py-1 vkui:text-xs vkui:font-bold vkui:whitespace-nowrap vkui:transition-[color,box-shadow] vkui:focus-visible:ring-[3px] vkui:focus-visible:outline-1 vkui:disabled:pointer-events-none vkui:disabled:opacity-50 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 vkui:mono-upper",
         className,
       )}
       {...props}

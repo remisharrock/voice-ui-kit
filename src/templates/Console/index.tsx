@@ -39,6 +39,8 @@ import {
   InfoIcon,
   MessagesSquareIcon,
   MicIcon,
+  PanelLeftCloseIcon,
+  PanelRightCloseIcon,
 } from "@/icons";
 import { cn } from "@/lib/utils";
 import {
@@ -59,7 +61,8 @@ import {
   SmallWebRTCTransport,
   type SmallWebRTCTransportConstructorOptions,
 } from "@pipecat-ai/small-webrtc-transport";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import type { ImperativePanelHandle } from "react-resizable-panels";
 
 export interface ConsoleTemplateProps {
   /**
@@ -162,11 +165,14 @@ export interface ConsoleTemplateProps {
 }
 
 const defaultClientOptions: Partial<PipecatClientOptions> = {};
+const defaultTransportOptions:
+  | Partial<SmallWebRTCTransportConstructorOptions>
+  | Partial<DailyTransportConstructorOptions> = {};
 
 export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   audioCodec = "default",
   clientOptions = defaultClientOptions,
-  transportOptions = {},
+  transportOptions = defaultTransportOptions,
   connectParams,
   noAudioOutput = false,
   noBotAudio = false,
@@ -193,6 +199,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   const [client, setClient] = useState<PipecatClient | null>(null);
   const [isClientReady, setIsClientReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const infoPanelRef = useRef<ImperativePanelHandle>(null);
 
   useEffect(
     function initClient() {
@@ -243,7 +251,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
         pcClient.disconnect();
       };
     },
-    [clientOptions, noUserAudio, noUserVideo, transportType],
+    [clientOptions, transportOptions, noUserAudio, noUserVideo, transportType],
   );
 
   useEffect(
@@ -317,8 +325,28 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
           <strong className="vkui:hidden vkui:sm:block vkui:text-center">
             {title}
           </strong>
-          <div className="vkui:flex vkui:items-center vkui:justify-end vkui:gap-3">
-            {!noThemeSwitch && <ThemeModeToggle />}
+          <div className="vkui:flex vkui:items-center vkui:justify-end vkui:gap-2 vkui:sm:gap-3 vkui:xl:gap-6">
+            <div className="vkui:flex vkui:items-center vkui:gap-1">
+              {!noThemeSwitch && <ThemeModeToggle />}
+              <Button
+                className="vkui:hidden vkui:sm:flex"
+                variant={"ghost"}
+                isIcon
+                onClick={() => {
+                  if (isInfoPanelCollapsed) {
+                    infoPanelRef.current?.expand();
+                  } else {
+                    infoPanelRef.current?.collapse();
+                  }
+                }}
+              >
+                {isInfoPanelCollapsed ? (
+                  <PanelLeftCloseIcon />
+                ) : (
+                  <PanelRightCloseIcon />
+                )}
+              </Button>
+            </div>
             <ConnectButton
               onConnect={handleConnect}
               onDisconnect={handleDisconnect}
@@ -344,8 +372,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                       {!noBotAudio && (
                         <BotAudioPanel
                           className={cn({
-                            "vkui:max-h-[calc(50%-4px)] vkui:mt-auto":
-                              !noBotVideo,
+                            "vkui:mb-auto": noBotVideo,
                           })}
                           collapsed={isBotAreaCollapsed}
                         />
@@ -353,8 +380,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                       {!noBotVideo && (
                         <BotVideoPanel
                           className={cn({
-                            "vkui:max-h-[calc(50%-4px)] vkui:mb-auto":
-                              !noBotAudio,
+                            "vkui:mt-auto": noBotAudio,
                           })}
                           collapsed={isBotAreaCollapsed}
                         />
@@ -383,6 +409,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                 {!noInfoPanel && (
                   <ResizablePanel
                     id="info-panel"
+                    ref={infoPanelRef}
                     collapsible
                     collapsedSize={4}
                     defaultSize={collapseInfoPanel ? 4 : 27}
@@ -471,7 +498,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
           }
           className="vkui:flex vkui:flex-col vkui:gap-0 vkui:sm:hidden vkui:overflow-hidden"
         >
-          <div className="vkui:flex vkui:flex-col vkui:overflow-hidden">
+          <div className="vkui:flex vkui:flex-col vkui:overflow-hidden vkui:flex-1">
             {!noBotArea && (
               <TabsContent
                 value="bot"

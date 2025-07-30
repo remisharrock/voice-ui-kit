@@ -217,16 +217,19 @@ export const EventsPanel: React.FC<Props> = ({ collapsed = false }) => {
   return (
     <Panel
       className={cn(
-        "vkui:bg-secondary/20 vkui:h-full vkui:rounded-none! vkui:max-sm:border-none vkui:sm:border-x-0 vkui:sm:mt-2",
+        "vkui:bg-accent vkui:dark:bg-accent/50 vkui:h-full vkui:rounded-none! vkui:max-sm:border-none vkui:sm:border-x-0 vkui:sm:mt-2",
         {
-          "vkui:bg-secondary vkui:opacity-50": collapsed,
+          "vkui:bg-accent vkui:opacity-50": collapsed,
         },
       )}
     >
       <PanelHeader
-        className={cn("vkui:gap-4 vkui:justify-start vkui:items-center", {
-          "vkui:py-2!": collapsed,
-        })}
+        className={cn(
+          "vkui:gap-4 vkui:justify-start vkui:items-center vkui:@md:py-2 vkui:bg-background",
+          {
+            "vkui:py-2!": collapsed,
+          },
+        )}
       >
         <PanelTitle>Events</PanelTitle>
         {!collapsed && (

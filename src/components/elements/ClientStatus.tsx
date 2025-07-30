@@ -7,7 +7,7 @@ import {
   usePipecatClientTransportState,
   useRTVIClientEvent,
 } from "@pipecat-ai/client-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   classNames?: React.ComponentProps<typeof DataList>["classNames"] & {
@@ -23,7 +23,7 @@ export const ClientStatusComponent = ({
   transportState,
 }: {
   className?: string;
-  transportState?: string;
+  transportState?: string | null;
 }) => {
   return (
     <span
@@ -33,8 +33,11 @@ export const ClientStatusComponent = ({
           "vkui:text-active":
             transportState === "connected" || transportState === "ready",
           "vkui:text-destructive": transportState === "error",
+          "vkui:text-subtle/50 vkui:dark:text-subtle/80":
+            transportState === "disconnected",
           "vkui:text-subtle": !transportState,
           "vkui:animate-pulse": [
+            "initializing",
             "authenticating",
             "authenticated",
             "connecting",
@@ -59,24 +62,31 @@ export const ClientStatus: React.FC<Props> = ({
 }) => {
   const transportState = usePipecatClientTransportState();
 
-  const agentConnecting =
-    transportState === "connecting" ||
-    transportState === "connected" ||
-    transportState === "ready";
+  const [botStatus, setBotStatus] = useState<
+    "disconnected" | "connecting" | "connected" | "ready" | null
+  >(null);
 
-  const [isBotConnected, setIsBotConnected] = useState(false);
+  useEffect(() => {
+    if (transportState === "connecting") {
+      setBotStatus("connecting");
+    }
+  }, [transportState]);
 
   useRTVIClientEvent(RTVIEvent.BotReady, () => {
     if (noAgentState) return;
-    setIsBotConnected(true);
+    setBotStatus("ready");
+  });
+  useRTVIClientEvent(RTVIEvent.BotConnected, () => {
+    if (noAgentState) return;
+    setBotStatus("connected");
   });
   useRTVIClientEvent(RTVIEvent.Disconnected, () => {
     if (noAgentState) return;
-    setIsBotConnected(false);
+    setBotStatus("disconnected");
   });
   useRTVIClientEvent(RTVIEvent.BotDisconnected, () => {
     if (noAgentState) return;
-    setIsBotConnected(false);
+    setBotStatus("disconnected");
   });
 
   if (noAgentState && noClientState) return null;
@@ -87,13 +97,7 @@ export const ClientStatus: React.FC<Props> = ({
   }
 
   if (!noAgentState) {
-    data["Agent"] = isBotConnected ? (
-      <ClientStatusComponent transportState="connected" />
-    ) : agentConnecting ? (
-      <ClientStatusComponent transportState="connecting" />
-    ) : (
-      <ClientStatusComponent />
-    );
+    data["Agent"] = <ClientStatusComponent transportState={botStatus} />;
   }
 
   return <DataList classNames={classNames} data={data} />;
