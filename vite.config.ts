@@ -1,8 +1,38 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import fs from "fs";
 import path from "path";
+import postcss from "postcss";
+import prefixer from "postcss-prefix-selector";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+
+function dualCssPlugin() {
+  return {
+    name: "dual-css",
+    closeBundle() {
+      const cssPath = path.resolve(__dirname, "dist/voice-ui-kit.css");
+
+      if (fs.existsSync(cssPath)) {
+        const cssContent = fs.readFileSync(cssPath, "utf-8");
+
+        postcss([
+          prefixer({
+            prefix: ".vkui-root",
+          }),
+        ])
+          .process(cssContent, { from: undefined })
+          .then((result) => {
+            const scopedCssPath = path.resolve(
+              __dirname,
+              "dist/voice-ui-kit-scoped.css",
+            );
+            fs.writeFileSync(scopedCssPath, result.css);
+          });
+      }
+    },
+  };
+}
 
 export default defineConfig({
   plugins: [
@@ -14,7 +44,14 @@ export default defineConfig({
       outDir: "dist",
       rollupTypes: true,
     }),
+    dualCssPlugin(),
   ],
+
+  css: {
+    postcss: {
+      plugins: [],
+    },
+  },
 
   resolve: {
     alias: {
@@ -36,7 +73,6 @@ export default defineConfig({
 
     rollupOptions: {
       external: [
-        // React
         "react",
         "react-dom",
         "react/jsx-runtime",

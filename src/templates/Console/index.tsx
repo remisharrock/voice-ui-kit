@@ -13,7 +13,14 @@ import ConversationPanel from "@/components/panels/ConversationPanel";
 import { EventsPanel } from "@/components/panels/EventsPanel";
 import { InfoPanel } from "@/components/panels/InfoPanel";
 import ThemeModeToggle from "@/components/ThemeModeToggle";
+import {
+  Banner,
+  BannerClose,
+  BannerIcon,
+  BannerTitle,
+} from "@/components/ui/banner";
 import { Button } from "@/components/ui/button";
+import { LoaderSpinner } from "@/components/ui/loaders";
 import {
   Popover,
   PopoverContent,
@@ -25,29 +32,37 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useTheme } from "@/hooks/useTheme";
 import {
   BotIcon,
   ChevronsLeftRightEllipsisIcon,
+  CircleAlertIcon,
   InfoIcon,
   MessagesSquareIcon,
   MicIcon,
+  PanelLeftCloseIcon,
+  PanelRightCloseIcon,
 } from "@/icons";
 import { cn } from "@/lib/utils";
 import {
   type ConnectionEndpoint,
   PipecatClient,
   type PipecatClientOptions,
-  Transport,
   type TransportConnectionParams,
 } from "@pipecat-ai/client-js";
 import {
   PipecatClientAudio,
   PipecatClientProvider,
 } from "@pipecat-ai/client-react";
-import { DailyTransport } from "@pipecat-ai/daily-transport";
-import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
-import { useEffect, useState } from "react";
+import {
+  DailyTransport,
+  type DailyTransportConstructorOptions,
+} from "@pipecat-ai/daily-transport";
+import {
+  SmallWebRTCTransport,
+  type SmallWebRTCTransportConstructorOptions,
+} from "@pipecat-ai/small-webrtc-transport";
+import React, { useEffect, useRef, useState } from "react";
+import type { ImperativePanelHandle } from "react-resizable-panels";
 
 export interface ConsoleTemplateProps {
   /**
@@ -59,6 +74,12 @@ export interface ConsoleTemplateProps {
    * Options for configuring the RTVI client.
    */
   clientOptions?: Partial<PipecatClientOptions>;
+  /**
+   * Options for configuring the transport.
+   */
+  transportOptions?:
+    | SmallWebRTCTransportConstructorOptions
+    | DailyTransportConstructorOptions;
   /**
    * Parameters for connecting to the transport.
    */
@@ -129,13 +150,29 @@ export interface ConsoleTemplateProps {
    * Defaults to "default" which uses the browser's default codec.
    */
   videoCodec?: string;
+
+  /**
+   * Whether to collapse the info panel by default.
+   * When true, the info panel will be collapsed on initial render.
+   */
+  collapseInfoPanel?: boolean;
+  /**
+   * Custom logo component to display in the header.
+   * If provided, this will replace the default Pipecat logo.
+   * Accepts any valid React element.
+   */
+  logoComponent?: React.ReactNode;
 }
 
 const defaultClientOptions: Partial<PipecatClientOptions> = {};
+const defaultTransportOptions:
+  | Partial<SmallWebRTCTransportConstructorOptions>
+  | Partial<DailyTransportConstructorOptions> = {};
 
 export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   audioCodec = "default",
   clientOptions = defaultClientOptions,
+  transportOptions = defaultTransportOptions,
   connectParams,
   noAudioOutput = false,
   noBotAudio = false,
@@ -151,6 +188,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   title = "Pipecat Playground",
   transportType = "daily",
   videoCodec = "default",
+  collapseInfoPanel = false,
+  logoComponent,
 }) => {
   const [isBotAreaCollapsed, setIsBotAreaCollapsed] = useState(false);
   const [isInfoPanelCollapsed, setIsInfoPanelCollapsed] = useState(false);
@@ -159,8 +198,9 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   const [participantId, setParticipantId] = useState("");
   const [client, setClient] = useState<PipecatClient | null>(null);
   const [isClientReady, setIsClientReady] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const { resolvedTheme } = useTheme();
+  const infoPanelRef = useRef<ImperativePanelHandle>(null);
 
   useEffect(
     function initClient() {
@@ -170,11 +210,15 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
       let transport: DailyTransport | SmallWebRTCTransport;
       switch (transportType) {
         case "smallwebrtc":
-          transport = new SmallWebRTCTransport();
+          transport = new SmallWebRTCTransport(
+            transportOptions as SmallWebRTCTransportConstructorOptions,
+          );
           break;
         case "daily":
         default:
-          transport = new DailyTransport();
+          transport = new DailyTransport(
+            transportOptions as DailyTransportConstructorOptions,
+          );
           transport.dailyCallClient.on("meeting-session-updated", (event) => {
             setSessionId(event.meetingSession.id);
           });
@@ -184,7 +228,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
         enableCam: !noUserVideo,
         enableMic: !noUserAudio,
         ...clientOptions,
-        transport: (clientOptions?.transport as Transport) ?? transport,
+        transport: clientOptions?.transport ?? transport,
         callbacks: {
           onParticipantJoined: (participant) => {
             setParticipantId(participant.id || "");
@@ -207,7 +251,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
         pcClient.disconnect();
       };
     },
-    [clientOptions, noUserAudio, noUserVideo, transportType],
+    [clientOptions, transportOptions, noUserAudio, noUserVideo, transportType],
   );
 
   useEffect(
@@ -226,23 +270,26 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
 
   const handleConnect = async () => {
     if (!client) return;
+    setError(null);
     try {
       await client.connect(connectParams);
-    } catch {
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Unknown error");
       await client.disconnect();
     }
   };
 
   const handleDisconnect = async () => {
     if (!client) return;
+    setError(null);
     await client.disconnect();
   };
 
   // Return loading state until client is ready (prevents hydration mismatch)
   if (!isClientReady || !client) {
     return (
-      <div className="flex items-center justify-center h-full w-full">
-        <div>Loading...</div>
+      <div className="vkui:flex vkui:items-center vkui:justify-center vkui:h-full vkui:w-full">
+        <LoaderSpinner />
       </div>
     );
   }
@@ -254,21 +301,52 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
 
   return (
     <PipecatClientProvider client={client}>
+      {error && (
+        <Banner
+          variant="destructive"
+          className="vkui:animate-in vkui:fade-in vkui:duration-300"
+        >
+          <BannerIcon icon={CircleAlertIcon} />
+          <BannerTitle>
+            Unable to connect. Please check web console for errors.
+          </BannerTitle>
+          <BannerClose variant="destructive" />
+        </Banner>
+      )}
       <div className="vkui:grid vkui:grid-cols-1 vkui:grid-rows-[min-content_1fr] vkui:sm:grid-rows-[min-content_1fr_auto] vkui:h-full vkui:w-full vkui:overflow-auto">
         <div className="vkui:grid vkui:grid-cols-2 vkui:sm:grid-cols-[150px_1fr_150px] vkui:gap-2 vkui:items-center vkui:justify-center vkui:p-2 vkui:bg-background vkui:sm:relative vkui:top-0 vkui:w-full vkui:z-10">
           {noLogo ? (
             <span className="vkui:h-6" />
           ) : (
-            <PipecatLogo
-              className="vkui:h-6 vkui:w-auto"
-              color={resolvedTheme === "dark" ? "#ffffff" : "#171717"}
-            />
+            (logoComponent ?? (
+              <PipecatLogo className="vkui:h-6 vkui:w-auto vkui:text-foreground" />
+            ))
           )}
           <strong className="vkui:hidden vkui:sm:block vkui:text-center">
             {title}
           </strong>
-          <div className="vkui:flex vkui:items-center vkui:justify-end vkui:gap-4">
-            {!noThemeSwitch && <ThemeModeToggle />}
+          <div className="vkui:flex vkui:items-center vkui:justify-end vkui:gap-2 vkui:sm:gap-3 vkui:xl:gap-6">
+            <div className="vkui:flex vkui:items-center vkui:gap-1">
+              {!noThemeSwitch && <ThemeModeToggle />}
+              <Button
+                className="vkui:hidden vkui:sm:flex"
+                variant={"ghost"}
+                isIcon
+                onClick={() => {
+                  if (isInfoPanelCollapsed) {
+                    infoPanelRef.current?.expand();
+                  } else {
+                    infoPanelRef.current?.collapse();
+                  }
+                }}
+              >
+                {isInfoPanelCollapsed ? (
+                  <PanelLeftCloseIcon />
+                ) : (
+                  <PanelRightCloseIcon />
+                )}
+              </Button>
+            </div>
             <ConnectButton
               onConnect={handleConnect}
               onDisconnect={handleDisconnect}
@@ -282,10 +360,10 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                 {!noBotArea && (
                   <>
                     <ResizablePanel
-                      className="vkui:flex vkui:flex-col vkui:gap-2 vkui:p-2"
-                      defaultSize={15}
+                      className="vkui:flex vkui:flex-col vkui:gap-2 vkui:p-2 vkui:xl:gap-4"
+                      defaultSize={26}
                       maxSize={30}
-                      minSize={9}
+                      minSize={10}
                       collapsible
                       collapsedSize={8}
                       onCollapse={() => setIsBotAreaCollapsed(true)}
@@ -294,8 +372,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                       {!noBotAudio && (
                         <BotAudioPanel
                           className={cn({
-                            "vkui:max-h-[calc(50%-4px)] vkui:mt-auto":
-                              !noBotVideo,
+                            "vkui:mb-auto": noBotVideo,
                           })}
                           collapsed={isBotAreaCollapsed}
                         />
@@ -303,8 +380,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                       {!noBotVideo && (
                         <BotVideoPanel
                           className={cn({
-                            "vkui:max-h-[calc(50%-4px)] vkui:mb-auto":
-                              !noBotAudio,
+                            "vkui:mt-auto": noBotAudio,
                           })}
                           collapsed={isBotAreaCollapsed}
                         />
@@ -319,8 +395,8 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                   <>
                     <ResizablePanel
                       className="vkui:h-full vkui:p-2"
-                      defaultSize={60}
-                      minSize={40}
+                      defaultSize={collapseInfoPanel ? 70 : 47}
+                      minSize={30}
                     >
                       <ConversationPanel
                         noConversation={noConversation}
@@ -333,10 +409,11 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                 {!noInfoPanel && (
                   <ResizablePanel
                     id="info-panel"
+                    ref={infoPanelRef}
                     collapsible
                     collapsedSize={4}
+                    defaultSize={collapseInfoPanel ? 4 : 27}
                     minSize={15}
-                    defaultSize={20}
                     onCollapse={() => setIsInfoPanelCollapsed(true)}
                     onExpand={() => setIsInfoPanelCollapsed(false)}
                     className="vkui:p-2"
@@ -421,7 +498,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
           }
           className="vkui:flex vkui:flex-col vkui:gap-0 vkui:sm:hidden vkui:overflow-hidden"
         >
-          <div className="vkui:flex vkui:flex-col vkui:overflow-hidden">
+          <div className="vkui:flex vkui:flex-col vkui:overflow-hidden vkui:flex-1">
             {!noBotArea && (
               <TabsContent
                 value="bot"

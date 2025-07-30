@@ -5,6 +5,7 @@ import {
   PanelTitle,
 } from "@/components/ui/panel";
 import { MicOffIcon } from "@/icons";
+import { cn } from "@/lib/utils";
 import {
   usePipecatClientMediaTrack,
   VoiceVisualizer,
@@ -60,35 +61,50 @@ export const BotAudioPanel: React.FC<BotAudioPanelProps> = ({
   }, []);
 
   return (
-    <Panel className={className}>
+    <Panel
+      className={cn(
+        "vkui:flex-1 vkui:mt-auto",
+        {
+          "vkui:flex-0 vkui:border-none": collapsed,
+        },
+        className,
+      )}
+    >
       {!collapsed && (
         <PanelHeader>
           <PanelTitle>Bot Audio</PanelTitle>
         </PanelHeader>
       )}
-      <PanelContent className="vkui:overflow-hidden">
+      <PanelContent
+        className={cn("vkui:overflow-hidden vkui:flex-1", {
+          "vkui:aspect-video": collapsed,
+        })}
+      >
         <div
           ref={containerRef}
-          className="vkui:relative vkui:aspect-video vkui:flex vkui:max-h-full vkui:overflow-hidden"
+          className="vkui:relative vkui:flex vkui:h-full vkui:overflow-hidden"
         >
-          <div className="vkui:m-auto">
-            <VoiceVisualizer
-              participantType="bot"
-              backgroundColor="transparent"
-              barColor="#ad46ff"
-              barCount={barCount}
-              barGap={width}
-              barLineCap="square"
-              barMaxHeight={maxHeight}
-              barOrigin="bottom"
-              barWidth={width}
-            />
-          </div>
-          {!track && (
-            <div className="vkui:absolute vkui:inset-0 vkui:flex vkui:gap-1 vkui:items-center vkui:justify-center">
+          {track ? (
+            <div className="vkui:m-auto">
+              <VoiceVisualizer
+                participantType="bot"
+                backgroundColor="transparent"
+                barColor="#ad46ff"
+                barCount={barCount}
+                barGap={width}
+                barLineCap="square"
+                barMaxHeight={maxHeight}
+                barOrigin="bottom"
+                barWidth={width}
+              />
+            </div>
+          ) : (
+            <div className="vkui:text-subtle vkui:flex vkui:w-full vkui:gap-2 vkui:items-center vkui:justify-center">
               <MicOffIcon size={16} />
               {!collapsed && (
-                <span className="vkui:font-mono vkui:text-xs">No audio</span>
+                <span className="vkui:font-semibold vkui:text-sm">
+                  No audio
+                </span>
               )}
             </div>
           )}

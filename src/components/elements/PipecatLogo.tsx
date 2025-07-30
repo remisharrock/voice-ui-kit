@@ -13,7 +13,7 @@ const aspectRatio = 45 / 26;
 export const PipecatLogo: React.FC<PipecatLogoProps> = ({
   className = "",
   alt = "Pipecat Logo",
-  color = "#171717",
+  color = "currentColor",
   height,
   width,
 }) => {

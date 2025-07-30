@@ -8,6 +8,7 @@ import {
   ChevronsUpDown,
   ChevronUp,
   Circle,
+  CircleAlert,
   Ellipsis,
   EllipsisVertical,
   Funnel,
@@ -19,6 +20,8 @@ import {
   Mic,
   MicOff,
   Moon,
+  PanelLeftClose,
+  PanelRightClose,
   PhoneCall,
   PhoneOff,
   Send,
@@ -59,3 +62,6 @@ export const BotIcon = Bot;
 export const ChevronsLeftRightEllipsisIcon = ChevronsLeftRightEllipsis;
 export const InfoIcon = Info;
 export const LogoutIcon = LogOut;
+export const CircleAlertIcon = CircleAlert;
+export const PanelRightCloseIcon = PanelRightClose;
+export const PanelLeftCloseIcon = PanelLeftClose;

@@ -16,13 +16,17 @@ export const buttonVariants = cva(
         ghost:
           "vkui:text-foreground vkui:border vkui:border-transparent vkui:hover:bg-accent vkui:hover:text-accent-foreground vkui:dark:hover:bg-accent/50",
         link: "vkui:text-primary vkui:underline-offset-4 vkui:hover:underline vkui:border vkui:border-transparent",
+        active:
+          "vkui:bg-active vkui:border vkui:border-transparent vkui:text-active-foreground vkui:hover:bg-active/90 vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40",
+        inactive:
+          "vkui:bg-inactive vkui:border vkui:border-transparent vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
       },
       size: {
         default:
-          "vkui:h-8 vkui:px-4 vkui:py-2 vkui:has-[>svg]:px-3 vkui:[&_svg:not([class*='size-'])]:size-5",
-        sm: "vkui:h-7 vkui:rounded-element vkui:gap-1.5 vkui:px-3 vkui:has-[>svg]:px-2.5 vkui:[&_svg:not([class*='size-'])]:size-4",
-        lg: "vkui:h-10 vkui:rounded-element vkui:px-6 vkui:has-[>svg]:px-4 vkui:[&_svg:not([class*='size-'])]:size-5",
-        xl: "vkui:h-12 vkui:rounded-element vkui:px-8 vkui:text-lg vkui:has-[>svg]:px-6 vkui:[&_svg:not([class*='size-'])]:size-6 vkui:gap-3",
+          "vkui:h-8 vkui:px-4 vkui:py-2 vkui:has-[>svg]:px-3 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:h-7 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+        sm: "vkui:h-7 vkui:rounded-element vkui:gap-1.5 vkui:px-3 vkui:has-[>svg]:px-2.5 vkui:[&_svg:not([class*='size-'])]:size-4 vkui:@max-xs/panel:h-6 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-3",
+        lg: "vkui:h-10 vkui:rounded-element vkui:px-6 vkui:has-[>svg]:px-4 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:h-9 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+        xl: "vkui:h-12 vkui:rounded-element vkui:px-8 vkui:text-lg vkui:has-[>svg]:px-6 vkui:[&_svg:not([class*='size-'])]:size-6 vkui:gap-3 vkui:@max-xs/panel:h-10 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-5",
         icon: "vkui:h-8 vkui:w-8 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-5",
         "icon-sm":
           "vkui:h-7 vkui:w-7 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-4",
@@ -127,6 +131,8 @@ export const buttonVariantOptions = [
   "ghost",
   "link",
   "destructive",
+  "active",
+  "inactive",
 ] as const;
 export const buttonSizeOptions = ["default", "sm", "lg", "xl"] as const;
 export const buttonStateOptions = ["default", "active", "inactive"] as const;
@@ -164,6 +170,16 @@ export const buttonAccentColorMap: Record<
     default: "--vkui-color-active",
     inactive: "--vkui-color-inactive",
     active: "--vkui-color-active",
+  },
+  active: {
+    default: "--vkui-color-active",
+    inactive: "--vkui-color-inactive-foreground",
+    active: "--vkui-color-active",
+  },
+  inactive: {
+    default: "--vkui-color-inactive",
+    inactive: "--vkui-color-inactive-foreground",
+    active: "--vkui-color-inactive",
   },
 };
 export default buttonVariants;

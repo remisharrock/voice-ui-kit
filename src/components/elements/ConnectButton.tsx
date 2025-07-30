@@ -61,7 +61,6 @@ export const ConnectButtonComponent: React.FC<
   onDisconnect,
   stateContent,
   size = "default",
-  defaultVariant = "default",
   transportState,
 }) => {
   /**
@@ -80,15 +79,19 @@ export const ConnectButtonComponent: React.FC<
     switch (transportState) {
       case "disconnected":
       case "initialized":
-      case "initializing":
         return {
           children: "Connect",
-          variant: defaultVariant,
+          variant: "active",
+        };
+      case "initializing":
+        return {
+          children: "Initializing...",
+          variant: "secondary",
         };
       case "ready":
         return {
           children: "Disconnect",
-          variant: defaultVariant,
+          variant: "destructive",
         };
       case "disconnecting":
         return { children: "Disconnecting...", variant: "secondary" };

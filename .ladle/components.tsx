@@ -1,5 +1,6 @@
 import type { GlobalProvider } from "@ladle/react";
 import React, { useEffect } from "react";
+import { ThemeProvider } from "../src/components/ThemeProvider";
 import "./theme.css";
 
 export const Provider: GlobalProvider = ({ children, globalState }) => {
@@ -10,5 +11,5 @@ export const Provider: GlobalProvider = ({ children, globalState }) => {
       document.documentElement.classList.remove("vkui:dark");
     }
   }, [globalState.theme]);
-  return <div className="p-4">{children}</div>;
+  return <ThemeProvider>{children}</ThemeProvider>;
 };

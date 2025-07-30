@@ -21,11 +21,16 @@ export const BotVideoPanel: React.FC<BotVideoPanelProps> = ({
   collapsed = false,
 }) => {
   const track = usePipecatClientMediaTrack("video", "bot");
+
   return (
     <Panel
-      className={cn(className, {
-        "vkui:border-none": collapsed,
-      })}
+      className={cn(
+        "vkui:flex-1 vkui:mb-auto",
+        {
+          "vkui:flex-0 vkui:border-none": collapsed,
+        },
+        className,
+      )}
     >
       {!collapsed && (
         <PanelHeader>
@@ -33,20 +38,30 @@ export const BotVideoPanel: React.FC<BotVideoPanelProps> = ({
         </PanelHeader>
       )}
       <PanelContent
-        className={cn("vkui:relative vkui:overflow-hidden", {
-          "vkui:p-0!": collapsed,
+        className={cn("vkui:overflow-hidden vkui:flex-1", {
+          "vkui:aspect-video": collapsed,
         })}
       >
-        <PipecatClientVideo
-          participant="bot"
-          className="vkui:aspect-video vkui:bg-muted vkui:rounded-sm vkui:max-h-full"
-          fit="contain"
-        />
-        {!track && (
-          <div className="vkui:absolute vkui:inset-0 vkui:flex vkui:gap-1 vkui:items-center vkui:justify-center">
+        {track ? (
+          <div
+            className={cn(
+              "vkui:relative vkui:flex vkui:h-full vkui:bg-muted vkui:rounded-sm",
+              {
+                "vkui:aspect-video": collapsed,
+              },
+            )}
+          >
+            <PipecatClientVideo
+              participant="bot"
+              className="vkui:aspect-video vkui:max-h-full"
+              fit="contain"
+            />
+          </div>
+        ) : (
+          <div className="vkui:text-subtle vkui:flex vkui:w-full vkui:h-full vkui:gap-2 vkui:items-center vkui:justify-center">
             <VideoOffIcon size={16} />
             {!collapsed && (
-              <span className="vkui:font-mono vkui:text-xs">No video</span>
+              <span className="vkui:font-semibold vkui:text-sm">No video</span>
             )}
           </div>
         )}

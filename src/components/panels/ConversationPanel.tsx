@@ -17,20 +17,17 @@ export const ConversationPanel: React.FC<Props> = ({
   return (
     <Tabs className="vkui:h-full" defaultValue={defaultValue}>
       <Panel className="vkui:h-full vkui:max-sm:border-none">
-        <PanelHeader>
+        <PanelHeader variant="noPadding" className="vkui:py-1.5">
           <TabsList>
             {!noConversation && (
-              <TabsTrigger
-                className="vkui:text-mono-upper"
-                value="conversation"
-              >
-                <MessagesSquareIcon size={16} />
+              <TabsTrigger value="conversation">
+                <MessagesSquareIcon size={20} />
                 Conversation
               </TabsTrigger>
             )}
             {!noMetrics && (
-              <TabsTrigger className="vkui:text-mono-upper" value="metrics">
-                <LineChartIcon size={16} />
+              <TabsTrigger value="metrics">
+                <LineChartIcon size={20} />
                 Metrics
               </TabsTrigger>
             )}

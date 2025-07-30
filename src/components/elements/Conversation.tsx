@@ -1,8 +1,8 @@
-import { usePipecatClientTransportState } from "@pipecat-ai/client-react";
-import { Fragment, useCallback, useEffect, useRef } from "react";
+import Thinking from "@/components/elements/Thinking";
 import useConversation from "@/hooks/useConversation";
 import { cn } from "@/lib/utils";
-import Thinking from "@/components/elements/Thinking";
+import { usePipecatClientTransportState } from "@pipecat-ai/client-react";
+import { Fragment, useCallback, useEffect, useRef } from "react";
 
 interface Props {
   classNames?: {
