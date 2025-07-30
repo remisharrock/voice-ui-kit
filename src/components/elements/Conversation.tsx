@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { usePipecatClientTransportState } from "@pipecat-ai/client-react";
 import { Fragment, useCallback, useEffect, useRef } from "react";
 
-interface Props {
+export interface ConversationProps {
   classNames?: {
     container?: string;
     message?: string;
@@ -14,11 +14,15 @@ interface Props {
     thinking?: string;
   };
   noAutoscroll?: boolean;
+  assistantLabel?: string;
+  clientLabel?: string;
 }
 
-export const Conversation: React.FC<Props> = ({
+export const Conversation: React.FC<ConversationProps> = ({
   classNames = {},
   noAutoscroll = false,
+  assistantLabel = "assistant",
+  clientLabel = "user",
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isScrolledToBottom = useRef(true);
@@ -70,6 +74,12 @@ export const Conversation: React.FC<Props> = ({
     return () => scrollElement.removeEventListener("scroll", handleScroll);
   }, [updateScrollState]);
 
+  const roleLabel = (role: "user" | "assistant") => {
+    if (role === "user") return clientLabel;
+    if (role === "assistant") return assistantLabel;
+    return role;
+  };
+
   const isConnecting =
     transportState === "authenticating" || transportState === "connecting";
   const isConnected =
@@ -96,13 +106,13 @@ export const Conversation: React.FC<Props> = ({
                 className={cn(
                   "vkui:font-semibold vkui:font-mono vkui:text-xs vkui:leading-6",
                   {
-                    "vkui:text-blue-500": message.role === "user",
-                    "vkui:text-purple-500": message.role === "assistant",
+                    "vkui:text-client": message.role === "user",
+                    "vkui:text-agent": message.role === "assistant",
                   },
                   classNames.role,
                 )}
               >
-                {message.role}
+                {roleLabel(message.role)}
               </div>
               <div
                 className={cn(

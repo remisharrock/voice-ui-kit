@@ -1,17 +1,20 @@
+import type { ConversationProps } from "@/components/elements/Conversation";
 import Conversation from "@/components/elements/Conversation";
 import { Metrics } from "@/components/metrics";
 import { Panel, PanelContent, PanelHeader } from "@/components/ui/panel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LineChartIcon, MessagesSquareIcon } from "@/icons";
 
-interface Props {
+interface ConversationPanelProps {
   noConversation?: boolean;
   noMetrics?: boolean;
+  conversationElementProps?: Partial<ConversationProps>;
 }
 
-export const ConversationPanel: React.FC<Props> = ({
+export const ConversationPanel: React.FC<ConversationPanelProps> = ({
   noConversation = false,
   noMetrics = false,
+  conversationElementProps,
 }) => {
   const defaultValue = noConversation ? "metrics" : "conversation";
   return (
@@ -39,7 +42,7 @@ export const ConversationPanel: React.FC<Props> = ({
               value="conversation"
               className="vkui:overflow-hidden vkui:h-full"
             >
-              <Conversation />
+              <Conversation {...conversationElementProps} />
             </TabsContent>
           )}
           {!noMetrics && (

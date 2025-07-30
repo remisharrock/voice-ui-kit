@@ -3,6 +3,7 @@
 import AudioOutput from "@/components/elements/AudioOutput";
 import { ClientStatus } from "@/components/elements/ClientStatus";
 import ConnectButton from "@/components/elements/ConnectButton";
+import type { ConversationProps } from "@/components/elements/Conversation";
 import PipecatLogo from "@/components/elements/PipecatLogo";
 import { SessionInfo } from "@/components/elements/SessionInfo";
 import UserAudioControl from "@/components/elements/UserAudioControl";
@@ -162,6 +163,8 @@ export interface ConsoleTemplateProps {
    * Accepts any valid React element.
    */
   logoComponent?: React.ReactNode;
+
+  conversationElementProps?: Partial<ConversationProps>;
 }
 
 const defaultClientOptions: Partial<PipecatClientOptions> = {};
@@ -190,6 +193,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   videoCodec = "default",
   collapseInfoPanel = false,
   logoComponent,
+  conversationElementProps,
 }) => {
   const [isBotAreaCollapsed, setIsBotAreaCollapsed] = useState(false);
   const [isInfoPanelCollapsed, setIsInfoPanelCollapsed] = useState(false);
@@ -401,6 +405,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
                       <ConversationPanel
                         noConversation={noConversation}
                         noMetrics={noMetrics}
+                        conversationElementProps={conversationElementProps}
                       />
                     </ResizablePanel>
                     {!noInfoPanel && <ResizableHandle withHandle />}
