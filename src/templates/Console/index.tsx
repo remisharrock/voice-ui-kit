@@ -51,8 +51,14 @@ import {
   PipecatClientAudio,
   PipecatClientProvider,
 } from "@pipecat-ai/client-react";
-import { DailyTransport } from "@pipecat-ai/daily-transport";
-import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
+import {
+  DailyTransport,
+  type DailyTransportConstructorOptions,
+} from "@pipecat-ai/daily-transport";
+import {
+  SmallWebRTCTransport,
+  type SmallWebRTCTransportConstructorOptions,
+} from "@pipecat-ai/small-webrtc-transport";
 import React, { useEffect, useState } from "react";
 
 export interface ConsoleTemplateProps {
@@ -65,6 +71,12 @@ export interface ConsoleTemplateProps {
    * Options for configuring the RTVI client.
    */
   clientOptions?: Partial<PipecatClientOptions>;
+  /**
+   * Options for configuring the transport.
+   */
+  transportOptions?:
+    | SmallWebRTCTransportConstructorOptions
+    | DailyTransportConstructorOptions;
   /**
    * Parameters for connecting to the transport.
    */
@@ -154,6 +166,7 @@ const defaultClientOptions: Partial<PipecatClientOptions> = {};
 export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
   audioCodec = "default",
   clientOptions = defaultClientOptions,
+  transportOptions = {},
   connectParams,
   noAudioOutput = false,
   noBotAudio = false,
@@ -189,11 +202,15 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = ({
       let transport: DailyTransport | SmallWebRTCTransport;
       switch (transportType) {
         case "smallwebrtc":
-          transport = new SmallWebRTCTransport();
+          transport = new SmallWebRTCTransport(
+            transportOptions as SmallWebRTCTransportConstructorOptions,
+          );
           break;
         case "daily":
         default:
-          transport = new DailyTransport();
+          transport = new DailyTransport(
+            transportOptions as DailyTransportConstructorOptions,
+          );
           transport.dailyCallClient.on("meeting-session-updated", (event) => {
             setSessionId(event.meetingSession.id);
           });
