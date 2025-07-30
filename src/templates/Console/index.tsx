@@ -164,6 +164,11 @@ export interface ConsoleTemplateProps {
    */
   logoComponent?: React.ReactNode;
 
+  /**
+   * Props to pass to the Conversation component.
+   * Allows customization of the conversation display, including styling,
+   * behavior, and appearance of the conversation panel.
+   */
   conversationElementProps?: Partial<ConversationProps>;
 }
 

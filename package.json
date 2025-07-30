@@ -1,6 +1,6 @@
 {
   "name": "@pipecat-ai/voice-ui-kit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "license": "BSD-2-Clause",
   "workspaces": [
@@ -53,7 +53,8 @@
     "@pipecat-ai/small-webrtc-transport": ">=1.0.0",
     "react": ">=16.8.0 || >=17.0.0 || >=18.0.0",
     "react-dom": ">=16.8.0 || >=17.0.0 || >=18.0.0",
-    "three": ">=0.140.0"
+    "three": ">=0.140.0",
+    "web-vad": ">=0.0.6"
   },
   "peerDependenciesMeta": {
     "@daily-co/daily-js": {
@@ -78,6 +79,10 @@
     },
     "three": {
       "optional": true
+    },
+    "web-vad": {
+      "optional": true,
+      "version": ">=0.0.6"
     }
   },
   "scripts": {
@@ -111,6 +116,7 @@
     "@pipecat-ai/daily-transport": "^1.0.0",
     "@pipecat-ai/small-webrtc-transport": "^1.0.0",
     "@tailwindcss/vite": "^4.1.11",
+    "@types/audioworklet": "^0.0.81",
     "@types/node": "^22.15.19",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
