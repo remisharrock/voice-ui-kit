@@ -1,6 +1,7 @@
 import { FullScreenContainer } from "@/components/ui";
+import type { ConversationMessage } from "@/types/conversation";
 import type { StoryDefault } from "@ladle/react";
-import { type ReactNode, useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { ConsoleTemplate } from "./index";
 
 export default {
@@ -8,53 +9,40 @@ export default {
 } satisfies StoryDefault;
 
 export const Default = () => {
-  const [injectMessage, setInjectMessage] = useState<
-    | ((message: {
-        role: "user" | "assistant" | "system";
-        content: string | ReactNode;
-      }) => void)
-    | null
-  >(null);
   const injectMessageRef = useRef<
-    | ((message: {
-        role: "user" | "assistant" | "system";
-        content: string | ReactNode;
-      }) => void)
-    | null
+    ((message: Pick<ConversationMessage, "role" | "content">) => void) | null
   >(null);
-
-  // Keep ref in sync with state
-  injectMessageRef.current = injectMessage;
+  const [isReady, setIsReady] = useState(false);
 
   const handleInjectUserMessage = useCallback(() => {
-    injectMessage?.({
+    injectMessageRef.current?.({
       role: "user",
       content: "Hello! This is a test message from the user.",
     });
-  }, [injectMessage]);
+  }, []);
 
   const handleInjectAssistantMessage = useCallback(() => {
-    injectMessage?.({
+    injectMessageRef.current?.({
       role: "assistant",
       content: "Hi there! This is a test response from the assistant.",
     });
-  }, [injectMessage]);
+  }, []);
 
   const handleInjectSystemMessage = useCallback(() => {
-    injectMessage?.({
+    injectMessageRef.current?.({
       role: "system",
       content: "This is a system message for testing purposes.",
     });
-  }, [injectMessage]);
+  }, []);
 
   const handleOnInjectMessage = useCallback(
     (
-      injectFn: (message: {
-        role: "user" | "assistant" | "system";
-        content: string;
-      }) => void,
+      injectFn: (
+        message: Pick<ConversationMessage, "role" | "content">,
+      ) => void,
     ) => {
-      setInjectMessage(() => injectFn);
+      injectMessageRef.current = injectFn;
+      setIsReady(true);
     },
     [],
   );
@@ -91,47 +79,47 @@ export const Default = () => {
       >
         <button
           onClick={handleInjectUserMessage}
-          disabled={!injectMessage}
+          disabled={!isReady}
           style={{
             padding: "8px 16px",
             backgroundColor: "#007bff",
             color: "white",
             border: "none",
             borderRadius: "4px",
-            cursor: injectMessage ? "pointer" : "not-allowed",
+            cursor: isReady ? "pointer" : "not-allowed",
           }}
         >
           Inject User Message
         </button>
         <button
           onClick={handleInjectAssistantMessage}
-          disabled={!injectMessage}
+          disabled={!isReady}
           style={{
             padding: "8px 16px",
             backgroundColor: "#28a745",
             color: "white",
             border: "none",
             borderRadius: "4px",
-            cursor: injectMessage ? "pointer" : "not-allowed",
+            cursor: isReady ? "pointer" : "not-allowed",
           }}
         >
           Inject Assistant Message
         </button>
         <button
           onClick={handleInjectSystemMessage}
-          disabled={!injectMessage}
+          disabled={!isReady}
           style={{
             padding: "8px 16px",
             backgroundColor: "#6f42c1",
             color: "white",
             border: "none",
             borderRadius: "4px",
-            cursor: injectMessage ? "pointer" : "not-allowed",
+            cursor: isReady ? "pointer" : "not-allowed",
           }}
         >
           Inject System Message
         </button>
-        {!injectMessage && (
+        {!isReady && (
           <span
             style={{ color: "#666", fontSize: "14px", alignSelf: "center" }}
           >
