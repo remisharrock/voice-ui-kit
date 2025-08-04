@@ -6,7 +6,7 @@ component: true
 
 ## Overview
 
-The `AudioClientHelper` component provides convenience methods for using the Pipecat Client SDK.
+The `AudioClientHelper` component reduces the boilerplate code required to use the Pipecat Client SDK that typically remains the same across most applications.
 
 - Creates a Pipecat Client instance and manages its lifecycle.
 - Wraps children with the necessary providers (such as `ThemeProvider` and `PipecatClientProvider`).
@@ -14,8 +14,6 @@ The `AudioClientHelper` component provides convenience methods for using the Pip
 - Passes through transport and client options to the Pipecat Client instance.
 - Automatically disconnects the client when unmounting.
 - Surfaces loading and error states.
-
-Using this component helps cut down on boilerplate code that typically remains the same across most applications.
 
 <Callout>
   This component creates the `PipecatClientProvider` context for you, so you
@@ -25,7 +23,7 @@ Using this component helps cut down on boilerplate code that typically remains t
 
 ## Usage
 
-Helper components are typically used at the highest level of your application, and are used to wrap your entire application.
+Helper components are typically used at the highest level of your application to wrap your entire application and provide the necessary context.
 
 ```tsx
 import {
@@ -48,7 +46,11 @@ export default function Home() {
         ) : error ? (
           <ErrorCard error={error} />
         ) : (
-          /* Your app component */
+		  {/* Your app component here, e.g: */}
+          <div>
+            <button onClick={handleConnect}>Connect</button>
+            <button onClick={handleDisconnect}>Disconnect</button>
+          </div>
         )
       }
     </AudioClientHelper>
@@ -62,28 +64,29 @@ export default function Home() {
   type={{
     connectParams: {
       description:
-        "The percentage of scroll position to display the roll button",
+        "Connection parameters for the transport, including the connection URL and any authentication details",
       type: "TransportConnectionParams",
       default: "{}",
       required: true,
     },
     transportType: {
       description:
-        "The percentage of scroll position to display the roll button",
+        "The type of transport to use for the connection (smallwebrtc or daily)",
       type: '"smallwebrtc" | "daily"',
       default: "smallwebrtc",
       required: true,
     },
     clientOptions: {
       description:
-        "The percentage of scroll position to display the roll button",
+        "Optional configuration options for the Pipecat Client instance",
       type: "PipecatClientOptions",
       default: "undefined",
       required: false,
     },
     children: {
-      description: "The children of the component",
-      type: "React.ReactNode",
+      description:
+        "A render function that receives connection handlers and state",
+      type: "(props: AudioClientHelperProps) => React.ReactNode",
       required: true,
     },
   }}
