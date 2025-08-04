@@ -13,9 +13,9 @@ export default function Home() {
   return (
     <FullScreenContainer>
       <AudioClientHelper
-        transportType="daily"
+        transportType="smallwebrtc"
         connectParams={{
-          endpoint: "/api/connect",
+          connectionUrl: "/api/offer",
         }}
       >
         {({ handleConnect, handleDisconnect, loading, error }) =>

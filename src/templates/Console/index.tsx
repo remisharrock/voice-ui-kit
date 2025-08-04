@@ -47,6 +47,7 @@ import {
   PanelLeftCloseIcon,
   PanelRightCloseIcon,
 } from "@/icons";
+import { createTransport } from "@/lib/transports";
 import { cn } from "@/lib/utils";
 import { type ConversationMessage } from "@/types/conversation";
 import {
@@ -59,16 +60,32 @@ import {
   PipecatClientAudio,
   PipecatClientProvider,
 } from "@pipecat-ai/client-react";
-import {
-  DailyTransport,
-  type DailyTransportConstructorOptions,
-} from "@pipecat-ai/daily-transport";
-import {
-  SmallWebRTCTransport,
-  type SmallWebRTCTransportConstructorOptions,
-} from "@pipecat-ai/small-webrtc-transport";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import type { ImperativePanelHandle } from "react-resizable-panels";
+
+// Type definitions for transport-specific properties
+interface DailyTransportWithClient {
+  dailyCallClient: {
+    on: (
+      event: string,
+      callback: (event: { meetingSession: { id: string } }) => void,
+    ) => void;
+  };
+}
+
+interface SmallWebRTCTransportWithCodecs {
+  setAudioCodec: (codec: string | null) => void;
+  setVideoCodec: (codec: string | null) => void;
+}
+
+import type {
+  DailyTransportOptions,
+  SmallWebRTCTransportOptions,
+} from "@/lib/transports";
+
+// Type aliases for backward compatibility
+type DailyTransportConstructorOptions = DailyTransportOptions;
+type SmallWebRTCTransportConstructorOptions = SmallWebRTCTransportOptions;
 
 export interface ConsoleTemplateProps {
   /**
@@ -178,7 +195,7 @@ export interface ConsoleTemplateProps {
 
   /**
    * Callback that receives the injectMessage function.
-   * This allows parent components to get the injectMessage function to manually add messages.
+   * This allows parent components to get the injectMessage function to manually add messages to the conversation.
    */
   onInjectMessage?: (
     injectMessage: (
@@ -187,8 +204,8 @@ export interface ConsoleTemplateProps {
   ) => void;
 
   /**
-   * Callback that receives the server message.
-   * This allows parent components to get the server message to manually add messages.
+   * Callback that receives incoming server messages.
+   * This allows parent components to subscribe to server messages from the client.
    */
   onServerMessage?: (data: unknown) => void;
 }
@@ -216,7 +233,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
     noUserAudio = false,
     noUserVideo = false,
     title = "Pipecat Playground",
-    transportType = "daily",
+    transportType = "smallwebrtc",
     videoCodec = "default",
     collapseInfoPanel = false,
     logoComponent,
@@ -244,72 +261,88 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
       [onInjectMessage],
     );
 
-    useEffect(
-      function initClient() {
-        // Only run on client side
-        if (typeof window === "undefined") return;
+    useEffect(() => {
+      // Only run on client side
+      if (typeof window === "undefined") return;
 
-        let transport: DailyTransport | SmallWebRTCTransport;
-        switch (transportType) {
-          case "smallwebrtc":
-            transport = new SmallWebRTCTransport(
-              transportOptions as SmallWebRTCTransportConstructorOptions,
-            );
-            break;
-          case "daily":
-          default:
-            transport = new DailyTransport(
-              transportOptions as DailyTransportConstructorOptions,
-            );
-            transport.dailyCallClient.on("meeting-session-updated", (event) => {
-              setSessionId(event.meetingSession.id);
-            });
-            break;
+      let currentClient: PipecatClient | null = null;
+
+      (async () => {
+        try {
+          const transport = await createTransport(
+            transportType,
+            transportOptions,
+          );
+
+          // Set up Daily transport specific event listeners
+          if (transportType === "daily") {
+            const dailyTransport =
+              transport as unknown as DailyTransportWithClient;
+            if (dailyTransport.dailyCallClient) {
+              dailyTransport.dailyCallClient.on(
+                "meeting-session-updated",
+                (event: { meetingSession: { id: string } }) => {
+                  setSessionId(event.meetingSession.id);
+                },
+              );
+            }
+          }
+
+          const pcClient = new PipecatClient({
+            enableCam: !noUserVideo,
+            enableMic: !noUserAudio,
+            ...clientOptions,
+            transport: clientOptions?.transport ?? transport,
+            callbacks: {
+              onParticipantJoined: (participant) => {
+                setParticipantId(participant.id || "");
+                clientOptions?.callbacks?.onParticipantJoined?.(participant);
+              },
+              onTrackStarted(track, participant) {
+                if (participant?.id && participant.local)
+                  setParticipantId(participant.id);
+                clientOptions?.callbacks?.onTrackStarted?.(track, participant);
+              },
+              onServerMessage(data) {
+                onServerMessage?.(data);
+              },
+            },
+          });
+          pcClient.initDevices();
+          currentClient = pcClient;
+          setClient(pcClient);
+          setIsClientReady(true);
+        } catch (error) {
+          setError(
+            error instanceof Error
+              ? error.message
+              : "Failed to initialize transport",
+          );
         }
-        const pcClient = new PipecatClient({
-          enableCam: !noUserVideo,
-          enableMic: !noUserAudio,
-          ...clientOptions,
-          transport: clientOptions?.transport ?? transport,
-          callbacks: {
-            onParticipantJoined: (participant) => {
-              setParticipantId(participant.id || "");
-              clientOptions?.callbacks?.onParticipantJoined?.(participant);
-            },
-            onTrackStarted(track, participant) {
-              if (participant?.id && participant.local)
-                setParticipantId(participant.id);
-              clientOptions?.callbacks?.onTrackStarted?.(track, participant);
-            },
-            onServerMessage(data) {
-              onServerMessage?.(data);
-            },
-          },
-        });
-        pcClient.initDevices();
-        setClient(pcClient);
-        setIsClientReady(true);
-        return () => {
-          /**
-           * Disconnect client when component unmounts or options change.
-           */
-          pcClient.disconnect();
-        };
-      },
-      [
-        clientOptions,
-        transportOptions,
-        noUserAudio,
-        noUserVideo,
-        transportType,
-        onServerMessage,
-      ],
-    );
+      })();
+
+      return () => {
+        /**
+         * Disconnect client when component unmounts or options change.
+         */
+        if (currentClient) {
+          currentClient.disconnect();
+        }
+      };
+    }, [
+      clientOptions,
+      transportOptions,
+      noUserAudio,
+      noUserVideo,
+      transportType,
+      onServerMessage,
+    ]);
 
     useEffect(
       function updateSmallWebRTCCodecs() {
         if (!client || transportType !== "smallwebrtc") return;
-        const transport = client.transport as SmallWebRTCTransport;
+        const transport =
+          client.transport as unknown as SmallWebRTCTransportWithCodecs;
         if (audioCodec) {
           transport.setAudioCodec(audioCodec);
         }

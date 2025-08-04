@@ -1,6 +1,4 @@
-import "./index.css";
-
-// UI
+// Components
 export * from "@/components/elements";
 export * from "@/components/helpers";
 export * from "@/components/panels";
@@ -8,6 +6,7 @@ export * from "@/components/ThemeModeToggle";
 export * from "@/components/ThemeProvider";
 export * from "@/components/ui";
 
+// Hooks & Utilities
 export * from "@/hooks";
 export * from "@/icons";
 

@@ -28,13 +28,6 @@ export const Default = () => {
     });
   }, []);
 
-  const handleInjectSystemMessage = useCallback(() => {
-    injectMessageRef.current?.({
-      role: "system",
-      content: "This is a system message for testing purposes.",
-    });
-  }, []);
-
   const handleOnInjectMessage = useCallback(
     (
       injectFn: (
@@ -43,26 +36,6 @@ export const Default = () => {
     ) => {
       injectMessageRef.current = injectFn;
       setIsReady(true);
-    },
-    [],
-  );
-
-  const handleOnServerMessage = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (data: any) => {
-      setTimeout(() => {
-        if (data.type === "links" && injectMessageRef.current) {
-          const links = data.payload.map((link: string) => (
-            <a href={link} target="_blank" rel="noopener noreferrer">
-              {link}
-            </a>
-          ));
-          injectMessageRef.current({
-            role: "system",
-            content: links,
-          });
-        }
-      }, 3000);
     },
     [],
   );
@@ -105,20 +78,7 @@ export const Default = () => {
         >
           Inject Assistant Message
         </button>
-        <button
-          onClick={handleInjectSystemMessage}
-          disabled={!isReady}
-          style={{
-            padding: "8px 16px",
-            backgroundColor: "#6f42c1",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: isReady ? "pointer" : "not-allowed",
-          }}
-        >
-          Inject System Message
-        </button>
+
         {!isReady && (
           <span
             style={{ color: "#666", fontSize: "14px", alignSelf: "center" }}
@@ -137,7 +97,6 @@ export const Default = () => {
           assistantLabel: "my-assistant",
         }}
         onInjectMessage={handleOnInjectMessage}
-        onServerMessage={handleOnServerMessage}
       />
     </FullScreenContainer>
   );

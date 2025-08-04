@@ -1,5 +1,6 @@
 "use client";
 
+import { createTransport } from "@/lib/transports";
 import {
   type ConnectionEndpoint,
   PipecatClient,
@@ -10,8 +11,6 @@ import {
   PipecatClientAudio,
   PipecatClientProvider,
 } from "@pipecat-ai/client-react";
-import { DailyTransport } from "@pipecat-ai/daily-transport";
-import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "../ThemeProvider";
 
@@ -92,30 +91,32 @@ export const AudioClientHelper = ({
    * Creates a new client instance when transport type or connection params change.
    */
   useEffect(() => {
-    let transport: DailyTransport | SmallWebRTCTransport;
-    switch (transportType) {
-      case "smallwebrtc":
-        transport = new SmallWebRTCTransport();
-        break;
-      case "daily":
-      default:
-        transport = new DailyTransport();
-        break;
-    }
+    let currentClient: PipecatClient | null = null;
 
-    const pcClient = new PipecatClient({
-      enableCam: false,
-      enableMic: true,
-      transport: transport,
-      ...clientOptions,
-    });
-    setClient(pcClient);
+    (async () => {
+      try {
+        const transport = await createTransport(transportType);
+
+        const pcClient = new PipecatClient({
+          enableCam: false,
+          enableMic: true,
+          transport: transport,
+          ...clientOptions,
+        });
+        currentClient = pcClient;
+        setClient(pcClient);
+      } catch (error) {
+        console.error("Failed to initialize transport:", error);
+      }
+    })();
 
     return () => {
       /**
        * Disconnect client when component unmounts or options change.
        */
-      pcClient.disconnect();
+      if (currentClient) {
+        currentClient.disconnect();
+      }
     };
   }, [connectParams, transportType, clientOptions]);
 
