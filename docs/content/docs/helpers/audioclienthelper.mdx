@@ -1,0 +1,120 @@
+---
+title: Audio Client Helper
+description: Higher-order wrapper component that streamlines the use of the Pipecat Client SDK.
+component: true
+---
+
+## Overview
+
+The `AudioClientHelper` component provides convenience methods for using the Pipecat Client SDK.
+
+- Creates a Pipecat Client instance and manages its lifecycle.
+- Wraps children with the necessary providers (such as `ThemeProvider` and `PipecatClientProvider`).
+- Provides connect and disconnect handlers.
+- Passes through transport and client options to the Pipecat Client instance.
+- Automatically disconnects the client when unmounting.
+- Surfaces loading and error states.
+
+Using this component helps cut down on boilerplate code that typically remains the same across most applications.
+
+<Callout>
+  This component creates the `PipecatClientProvider` context for you, so you
+  don't need to create it yourself. Child components will be able to use all
+  Pipecat Client SDK hooks and components.
+</Callout>
+
+## Usage
+
+Helper components are typically used at the highest level of your application, and are used to wrap your entire application.
+
+```tsx
+import {
+  AudioClientHelper,
+  ErrorCard,
+  LoaderSpinner,
+} from "@pipecat-ai/voice-ui-kit";
+
+export default function Home() {
+  return (
+    <AudioClientHelper
+      transportType="smallwebrtc"
+      connectParams={{
+        connectionUrl: "/api/offer",
+      }}
+    >
+      {({ handleConnect, handleDisconnect, loading, error }) =>
+        loading ? (
+          <LoaderSpinner />
+        ) : error ? (
+          <ErrorCard error={error} />
+        ) : (
+          /* Your app component */
+        )
+      }
+    </AudioClientHelper>
+  );
+}
+```
+
+### Props
+
+<TypeTable
+  type={{
+    connectParams: {
+      description:
+        "The percentage of scroll position to display the roll button",
+      type: "TransportConnectionParams",
+      default: "{}",
+      required: true,
+    },
+    transportType: {
+      description:
+        "The percentage of scroll position to display the roll button",
+      type: '"smallwebrtc" | "daily"',
+      default: "smallwebrtc",
+      required: true,
+    },
+    clientOptions: {
+      description:
+        "The percentage of scroll position to display the roll button",
+      type: "PipecatClientOptions",
+      default: "undefined",
+      required: false,
+    },
+    children: {
+      description: "The children of the component",
+      type: "React.ReactNode",
+      required: true,
+    },
+  }}
+/>
+
+### Child Props
+
+The `AudioClientHelper` component passes the following props to its children:
+
+<TypeTable
+  type={{
+    handleConnect: {
+      description: "A function to initiate a connection to the session",
+      type: "() => Promise<void>",
+      required: false,
+    },
+    handleDisconnect: {
+      description: "A function to disconnect from the current session",
+      type: "() => Promise<void>",
+      required: false,
+    },
+    loading: {
+      description:
+        "A boolean indicating whether the client object has been instantiated",
+      type: "boolean",
+      required: false,
+    },
+    error: {
+      description: "An error message if connection fails",
+      type: "string | null",
+      required: false,
+    },
+  }}
+/>
