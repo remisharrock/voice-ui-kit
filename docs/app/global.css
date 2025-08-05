@@ -10,3 +10,10 @@
 .dark {
   --color-fd-primary: var(--color-sky-300);
 }
+
+#nd-sidebar p {
+  font-family: var(--default-mono-font-family);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
