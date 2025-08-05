@@ -10,7 +10,7 @@ export const baseOptions: BaseLayoutProps = {
           viewBox="0 0 600 600"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="rounded-sm dark:invert"
+          className="rounded-xs dark:invert"
         >
           <rect width="600" height="600" fill="black" />
           <path d="M0 190H245V275H0V190Z" fill="white" />
