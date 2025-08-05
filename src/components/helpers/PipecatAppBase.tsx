@@ -12,7 +12,7 @@ import {
   PipecatClientProvider,
 } from "@pipecat-ai/client-react";
 import { useEffect, useState } from "react";
-import { ThemeProvider } from "../ThemeProvider";
+import { ThemeProvider, type ThemeProviderProps } from "../ThemeProvider";
 
 /**
  * Props for the PipecatAppBase component.
@@ -24,6 +24,8 @@ export interface PipecatBaseProps {
   transportType: "smallwebrtc" | "daily";
   /** Optional configuration options for the Pipecat client */
   clientOptions?: PipecatClientOptions;
+  /** Default theme to use for the app */
+  themeProps?: ThemeProviderProps;
   /**
    * Children can be either:
    * - A render prop function that receives helper props and returns React nodes
@@ -94,6 +96,7 @@ export const PipecatAppBase = ({
   connectParams,
   transportType,
   clientOptions,
+  themeProps,
   children,
 }: PipecatBaseProps) => {
   const [client, setClient] = useState<PipecatClient | null>(null);
@@ -183,7 +186,7 @@ export const PipecatAppBase = ({
   };
 
   return (
-    <ThemeProvider>
+    <ThemeProvider {...themeProps}>
       <PipecatClientProvider client={client!}>
         {typeof children === "function" ? children(passedProps) : children}
         <PipecatClientAudio />
