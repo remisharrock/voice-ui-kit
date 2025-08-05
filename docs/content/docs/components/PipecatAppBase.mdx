@@ -1,25 +1,26 @@
 ---
 title: Pipecat App Base
-description: Higher-order wrapper component that streamlines the use of the Pipecat Client SDK.
+description: Higher-order component that streamlines setup of a Pipecat Client instance.
 component: true
 ---
 
 ## Overview
 
-The `PipecatAppBase` component reduces the boilerplate code required to use the Pipecat Client SDK that typically remains the same across most applications.
+The `PipecatAppBase` component reduces the boilerplate code required to bootstrap a new Pipecat Client application.
+
+It handles the common setup tasks that are typically the same across most applications, providing a simpler developer experience:
 
 - Creates a Pipecat Client instance and manages its lifecycle.
 - Wraps children with the necessary providers (such as `ThemeProvider` and `PipecatClientProvider`).
 - Provides connect and disconnect handlers.
 - Mounts any available audio tracks using the Pipecat React `<PipecatClientAudio />` component.
-- Passes through transport and client options to the Pipecat Client instance.
-- Automatically disconnects the client when unmounting.
+- Passes through transport and client options from the constructor.
+- Automatically disconnects and disposes the client when unmounting.
 - Surfaces loading and error states to the child components.
 
 <Callout>
-  This component creates the `PipecatClientProvider` context for you, so you
-  don't need to create it yourself. Child components will be able to use all
-  Pipecat Client SDK hooks and components.
+  This component creates the `PipecatClientProvider` context for you. Child
+  components will be able to use all Pipecat Client SDK hooks and components.
 </Callout>
 
 ## Usage
@@ -28,7 +29,7 @@ The `PipecatAppBase` component can be used in two ways:
 
 ### 1. Render Prop Pattern (Function Children)
 
-This pattern gives you access to connection handlers and state, allowing you to build custom UI that responds to the connection state.
+This pattern gives you access to connection handlers and state, allowing you to build custom UI that have direct access to these props:
 
 ```tsx
 import {
