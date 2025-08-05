@@ -14,6 +14,7 @@ import ConversationPanel from "@/components/panels/ConversationPanel";
 import { EventsPanel } from "@/components/panels/EventsPanel";
 import { InfoPanel } from "@/components/panels/InfoPanel";
 import ThemeModeToggle from "@/components/ThemeModeToggle";
+import { SpinLoader } from "@/components/ui";
 import {
   Banner,
   BannerClose,
@@ -21,7 +22,6 @@ import {
   BannerTitle,
 } from "@/components/ui/banner";
 import { Button } from "@/components/ui/button";
-import { LoaderSpinner } from "@/components/ui/loaders";
 import {
   Popover,
   PopoverContent,
@@ -47,6 +47,10 @@ import {
   PanelLeftCloseIcon,
   PanelRightCloseIcon,
 } from "@/icons";
+import type {
+  DailyTransportOptions,
+  SmallWebRTCTransportOptions,
+} from "@/lib/transports";
 import { createTransport } from "@/lib/transports";
 import { cn } from "@/lib/utils";
 import { type ConversationMessage } from "@/types/conversation";
@@ -77,11 +81,6 @@ interface SmallWebRTCTransportWithCodecs {
   setAudioCodec: (codec: string | null) => void;
   setVideoCodec: (codec: string | null) => void;
 }
-
-import type {
-  DailyTransportOptions,
-  SmallWebRTCTransportOptions,
-} from "@/lib/transports";
 
 // Type aliases for backward compatibility
 type DailyTransportConstructorOptions = DailyTransportOptions;
@@ -374,7 +373,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
     if (!isClientReady || !client) {
       return (
         <div className="vkui:flex vkui:items-center vkui:justify-center vkui:h-full vkui:w-full">
-          <LoaderSpinner />
+          <SpinLoader />
         </div>
       );
     }

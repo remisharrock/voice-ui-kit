@@ -15,9 +15,9 @@ import { useEffect, useState } from "react";
 import { ThemeProvider } from "../ThemeProvider";
 
 /**
- * Props for the AudioClientHelper component.
+ * Props for the PipecatAppBase component.
  */
-export interface AppProps {
+export interface PipecatBaseProps {
   /** Connection parameters for the Pipecat client */
   connectParams: TransportConnectionParams | ConnectionEndpoint;
   /** Type of transport to use for the connection */
@@ -25,18 +25,22 @@ export interface AppProps {
   /** Optional configuration options for the Pipecat client */
   clientOptions?: PipecatClientOptions;
   /**
-   * Render prop function that receives helper props and returns React nodes.
+   * Children can be either:
+   * - A render prop function that receives helper props and returns React nodes
+   * - Direct React nodes that will be wrapped with the necessary providers
    *
-   * @param props - HelperChildProps including connection handlers, loading, and error state
+   * @param props - PipecatBasePassedProps including connection handlers, loading, and error state
    * @returns React.ReactNode
    */
-  children: (props: HelperChildProps) => React.ReactNode;
+  children:
+    | ((props: PipecatBasePassedProps) => React.ReactNode)
+    | React.ReactNode;
 }
 
 /**
- * Props that are passed to child components by the AudioClientHelper.
+ * Props that are passed to child components by the PipecatAppBase.
  */
-export interface HelperChildProps {
+export interface PipecatBasePassedProps {
   /** Function to initiate a connection to the session */
   handleConnect?: () => Promise<void>;
   /** Function to disconnect from the current session */
@@ -48,7 +52,7 @@ export interface HelperChildProps {
 }
 
 /**
- * AudioClientHelper component that provides a configured Pipecat client with audio capabilities.
+ * PipecatAppBase component that provides a configured Pipecat client with audio capabilities.
  *
  * This component:
  * - Initializes a Pipecat client with the specified transport type
@@ -62,7 +66,8 @@ export interface HelperChildProps {
  *
  * @example
  * ```tsx
- * <AudioClientHelper
+ * // Using as a render prop (function children)
+ * <PipecatAppBase
  *   connectParams={...}
  *   transportType="daily"
  * >
@@ -74,15 +79,23 @@ export interface HelperChildProps {
  *       error={error}
  *     />
  *   )}
- * </AudioClientHelper>
+ * </PipecatAppBase>
+ *
+ * // Using with direct React nodes
+ * <PipecatAppBase
+ *   connectParams={...}
+ *   transportType="daily"
+ * >
+ *   <YourComponent />
+ * </PipecatAppBase>
  * ```
  */
-export const AudioClientHelper = ({
+export const PipecatAppBase = ({
   connectParams,
   transportType,
   clientOptions,
   children,
-}: AppProps) => {
+}: PipecatBaseProps) => {
   const [client, setClient] = useState<PipecatClient | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -157,20 +170,29 @@ export const AudioClientHelper = ({
    * Show loading state while client is being initialized.
    */
   if (!client) {
-    return children({ loading: true, error: null });
+    return typeof children === "function"
+      ? children({ loading: true, error: null })
+      : children;
   }
+
+  const passedProps: PipecatBasePassedProps = {
+    handleConnect,
+    handleDisconnect,
+    loading: false,
+    error,
+  };
 
   return (
     <ThemeProvider>
       <PipecatClientProvider client={client!}>
-        {children({
-          handleConnect,
-          handleDisconnect,
-          loading: false,
-          error,
-        })}
+        {typeof children === "function" ? children(passedProps) : children}
         <PipecatClientAudio />
       </PipecatClientProvider>
     </ThemeProvider>
   );
 };
+
+/**
+ * @deprecated Use PipecatAppBase instead. This component will be removed in a future version.
+ */
+export const AudioAppHelper = PipecatAppBase;

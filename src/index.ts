@@ -6,7 +6,7 @@ export * from "@/components/ThemeModeToggle";
 export * from "@/components/ThemeProvider";
 export * from "@/components/ui";
 
-// Hooks & Utilities
+// Hooks & Utilityies
 export * from "@/hooks";
 export * from "@/icons";
 

@@ -1,19 +1,20 @@
 ---
-title: Audio Client Helper
+title: Pipecat App Base
 description: Higher-order wrapper component that streamlines the use of the Pipecat Client SDK.
 component: true
 ---
 
 ## Overview
 
-The `AudioClientHelper` component reduces the boilerplate code required to use the Pipecat Client SDK that typically remains the same across most applications.
+The `PipecatAppBase` component reduces the boilerplate code required to use the Pipecat Client SDK that typically remains the same across most applications.
 
 - Creates a Pipecat Client instance and manages its lifecycle.
 - Wraps children with the necessary providers (such as `ThemeProvider` and `PipecatClientProvider`).
 - Provides connect and disconnect handlers.
+- Mounts any available audio tracks using the Pipecat React `<PipecatClientAudio />` component.
 - Passes through transport and client options to the Pipecat Client instance.
 - Automatically disconnects the client when unmounting.
-- Surfaces loading and error states.
+- Surfaces loading and error states to the child components.
 
 <Callout>
   This component creates the `PipecatClientProvider` context for you, so you
@@ -23,18 +24,22 @@ The `AudioClientHelper` component reduces the boilerplate code required to use t
 
 ## Usage
 
-Helper components are typically used at the highest level of your application to wrap your entire application and provide the necessary context.
+The `PipecatAppBase` component can be used in two ways:
+
+### 1. Render Prop Pattern (Function Children)
+
+This pattern gives you access to connection handlers and state, allowing you to build custom UI that responds to the connection state.
 
 ```tsx
 import {
-  AudioClientHelper,
+  PipecatAppBase,
   ErrorCard,
-  LoaderSpinner,
+  SpinLoader,
 } from "@pipecat-ai/voice-ui-kit";
 
 export default function Home() {
   return (
-    <AudioClientHelper
+    <PipecatAppBase
       transportType="smallwebrtc"
       connectParams={{
         connectionUrl: "/api/offer",
@@ -42,18 +47,48 @@ export default function Home() {
     >
       {({ handleConnect, handleDisconnect, loading, error }) =>
         loading ? (
-          <LoaderSpinner />
+          <SpinLoader />
         ) : error ? (
           <ErrorCard error={error} />
         ) : (
-		  {/* Your app component here, e.g: */}
           <div>
             <button onClick={handleConnect}>Connect</button>
             <button onClick={handleDisconnect}>Disconnect</button>
           </div>
         )
       }
-    </AudioClientHelper>
+    </PipecatAppBase>
+  );
+}
+```
+
+### 2. Direct Children Pattern
+
+This pattern is simpler when you want to use the built-in components that already handle connection state internally (e.g. using Pipecat React hooks).
+
+```tsx
+import {
+  PipecatAppBase,
+  ConnectButton,
+  ControlBar,
+  UserAudioControl,
+} from "@pipecat-ai/voice-ui-kit";
+
+export default function Home() {
+  return (
+    <PipecatAppBase
+      transportType="smallwebrtc"
+      connectParams={{
+        connectionUrl: "/api/offer",
+      }}
+    >
+      <div>
+        <ConnectButton />
+        <ControlBar>
+          <UserAudioControl />
+        </ControlBar>
+      </div>
+    </PipecatAppBase>
   );
 }
 ```
@@ -85,8 +120,8 @@ export default function Home() {
     },
     children: {
       description:
-        "A render function that receives connection handlers and state",
-      type: "(props: AudioClientHelperProps) => React.ReactNode",
+        "Either a render function that receives connection handlers and state, or direct React nodes",
+      type: "((props: PipecatBasePassedProps) => React.ReactNode) | React.ReactNode",
       required: true,
     },
   }}
@@ -94,7 +129,7 @@ export default function Home() {
 
 ### Child Props
 
-The `AudioClientHelper` component passes the following props to its children:
+The `PipecatAppBase` component passes the following props to its children when using the render prop pattern:
 
 <TypeTable
   type={{

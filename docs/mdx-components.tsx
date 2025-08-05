@@ -1,3 +1,4 @@
+import { ComponentPreview } from "@/components/ComponentPreview";
 import { Sandbox } from "@/components/Sandbox";
 import * as TabsComponents from "fumadocs-ui/components/tabs";
 import * as TypeTableComponents from "fumadocs-ui/components/type-table";
@@ -13,6 +14,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ...TabsComponents,
     ...TypeTableComponents,
     ...components,
+    ComponentPreview,
     Sandbox,
   };
 }

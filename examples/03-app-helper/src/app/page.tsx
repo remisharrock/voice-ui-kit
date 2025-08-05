@@ -1,10 +1,11 @@
 "use client";
 
 import {
-  AudioClientHelper,
   ErrorCard,
   FullScreenContainer,
-  LoaderSpinner,
+  PipecatAppBase,
+  PipecatBasePassedProps,
+  SpinLoader,
 } from "@pipecat-ai/voice-ui-kit";
 
 import { App } from "./app";
@@ -12,15 +13,20 @@ import { App } from "./app";
 export default function Home() {
   return (
     <FullScreenContainer>
-      <AudioClientHelper
+      <PipecatAppBase
         transportType="smallwebrtc"
         connectParams={{
           connectionUrl: "/api/offer",
         }}
       >
-        {({ handleConnect, handleDisconnect, loading, error }) =>
+        {({
+          handleConnect,
+          handleDisconnect,
+          loading,
+          error,
+        }: PipecatBasePassedProps) =>
           loading ? (
-            <LoaderSpinner />
+            <SpinLoader />
           ) : error ? (
             <ErrorCard error={error} />
           ) : (
@@ -31,7 +37,7 @@ export default function Home() {
             />
           )
         }
-      </AudioClientHelper>
+      </PipecatAppBase>
     </FullScreenContainer>
   );
 }

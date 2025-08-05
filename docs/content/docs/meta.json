@@ -9,8 +9,6 @@
         "---Components---",
         "...components",
         "primitives",
-        "---Helpers---",
-        "helpers/audioclienthelper",
         "---Templates---",
         "templates/console",
         "---Audio Visualizers---",
