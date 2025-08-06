@@ -21,10 +21,7 @@ export const ErrorCard = ({
 } & CardProps) => {
   return (
     <Card
-      className={cn(
-        "vkui:shadow-long vkui:min-w-md vkui:gap-0",
-        cardProps.className,
-      )}
+      className={cn("vkui:min-w-md vkui:gap-0", cardProps.className)}
       destructive
       {...cardProps}
     >

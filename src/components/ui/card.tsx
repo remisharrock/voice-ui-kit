@@ -8,13 +8,23 @@ const cardVariants = cva(
   {
     variants: {
       size: {
-        default: "vkui:gap-2 vkui:p-2 vkui:rounded-element vkui:shadow-short",
-        sm: "vkui:gap-1 vkui:p-1 vkui:rounded-md vkui:shadow-xshort",
-        lg: "vkui:gap-3 vkui:p-3 vkui:rounded-2xl vkui:shadow-long",
+        default: "vkui:gap-2 vkui:p-2 vkui:rounded-element",
+        sm: "vkui:gap-1 vkui:p-1 vkui:rounded-md",
+        lg: "vkui:gap-3 vkui:p-3 vkui:rounded-2xl",
       },
+    },
+    defaultVariants: {
+      size: "default",
     },
   },
 );
+
+// Size-based shadow mapping
+const sizeToShadow = {
+  sm: "vkui:shadow-xshort",
+  default: "vkui:shadow-short",
+  lg: "vkui:shadow-long",
+} as const;
 
 export interface CardProps extends React.ComponentProps<"div"> {
   destructive?: boolean;
@@ -29,6 +39,7 @@ function Card({
   noGradientBorder = false,
   noShadow = false,
   size = "default",
+  destructive = false,
   ...props
 }: CardProps) {
   return (
@@ -36,11 +47,14 @@ function Card({
       data-slot="card"
       className={cn(
         cardVariants({ size }),
-        noShadow && "vkui:shadow-none",
-        !noGradientBorder &&
-          !props.destructive &&
+        !noShadow && sizeToShadow[size],
+        !noShadow &&
+          destructive &&
+          "vkui:shadow-destructive/10 vkui:dark:shadow-destructive/15",
+        !destructive &&
+          !noGradientBorder &&
           "vkui:border vkui:border-transparent vkui:bg-origin-border vkui:borderclip vkui:bg-cardGradientBorder",
-        props.destructive && "vkui:text-destructive vkui:border-destructive",
+        destructive && "vkui:text-destructive vkui:border-destructive",
         className,
       )}
       {...props}

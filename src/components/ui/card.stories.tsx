@@ -7,12 +7,20 @@ export default {
 
 export const Default: Story = () => (
   <div className="vkui:flex vkui:flex-col vkui:gap-8">
-    <Card size="default">
+    <Card>
       <CardContent>Card with gradient border</CardContent>
     </Card>
 
     <Card noGradientBorder size="default">
       <CardContent>Card without gradient border</CardContent>
+    </Card>
+
+    <Card noShadow>
+      <CardContent>Card with no shadow</CardContent>
+    </Card>
+
+    <Card noShadow noGradientBorder>
+      <CardContent>Card with no shadow and no gradient border</CardContent>
     </Card>
 
     <Card size="lg">
@@ -25,6 +33,10 @@ export const Default: Story = () => (
 
     <Card destructive>
       <CardContent>Card with destructive state</CardContent>
+    </Card>
+
+    <Card noShadow destructive>
+      <CardContent>Card with no shadow and destructive state</CardContent>
     </Card>
   </div>
 );
