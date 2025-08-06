@@ -7,7 +7,7 @@ export default {
 
 export const Default: Story<{
   error: string;
-}> = ({ error }) => <ErrorCard error={error} />;
+}> = ({ error }) => <ErrorCard>{error}</ErrorCard>;
 
 Default.args = {
   error: "An error occurred",

@@ -3,15 +3,18 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 
-const cardVariants = cva("vkui:text-card-foreground vkui:flex vkui:flex-col", {
-  variants: {
-    size: {
-      default: "vkui:gap-2 vkui:p-2 vkui:rounded-element vkui:shadow-short",
-      sm: "vkui:gap-1 vkui:p-1 vkui:rounded-md vkui:shadow-xshort",
-      lg: "vkui:gap-3 vkui:p-3 vkui:rounded-2xl vkui:shadow-long",
+const cardVariants = cva(
+  "vkui:text-card-foreground vkui:flex vkui:flex-col vkui:bg-card vkui:border vkui:border-border",
+  {
+    variants: {
+      size: {
+        default: "vkui:gap-2 vkui:p-2 vkui:rounded-element vkui:shadow-short",
+        sm: "vkui:gap-1 vkui:p-1 vkui:rounded-md vkui:shadow-xshort",
+        lg: "vkui:gap-3 vkui:p-3 vkui:rounded-2xl vkui:shadow-long",
+      },
     },
   },
-});
+);
 
 export interface CardProps extends React.ComponentProps<"div"> {
   destructive?: boolean;
@@ -34,8 +37,8 @@ function Card({
       className={cn(
         cardVariants({ size }),
         noShadow && "vkui:shadow-none",
-        noGradientBorder && "vkui:bg-card vkui:border vkui:border-border",
         !noGradientBorder &&
+          !props.destructive &&
           "vkui:border vkui:border-transparent vkui:bg-origin-border vkui:borderclip vkui:bg-cardGradientBorder",
         props.destructive && "vkui:text-destructive vkui:border-destructive",
         className,

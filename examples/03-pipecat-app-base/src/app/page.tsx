@@ -28,7 +28,7 @@ export default function Home() {
           !client ? (
             <SpinLoader />
           ) : error ? (
-            <ErrorCard error={error} />
+            <ErrorCard>{error}</ErrorCard>
           ) : (
             <App
               handleConnect={handleConnect}

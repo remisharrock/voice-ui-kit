@@ -14,5 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Made connection handlers (`handleConnect`, `handleDisconnect`) compatible with both sync and async functions.
     - Enhanced error handling and loading states for better developer experience.
     - Returns the client object in child props.
+    - Fixed TypeScript component type definition to resolve JSX usage errors.
 - `LoaderSpinner` component from `components/ui/loaders` has been renamed to `SpinLoader` to establish a naming convention for future loaders.
 - Minor CSS fixes to address border overlap for button groups when in dark mode.
+- `ErrorCard` allows for cascading classNames for Card elements and passing of custom icon component
+- Added TW4 utilities to shadow classes to allow overrides in external themes

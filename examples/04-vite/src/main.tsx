@@ -2,6 +2,8 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import {
+  Card,
+  CardContent,
   ConnectButton,
   ErrorCard,
   FullScreenContainer,
@@ -25,12 +27,16 @@ createRoot(document.getElementById("root")!).render(
           !client ? (
             <SpinLoader />
           ) : error ? (
-            <ErrorCard error={error} />
+            <ErrorCard>{error}</ErrorCard>
           ) : (
-            <ConnectButton
-              onConnect={handleConnect}
-              onDisconnect={handleDisconnect}
-            />
+            <Card>
+              <CardContent>
+                <ConnectButton
+                  onConnect={handleConnect}
+                  onDisconnect={handleDisconnect}
+                />
+              </CardContent>
+            </Card>
           )
         }
       </PipecatAppBase>

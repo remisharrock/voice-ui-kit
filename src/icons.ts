@@ -26,6 +26,7 @@ import {
   PhoneOff,
   Send,
   Sun,
+  TriangleAlert,
   Video,
   VideoOff,
   Volume2,
@@ -65,3 +66,4 @@ export const LogoutIcon = LogOut;
 export const CircleAlertIcon = CircleAlert;
 export const PanelRightCloseIcon = PanelRightClose;
 export const PanelLeftCloseIcon = PanelLeftClose;
+export const TriangleAlertIcon = TriangleAlert;

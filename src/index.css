@@ -156,6 +156,21 @@
   }
 }
 
+/*
+ * Utilities to allow changing shadow via external theme
+ */
+@utility shadow-long {
+  box-shadow: var(--vkui-shadow-long, var(--shadow-long));
+}
+
+@utility shadow-short {
+  box-shadow: var(--vkui-shadow-short, var(--shadow-short));
+}
+
+@utility shadow-xshort {
+  box-shadow: var(--vkui-shadow-xshort, var(--shadow-xshort));
+}
+
 .vkui\:button-group.vkui\:flex-row > *:not(:first-child):not(:last-child) {
   border-radius: 0;
 }

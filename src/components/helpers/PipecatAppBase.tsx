@@ -11,7 +11,7 @@ import {
   PipecatClientAudio,
   PipecatClientProvider,
 } from "@pipecat-ai/client-react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ThemeProvider, type ThemeProviderProps } from "../ThemeProvider";
 
 /**
@@ -105,14 +105,14 @@ export interface PipecatBaseChildProps {
  * </PipecatAppBase>
  * ```
  */
-export const PipecatAppBase = ({
+export const PipecatAppBase: React.FC<PipecatBaseProps> = ({
   connectParams,
   transportType,
   clientOptions,
   noThemeProvider = false,
   themeProps,
   children,
-}: PipecatBaseProps) => {
+}) => {
   const [client, setClient] = useState<PipecatClient | null>(null);
   const [error, setError] = useState<string | null>(null);
 
