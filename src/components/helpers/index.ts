@@ -1,5 +1,2 @@
 export { AudioAppHelper, PipecatAppBase } from "./PipecatAppBase";
-export type {
-  PipecatBasePassedProps,
-  PipecatBaseProps,
-} from "./PipecatAppBase";
+export type { PipecatBaseChildProps, PipecatBaseProps } from "./PipecatAppBase";

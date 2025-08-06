@@ -4,7 +4,7 @@ import {
   ErrorCard,
   FullScreenContainer,
   PipecatAppBase,
-  PipecatBasePassedProps,
+  PipecatBaseChildProps,
   SpinLoader,
 } from "@pipecat-ai/voice-ui-kit";
 
@@ -20,12 +20,12 @@ export default function Home() {
         }}
       >
         {({
+          client,
           handleConnect,
           handleDisconnect,
-          loading,
           error,
-        }: PipecatBasePassedProps) =>
-          loading ? (
+        }: PipecatBaseChildProps) =>
+          !client ? (
             <SpinLoader />
           ) : error ? (
             <ErrorCard error={error} />

@@ -151,14 +151,14 @@
     text-transform: uppercase;
   }
 
-  .vkui\:button-group.vkui\:flex-row > *:not(:first-child):not(:last-child) {
-    border-radius: 0;
-  }
-  .vkui\:button-group.vkui\:flex-col > *:not(:first-child):not(:last-child) {
-    border-radius: 0;
-  }
-
   .vkui\:borderclip {
     background-clip: padding-box, border-box;
   }
+}
+
+.vkui\:button-group.vkui\:flex-row > *:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+.vkui\:button-group.vkui\:flex-col > *:not(:first-child):not(:last-child) {
+  border-radius: 0;
 }

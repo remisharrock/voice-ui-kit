@@ -1,5 +1,5 @@
 {
-  "name": "03-pipecat-base-app",
+  "name": "03-pipecat-app-base",
   "version": "0.1.0",
   "private": true,
   "scripts": {

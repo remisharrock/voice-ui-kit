@@ -24,8 +24,11 @@ export interface PipecatBaseProps {
   transportType: "smallwebrtc" | "daily";
   /** Optional configuration options for the Pipecat client */
   clientOptions?: PipecatClientOptions;
+  /** Whether to disable the theme provider */
+  noThemeProvider?: boolean;
   /** Default theme to use for the app */
-  themeProps?: ThemeProviderProps;
+  themeProps?: Partial<ThemeProviderProps>;
+
   /**
    * Children can be either:
    * - A render prop function that receives helper props and returns React nodes
@@ -35,20 +38,20 @@ export interface PipecatBaseProps {
    * @returns React.ReactNode
    */
   children:
-    | ((props: PipecatBasePassedProps) => React.ReactNode)
+    | ((props: PipecatBaseChildProps) => React.ReactNode)
     | React.ReactNode;
 }
 
 /**
  * Props that are passed to child components by the PipecatAppBase.
  */
-export interface PipecatBasePassedProps {
-  /** Function to initiate a connection to the session */
-  handleConnect?: () => Promise<void>;
-  /** Function to disconnect from the current session */
-  handleDisconnect?: () => Promise<void>;
-  /** Loading state */
-  loading?: boolean;
+export interface PipecatBaseChildProps {
+  /** Pipecat client instance */
+  client: PipecatClient | null;
+  /** Function to initiate a connection to the session. Can be sync or async. */
+  handleConnect?: () => void | Promise<void>;
+  /** Function to disconnect from the current session. Can be sync or async. */
+  handleDisconnect?: () => void | Promise<void>;
   /** Error message if connection fails */
   error?: string | null;
 }
@@ -58,10 +61,11 @@ export interface PipecatBasePassedProps {
  *
  * This component:
  * - Initializes a Pipecat client with the specified transport type
- * - Provides connection and disconnection handlers
+ * - Provides connection and disconnection handlers (sync or async)
  * - Wraps children in the necessary providers (ThemeProvider, PipecatClientProvider)
  * - Handles error states and loading states
  * - Automatically disconnects the client when unmounting
+ * - Optionally disables theme provider based on noThemeProvider prop
  *
  * @param props - Configuration for the audio client including connection params and transport type
  * @returns A provider component that wraps children with client context and handlers
@@ -73,11 +77,11 @@ export interface PipecatBasePassedProps {
  *   connectParams={...}
  *   transportType="daily"
  * >
- *   {({ handleConnect, handleDisconnect, loading, error }) => (
+ *   {({ client, handleConnect, handleDisconnect, error }) => (
  *     <YourComponent
+ *       client={client}
  *       handleConnect={handleConnect}
  *       handleDisconnect={handleDisconnect}
- *       loading={loading}
  *       error={error}
  *     />
  *   )}
@@ -90,12 +94,22 @@ export interface PipecatBasePassedProps {
  * >
  *   <YourComponent />
  * </PipecatAppBase>
+ *
+ * // Using with noThemeProvider to disable theme wrapping
+ * <PipecatAppBase
+ *   connectParams={...}
+ *   transportType="daily"
+ *   noThemeProvider={true}
+ * >
+ *   <YourComponent />
+ * </PipecatAppBase>
  * ```
  */
 export const PipecatAppBase = ({
   connectParams,
   transportType,
   clientOptions,
+  noThemeProvider = false,
   themeProps,
   children,
 }: PipecatBaseProps) => {
@@ -105,6 +119,7 @@ export const PipecatAppBase = ({
   /**
    * Initializes the Pipecat client with the specified transport type.
    * Creates a new client instance when transport type or connection params change.
+   * Uses a ref to prevent double initialization in Strict Mode.
    */
   useEffect(() => {
     let currentClient: PipecatClient | null = null;
@@ -127,12 +142,9 @@ export const PipecatAppBase = ({
     })();
 
     return () => {
-      /**
-       * Disconnect client when component unmounts or options change.
-       */
-      if (currentClient) {
-        currentClient.disconnect();
-      }
+      currentClient?.disconnect();
+      setClient(null);
+      setError(null);
     };
   }, [connectParams, transportType, clientOptions]);
 
@@ -171,27 +183,33 @@ export const PipecatAppBase = ({
 
   /**
    * Show loading state while client is being initialized.
+   * Don't render PipecatClientProvider until client is ready to prevent multiple instances.
    */
   if (!client) {
     return typeof children === "function"
-      ? children({ loading: true, error: null })
+      ? children({ client: null, error: null })
       : children;
   }
 
-  const passedProps: PipecatBasePassedProps = {
+  const passedProps: PipecatBaseChildProps = {
+    client,
     handleConnect,
     handleDisconnect,
-    loading: false,
     error,
   };
 
-  return (
-    <ThemeProvider {...themeProps}>
-      <PipecatClientProvider client={client!}>
-        {typeof children === "function" ? children(passedProps) : children}
-        <PipecatClientAudio />
-      </PipecatClientProvider>
-    </ThemeProvider>
+  // Only create PipecatClientProvider when client is fully initialized
+  const clientProvider = (
+    <PipecatClientProvider client={client!}>
+      {typeof children === "function" ? children(passedProps) : children}
+      <PipecatClientAudio />
+    </PipecatClientProvider>
+  );
+
+  return noThemeProvider ? (
+    clientProvider
+  ) : (
+    <ThemeProvider {...themeProps}>{clientProvider}</ThemeProvider>
   );
 };
 

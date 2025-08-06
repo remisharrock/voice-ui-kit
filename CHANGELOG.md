@@ -8,5 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [0.2.0]
 
 - `AudioClientHelper` renamed to `PipecatAppBase`. Previous name exported to prevent a breaking change, but will eventually be deprecated.
-- `PipecatAppBase` now accepts both React Node children as well as a functional list for prop injection. If passing renderables, client methods can be accessed directly on the context's client via Pipecat React hooks (e.g. `usePipecatClient`).
+- `PipecatAppBase`
+    - Now accepts both React Node children as well as a functional list for prop injection. If passing renderables, client methods can be accessed directly on the context's client via Pipecat React hooks (e.g. `usePipecatClient`).
+    - Added `noThemeProvider` prop to optionally disable theme provider wrapping.
+    - Made connection handlers (`handleConnect`, `handleDisconnect`) compatible with both sync and async functions.
+    - Enhanced error handling and loading states for better developer experience.
+    - Returns the client object in child props.
 - `LoaderSpinner` component from `components/ui/loaders` has been renamed to `SpinLoader` to establish a naming convention for future loaders.
+- Minor CSS fixes to address border overlap for button groups when in dark mode.

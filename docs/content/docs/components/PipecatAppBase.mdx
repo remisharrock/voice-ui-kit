@@ -12,11 +12,12 @@ It handles the common setup tasks that are typically the same across most applic
 
 - Creates a Pipecat Client instance and manages its lifecycle.
 - Wraps children with the necessary providers (such as `ThemeProvider` and `PipecatClientProvider`).
-- Provides connect and disconnect handlers.
+- Provides connect and disconnect handlers (sync or async).
 - Mounts any available audio tracks using the Pipecat React `<PipecatClientAudio />` component.
 - Passes through transport and client options from the constructor.
 - Automatically disconnects and disposes the client when unmounting.
-- Surfaces loading and error states to the child components.
+- Surfaces error states to the child components.
+- Optionally disables theme provider based on `noThemeProvider` prop.
 
 <Callout>
   This component creates the `PipecatClientProvider` context for you. Child
@@ -29,7 +30,7 @@ The `PipecatAppBase` component can be used in two ways:
 
 ### 1. Render Prop Pattern (Function Children)
 
-This pattern gives you access to connection handlers and state, allowing you to build custom UI that have direct access to these props:
+This pattern gives you access to the client instance, connection handlers and state, allowing you to build custom UI that have direct access to these props:
 
 ```tsx
 import {
@@ -46,8 +47,8 @@ export default function Home() {
         connectionUrl: "/api/offer",
       }}
     >
-      {({ handleConnect, handleDisconnect, loading, error }) =>
-        loading ? (
+      {({ client, handleConnect, handleDisconnect, error }) =>
+        !client ? (
           <SpinLoader />
         ) : error ? (
           <ErrorCard error={error} />
@@ -94,6 +95,28 @@ export default function Home() {
 }
 ```
 
+### 3. Without Theme Provider
+
+You can disable the theme provider wrapper by setting `noThemeProvider={true}`:
+
+```tsx
+import { PipecatAppBase } from "@pipecat-ai/voice-ui-kit";
+
+export default function Home() {
+  return (
+    <PipecatAppBase
+      transportType="smallwebrtc"
+      connectParams={{
+        connectionUrl: "/api/offer",
+      }}
+      noThemeProvider={true}
+    >
+      <YourCustomComponent />
+    </PipecatAppBase>
+  );
+}
+```
+
 ### Props
 
 <TypeTable
@@ -119,10 +142,24 @@ export default function Home() {
       default: "{}",
       required: false,
     },
+    noThemeProvider: {
+      description:
+        "Whether to disable the theme provider wrapper. When true, children are rendered without ThemeProvider.",
+      type: "boolean",
+      default: "false",
+      required: false,
+    },
+    themeProps: {
+      description:
+        "Optional theme configuration props to pass to the ThemeProvider",
+      type: "Partial<ThemeProviderProps>",
+      default: "{}",
+      required: false,
+    },
     children: {
       description:
         "Either a render function that receives connection handlers and state, or direct React nodes",
-      type: "((props: PipecatBasePassedProps) => React.ReactNode) | React.ReactNode",
+      type: "((props: PipecatBaseChildProps) => React.ReactNode) | React.ReactNode",
       required: true,
     },
   }}
@@ -134,20 +171,22 @@ The `PipecatAppBase` component passes the following props to its children when u
 
 <TypeTable
   type={{
+    client: {
+      description:
+        "The Pipecat client instance. Null when client is being initialized.",
+      type: "PipecatClient | null",
+      required: true,
+    },
     handleConnect: {
-      description: "A function to initiate a connection to the session",
-      type: "() => Promise<void>",
+      description:
+        "A function to initiate a connection to the session. Can be sync or async.",
+      type: "() => void | Promise<void>",
       required: false,
     },
     handleDisconnect: {
-      description: "A function to disconnect from the current session",
-      type: "() => Promise<void>",
-      required: false,
-    },
-    loading: {
       description:
-        "A boolean indicating whether the client object has been instantiated",
-      type: "boolean",
+        "A function to disconnect from the current session. Can be sync or async.",
+      type: "() => void | Promise<void>",
       required: false,
     },
     error: {
