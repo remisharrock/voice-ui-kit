@@ -42,6 +42,15 @@ export const buttonVariants = cva(
         true: "",
         false: "",
       },
+      isFullWidth: {
+        true: "vkui:w-full",
+        false: "",
+      },
+      loader: {
+        icon: "",
+        stripes:
+          "vkui:loader-stripes vkui:text-white/0 vkui:disabled:opacity-100",
+      },
     },
     compoundVariants: [
       {
@@ -110,6 +119,7 @@ export const buttonVariants = cva(
       size: "default",
       state: "default",
       isIcon: false,
+      isFullWidth: false,
     },
   },
 );

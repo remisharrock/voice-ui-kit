@@ -18,10 +18,10 @@ const cardVariants = cva(
         grid: "vkui:bg-grid",
       },
       size: {
-        md: "vkui:py-[calc(var(--vkui-spacing-element-md)*var(--vkui-spacing-element-offset-mul))] vkui:gap-[calc(var(--vkui-spacing-element-md)*var(--vkui-spacing-element-offset-mul))] vkui:[&>[data-slot^=card-]]:px-element-md",
-        sm: "vkui:py-[calc(var(--vkui-spacing-element-sm)*var(--vkui-spacing-element-offset-mul))] vkui:gap-[calc(var(--vkui-spacing-element-sm)*var(--vkui-spacing-element-offset-mul))] vkui:[&>[data-slot^=card-]]:px-element-sm",
-        lg: "vkui:py-[calc(var(--vkui-spacing-element-lg)*var(--vkui-spacing-element-offset-mul))] vkui:gap-[calc(var(--vkui-spacing-element-xl)*var(--vkui-spacing-element-offset-mul))] vkui:[&>[data-slot^=card-]]:px-element-lg",
-        xl: "vkui:py-[calc(var(--vkui-spacing-element-xl)*var(--vkui-spacing-element-offset-mul))] vkui:gap-[calc(var(--vkui-spacing-element-xl)*var(--vkui-spacing-element-offset-mul))] vkui:[&>[data-slot^=card-]]:px-element-xl",
+        md: "vkui:py-element-md vkui:gap-element-md vkui:[&>[data-slot^=card-]]:px-element-md",
+        sm: "vkui:py-element-sm vkui:gap-element-sm vkui:[&>[data-slot^=card-]]:px-element-sm",
+        lg: "vkui:py-element-lg vkui:gap-element-xl vkui:[&>[data-slot^=card-]]:px-element-lg",
+        xl: "vkui:py-element-xl vkui:gap-element-xl vkui:[&>[data-slot^=card-]]:px-element-xl",
       },
       rounded: {
         none: "",
@@ -37,7 +37,29 @@ const cardVariants = cva(
         long: "vkui:shadow-long",
         xlong: "vkui:shadow-xlong",
       },
+      noElbows: {
+        true: "",
+        false: "vkui:elbow",
+      },
     },
+    compoundVariants: [
+      {
+        size: "sm",
+        noElbows: false,
+        className: "vkui:[--vkui-elbow-size:var(--vkui-text-xs)]",
+      },
+      {
+        size: "lg",
+        noElbows: false,
+        className: "vkui:[--vkui-elbow-size:var(--vkui-text-lg)]",
+      },
+      {
+        size: "xl",
+        noElbows: false,
+        className: "vkui:[--vkui-elbow-size:var(--vkui-text-xl)]",
+      },
+    ],
+
     defaultVariants: {
       size: "md",
       shadow: "none",
@@ -50,7 +72,7 @@ const cardVariants = cva(
 export interface CardProps extends React.ComponentProps<"div"> {
   variant?: "default" | "destructive";
   noGradientBorder?: boolean;
-  noElbow?: boolean;
+  noElbows?: boolean;
   className?: string;
   background?: "none" | "scanlines" | "grid";
   size?: "sm" | "md" | "lg" | "xl";
@@ -62,7 +84,7 @@ function Card({
   variant,
   className,
   noGradientBorder = true,
-  noElbow = true,
+  noElbows = true,
   size = "md",
   rounded = "none",
   shadow = "none",
@@ -81,11 +103,11 @@ function Card({
           shadow,
           background,
           rounded: roundedValue,
+          noElbows,
         }),
         variant === "default" &&
           !noGradientBorder &&
           "vkui:border vkui:border-transparent vkui:bg-origin-border vkui:borderclip vkui:bg-cardGradientBorder",
-        !noElbow && "vkui:elbow",
         className,
       )}
       {...props}
@@ -110,7 +132,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-title"
-      className={cn("vkui:font-semibold", className)}
+      className={cn("vkui:font-semibold vkui:leading-none", className)}
       {...props}
     />
   );

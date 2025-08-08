@@ -11,6 +11,15 @@ const customTwMerge = extendTailwindMerge({
         },
       ],
     },
+    theme: {
+      spacing: [
+        "element-md",
+        "element-sm",
+        "element-lg",
+        "element-xl",
+        "element-2xl",
+      ],
+    },
   },
 });
 

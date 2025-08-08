@@ -10,8 +10,10 @@
 
   /* Misc */
   --border-width-element: 1px;
-  --elbow-size: 20px;
-  --elbow-offset: 1px;
+  --elbow-size: 1rem;
+  --elbow-offset: var(--vkui-border-width-element);
+  --elbow-width: var(--vkui-border-width-element);
+  --elbow-opacity: 0.7;
   --scanlines-opacity: 0.03;
   --grid-opacity: 0.05;
   --grid-size: 24px;
@@ -65,7 +67,7 @@
   --color-destructive: oklch(63.7% 0.237 25.331);
   --color-destructive-foreground: color-mix(
     in oklch,
-    var(--vkui-color-destructive) 60%,
+    var(--vkui-color-destructive) 50%,
     black
   );
   --color-border: oklch(0.92 0.004 286.32);
@@ -137,7 +139,7 @@
   --vkui-color-destructive: oklch(57.7% 0.245 27.325);
   --vkui-color-destructive-foreground: color-mix(
     in oklch,
-    oklch(57.7% 0.245 27.325) 40%,
+    oklch(57.7% 0.245 27.325) 30%,
     white
   );
   --vkui-color-border: oklch(1 0 0 / 10%);
@@ -220,42 +222,38 @@
     &:before {
       content: "";
       position: absolute;
-      /* Extend the pseudo-element beyond the parent when using negative offsets */
       inset: calc(var(--vkui-elbow-offset) * -1);
       background: 
       /* Top-left corner: horizontal part */
         linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top 0
-          left 0 / var(--vkui-elbow-size) var(--vkui-border-width-element)
-          no-repeat,
+          left 0 / var(--vkui-elbow-size) var(--vkui-elbow-width) no-repeat,
         /* Top-left corner: vertical part */
           linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top
-          0 left 0 / var(--vkui-border-width-element) var(--vkui-elbow-size)
-          no-repeat,
+          0 left 0 / var(--vkui-elbow-width) var(--vkui-elbow-size) no-repeat,
         /* Top-right corner: horizontal part */
           linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top
-          0 right 0 / var(--vkui-elbow-size) var(--vkui-border-width-element)
-          no-repeat,
+          0 right 0 / var(--vkui-elbow-size) var(--vkui-elbow-width) no-repeat,
         /* Top-right corner: vertical part */
           linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top
-          0 right 0 / var(--vkui-border-width-element) var(--vkui-elbow-size)
-          no-repeat,
+          0 right 0 / var(--vkui-elbow-width) var(--vkui-elbow-size) no-repeat,
         /* Bottom-left corner: horizontal part */
           linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
-          bottom 0 left 0 / var(--vkui-elbow-size)
-          var(--vkui-border-width-element) no-repeat,
+          bottom 0 left 0 / var(--vkui-elbow-size) var(--vkui-elbow-width)
+          no-repeat,
         /* Bottom-left corner: vertical part */
           linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
-          bottom 0 left 0 / var(--vkui-border-width-element)
-          var(--vkui-elbow-size) no-repeat,
+          bottom 0 left 0 / var(--vkui-elbow-width) var(--vkui-elbow-size)
+          no-repeat,
         /* Bottom-right corner: horizontal part */
           linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
-          bottom 0 right 0 / var(--vkui-elbow-size)
-          var(--vkui-border-width-element) no-repeat,
+          bottom 0 right 0 / var(--vkui-elbow-size) var(--vkui-elbow-width)
+          no-repeat,
         /* Bottom-right corner: vertical part */
           linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
-          bottom 0 right 0 / var(--vkui-border-width-element)
-          var(--vkui-elbow-size) no-repeat;
+          bottom 0 right 0 / var(--vkui-elbow-width) var(--vkui-elbow-size)
+          no-repeat;
       pointer-events: none;
+      opacity: var(--vkui-elbow-opacity);
     }
   }
 

@@ -73,7 +73,7 @@ Default.argTypes = {
     control: { type: "boolean" },
     defaultValue: true,
   },
-  noElbow: {
+  noElbows: {
     control: { type: "boolean" },
     defaultValue: true,
   },

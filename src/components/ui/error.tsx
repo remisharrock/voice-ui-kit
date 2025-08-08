@@ -22,7 +22,7 @@ export const ErrorCard = ({
   return (
     <Card
       className={cn("vkui:min-w-md vkui:gap-0", cardProps.className)}
-      destructive
+      variant="destructive"
       {...cardProps}
     >
       {!noHeader && (
