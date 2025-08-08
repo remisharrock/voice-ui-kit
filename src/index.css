@@ -4,21 +4,39 @@
 @custom-variant dark (&:is(.vkui\:dark *));
 
 @theme static {
+  /** Typography  **/
   --font-sans: "Geist", "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "Geist Mono", "SF Mono", Consolas, "Roboto Mono", monospace;
 
-  --shadow-long:
+  /** Shadows  **/
+  --shadow-xlong:
     0px 89px 36px rgb(0 0 0 / 0.01), 0px 50px 30px rgb(0 0 0 / 0.03),
     0px 22px 22px rgb(0 0 0 / 0.04), 0px 6px 12px rgb(0 0 0 / 0.05);
+  --shadow-long:
+    0 44px 18px 0 rgba(0, 0, 0, 0.01), 0 25px 15px 0 rgba(0, 0, 0, 0.05),
+    0 11px 11px 0 rgba(0, 0, 0, 0.09), 0 3px 6px 0 rgba(0, 0, 0, 0.1);
   --shadow-short:
     0px 10px 15px -3px rgb(0 0 0 / 0.05), 0px 4px 6px -2px rgb(0 0 0 / 0.02);
   --shadow-xshort:
     0px 7px 3px rgb(0 0 0 / 0.01), 0px 4px 2px rgb(0 0 0 / 0.03),
     0px 2px 2px rgb(0 0 0 / 0.04), 0px 0px 1px rgb(0 0 0 / 0.05);
 
-  --radius-panel: var(--vkui-radius-sm);
-  --radius-element: var(--vkui-radius-lg);
+  /** Radius  **/
+  --radius-element-md: var(--vkui-radius-lg);
+  --radius-element-sm: var(--vkui-radius-md);
+  --radius-element-lg: var(--vkui-radius-xl);
+  --radius-element-xl: var(--vkui-radius-2xl);
+  --radius-element-2xl: var(--vkui-radius-3xl);
 
+  /** Spacing  **/
+  --spacing-element-offset-mul: 0.75; /* vertical offset to accommodate for element leading */
+  --spacing-element-md: calc(var(--vkui-spacing) * 4);
+  --spacing-element-sm: calc(var(--vkui-spacing) * 3);
+  --spacing-element-lg: calc(var(--vkui-spacing) * 6);
+  --spacing-element-xl: calc(var(--vkui-spacing) * 8);
+  --spacing-element-2xl: calc(var(--vkui-spacing) * 10);
+
+  /** Colors  **/
   --color-background: oklch(1 0 0);
   --color-foreground: oklch(0.141 0.005 285.823);
   --color-card: oklch(1 0 0);
@@ -38,8 +56,6 @@
   --color-input: oklch(0.92 0.004 286.32);
   --color-ring: oklch(0.705 0.015 286.067);
   --color-subtle: oklch(0.705 0.015 286.067);
-
-  /* VKUI */
   --color-active: oklch(69.6% 0.17 162.48);
   --color-active-foreground: oklch(97.9% 0.021 166.113);
   --color-active-ring: oklch(69.6% 0.17 162.48 / 20%);
@@ -56,6 +72,7 @@
   --color-chart-4: oklch(0.828 0.189 84.429);
   --color-chart-5: oklch(0.769 0.188 70.08);
 
+  /** Backgrounds  **/
   --background-image-cardGradientBorder:
     linear-gradient(
       90deg,
@@ -69,6 +86,10 @@
     );
 
   --background-clip-cardGradientBorder: padding-box, border-box;
+
+  /* DEPRECATED */
+  --radius-panel: var(--vkui-radius-sm);
+  --radius-element: var(--vkui-radius-md);
 }
 
 .vkui\:dark {

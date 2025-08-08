@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [0.2.0]
 
-- Chanage: `AudioClientHelper` renamed to `PipecatAppBase`. Previous name exported to prevent a breaking change, but will eventually be deprecated.
+- Change: `AudioClientHelper` renamed to `PipecatAppBase`. Previous name exported to prevent a breaking change, but will eventually be deprecated.
 - Change: `PipecatAppBase`
     - Now accepts both React Node children as well as a functional list for prop injection. If passing renderables, client methods can be accessed directly on the context's client via Pipecat React hooks (e.g. `usePipecatClient`).
     - Added `noThemeProvider` prop to optionally disable theme provider wrapping.
@@ -20,3 +20,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved:`ErrorCard` allows for cascading classNames for Card elements and passing of custom icon component.
 - Added: TW4 utilities to shadow classes to allow overrides in external themes.
 - Fixed: `tailwind-merge` needs extensions for custom shadow-* class names, which have no been applied.
+- Change: `Cards` primitive no longer pads based on media queries for flexibility

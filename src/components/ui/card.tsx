@@ -7,54 +7,68 @@ const cardVariants = cva(
   "vkui:text-card-foreground vkui:flex vkui:flex-col vkui:bg-card vkui:border vkui:border-border",
   {
     variants: {
+      variant: {
+        default: "",
+        destructive:
+          "vkui:shadow-destructive/10 vkui:dark:shadow-destructive/15 vkui:border-destructive vkui:text-destructive",
+      },
       size: {
-        default: "vkui:gap-2 vkui:p-2 vkui:rounded-element",
-        sm: "vkui:gap-1 vkui:p-1 vkui:rounded-md",
-        lg: "vkui:gap-3 vkui:p-3 vkui:rounded-2xl",
+        md: "vkui:py-[calc(var(--vkui-spacing-element-md)*var(--vkui-spacing-element-offset-mul))] vkui:gap-[calc(var(--vkui-spacing-element-md)*var(--vkui-spacing-element-offset-mul))] vkui:[&>[data-slot^=card-]]:px-element-md",
+        sm: "vkui:py-[calc(var(--vkui-spacing-element-sm)*var(--vkui-spacing-element-offset-mul))] vkui:gap-[calc(var(--vkui-spacing-element-sm)*var(--vkui-spacing-element-offset-mul))] vkui:[&>[data-slot^=card-]]:px-element-sm",
+        lg: "vkui:py-[calc(var(--vkui-spacing-element-lg)*var(--vkui-spacing-element-offset-mul))] vkui:gap-[calc(var(--vkui-spacing-element-xl)*var(--vkui-spacing-element-offset-mul))] vkui:[&>[data-slot^=card-]]:px-element-lg",
+        xl: "vkui:py-[calc(var(--vkui-spacing-element-xl)*var(--vkui-spacing-element-offset-mul))] vkui:gap-[calc(var(--vkui-spacing-element-xl)*var(--vkui-spacing-element-offset-mul))] vkui:[&>[data-slot^=card-]]:px-element-xl",
+      },
+      rounded: {
+        none: "",
+        sm: "vkui:rounded-element-sm",
+        md: "vkui:rounded-element-md",
+        lg: "vkui:rounded-element-lg",
+        xl: "vkui:rounded-element-xl",
+      },
+      shadow: {
+        none: "",
+        xshort: "vkui:shadow-xshort",
+        short: "vkui:shadow-short",
+        long: "vkui:shadow-long",
+        xlong: "vkui:shadow-xlong",
       },
     },
     defaultVariants: {
-      size: "default",
+      size: "md",
+      shadow: "none",
+      variant: "default",
     },
   },
 );
 
-// Size-based shadow mapping
-const sizeToShadow = {
-  sm: "vkui:shadow-xshort",
-  default: "vkui:shadow-short",
-  lg: "vkui:shadow-long",
-} as const;
-
 export interface CardProps extends React.ComponentProps<"div"> {
-  destructive?: boolean;
+  variant?: "default" | "destructive";
   noGradientBorder?: boolean;
-  noShadow?: boolean;
   className?: string;
-  size?: "sm" | "default" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
+  rounded?: "none" | "sm" | "md" | "lg" | "xl";
+  shadow?: "none" | "xshort" | "short" | "long" | "xlong";
 }
 
 function Card({
+  variant,
   className,
-  noGradientBorder = false,
-  noShadow = false,
-  size = "default",
-  destructive = false,
+  noGradientBorder = true,
+  size = "md",
+  rounded,
+  shadow = "none",
   ...props
 }: CardProps) {
+  const roundedValue = rounded ?? size;
+
   return (
     <div
       data-slot="card"
       className={cn(
-        cardVariants({ size }),
-        !noShadow && sizeToShadow[size],
-        !noShadow &&
-          destructive &&
-          "vkui:shadow-destructive/10 vkui:dark:shadow-destructive/15",
-        !destructive &&
+        cardVariants({ variant, size, shadow, rounded: roundedValue }),
+        variant === "default" &&
           !noGradientBorder &&
           "vkui:border vkui:border-transparent vkui:bg-origin-border vkui:borderclip vkui:bg-cardGradientBorder",
-        destructive && "vkui:text-destructive vkui:border-destructive",
         className,
       )}
       {...props}
@@ -67,7 +81,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-header"
       className={cn(
-        "vkui:flex vkui:gap-2 vkui:md:gap-3 vkui:p-2 vkui:md:p-3",
+        "vkui:flex vkui:gap-1.5 vkui:px-[var(--card-padding)]",
         className,
       )}
       {...props}
@@ -79,7 +93,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-title"
-      className={cn("vkui:leading-none vkui:font-semibold", className)}
+      className={cn("vkui:font-semibold", className)}
       {...props}
     />
   );
@@ -110,11 +124,7 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
 
 function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div
-      data-slot="card-content"
-      className={cn("vkui:gap-2 vkui:md:gap-3 vkui:p-2 vkui:md:p-3", className)}
-      {...props}
-    />
+    <div data-slot="card-content" className={cn("", className)} {...props} />
   );
 }
 
@@ -123,7 +133,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-footer"
       className={cn(
-        "vkui:flex vkui:gap-2 vkui:md:gap-3 vkui:p-2 vkui:md:p-3",
+        "vkui:flex vkui:gap-card vkui:px-[calc(var(--card-padding)/2)] vkui:py-[calc(var(--card-padding)/2)]",
         className,
       )}
       {...props}
