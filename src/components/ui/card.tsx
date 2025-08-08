@@ -4,13 +4,18 @@ import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 
 const cardVariants = cva(
-  "vkui:text-card-foreground vkui:flex vkui:flex-col vkui:bg-card vkui:border vkui:border-border",
+  "vkui:text-card-foreground vkui:flex vkui:flex-col vkui:bg-card vkui:border-(length:--vkui-border-width-element) vkui:border-border",
   {
     variants: {
       variant: {
         default: "",
         destructive:
-          "vkui:shadow-destructive/10 vkui:dark:shadow-destructive/15 vkui:border-destructive vkui:text-destructive",
+          "vkui:shadow-destructive/10 vkui:dark:shadow-destructive/15 vkui:border-destructive vkui:text-destructive-foreground vkui:bg-destructive/[.05] vkui:[--vkui-color-elbow:var(--vkui-color-destructive-foreground)]",
+      },
+      background: {
+        none: "",
+        scanlines: "vkui:bg-scanlines",
+        grid: "vkui:bg-grid",
       },
       size: {
         md: "vkui:py-[calc(var(--vkui-spacing-element-md)*var(--vkui-spacing-element-offset-mul))] vkui:gap-[calc(var(--vkui-spacing-element-md)*var(--vkui-spacing-element-offset-mul))] vkui:[&>[data-slot^=card-]]:px-element-md",
@@ -37,6 +42,7 @@ const cardVariants = cva(
       size: "md",
       shadow: "none",
       variant: "default",
+      background: "none",
     },
   },
 );
@@ -44,7 +50,9 @@ const cardVariants = cva(
 export interface CardProps extends React.ComponentProps<"div"> {
   variant?: "default" | "destructive";
   noGradientBorder?: boolean;
+  noElbow?: boolean;
   className?: string;
+  background?: "none" | "scanlines" | "grid";
   size?: "sm" | "md" | "lg" | "xl";
   rounded?: "none" | "sm" | "md" | "lg" | "xl";
   shadow?: "none" | "xshort" | "short" | "long" | "xlong";
@@ -54,9 +62,11 @@ function Card({
   variant,
   className,
   noGradientBorder = true,
+  noElbow = true,
   size = "md",
-  rounded,
+  rounded = "none",
   shadow = "none",
+  background = "none",
   ...props
 }: CardProps) {
   const roundedValue = rounded ?? size;
@@ -65,10 +75,17 @@ function Card({
     <div
       data-slot="card"
       className={cn(
-        cardVariants({ variant, size, shadow, rounded: roundedValue }),
+        cardVariants({
+          variant,
+          size,
+          shadow,
+          background,
+          rounded: roundedValue,
+        }),
         variant === "default" &&
           !noGradientBorder &&
           "vkui:border vkui:border-transparent vkui:bg-origin-border vkui:borderclip vkui:bg-cardGradientBorder",
+        !noElbow && "vkui:elbow",
         className,
       )}
       {...props}

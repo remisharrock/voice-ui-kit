@@ -8,6 +8,17 @@
   --font-sans: "Geist", "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "Geist Mono", "SF Mono", Consolas, "Roboto Mono", monospace;
 
+  /* Misc */
+  --border-width-element: 1px;
+  --elbow-size: 20px;
+  --elbow-offset: 1px;
+  --scanlines-opacity: 0.03;
+  --grid-opacity: 0.05;
+  --grid-size: 24px;
+  --grid-border-width: 1px;
+  --loader-stripe-width: 15px;
+  --loader-stripe-speed: 0.5s;
+
   /** Shadows  **/
   --shadow-xlong:
     0px 89px 36px rgb(0 0 0 / 0.01), 0px 50px 30px rgb(0 0 0 / 0.03),
@@ -52,6 +63,11 @@
   --color-accent: oklch(0.967 0.001 286.375);
   --color-accent-foreground: oklch(0.21 0.006 285.885);
   --color-destructive: oklch(63.7% 0.237 25.331);
+  --color-destructive-foreground: color-mix(
+    in oklch,
+    var(--vkui-color-destructive) 60%,
+    black
+  );
   --color-border: oklch(0.92 0.004 286.32);
   --color-input: oklch(0.92 0.004 286.32);
   --color-ring: oklch(0.705 0.015 286.067);
@@ -71,6 +87,7 @@
   --color-chart-3: oklch(0.398 0.07 227.392);
   --color-chart-4: oklch(0.828 0.189 84.429);
   --color-chart-5: oklch(0.769 0.188 70.08);
+  --color-elbow: var(--vkui-color-ring);
 
   /** Backgrounds  **/
   --background-image-cardGradientBorder:
@@ -86,6 +103,16 @@
     );
 
   --background-clip-cardGradientBorder: padding-box, border-box;
+
+  /* Animations */
+  @keyframes scroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: calc(var(--vkui-loader-stripe-width) * 2.828427125) 0;
+    }
+  }
 
   /* DEPRECATED */
   --radius-panel: var(--vkui-radius-sm);
@@ -108,21 +135,17 @@
   --vkui-color-accent: oklch(0.274 0.006 286.033);
   --vkui-color-accent-foreground: oklch(0.985 0 0);
   --vkui-color-destructive: oklch(57.7% 0.245 27.325);
+  --vkui-color-destructive-foreground: color-mix(
+    in oklch,
+    oklch(57.7% 0.245 27.325) 40%,
+    white
+  );
   --vkui-color-border: oklch(1 0 0 / 10%);
   --vkui-color-input: oklch(1 0 0 / 15%);
   --vkui-color-ring: oklch(0.552 0.016 285.938);
   --vkui-color-subtle: oklch(44.2% 0.017 285.786);
+  --vkui-color-elbow: var(--vkui-color-ring);
 
-  --vkui-shadow-long:
-    0px 89px 36px rgb(0 0 0 / 0.85), 0px 50px 30px rgb(0 0 0 / 0.9),
-    0px 22px 22px rgb(0 0 0 / 0.92), 0px 6px 12px rgb(0 0 0 / 0.95);
-  --vkui-shadow-short:
-    0px 10px 15px -3px rgb(0 0 0 / 0.9), 0px 4px 6px -2px rgb(0 0 0 / 0.85);
-  --vkui-shadow-xshort:
-    0px 7px 3px rgb(0 0 0 / 0.8), 0px 4px 2px rgb(0 0 0 / 0.85),
-    0px 2px 2px rgb(0 0 0 / 0.9), 0px 0px 1px rgb(0 0 0 / 0.92);
-
-  /* VKUI */
   --vkui-color-active: oklch(0.7019 0.15768 160.4375);
   --vkui-color-active-foreground: oklch(0.9793 0.0207 166.11);
   --vkui-color-active-ring: oklch(0.7019 0.15768 160.4375 / 40%);
@@ -138,6 +161,15 @@
   --vkui-color-chart-3: oklch(0.769 0.188 70.08);
   --vkui-color-chart-4: oklch(0.627 0.265 303.9);
   --vkui-color-chart-5: oklch(0.645 0.246 16.439);
+
+  --vkui-shadow-long:
+    0px 89px 36px rgb(0 0 0 / 0.85), 0px 50px 30px rgb(0 0 0 / 0.9),
+    0px 22px 22px rgb(0 0 0 / 0.92), 0px 6px 12px rgb(0 0 0 / 0.95);
+  --vkui-shadow-short:
+    0px 10px 15px -3px rgb(0 0 0 / 0.9), 0px 4px 6px -2px rgb(0 0 0 / 0.85);
+  --vkui-shadow-xshort:
+    0px 7px 3px rgb(0 0 0 / 0.8), 0px 4px 2px rgb(0 0 0 / 0.85),
+    0px 2px 2px rgb(0 0 0 / 0.9), 0px 0px 1px rgb(0 0 0 / 0.92);
 
   --vkui-background-image-cardGradientBorder:
     linear-gradient(
@@ -179,6 +211,118 @@
 
   .vkui\:borderclip {
     background-clip: padding-box, border-box;
+  }
+
+  .vkui\:elbow {
+    position: relative;
+    overflow: visible;
+
+    &:before {
+      content: "";
+      position: absolute;
+      /* Extend the pseudo-element beyond the parent when using negative offsets */
+      inset: calc(var(--vkui-elbow-offset) * -1);
+      background: 
+      /* Top-left corner: horizontal part */
+        linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top 0
+          left 0 / var(--vkui-elbow-size) var(--vkui-border-width-element)
+          no-repeat,
+        /* Top-left corner: vertical part */
+          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top
+          0 left 0 / var(--vkui-border-width-element) var(--vkui-elbow-size)
+          no-repeat,
+        /* Top-right corner: horizontal part */
+          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top
+          0 right 0 / var(--vkui-elbow-size) var(--vkui-border-width-element)
+          no-repeat,
+        /* Top-right corner: vertical part */
+          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top
+          0 right 0 / var(--vkui-border-width-element) var(--vkui-elbow-size)
+          no-repeat,
+        /* Bottom-left corner: horizontal part */
+          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
+          bottom 0 left 0 / var(--vkui-elbow-size)
+          var(--vkui-border-width-element) no-repeat,
+        /* Bottom-left corner: vertical part */
+          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
+          bottom 0 left 0 / var(--vkui-border-width-element)
+          var(--vkui-elbow-size) no-repeat,
+        /* Bottom-right corner: horizontal part */
+          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
+          bottom 0 right 0 / var(--vkui-elbow-size)
+          var(--vkui-border-width-element) no-repeat,
+        /* Bottom-right corner: vertical part */
+          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
+          bottom 0 right 0 / var(--vkui-border-width-element)
+          var(--vkui-elbow-size) no-repeat;
+      pointer-events: none;
+    }
+  }
+
+  .vkui\:bg-scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      color-mix(
+          in srgb,
+          currentColor calc(var(--vkui-scanlines-opacity) * 100%),
+          transparent
+        )
+        2px,
+      color-mix(
+          in srgb,
+          currentColor calc(var(--vkui-scanlines-opacity) * 100%),
+          transparent
+        )
+        4px
+    );
+    background-clip: padding-box;
+  }
+
+  .vkui\:bg-grid {
+    --vkui-grid-color: color-mix(
+      in srgb,
+      currentColor calc(var(--vkui-grid-opacity) * 100%),
+      transparent
+    );
+    background-image:
+      linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent var(--vkui-grid-size),
+        var(--vkui-grid-color) var(--vkui-grid-size),
+        var(--vkui-grid-color)
+          calc(var(--vkui-grid-size) + var(--vkui-grid-border-width))
+      ),
+      linear-gradient(
+        to right,
+        transparent 0,
+        transparent var(--vkui-grid-size),
+        var(--vkui-grid-color) var(--vkui-grid-size),
+        var(--vkui-grid-color)
+          calc(var(--vkui-grid-size) + var(--vkui-grid-border-width))
+      );
+    background-size:
+      100% calc(var(--vkui-grid-size) + var(--vkui-grid-border-width)),
+      calc(var(--vkui-grid-size) + var(--vkui-grid-border-width)) 100%;
+    background-repeat: repeat;
+    background-position: 0 0;
+    background-clip: padding-box;
+  }
+
+  .vkui\:loader-stripes {
+    background-image: repeating-linear-gradient(
+      45deg,
+      currentColor,
+      currentColor var(--vkui-loader-stripe-width),
+      var(--vkui-color-background) var(--vkui-loader-stripe-width),
+      var(--vkui-color-background) calc(var(--vkui-loader-stripe-width) * 2)
+    );
+    background-size: calc(var(--vkui-loader-stripe-width) * 2.828427125)
+      calc(var(--vkui-loader-stripe-width) * 2.828427125);
+    animation: scroll var(--vkui-loader-stripe-speed) linear infinite;
+    overflow: hidden;
   }
 }
 

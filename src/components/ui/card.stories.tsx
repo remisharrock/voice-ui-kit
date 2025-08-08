@@ -12,13 +12,36 @@ export default {
 } satisfies StoryDefault;
 
 export const Default: Story<CardProps> = (props) => (
-  <Card {...props}>
-    <CardHeader>
-      <CardTitle>Card Title</CardTitle>
-    </CardHeader>
-    <CardContent>Card Content 2</CardContent>
-    <CardContent>Card Content 1</CardContent>
-  </Card>
+  <div className="vkui:flex vkui:flex-col vkui:gap-4">
+    <Card {...props}>
+      <CardHeader>
+        <CardTitle>Card Title</CardTitle>
+      </CardHeader>
+      <CardContent>Card Content 1</CardContent>
+      <CardContent>Card Content 2</CardContent>
+    </Card>
+
+    <Card variant="destructive" rounded="none">
+      <CardHeader>
+        <CardTitle>Destructive Card</CardTitle>
+      </CardHeader>
+      <CardContent>Card Content</CardContent>
+    </Card>
+
+    <Card background="grid" rounded="none">
+      <CardHeader>
+        <CardTitle>Grid Background</CardTitle>
+      </CardHeader>
+      <CardContent>Card Content</CardContent>
+    </Card>
+
+    <Card background="scanlines" rounded="none">
+      <CardHeader>
+        <CardTitle>Scanlines Background</CardTitle>
+      </CardHeader>
+      <CardContent>Card Content</CardContent>
+    </Card>
+  </div>
 );
 
 Default.argTypes = {
@@ -32,6 +55,11 @@ Default.argTypes = {
     control: { type: "select" },
     defaultValue: "none",
   },
+  background: {
+    options: ["none", "scanlines", "grid"],
+    control: { type: "select" },
+    defaultValue: "none",
+  },
   rounded: {
     options: ["none", "sm", "md", "lg", "xl"],
     control: { type: "select" },
@@ -42,6 +70,10 @@ Default.argTypes = {
     defaultValue: "default",
   },
   noGradientBorder: {
+    control: { type: "boolean" },
+    defaultValue: true,
+  },
+  noElbow: {
     control: { type: "boolean" },
     defaultValue: true,
   },
