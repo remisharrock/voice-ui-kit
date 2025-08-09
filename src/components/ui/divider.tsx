@@ -29,13 +29,14 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
     },
     decoration: {
       none: "",
-      plus: "vkui:mx-[12px] vkui:before:content-['+'] vkui:before:absolute vkui:before:left-0 vkui:before:top-0 vkui:before:-translate-y-1/2 vkui:before:text-[12px] vkui:before:ml-[-12px] vkui:after:content-['+'] vkui:after:absolute vkui:after:right-0 vkui:after:top-0 vkui:after:-translate-y-1/2 vkui:after:text-[12px] vkui:after:mr-[-12px]",
+      plus: "vkui:mx-[12px] vkui:w-auto vkui:before:content-['+'] vkui:before:absolute vkui:before:left-0 vkui:before:top-0 vkui:before:-translate-y-1/2 vkui:before:text-[12px] vkui:before:ml-[-12px] vkui:after:content-['+'] vkui:after:absolute vkui:after:right-0 vkui:after:top-0 vkui:after:-translate-y-1/2 vkui:after:text-[12px] vkui:after:mr-[-12px]",
     },
   },
   defaultVariants: {
     orientation: "horizontal",
     thickness: "thin",
     variant: "solid",
+    color: "secondary",
   },
   compoundVariants: [
     {
@@ -130,7 +131,7 @@ const dividerChildrenVariants = cva("", {
 
 export const Divider = ({
   children,
-  color,
+  color = "secondary",
   decoration,
   thickness = "thin",
   orientation = "horizontal",

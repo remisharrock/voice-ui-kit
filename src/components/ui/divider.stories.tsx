@@ -1,4 +1,5 @@
 import type { Story, StoryDefault } from "@ladle/react";
+import { Card, CardContent } from "./card";
 import { Divider } from "./divider";
 
 export default {
@@ -10,6 +11,12 @@ export const Default: Story<typeof Divider> = ({ ...props }) => (
     <Divider {...props} />
 
     <Divider {...props}>Hello</Divider>
+
+    <Card variant="destructive" background="stripes">
+      <CardContent>
+        <Divider {...props} />
+      </CardContent>
+    </Card>
   </div>
 );
 

@@ -19,10 +19,10 @@ const cardVariants = cva(
         stripes: "vkui:bg-stripes",
       },
       size: {
-        md: "vkui:py-element-md vkui:gap-element-md vkui:[&_*[data-slot^=card-]:not([data-slot^=card-header])]:px-element-md",
-        sm: "vkui:py-element-sm vkui:gap-element-sm vkui:[&_*[data-slot^=card-]]:not([data-slot^=card-header])]:px-element-sm",
-        lg: "vkui:py-element-lg vkui:gap-element-xl vkui:[&_*[data-slot^=card-]]:not([data-slot^=card-header])]:px-element-lg",
-        xl: "vkui:py-element-xl vkui:gap-element-xl vkui:[&_*[data-slot^=card-]]:not([data-slot^=card-header])]:px-element-xl",
+        md: "vkui:py-element-md vkui:gap-element-md vkui:[&_*[data-slot^=card-]:not([data-slot^=card-title])]:px-element-md",
+        sm: "vkui:py-element-sm vkui:gap-element-sm vkui:[&_*[data-slot^=card-]:not([data-slot^=card-title])]:px-element-md",
+        lg: "vkui:py-element-lg vkui:gap-element-xl vkui:[&_*[data-slot^=card-]:not([data-slot^=card-title])]:px-element-lg",
+        xl: "vkui:py-element-xl vkui:gap-element-xl vkui:[&_*[data-slot^=card-]:not([data-slot^=card-title])]:px-element-xl",
       },
       rounded: {
         none: "",
