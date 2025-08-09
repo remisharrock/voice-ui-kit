@@ -16,6 +16,7 @@ const cardVariants = cva(
         none: "",
         scanlines: "vkui:bg-scanlines",
         grid: "vkui:bg-grid",
+        stripes: "vkui:bg-stripes",
       },
       size: {
         md: "vkui:py-element-md vkui:gap-element-md vkui:[&>[data-slot^=card-]]:px-element-md",
@@ -58,6 +59,17 @@ const cardVariants = cva(
         noElbows: false,
         className: "vkui:[--vkui-elbow-size:var(--vkui-text-xl)]",
       },
+      {
+        size: "sm",
+        background: "stripes",
+        className:
+          "vkui:[--vkui-stripe-border-size:calc(var(--vkui-text-base)/2)] vkui:[--vkui-stripe-inset:calc(var(--vkui-stripe-border-size)/2)]",
+      },
+      {
+        variant: "destructive",
+        background: "stripes",
+        className: "vkui:[--vkui-stripe-color:var(--vkui-color-destructive)]",
+      },
     ],
 
     defaultVariants: {
@@ -74,7 +86,7 @@ export interface CardProps extends React.ComponentProps<"div"> {
   noGradientBorder?: boolean;
   noElbows?: boolean;
   className?: string;
-  background?: "none" | "scanlines" | "grid";
+  background?: "none" | "scanlines" | "grid" | "stripes";
   size?: "sm" | "md" | "lg" | "xl";
   rounded?: "none" | "sm" | "md" | "lg" | "xl";
   shadow?: "none" | "xshort" | "short" | "long" | "xlong";

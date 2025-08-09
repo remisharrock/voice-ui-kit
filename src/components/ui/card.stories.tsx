@@ -41,6 +41,20 @@ export const Default: Story<CardProps> = (props) => (
       </CardHeader>
       <CardContent>Card Content</CardContent>
     </Card>
+
+    <Card background="stripes" rounded="none">
+      <CardHeader>
+        <CardTitle>Stripes!</CardTitle>
+      </CardHeader>
+      <CardContent>I am very important</CardContent>
+    </Card>
+
+    <Card background="stripes" variant="destructive">
+      <CardHeader>
+        <CardTitle>Destructive Stripes!</CardTitle>
+      </CardHeader>
+      <CardContent>Oh no</CardContent>
+    </Card>
   </div>
 );
 
@@ -56,7 +70,7 @@ Default.argTypes = {
     defaultValue: "none",
   },
   background: {
-    options: ["none", "scanlines", "grid"],
+    options: ["none", "scanlines", "grid", "stripes"],
     control: { type: "select" },
     defaultValue: "none",
   },

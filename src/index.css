@@ -18,6 +18,12 @@
   --grid-opacity: 0.05;
   --grid-size: 24px;
   --grid-border-width: 1px;
+
+  --stripe-border-size: 1rem;
+  --stripe-inset: calc(var(--vkui-stripe-border-size) / 1);
+  --stripe-size: 20px;
+  --stripe-gap-size: calc(var(--vkui-stripe-size) / 2);
+
   --loader-stripe-width: 15px;
   --loader-stripe-speed: 0.5s;
 
@@ -42,7 +48,6 @@
   --radius-element-2xl: var(--vkui-radius-3xl);
 
   /** Spacing  **/
-  --spacing-element-offset-mul: 0.75; /* vertical offset to accommodate for element leading */
   --spacing-element-md: calc(var(--vkui-spacing) * 4);
   --spacing-element-sm: calc(var(--vkui-spacing) * 3);
   --spacing-element-lg: calc(var(--vkui-spacing) * 6);
@@ -68,6 +73,12 @@
   --color-destructive-foreground: color-mix(
     in oklch,
     var(--vkui-color-destructive) 50%,
+    black
+  );
+  --color-warning: oklch(85.2% 0.199 91.936);
+  --color-warning-foreground: color-mix(
+    in oklch,
+    var(--vkui-color-warning) 50%,
     black
   );
   --color-border: oklch(0.92 0.004 286.32);
@@ -142,6 +153,12 @@
     oklch(57.7% 0.245 27.325) 30%,
     white
   );
+  --color-warning: oklch(79.5% 0.184 86.047);
+  --color-warning-foreground: color-mix(
+    in oklch,
+    var(--vkui-color-warning) 50%,
+    black
+  );
   --vkui-color-border: oklch(1 0 0 / 10%);
   --vkui-color-input: oklch(1 0 0 / 15%);
   --vkui-color-ring: oklch(0.552 0.016 285.938);
@@ -199,130 +216,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
-
-@layer components {
-  .vkui\:mono-upper {
-    font-family: var(--vkui-font-mono);
-    font-weight: var(--vkui-font-weight-bold);
-    font-size: var(--vkui-text-xs);
-    line-height: var(--tw-leading, var(--vkui-text-xs--line-height));
-    letter-spacing: var(--vkui-tracking-wider);
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .vkui\:borderclip {
-    background-clip: padding-box, border-box;
-  }
-
-  .vkui\:elbow {
-    position: relative;
-    overflow: visible;
-
-    &:before {
-      content: "";
-      position: absolute;
-      inset: calc(var(--vkui-elbow-offset) * -1);
-      background: 
-      /* Top-left corner: horizontal part */
-        linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top 0
-          left 0 / var(--vkui-elbow-size) var(--vkui-elbow-width) no-repeat,
-        /* Top-left corner: vertical part */
-          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top
-          0 left 0 / var(--vkui-elbow-width) var(--vkui-elbow-size) no-repeat,
-        /* Top-right corner: horizontal part */
-          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top
-          0 right 0 / var(--vkui-elbow-size) var(--vkui-elbow-width) no-repeat,
-        /* Top-right corner: vertical part */
-          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow)) top
-          0 right 0 / var(--vkui-elbow-width) var(--vkui-elbow-size) no-repeat,
-        /* Bottom-left corner: horizontal part */
-          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
-          bottom 0 left 0 / var(--vkui-elbow-size) var(--vkui-elbow-width)
-          no-repeat,
-        /* Bottom-left corner: vertical part */
-          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
-          bottom 0 left 0 / var(--vkui-elbow-width) var(--vkui-elbow-size)
-          no-repeat,
-        /* Bottom-right corner: horizontal part */
-          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
-          bottom 0 right 0 / var(--vkui-elbow-size) var(--vkui-elbow-width)
-          no-repeat,
-        /* Bottom-right corner: vertical part */
-          linear-gradient(var(--vkui-color-elbow), var(--vkui-color-elbow))
-          bottom 0 right 0 / var(--vkui-elbow-width) var(--vkui-elbow-size)
-          no-repeat;
-      pointer-events: none;
-      opacity: var(--vkui-elbow-opacity);
-    }
-  }
-
-  .vkui\:bg-scanlines {
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      color-mix(
-          in srgb,
-          currentColor calc(var(--vkui-scanlines-opacity) * 100%),
-          transparent
-        )
-        2px,
-      color-mix(
-          in srgb,
-          currentColor calc(var(--vkui-scanlines-opacity) * 100%),
-          transparent
-        )
-        4px
-    );
-    background-clip: padding-box;
-  }
-
-  .vkui\:bg-grid {
-    --vkui-grid-color: color-mix(
-      in srgb,
-      currentColor calc(var(--vkui-grid-opacity) * 100%),
-      transparent
-    );
-    background-image:
-      linear-gradient(
-        to bottom,
-        transparent 0,
-        transparent var(--vkui-grid-size),
-        var(--vkui-grid-color) var(--vkui-grid-size),
-        var(--vkui-grid-color)
-          calc(var(--vkui-grid-size) + var(--vkui-grid-border-width))
-      ),
-      linear-gradient(
-        to right,
-        transparent 0,
-        transparent var(--vkui-grid-size),
-        var(--vkui-grid-color) var(--vkui-grid-size),
-        var(--vkui-grid-color)
-          calc(var(--vkui-grid-size) + var(--vkui-grid-border-width))
-      );
-    background-size:
-      100% calc(var(--vkui-grid-size) + var(--vkui-grid-border-width)),
-      calc(var(--vkui-grid-size) + var(--vkui-grid-border-width)) 100%;
-    background-repeat: repeat;
-    background-position: 0 0;
-    background-clip: padding-box;
-  }
-
-  .vkui\:loader-stripes {
-    background-image: repeating-linear-gradient(
-      45deg,
-      currentColor,
-      currentColor var(--vkui-loader-stripe-width),
-      var(--vkui-color-background) var(--vkui-loader-stripe-width),
-      var(--vkui-color-background) calc(var(--vkui-loader-stripe-width) * 2)
-    );
-    background-size: calc(var(--vkui-loader-stripe-width) * 2.828427125)
-      calc(var(--vkui-loader-stripe-width) * 2.828427125);
-    animation: scroll var(--vkui-loader-stripe-speed) linear infinite;
-    overflow: hidden;
-  }
-}
+@import "./css/components.css";
 
 .vkui\:button-group.vkui\:flex-row > *:not(:first-child):not(:last-child) {
   border-radius: 0;
