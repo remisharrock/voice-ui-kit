@@ -12,6 +12,7 @@ import {
   Ellipsis,
   EllipsisVertical,
   Funnel,
+  GripHorizontal,
   Info,
   LineChart,
   Loader2,
@@ -67,3 +68,4 @@ export const CircleAlertIcon = CircleAlert;
 export const PanelRightCloseIcon = PanelRightClose;
 export const PanelLeftCloseIcon = PanelLeftClose;
 export const TriangleAlertIcon = TriangleAlert;
+export const GripIcon = GripHorizontal;

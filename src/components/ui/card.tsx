@@ -19,10 +19,10 @@ const cardVariants = cva(
         stripes: "vkui:bg-stripes",
       },
       size: {
-        md: "vkui:py-element-md vkui:gap-element-md vkui:[&>[data-slot^=card-]]:px-element-md",
-        sm: "vkui:py-element-sm vkui:gap-element-sm vkui:[&>[data-slot^=card-]]:px-element-sm",
-        lg: "vkui:py-element-lg vkui:gap-element-xl vkui:[&>[data-slot^=card-]]:px-element-lg",
-        xl: "vkui:py-element-xl vkui:gap-element-xl vkui:[&>[data-slot^=card-]]:px-element-xl",
+        md: "vkui:py-element-md vkui:gap-element-md vkui:[&_*[data-slot^=card-]:not([data-slot^=card-header])]:px-element-md",
+        sm: "vkui:py-element-sm vkui:gap-element-sm vkui:[&_*[data-slot^=card-]]:not([data-slot^=card-header])]:px-element-sm",
+        lg: "vkui:py-element-lg vkui:gap-element-xl vkui:[&_*[data-slot^=card-]]:not([data-slot^=card-header])]:px-element-lg",
+        xl: "vkui:py-element-xl vkui:gap-element-xl vkui:[&_*[data-slot^=card-]]:not([data-slot^=card-header])]:px-element-xl",
       },
       rounded: {
         none: "",
@@ -131,10 +131,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-header"
-      className={cn(
-        "vkui:flex vkui:gap-1.5 vkui:px-[var(--card-padding)]",
-        className,
-      )}
+      className={cn("vkui:flex vkui:gap-1.5", className)}
       {...props}
     />
   );
