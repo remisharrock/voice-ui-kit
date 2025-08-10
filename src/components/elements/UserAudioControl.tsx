@@ -69,7 +69,7 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
   onClick,
 }) => {
   if (noAudio || buttonProps?.isLoading) {
-    return (
+    const button = (
       <Button
         variant={variant}
         size={size}
@@ -88,6 +88,22 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
           </>
         )}
       </Button>
+    );
+
+    if (noDevicePicker) {
+      return button;
+    }
+
+    return (
+      <ButtonGroup
+        className={cn(
+          "vkui:w-full vkui:gap-[2px] vkui:flex-1",
+          variant === "outline" && "vkui:gap-[1px]",
+          classNames.buttongroup,
+        )}
+      >
+        {button}
+      </ButtonGroup>
     );
   }
 
@@ -150,13 +166,13 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
   );
 
   if (noDevicePicker) {
-    return button;
+    return <div className="vkui:flex-1 vkui:w-full">{button}</div>;
   }
 
   return (
     <ButtonGroup
       className={cn(
-        "vkui:w-full vkui:gap-[2px]",
+        "vkui:w-full vkui:gap-[2px] vkui:flex-1",
         variant === "outline" && "vkui:gap-[1px]",
         classNames.buttongroup,
       )}

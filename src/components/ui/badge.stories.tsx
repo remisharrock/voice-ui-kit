@@ -12,6 +12,9 @@ export const Default: Story<typeof Badge> = ({ ...props }) => (
     <Badge {...props} color="secondary">
       Badge
     </Badge>
+    <Badge {...props} color="secondary" className="vkui:w-full">
+      full width
+    </Badge>
     <Badge {...props} color="destructive">
       Badge
     </Badge>

@@ -15,6 +15,7 @@ import {
 } from "@pipecat-ai/client-react";
 import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
 import { useEffect, useState } from "react";
+import { Card, CardContent } from "../ui/card";
 import UserAudioControl, { UserAudioComponent } from "./UserAudioControl";
 
 export default {
@@ -80,19 +81,23 @@ export const Default: Story<{
   noVisualizer = false,
   isLoading = false,
 }) => (
-  <UserAudioComponent
-    variant={variant}
-    size={size}
-    isMicEnabled={!isMuted}
-    availableMics={[]}
-    selectedMic={undefined as unknown as OptionalMediaDeviceInfo}
-    updateMic={() => {}}
-    noVisualizer={noVisualizer}
-    noDevicePicker={noDevicePicker}
-    buttonProps={{
-      isLoading,
-    }}
-  />
+  <Card className="vkui:w-full">
+    <CardContent className="vkui:flex vkui:flex-col vkui:gap-4 vkui:shrink-0">
+      <UserAudioComponent
+        variant={variant}
+        size={size}
+        isMicEnabled={!isMuted}
+        availableMics={[]}
+        selectedMic={undefined as unknown as OptionalMediaDeviceInfo}
+        updateMic={() => {}}
+        noVisualizer={noVisualizer}
+        noDevicePicker={noDevicePicker}
+        buttonProps={{
+          isLoading,
+        }}
+      />
+    </CardContent>
+  </Card>
 );
 
 Default.args = {

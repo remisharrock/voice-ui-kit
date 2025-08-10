@@ -16,7 +16,7 @@ const cardVariants = cva(
         none: "",
         scanlines: "vkui:bg-scanlines",
         grid: "vkui:bg-grid",
-        stripes: "vkui:bg-stripes",
+        stripes: "vkui:bg-stripes vkui:shrink-0",
       },
       size: {
         md: "vkui:py-element-md vkui:gap-element-md vkui:[&_*[data-slot^=card-]:not([data-slot^=card-title])]:px-element-md",
