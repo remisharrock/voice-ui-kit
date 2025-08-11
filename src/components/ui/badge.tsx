@@ -20,8 +20,8 @@ const badgeVariants = cva(
       variant: {
         default: "",
         outline: "vkui:bg-transparent",
-        elbow: "vkui:elbow vkui:border-0 vkui:rounded-none",
-        bracket: "vkui:elbow vkui:border-0 vkui:rounded-none",
+        elbow: "vkui:elbow vkui:border-transparent vkui:rounded-none",
+        bracket: "vkui:elbow vkui:border-transparent vkui:rounded-none",
       },
       size: {
         default:
