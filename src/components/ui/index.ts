@@ -12,6 +12,7 @@ export * from "./layout";
 export * from "./loader";
 export * from "./panel";
 export * from "./popover";
+export * from "./progress";
 export * from "./resizable";
 export * from "./select";
 export * from "./tabs";

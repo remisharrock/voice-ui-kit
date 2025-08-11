@@ -1,6 +1,7 @@
 import { TriangleAlertIcon } from "@/icons";
 import type { Story, StoryDefault } from "@ladle/react";
 import { Badge } from "./badge";
+import Button from "./button";
 
 export default {
   title: "Primitives",
@@ -49,6 +50,29 @@ export const Default: Story<typeof Badge> = ({ ...props }) => (
       <TriangleAlertIcon />
       Badge with icon
     </Badge>
+
+    <div className="vkui:flex vkui:flex-row vkui:gap-4 vkui:w-fit">
+      <Badge {...props} buttonSizing>
+        Sized to buttons
+      </Badge>
+      <Button variant="outline">Button for reference</Button>
+    </div>
+    <div className="vkui:flex vkui:flex-row vkui:gap-4 vkui:w-fit">
+      <Badge {...props} buttonSizing size="sm">
+        Sized to buttons
+      </Badge>
+      <Button variant="outline" size="sm">
+        Button for reference
+      </Button>
+    </div>
+    <div className="vkui:flex vkui:flex-row vkui:gap-4 vkui:w-fit">
+      <Badge {...props} buttonSizing size="lg">
+        Sized to buttons
+      </Badge>
+      <Button variant="outline" size="lg">
+        Button for reference
+      </Button>
+    </div>
   </div>
 );
 

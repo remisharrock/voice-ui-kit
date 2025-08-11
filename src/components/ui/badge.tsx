@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const badgeVariants = cva(
-  "vkui:inline-flex vkui:shrink-0 vkui:[&_svg]:shrink-0 vkui:self-start vkui:items-center vkui:border vkui:text-xs vkui:font-semibold vkui:rounded-element vkui:justify-center",
+  "vkui:shrink-0 vkui:[&_svg]:shrink-0 vkui:self-start vkui:items-center vkui:border vkui:text-xs vkui:font-semibold vkui:rounded-element vkui:justify-center",
   {
     variants: {
       color: {
@@ -32,6 +32,10 @@ const badgeVariants = cva(
       noUppercase: {
         true: "vkui:uppercase-none",
         false: "vkui:uppercase vkui:tracking-wider",
+      },
+      buttonSizing: {
+        true: "vkui:flex",
+        false: "vkui:inline-flex",
       },
     },
     compoundVariants: [
@@ -117,6 +121,25 @@ const badgeVariants = cva(
         color: "client",
         className: "vkui:[--vkui-color-elbow:var(--vkui-color-client)]",
       },
+      /* Button Sizing */
+      {
+        buttonSizing: true,
+        size: "default",
+        className:
+          "vkui:h-8 vkui:px-4 vkui:py-2 vkui:has-[>svg]:px-3 vkui:[&_svg:not([class*='size-'])]:size-5",
+      },
+      {
+        buttonSizing: true,
+        size: "sm",
+        className:
+          "vkui:h-7 vkui:gap-1.5 vkui:px-3 vkui:has-[>svg]:px-2.5 vkui:[&_svg:not([class*='size-'])]:size-4",
+      },
+      {
+        buttonSizing: true,
+        size: "lg",
+        className:
+          "vkui:h-10 vkui:px-6 vkui:has-[>svg]:px-4 vkui:[&_svg:not([class*='size-'])]:size-5",
+      },
     ],
     defaultVariants: {
       variant: "default",
@@ -126,18 +149,29 @@ const badgeVariants = cva(
 );
 
 export const Badge = ({
+  buttonSizing = false,
   children,
   className,
   color,
   noUppercase = true,
-  variant,
   size,
+  variant,
   ...props
-}: VariantProps<typeof badgeVariants> & React.ComponentProps<"div">) => {
+}: VariantProps<typeof badgeVariants> &
+  React.ComponentProps<"div"> & {
+    buttonSizing?: boolean;
+  }) => {
   return (
     <div
       className={cn(
-        badgeVariants({ variant, size, noUppercase, color, ...props }),
+        badgeVariants({
+          variant,
+          size,
+          noUppercase,
+          color,
+          buttonSizing,
+          ...props,
+        }),
         className,
       )}
       {...props}

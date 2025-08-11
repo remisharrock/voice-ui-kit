@@ -24,9 +24,9 @@ export const buttonVariants = cva(
       size: {
         default:
           "vkui:h-8 vkui:px-4 vkui:py-2 vkui:has-[>svg]:px-3 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:h-7 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
-        sm: "vkui:h-7 vkui:rounded-element vkui:gap-1.5 vkui:px-3 vkui:has-[>svg]:px-2.5 vkui:[&_svg:not([class*='size-'])]:size-4 vkui:@max-xs/panel:h-6 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-3",
-        lg: "vkui:h-10 vkui:rounded-element vkui:px-6 vkui:has-[>svg]:px-4 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:h-9 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
-        xl: "vkui:h-12 vkui:rounded-element vkui:px-8 vkui:text-lg vkui:has-[>svg]:px-6 vkui:[&_svg:not([class*='size-'])]:size-6 vkui:gap-3 vkui:@max-xs/panel:h-10 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-5",
+        sm: "vkui:h-7 vkui:gap-1.5 vkui:px-3 vkui:has-[>svg]:px-2.5 vkui:[&_svg:not([class*='size-'])]:size-4 vkui:@max-xs/panel:h-6 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-3",
+        lg: "vkui:h-10 vkui:px-6 vkui:has-[>svg]:px-4 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:h-9 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+        xl: "vkui:h-12 vkui:px-8 vkui:text-lg vkui:has-[>svg]:px-6 vkui:[&_svg:not([class*='size-'])]:size-6 vkui:gap-3 vkui:@max-xs/panel:h-10 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-5",
         icon: "vkui:h-8 vkui:w-8 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-5",
         "icon-sm":
           "vkui:h-7 vkui:w-7 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-4",
