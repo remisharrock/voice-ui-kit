@@ -42,6 +42,12 @@ _Optional - install recommended fonts for default theme_:
 npm i @fontsource-variable/geist @fontsource-variable/geist-mono
 ```
 
+# Browse the Storybook:
+
+```bash
+npm run dev
+```
+
 ### Use the console template to chat with a Pipecat Bot:
 
 ```typescript
@@ -62,7 +68,7 @@ export default function App() {
         <ConsoleTemplate
           transportType="smallwebrtc"
           connectParams={{
-            connectionUrl: "/api/offer",
+            webrtcUrl: "/api/offer",
           }}
         />
       </div>
@@ -80,13 +86,11 @@ import {
   ErrorCard,
   FullScreenContainer,
   PipecatAppBase,
-  PipecatBasePassedProps,
   SpinLoader,
   VoiceVisualizer,
   UserAudioControl
+  type PipecatBaseChildProps,
 } from "@pipecat-ai/voice-ui-kit";
-
-import { App } from "./app";
 
 export default function Home() {
   return (
@@ -94,15 +98,15 @@ export default function Home() {
       <PipecatAppBase
         transportType="smallwebrtc"
         connectParams={{
-          connectionUrl: "/api/offer",
+          webrtcUrl: "/api/offer",
         }}
       >
         {({
+          client:
           handleConnect,
           handleDisconnect,
-          loading,
           error,
-        }: PipecatBasePassedProps) =>
+        }: PipecatBaseChildProps) =>
           loading ? (
             <SpinLoader />
           ) : error ? (
@@ -110,7 +114,6 @@ export default function Home() {
           ) : (
             <>
               <VoiceVisualizer participantType="bot" />
-
               <ControlBar>
                 <UserAudioControl />
                 <ConnectButton
@@ -135,3 +138,4 @@ Examples:
 - [Console Template](./examples/01-console/)
 - [Custom UI with components](./examples/02-components/)
 - [Pipcat Base App](./examples/03-pipecat-base-app/)
+- [Vite](./examples/04-vite/)

@@ -16,7 +16,7 @@ export default function Home() {
       <PipecatAppBase
         transportType="smallwebrtc"
         connectParams={{
-          connectionUrl: "/api/offer",
+          webrtcUrl: "/api/offer",
         }}
       >
         {({
@@ -28,7 +28,9 @@ export default function Home() {
           !client ? (
             <SpinLoader />
           ) : error ? (
-            <ErrorCard>{error}</ErrorCard>
+            <ErrorCard size="lg" rounded="lg" shadow="short">
+              {error}
+            </ErrorCard>
           ) : (
             <App
               handleConnect={handleConnect}

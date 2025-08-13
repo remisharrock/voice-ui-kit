@@ -5,7 +5,7 @@ import {
 } from "./TranscriptOverlay";
 
 export default {
-  title: "Components / Transcript Overlay",
+  title: "Components",
   args: {
     size: "default",
   },
@@ -26,4 +26,4 @@ export const TextPart: Story<{ size: "default" | "sm" | "lg" }> = ({
   </TranscriptOverlayComponent>
 );
 
-TextPart.storyName = "Text Part";
+TextPart.storyName = "Transcript Overlay";

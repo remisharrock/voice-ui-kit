@@ -41,11 +41,15 @@
     0px 2px 2px rgb(0 0 0 / 0.04), 0px 0px 1px rgb(0 0 0 / 0.05);
 
   /** Radius  **/
-  --radius-element-md: var(--vkui-radius-lg);
-  --radius-element-sm: var(--vkui-radius-md);
-  --radius-element-lg: var(--vkui-radius-xl);
-  --radius-element-xl: var(--vkui-radius-2xl);
-  --radius-element-2xl: var(--vkui-radius-3xl);
+  --radius-base: 0.375rem; /* (6px) */
+  --radius-xs: calc(var(--vkui-radius-base) * 0.333333); /* (2px) */
+  --radius-sm: calc(var(--vkui-radius-base) * 0.666666); /* (4px) */
+  --radius-md: var(--vkui-radius-base); /* (6px) */
+  --radius-lg: calc(var(--vkui-radius-base) * 1.333333); /* (8px) */
+  --radius-xl: calc(var(--vkui-radius-base) * 2); /* (12px) */
+  --radius-2xl: calc(var(--vkui-radius-base) * 3); /* (18px) */
+  --radius-3xl: calc(var(--vkui-radius-base) * 4); /* (24px) */
+  --radius-4xl: calc(var(--vkui-radius-base) * 5.333333); /* (32px) */
 
   /** Spacing  **/
   --spacing-element-md: calc(var(--vkui-spacing) * 4);
@@ -70,17 +74,9 @@
   --color-accent: oklch(0.967 0.001 286.375);
   --color-accent-foreground: oklch(0.21 0.006 285.885);
   --color-destructive: oklch(63.7% 0.237 25.331);
-  --color-destructive-foreground: color-mix(
-    in oklch,
-    var(--vkui-color-destructive) 50%,
-    black
-  );
+  --color-destructive-foreground: oklch(25.8% 0.092 26.042);
   --color-warning: oklch(85.2% 0.199 91.936);
-  --color-warning-foreground: color-mix(
-    in oklch,
-    var(--vkui-color-warning) 50%,
-    black
-  );
+  --color-warning-foreground: oklch(27.9% 0.077 45.635);
   --color-border: oklch(0.92 0.004 286.32);
   --color-input: oklch(0.92 0.004 286.32);
   --color-ring: oklch(0.705 0.015 286.067);
@@ -94,7 +90,17 @@
   --color-inactive-ring: oklch(57.7% 0.245 27.325 / 20%);
   --color-inactive-accent: oklch(57.7% 0.245 27.325 / 10%);
   --color-agent: oklch(58.5% 0.233 277.117);
+  --color-agent-foreground: color-mix(
+    in oklch,
+    var(--vkui-color-agent) 10%,
+    white
+  );
   --color-client: oklch(62.3% 0.214 259.815);
+  --color-client-foreground: color-mix(
+    in oklch,
+    var(--vkui-color-client) 10%,
+    white
+  );
   --color-chart-1: oklch(0.646 0.222 41.116);
   --color-chart-2: oklch(0.6 0.118 184.704);
   --color-chart-3: oklch(0.398 0.07 227.392);
@@ -129,7 +135,6 @@
 
   /* DEPRECATED */
   --radius-panel: var(--vkui-radius-sm);
-  --radius-element: var(--vkui-radius-md);
 }
 
 .vkui\:dark {
@@ -148,23 +153,14 @@
   --vkui-color-accent: oklch(0.274 0.006 286.033);
   --vkui-color-accent-foreground: oklch(0.985 0 0);
   --vkui-color-destructive: oklch(57.7% 0.245 27.325);
-  --vkui-color-destructive-foreground: color-mix(
-    in oklch,
-    oklch(57.7% 0.245 27.325) 30%,
-    white
-  );
-  --color-warning: oklch(79.5% 0.184 86.047);
-  --color-warning-foreground: color-mix(
-    in oklch,
-    var(--vkui-color-warning) 50%,
-    black
-  );
+  --vkui-color-destructive-foreground: oklch(97.1% 0.013 17.38);
+  --vkui-color-warning: oklch(79.5% 0.184 86.047);
+  --vkui-color-warning-foreground: oklch(27.9% 0.077 45.635);
   --vkui-color-border: oklch(1 0 0 / 10%);
   --vkui-color-input: oklch(1 0 0 / 15%);
   --vkui-color-ring: oklch(0.552 0.016 285.938);
   --vkui-color-subtle: oklch(44.2% 0.017 285.786);
   --vkui-color-elbow: var(--vkui-color-ring);
-
   --vkui-color-active: oklch(0.7019 0.15768 160.4375);
   --vkui-color-active-foreground: oklch(0.9793 0.0207 166.11);
   --vkui-color-active-ring: oklch(0.7019 0.15768 160.4375 / 40%);
@@ -174,7 +170,17 @@
   --vkui-color-inactive-ring: oklch(0.7022 0.1892 22.23 / 20%);
   --vkui-color-inactive-accent: oklch(0.7022 0.1892 22.23 / 10%);
   --vkui-color-agent: oklch(58.5% 0.233 277.117);
+  --vkui-color-agent-foreground: color-mix(
+    in oklch,
+    var(--vkui-color-agent) 20%,
+    white
+  );
   --vkui-color-client: oklch(62.3% 0.214 259.815);
+  --vkui-color-client-foreground: color-mix(
+    in oklch,
+    var(--vkui-color-client) 20%,
+    white
+  );
   --vkui-color-chart-1: oklch(0.488 0.243 264.376);
   --vkui-color-chart-2: oklch(0.696 0.17 162.48);
   --vkui-color-chart-3: oklch(0.769 0.188 70.08);

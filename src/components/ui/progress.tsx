@@ -15,7 +15,7 @@ const progressVariants = cva(
         half: "vkui:h-1/2 vkui:w-1/2",
       },
       color: {
-        default: "vkui:bg-primary/20 vkui:after:bg-primary",
+        primary: "vkui:bg-primary/20 vkui:after:bg-primary",
         secondary: "vkui:bg-secondary/20 vkui:after:bg-secondary",
         destructive: "vkui:bg-destructive/20 vkui:after:bg-destructive",
         warning: "vkui:bg-warning/20 vkui:after:bg-warning",
@@ -27,7 +27,7 @@ const progressVariants = cva(
     },
     defaultVariants: {
       size: "default",
-      color: "default",
+      color: "primary",
     },
   },
 );

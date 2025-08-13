@@ -1,90 +1,196 @@
 import { TriangleAlertIcon } from "@/icons";
 import type { Story, StoryDefault } from "@ladle/react";
-import { Badge } from "./badge";
+import { Badge, type BadgeProps } from "./badge";
 import Button from "./button";
+import { Progress } from "./progress";
 
 export default {
   title: "Primitives",
 } satisfies StoryDefault;
 
-export const Default: Story<typeof Badge> = ({ ...props }) => (
-  <div className="vkui:flex vkui:flex-col vkui:gap-4 vkui:w-fit">
+export const Default: Story<BadgeProps> = ({ ...props }) => (
+  <div className="ladle-section-container">
     <Badge {...props}>Badge</Badge>
-    <Badge {...props} color="secondary">
-      Badge
-    </Badge>
-    <Badge {...props} color="secondary" className="vkui:w-full">
+    <Badge {...props} className="vkui:w-full">
       full width
     </Badge>
-    <Badge {...props} color="destructive">
-      Badge
-    </Badge>
-    <Badge {...props} color="warning">
-      Badge
-    </Badge>
-    <Badge {...props} color="active">
-      Badge
-    </Badge>
-    <Badge {...props} color="inactive">
-      Badge
-    </Badge>
-    <Badge {...props} color="agent">
-      Badge
-    </Badge>
-    <Badge {...props} color="client">
-      Badge
-    </Badge>
-    <Badge {...props} variant="elbow">
-      Elbow Badge
-    </Badge>
-    <Badge {...props} variant="elbow" color="active">
-      Elbow Badge
-    </Badge>
-    <Badge {...props} variant="bracket">
-      Bracket Badge
-    </Badge>
-    <Badge {...props} variant="bracket" color="active">
-      Active Bracket Badge
-    </Badge>
-    <Badge {...props}>
-      <TriangleAlertIcon />
-      Badge with icon
-    </Badge>
-
-    <div className="vkui:flex vkui:flex-row vkui:gap-4 vkui:w-fit">
+    <h2 className="ladle-section-header">Sizes</h2>
+    <section className="ladle-section">
+      <Badge {...props} color="secondary" size="sm">
+        SM
+      </Badge>
+      <Badge {...props} color="secondary" size="md">
+        MD
+      </Badge>
+      <Badge {...props} color="secondary" size="lg">
+        LG
+      </Badge>
+    </section>
+    <h2 className="ladle-section-header">Rounded</h2>
+    <section className="ladle-section">
+      <Badge {...props} color="secondary" rounded="size">
+        Size (matches size prop)
+      </Badge>
+      <Badge {...props} color="secondary" rounded="sm">
+        SM
+      </Badge>
+      <Badge {...props} color="secondary" rounded="md">
+        MD
+      </Badge>
+      <Badge {...props} color="secondary" rounded="lg">
+        LG
+      </Badge>
+      <Badge {...props} color="secondary" rounded="full">
+        Full
+      </Badge>
+      <Badge {...props} color="secondary" rounded="none">
+        None
+      </Badge>
+    </section>
+    <h2 className="ladle-section-header">Colors</h2>
+    <section className="ladle-section">
+      <Badge {...props} color="primary">
+        Primary
+      </Badge>
+      <Badge {...props} color="secondary">
+        Secondary
+      </Badge>
+      <Badge {...props} color="destructive">
+        Destructive
+      </Badge>
+      <Badge {...props} color="warning">
+        Warning
+      </Badge>
+      <Badge {...props} color="active">
+        Active
+      </Badge>
+      <Badge {...props} color="inactive">
+        Inactive
+      </Badge>
+      <Badge {...props} color="agent">
+        Agent
+      </Badge>
+      <Badge {...props} color="client">
+        Client
+      </Badge>
+    </section>
+    <section className="ladle-section">
+      <Badge {...props} color="primary" variant="filled">
+        Primary
+      </Badge>
+      <Badge {...props} color="secondary" variant="filled">
+        Secondary
+      </Badge>
+      <Badge {...props} color="destructive" variant="filled">
+        Destructive
+      </Badge>
+      <Badge {...props} color="warning" variant="filled">
+        Warning
+      </Badge>
+      <Badge {...props} color="active" variant="filled">
+        Active
+      </Badge>
+      <Badge {...props} color="inactive" variant="filled">
+        Inactive
+      </Badge>
+      <Badge {...props} color="agent" variant="filled">
+        Agent
+      </Badge>
+      <Badge {...props} color="client" variant="filled">
+        Client
+      </Badge>
+    </section>
+    <section className="ladle-section">
+      <Badge {...props} color="primary" variant="outline">
+        Primary
+      </Badge>
+      <Badge {...props} color="secondary" variant="outline">
+        Secondary
+      </Badge>
+      <Badge {...props} color="destructive" variant="outline">
+        Destructive
+      </Badge>
+      <Badge {...props} color="warning" variant="outline">
+        Warning
+      </Badge>
+      <Badge {...props} color="active" variant="outline">
+        Active
+      </Badge>
+      <Badge {...props} color="inactive" variant="outline">
+        Inactive
+      </Badge>
+      <Badge {...props} color="agent" variant="outline">
+        Agent
+      </Badge>
+      <Badge {...props} color="client" variant="outline">
+        Client
+      </Badge>
+    </section>
+    <h2 className="ladle-section-header">Variants</h2>
+    <section className="ladle-section">
+      <Badge {...props} variant="outline">
+        Outline
+      </Badge>
+      <Badge {...props} variant="filled">
+        Filled
+      </Badge>
+      <Badge {...props} variant="elbow">
+        Elbow Variant
+      </Badge>
+      <Badge {...props} variant="elbow" color="active">
+        Elbow Variant with Color
+      </Badge>
+      <Badge {...props} variant="bracket">
+        Bracket Variant
+      </Badge>
+      <Badge {...props} variant="bracket" color="active">
+        Bracket Variant with Color
+      </Badge>
+    </section>
+    <h2 className="ladle-section-header">With Progress and Icon</h2>
+    <section className="ladle-section">
+      <Badge {...props}>
+        <Progress percent={50} className="vkui:h-[3px]" color={props.color} />
+        Badge with progress
+      </Badge>
+      <Badge {...props}>
+        <TriangleAlertIcon />
+        Badge with icon
+      </Badge>
+    </section>
+    <h2 className="ladle-section-header">Button Sizing</h2>
+    <section className="ladle-section">
       <Badge {...props} buttonSizing>
-        Sized to buttons
+        Sized to button
       </Badge>
       <Button variant="outline">Button for reference</Button>
-    </div>
-    <div className="vkui:flex vkui:flex-row vkui:gap-4 vkui:w-fit">
+    </section>
+    <section className="ladle-section">
       <Badge {...props} buttonSizing size="sm">
-        Sized to buttons
+        Sized to button
       </Badge>
       <Button variant="outline" size="sm">
         Button for reference
       </Button>
-    </div>
-    <div className="vkui:flex vkui:flex-row vkui:gap-4 vkui:w-fit">
       <Badge {...props} buttonSizing size="lg">
-        Sized to buttons
+        Sized to button
       </Badge>
       <Button variant="outline" size="lg">
         Button for reference
       </Button>
-    </div>
+    </section>
   </div>
 );
 
 Default.argTypes = {
   size: {
-    options: ["default", "sm", "lg"],
+    options: ["md", "sm", "lg"],
     control: { type: "select" },
-    defaultValue: "default",
+    defaultValue: "md",
   },
   color: {
     options: [
-      "default",
+      "primary",
       "secondary",
       "destructive",
       "active",
@@ -94,16 +200,21 @@ Default.argTypes = {
       "client",
     ],
     control: { type: "select" },
-    defaultValue: "default",
+    defaultValue: "primary",
   },
   variant: {
-    options: ["default", "outline", "elbow", "bracket"],
+    options: ["default", "outline", "filled", "elbow", "bracket"],
     control: { type: "select" },
     defaultValue: "default",
   },
-  noUppercase: {
+  rounded: {
+    options: ["size", "none", "sm", "md", "lg", "full"],
+    control: { type: "select" },
+    defaultValue: "size",
+  },
+  uppercase: {
     control: { type: "boolean" },
-    defaultValue: true,
+    defaultValue: false,
   },
 };
 

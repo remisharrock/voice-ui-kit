@@ -1,24 +1,26 @@
 import type { Story, StoryDefault } from "@ladle/react";
-import { type CardProps, FullScreenContainer } from "../ui";
+import { Button, type CardProps, FullScreenContainer } from "../ui";
 import { ControlBar, ControlBarDivider } from "./ControlBar";
+import { UserAudioControl } from "./UserAudioControl";
 
 export default {
-  title: "Components / Control Bar",
+  title: "Components",
   args: {
     noGradientBorder: false,
-    noShadow: false,
-    size: "default",
+    shadow: "xlong",
+    size: "lg",
+    rounded: "lg",
   },
 } satisfies StoryDefault;
 
 export const Default: Story = ({ ...props }: CardProps) => (
   <FullScreenContainer>
     <ControlBar {...props}>
-      aa
+      <UserAudioControl size="lg" variant="outline" />
       <ControlBarDivider />
-      bb
+      <Button size="lg">Disconnect</Button>
     </ControlBar>
   </FullScreenContainer>
 );
 
-Default.storyName = "Default";
+Default.storyName = "Control Bar";

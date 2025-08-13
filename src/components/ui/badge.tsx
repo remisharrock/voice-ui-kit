@@ -1,12 +1,13 @@
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
+import { forwardRef } from "react";
 
 const badgeVariants = cva(
-  "vkui:shrink-0 vkui:[&_svg]:shrink-0 vkui:self-start vkui:items-center vkui:border vkui:text-xs vkui:font-semibold vkui:rounded-element vkui:justify-center",
+  "vkui:shrink-0 vkui:[&_svg]:shrink-0 vkui:self-start vkui:items-center vkui:border vkui:text-xs vkui:font-semibold vkui:justify-center",
   {
     variants: {
       color: {
-        default: "vkui:bg-primary/10 vkui:text-primary vkui:border-primary",
+        primary: "vkui:bg-primary/10 vkui:text-primary vkui:border-primary",
         secondary:
           "vkui:bg-secondary vkui:text-secondary-foreground/80 vkui:border-border",
         destructive:
@@ -20,44 +21,102 @@ const badgeVariants = cva(
       variant: {
         default: "",
         outline: "vkui:bg-transparent",
-        elbow: "vkui:elbow vkui:border-transparent vkui:rounded-none",
-        bracket: "vkui:elbow vkui:border-transparent vkui:rounded-none",
+        filled: "",
+        elbow: "vkui:elbow vkui:border-transparent",
+        bracket: "vkui:elbow vkui:border-transparent",
       },
       size: {
-        default:
-          "vkui:text-xs vkui:px-3 vkui:gap-1.5 vkui:py-1 vkui:[&_svg:not([class*='size-'])]:size-3.5",
+        md: "vkui:text-xs vkui:px-3 vkui:gap-1.5 vkui:py-1 vkui:[&_svg:not([class*='size-'])]:size-3.5",
         sm: "vkui:text-xs vkui:px-2 vkui:gap-1 vkui:py-0.5 vkui:[&_svg:not([class*='size-'])]:size-2.5",
         lg: "vkui:text-sm vkui:px-4 vkui:gap-2.5 vkui:py-2 vkui:[&_svg:not([class*='size-'])]:size-4",
       },
-      noUppercase: {
-        true: "vkui:uppercase-none",
-        false: "vkui:uppercase vkui:tracking-wider",
+      uppercase: {
+        false: "vkui:uppercase-none",
+        true: "vkui:uppercase vkui:tracking-wider",
       },
       buttonSizing: {
         true: "vkui:flex",
         false: "vkui:inline-flex",
       },
+      rounded: {
+        size: "",
+        none: "vkui:rounded-none",
+        sm: "vkui:rounded-sm",
+        md: "vkui:rounded-md",
+        lg: "vkui:rounded-lg",
+        full: "vkui:rounded-full",
+      },
     },
     compoundVariants: [
+      // Text size adjustments for uppercase variants
       {
-        noUppercase: false,
-        size: "default",
+        uppercase: true,
+        size: "md",
         className: "vkui:text-[11px]",
       },
       {
-        noUppercase: false,
+        uppercase: true,
         size: "sm",
         className: "vkui:text-[10px]",
       },
       {
-        noUppercase: false,
+        uppercase: true,
         size: "lg",
         className: "vkui:text-xs",
       },
-      /* Elbow/Bracket composites */
+      // Filled variant styles
+      {
+        variant: "filled",
+        color: "primary",
+        className:
+          "vkui:bg-primary/100 vkui:text-primary-foreground vkui:border-primary",
+      },
+      {
+        variant: "filled",
+        color: "secondary",
+        className:
+          "vkui:bg-secondary/100 vkui:text-secondary-foreground vkui:border-secondary",
+      },
+      {
+        variant: "filled",
+        color: "destructive",
+        className:
+          "vkui:bg-destructive/100 vkui:text-destructive-foreground vkui:border-destructive",
+      },
+      {
+        variant: "filled",
+        color: "warning",
+        className:
+          "vkui:bg-warning/100 vkui:text-warning-foreground vkui:border-warning",
+      },
+      {
+        variant: "filled",
+        color: "active",
+        className:
+          "vkui:bg-active/100 vkui:text-active-foreground vkui:border-active",
+      },
+      {
+        variant: "filled",
+        color: "inactive",
+        className:
+          "vkui:bg-inactive/100 vkui:text-inactive-foreground vkui:border-inactive",
+      },
+      {
+        variant: "filled",
+        color: "agent",
+        className:
+          "vkui:bg-agent/100 vkui:text-agent-foreground vkui:border-agent",
+      },
+      {
+        variant: "filled",
+        color: "client",
+        className:
+          "vkui:bg-client/100 vkui:text-client-foreground vkui:border-client",
+      },
+      // Elbow/Bracket size variants
       {
         variant: "elbow",
-        size: "default",
+        size: "md",
         className: "vkui:[--vkui-elbow-size:6px]",
       },
       {
@@ -80,9 +139,10 @@ const badgeVariants = cva(
         size: "lg",
         className: "vkui:[--vkui-elbow-size:20px]",
       },
+      // Elbow/Bracket color variants
       {
         variant: ["elbow", "bracket"],
-        color: "default",
+        color: "primary",
         className: "vkui:[--vkui-color-elbow:var(--vkui-color-primary)]",
       },
       {
@@ -121,10 +181,14 @@ const badgeVariants = cva(
         color: "client",
         className: "vkui:[--vkui-color-elbow:var(--vkui-color-client)]",
       },
-      /* Button Sizing */
+      {
+        variant: ["elbow", "bracket"],
+        className: "vkui:rounded-none",
+      },
+      // Button sizing variants
       {
         buttonSizing: true,
-        size: "default",
+        size: "md",
         className:
           "vkui:h-8 vkui:px-4 vkui:py-2 vkui:has-[>svg]:px-3 vkui:[&_svg:not([class*='size-'])]:size-5",
       },
@@ -140,43 +204,81 @@ const badgeVariants = cva(
         className:
           "vkui:h-10 vkui:px-6 vkui:has-[>svg]:px-4 vkui:[&_svg:not([class*='size-'])]:size-5",
       },
+      // Rounded size variants
+      {
+        rounded: "size",
+        size: "md",
+        className: "vkui:rounded-md",
+      },
+      {
+        rounded: "size",
+        size: "sm",
+        className: "vkui:rounded-sm",
+      },
+      {
+        rounded: "size",
+        size: "lg",
+        className: "vkui:rounded-lg",
+      },
     ],
     defaultVariants: {
       variant: "default",
-      size: "default",
+      size: "md",
+      rounded: "size",
+      color: "primary",
     },
   },
 );
 
-export const Badge = ({
-  buttonSizing = false,
-  children,
-  className,
-  color,
-  noUppercase = true,
-  size,
-  variant,
-  ...props
-}: VariantProps<typeof badgeVariants> &
-  React.ComponentProps<"div"> & {
-    buttonSizing?: boolean;
-  }) => {
-  return (
-    <div
-      className={cn(
-        badgeVariants({
-          variant,
-          size,
-          noUppercase,
-          color,
-          buttonSizing,
-          ...props,
-        }),
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
+export interface BadgeProps
+  extends Omit<VariantProps<typeof badgeVariants>, "color" | "uppercase">,
+    Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
+  buttonSizing?: boolean;
+  asChild?: boolean;
+  color?: VariantProps<typeof badgeVariants>["color"];
+  uppercase?: VariantProps<typeof badgeVariants>["uppercase"];
+}
+
+const Badge = forwardRef<HTMLDivElement, BadgeProps>(
+  (
+    {
+      buttonSizing = false,
+      children,
+      className,
+      color,
+      uppercase = false,
+      rounded,
+      size,
+      variant,
+      asChild = false,
+      ...props
+    },
+    ref,
+  ) => {
+    const Comp = asChild ? "span" : "div";
+
+    return (
+      <Comp
+        ref={ref}
+        className={cn(
+          badgeVariants({
+            variant,
+            size,
+            uppercase,
+            color,
+            buttonSizing,
+            rounded,
+          }),
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </Comp>
+    );
+  },
+);
+
+Badge.displayName = "Badge";
+
+export { Badge };

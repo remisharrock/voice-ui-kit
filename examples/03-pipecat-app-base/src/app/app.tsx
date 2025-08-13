@@ -5,7 +5,7 @@ import {
   ControlBar,
   ControlBarDivider,
   LogoutIcon,
-  PipecatBasePassedProps,
+  type PipecatBaseChildProps,
   TranscriptOverlay,
   UserAudioControl,
 } from "@pipecat-ai/voice-ui-kit";
@@ -14,7 +14,7 @@ import { PlasmaVisualizer } from "@pipecat-ai/voice-ui-kit/webgl";
 export const App = ({
   handleConnect,
   handleDisconnect,
-}: PipecatBasePassedProps) => {
+}: Partial<PipecatBaseChildProps>) => {
   const transportState = usePipecatClientTransportState();
   return (
     <main className="relative flex flex-col gap-0 h-full w-full justify-end items-center">
