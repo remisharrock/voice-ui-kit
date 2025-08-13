@@ -1,24 +1,32 @@
 import type { Story, StoryDefault } from "@ladle/react";
 import { Card, CardContent } from "./card";
-import { Divider } from "./divider";
+import { Divider, type DividerProps } from "./divider";
 
 export default {
   title: "Primitives",
 } satisfies StoryDefault;
 
-export const Default: Story<typeof Divider> = ({ ...props }) => (
-  <div className="vkui:flex vkui:flex-col vkui:gap-8 vkui:w-full vkui:h-full">
-    <Divider {...props} />
+export const Default: Story<DividerProps> = ({ ...props }) => {
+  return (
+    <div
+      className={
+        props.orientation === "horizontal"
+          ? "vkui:flex vkui:flex-col vkui:gap-8 vkui:w-full"
+          : "vkui:flex vkui:flex-row vkui:gap-8 vkui:h-full"
+      }
+    >
+      <Divider {...props} />
 
-    <Divider {...props}>Hello</Divider>
+      <Divider {...props}>Hello</Divider>
 
-    <Card variant="destructive" background="stripes">
-      <CardContent>
-        <Divider {...props} />
-      </CardContent>
-    </Card>
-  </div>
-);
+      <Card>
+        <CardContent className="vkui:h-full">
+          <Divider {...props} />
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
 
 Default.argTypes = {
   variant: {
@@ -33,7 +41,7 @@ Default.argTypes = {
   },
   color: {
     options: [
-      "default",
+      "primary",
       "secondary",
       "destructive",
       "active",
@@ -41,7 +49,6 @@ Default.argTypes = {
       "warning",
     ],
     control: { type: "select" },
-    defaultValue: "default",
   },
   thickness: {
     options: ["thin", "medium", "thick"],

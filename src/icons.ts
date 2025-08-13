@@ -27,6 +27,7 @@ import {
   PanelRightClose,
   PhoneCall,
   PhoneOff,
+  Plus,
   Send,
   Sun,
   Terminal,
@@ -75,3 +76,4 @@ export const GripIcon = GripHorizontal;
 export const TerminalIcon = Terminal;
 export const KeyboardIcon = Keyboard;
 export const ArrowRightIcon = ArrowRight;
+export const PlusIcon = Plus;

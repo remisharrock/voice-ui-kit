@@ -1,3 +1,4 @@
+import { PlusIcon } from "@/icons";
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -8,7 +9,7 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
       vertical: "vkui:w-px vkui:h-full",
     },
     color: {
-      default: "vkui:bg-primary",
+      primary: "vkui:bg-primary",
       secondary: "vkui:bg-border",
       destructive: "vkui:bg-destructive",
       active: "vkui:bg-active",
@@ -26,10 +27,6 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
         "vkui:bg-transparent vkui:bg-[repeating-linear-gradient(to_right,currentColor,currentColor_2px,transparent_2px,transparent_6px)] vkui:bg-[length:6px_100%]",
       dashed:
         "vkui:bg-transparent vkui:bg-[repeating-linear-gradient(to_right,currentColor,currentColor_20px,transparent_20px,transparent_40px)] vkui:bg-[length:40px_100%]",
-    },
-    decoration: {
-      none: "",
-      plus: "vkui:mx-[12px] vkui:w-auto vkui:before:content-['+'] vkui:before:absolute vkui:before:left-0 vkui:before:top-0 vkui:before:-translate-y-1/2 vkui:before:text-[12px] vkui:before:ml-[-12px] vkui:after:content-['+'] vkui:after:absolute vkui:after:right-0 vkui:after:top-0 vkui:after:-translate-y-1/2 vkui:after:text-[12px] vkui:after:mr-[-12px]",
     },
   },
   defaultVariants: {
@@ -68,7 +65,7 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
     },
     {
       variant: ["dotted", "dashed"],
-      color: "default",
+      color: "primary",
       className: "vkui:text-primary",
     },
     {
@@ -97,16 +94,14 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
       className: "vkui:text-warning",
     },
     {
-      decoration: "plus",
-      thickness: "medium",
-      className:
-        "vkui:mx-[14px] vkui:before:ml-[-14px] vkui:after:mr-[-14px] vkui:before:text-[14px] vkui:after:text-[14px] vkui:before:font-bold vkui:after:font-bold",
+      variant: ["dotted", "dashed"],
+      color: "active",
+      className: "vkui:text-active",
     },
     {
-      decoration: "plus",
-      thickness: "thick",
-      className:
-        "vkui:px-[20px] vkui:before:ml-[-20px] vkui:after:mr-[-20px] vkui:before:text-[20px] vkui:after:text-[20px] vkui:before:font-bold vkui:after:font-bold",
+      variant: ["dotted", "dashed"],
+      color: "inactive",
+      className: "vkui:text-inactive",
     },
   ],
 });
@@ -114,22 +109,53 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
 const dividerChildrenVariants = cva("", {
   variants: {
     color: {
-      default: "vkui:text-foreground",
+      primary: "vkui:text-foreground",
       secondary: "vkui:text-foreground",
       destructive: "vkui:text-destructive",
       active: "vkui:text-active",
       inactive: "vkui:text-inactive",
       warning: "vkui:text-warning",
-      success: "vkui:text-success",
-    },
-    noUppercase: {
-      true: "vkui:uppercase-none",
-      false: "vkui:uppercase vkui:tracking-widest vkui:text-sm",
     },
   },
 });
 
-export const Divider = ({
+const dividerDecorationVariants = cva("vkui:flex", {
+  variants: {
+    decoration: {
+      plus: "vkui:text-foreground",
+    },
+    thickness: {
+      thin: "vkui:[&_svg]:size-2.5 vkui:gap-1.5",
+      medium: "vkui:[&_svg]:size-3 vkui:gap-2",
+      thick: "vkui:[&_svg]:size-3.5 vkui:gap-2.5",
+    },
+    orientation: {
+      horizontal:
+        "vkui:flex vkui:flex-row vkui:items-center vkui:justify-center vkui:w-full",
+      vertical:
+        "vkui:flex vkui:flex-col vkui:items-center vkui:justify-center vkui:h-full",
+    },
+    color: {
+      primary: "vkui:text-primary",
+      secondary: "vkui:text-border",
+      destructive: "vkui:text-destructive vkui:[&_svg]:text-destructive",
+      active: "vkui:text-active vkui:[&_svg]:text-active",
+      inactive: "vkui:text-inactive vkui:[&_svg]:text-inactive ",
+      warning: "vkui:text-warning vkui:[&_svg]:text-warning",
+    },
+  },
+});
+
+export interface DividerProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color">,
+    VariantProps<typeof dividerVariants>,
+    VariantProps<typeof dividerChildrenVariants> {
+  childrenClassName?: string;
+  color?: VariantProps<typeof dividerVariants>["color"];
+  decoration?: "none" | "plus";
+}
+
+export function Divider({
   children,
   color = "secondary",
   decoration,
@@ -138,18 +164,17 @@ export const Divider = ({
   variant = "solid",
   className,
   childrenClassName,
-  noUppercase = true,
   ...props
-}: VariantProps<typeof dividerVariants> &
-  VariantProps<typeof dividerChildrenVariants> &
-  React.ComponentProps<"div"> & {
-    childrenClassName?: string;
-  }) => {
+}: DividerProps) {
+  let innerContent;
   if (children) {
-    return (
+    innerContent = (
       <div
         className={cn(
-          "vkui:flex vkui:items-center vkui:justify-center vkui:gap-4 vkui:w-full",
+          orientation === "horizontal" &&
+            "vkui:flex vkui:flex-row vkui:items-center vkui:justify-center vkui:gap-4 vkui:w-full",
+          orientation === "vertical" &&
+            "vkui:flex vkui:flex-col vkui:items-center vkui:justify-center vkui:gap-4 vkui:h-full",
           className,
         )}
       >
@@ -160,15 +185,13 @@ export const Divider = ({
               thickness,
               variant,
               className,
+              orientation,
             }),
           )}
           {...props}
         />
         <span
-          className={cn(
-            dividerChildrenVariants({ color, noUppercase }),
-            childrenClassName,
-          )}
+          className={cn(dividerChildrenVariants({ color }), childrenClassName)}
         >
           {children}
         </span>
@@ -177,30 +200,63 @@ export const Divider = ({
             dividerVariants({
               color,
               thickness,
-              orientation,
               variant,
-              decoration,
               className,
+              orientation,
             }),
           )}
           {...props}
         />
       </div>
     );
+  } else {
+    innerContent = (
+      <div
+        className={cn(
+          dividerVariants({
+            color,
+            thickness,
+            orientation,
+            variant,
+            className,
+          }),
+        )}
+        {...props}
+      />
+    );
   }
-  return (
+
+  if (decoration === "none") {
+    return innerContent;
+  }
+
+  const outerContent = (
     <div
-      className={cn(
-        dividerVariants({
-          color,
-          thickness,
-          orientation,
-          variant,
-          decoration,
-          className,
-        }),
-      )}
-      {...props}
-    />
+      className={dividerDecorationVariants({
+        color,
+        decoration,
+        thickness,
+        orientation,
+      })}
+    >
+      <span>
+        <PlusIcon
+          strokeLinecap="square"
+          strokeWidth={
+            thickness === "thin" ? 2 : thickness === "medium" ? 3.5 : 4.5
+          }
+        />
+      </span>
+      {innerContent}
+      <span>
+        <PlusIcon
+          strokeLinecap="square"
+          strokeWidth={
+            thickness === "thin" ? 2 : thickness === "medium" ? 3.5 : 4.5
+          }
+        />
+      </span>
+    </div>
   );
-};
+  return outerContent;
+}
