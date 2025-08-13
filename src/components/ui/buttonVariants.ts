@@ -1,11 +1,11 @@
 import { cva } from "class-variance-authority";
 
 export const buttonVariants = cva(
-  "vkui:border vkui:inline-flex vkui:items-center vkui:justify-center vkui:gap-2 vkui:whitespace-nowrap vkui:rounded-element vkui:text-sm vkui:font-medium vkui:transition-all vkui:disabled:pointer-events-none vkui:disabled:opacity-50 vkui:[&_svg]:pointer-events-none vkui:shrink-0 vkui:[&_svg]:shrink-0 vkui:outline-none vkui:focus-visible:ring-ring/50 vkui:focus-visible:ring-[3px] vkui:aria-invalid:ring-destructive/20 vkui:dark:aria-invalid:ring-destructive/40 vkui:aria-invalid:border-destructive",
+  "vkui:border vkui:inline-flex vkui:items-center vkui:justify-center vkui:gap-2 vkui:whitespace-nowrap vkui:text-sm vkui:font-medium vkui:transition-all vkui:disabled:pointer-events-none vkui:disabled:opacity-50 vkui:[&_svg]:pointer-events-none vkui:shrink-0 vkui:[&_svg]:shrink-0 vkui:outline-none vkui:focus-visible:ring-ring/50 vkui:focus-visible:ring-[3px] vkui:aria-invalid:ring-destructive/20 vkui:dark:aria-invalid:ring-destructive/40 vkui:aria-invalid:border-destructive",
   {
     variants: {
       variant: {
-        default:
+        primary:
           "vkui:bg-primary vkui:text-primary-foreground vkui:hover:bg-primary/90 vkui:border-transparent vkui:[--vkui-loader-stripe-color:var(--vkui-color-primary)]",
         secondary:
           "vkui:bg-secondary vkui:border-transparent vkui:text-secondary-foreground vkui:hover:bg-secondary/60 vkui:focus-visible:border-secondary vkui:[--vkui-loader-stripe-color:var(--vkui-color-secondary)]",
@@ -22,8 +22,7 @@ export const buttonVariants = cva(
           "vkui:bg-inactive vkui:border vkui:border-transparent vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
       },
       size: {
-        default:
-          "vkui:h-8 vkui:px-4 vkui:py-2 vkui:has-[>svg]:px-3 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:h-7 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+        md: "vkui:h-8 vkui:px-4 vkui:py-2 vkui:has-[>svg]:px-3 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:h-7 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
         sm: "vkui:h-7 vkui:gap-1.5 vkui:px-3 vkui:has-[>svg]:px-2.5 vkui:[&_svg:not([class*='size-'])]:size-4 vkui:@max-xs/panel:h-6 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-3",
         lg: "vkui:h-10 vkui:px-6 vkui:has-[>svg]:px-4 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:h-9 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
         xl: "vkui:h-12 vkui:px-8 vkui:text-lg vkui:has-[>svg]:px-6 vkui:[&_svg:not([class*='size-'])]:size-6 vkui:gap-3 vkui:@max-xs/panel:h-10 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-5",
@@ -32,6 +31,15 @@ export const buttonVariants = cva(
           "vkui:h-7 vkui:w-7 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-4",
         "icon-xs":
           "vkui:h-6 vkui:w-6 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-3",
+      },
+      rounded: {
+        size: "",
+        none: "vkui:rounded-none",
+        sm: "vkui:rounded-sm",
+        md: "vkui:rounded-md",
+        lg: "vkui:rounded-lg",
+        xl: "vkui:rounded-xl",
+        full: "vkui:rounded-full",
       },
       state: {
         default: "",
@@ -51,40 +59,65 @@ export const buttonVariants = cva(
         stripes:
           "vkui:loader-stripes vkui:disabled:opacity-100 vkui:dark:disabled:opacity-100 vkui:text-white/0",
       },
+      uppercase: {
+        true: "vkui:uppercase vkui:tracking-wider",
+        false: "",
+      },
     },
     compoundVariants: [
+      // Text size adjustments for uppercase variants
       {
-        size: "default",
+        uppercase: true,
+        size: "md",
+        className: "vkui:text-[11px] vkui:[&_svg:not([class*='size-'])]:size-4",
+      },
+      {
+        uppercase: true,
+        size: "sm",
+        className: "vkui:text-[10px]",
+      },
+      {
+        uppercase: true,
+        size: "lg",
+        className: "vkui:text-xs vkui:[&_svg:not([class*='size-'])]:size-5",
+      },
+      {
+        uppercase: true,
+        size: "xl",
+        className: "vkui:text-sm vkui:[&_svg:not([class*='size-'])]:size-5",
+      },
+      {
+        size: "md",
         isIcon: true,
         className:
-          "vkui:size-8 vkui:@max-xs/panel:size-7 vkui:rounded-element vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+          "vkui:size-8 vkui:@max-xs/panel:size-7 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
       },
       {
         size: "sm",
         isIcon: true,
         className:
-          "vkui:size-7 vkui:@max-xs/panel:size-6 vkui:rounded-element vkui:[&_svg:not([class*='size-'])]:size-4 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-3",
+          "vkui:size-7 vkui:@max-xs/panel:size-6 vkui:[&_svg:not([class*='size-'])]:size-4 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-3",
       },
       {
         size: "lg",
         isIcon: true,
         className:
-          "vkui:size-10 vkui:@max-xs/panel:size-9 vkui:rounded-element vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+          "vkui:size-10 vkui:@max-xs/panel:size-9 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
       },
       {
         size: "xl",
         isIcon: true,
         className:
-          "vkui:size-12 vkui:rounded-element vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+          "vkui:size-12 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
       },
       {
-        variant: "default",
+        variant: "primary",
         state: "active",
         className:
           "vkui:bg-active vkui:text-active-foreground vkui:hover:bg-active/90 vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40",
       },
       {
-        variant: "default",
+        variant: "primary",
         state: "inactive",
         className:
           "vkui:bg-inactive vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
@@ -113,13 +146,36 @@ export const buttonVariants = cva(
         className:
           "vkui:bg-inactive-accent vkui:text-inactive vkui:border-inactive vkui:hover:bg-inactive-accent/60 vkui:dark:bg-inactive-accent vkui:dark:hover:bg-inactive-accent/60 vkui:dark:border-inactive vkui:focus-visible:border-inactive vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
       },
+      // Rounded size variants
+      {
+        rounded: "size",
+        size: "md",
+        className: "vkui:rounded-md",
+      },
+      {
+        rounded: "size",
+        size: "sm",
+        className: "vkui:rounded-sm",
+      },
+      {
+        rounded: "size",
+        size: "lg",
+        className: "vkui:rounded-lg",
+      },
+      {
+        rounded: "size",
+        size: "xl",
+        className: "vkui:rounded-xl",
+      },
     ],
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: "primary",
+      size: "md",
       state: "default",
+      rounded: "size",
       isIcon: false,
       isFullWidth: false,
+      uppercase: false,
     },
   },
 );
@@ -130,12 +186,15 @@ export type ButtonVariant = NonNullable<
 export type ButtonSize = NonNullable<
   Parameters<typeof buttonVariants>[0]
 >["size"];
+export type ButtonRounded = NonNullable<
+  Parameters<typeof buttonVariants>[0]
+>["rounded"];
 export type ButtonState = NonNullable<
   Parameters<typeof buttonVariants>[0]
 >["state"];
 
 export const buttonVariantOptions = [
-  "default",
+  "primary",
   "outline",
   "secondary",
   "ghost",
@@ -144,14 +203,23 @@ export const buttonVariantOptions = [
   "active",
   "inactive",
 ] as const;
-export const buttonSizeOptions = ["default", "sm", "lg", "xl"] as const;
+export const buttonSizeOptions = ["md", "sm", "lg", "xl"] as const;
 export const buttonStateOptions = ["default", "active", "inactive"] as const;
+export const buttonRoundedOptions = [
+  "size",
+  "sm",
+  "md",
+  "lg",
+  "xl",
+  "full",
+  "none",
+] as const;
 
 export const buttonAccentColorMap: Record<
   (typeof buttonVariantOptions)[number],
   Record<(typeof buttonStateOptions)[number], string>
 > = {
-  default: {
+  primary: {
     default: "--vkui-color-active",
     inactive: "--vkui-color-inactive-foreground",
     active: "--vkui-color-active",

@@ -2,28 +2,40 @@ import buttonVariants from "@/components/ui/buttonVariants";
 import { LoaderIcon } from "@/icons";
 import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps } from "class-variance-authority";
-import * as React from "react";
 
 import { cn } from "@/lib/utils";
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    Omit<
+      VariantProps<typeof buttonVariants>,
+      "variant" | "size" | "rounded" | "state"
+    > {
+  asChild?: boolean;
+  isLoading?: boolean;
+  isFullWidth?: boolean;
+  loader?: "icon" | "stripes";
+  variant?: VariantProps<typeof buttonVariants>["variant"];
+  size?: VariantProps<typeof buttonVariants>["size"];
+  rounded?: VariantProps<typeof buttonVariants>["rounded"];
+  state?: VariantProps<typeof buttonVariants>["state"];
+}
 
 export function Button({
   className,
   variant,
   size,
+  rounded,
   state,
   isIcon,
   isLoading = false,
   isFullWidth = false,
+  uppercase = false,
   asChild = false,
   loader = "icon",
+  children,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-    isLoading?: boolean;
-    isFullWidth?: boolean;
-    loader?: "icon" | "stripes";
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button";
 
   if (isLoading) {
@@ -34,18 +46,20 @@ export function Button({
           buttonVariants({
             variant,
             size,
+            rounded,
             state,
             isIcon,
             isFullWidth,
             loader,
-            className,
+            uppercase,
           }),
+          className,
         )}
         {...props}
         disabled
       >
         {loader === "icon" && <LoaderIcon className="vkui:animate-spin" />}
-        {props.children}
+        {children}
       </Comp>
     );
   }
@@ -57,15 +71,17 @@ export function Button({
         buttonVariants({
           variant,
           size,
+          rounded,
           state,
           isIcon,
           isFullWidth,
-          className,
+          uppercase,
         }),
+        className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </Comp>
   );
 }
-
-export default Button;

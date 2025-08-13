@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
-import { forwardRef } from "react";
 
 const badgeVariants = cva(
   "vkui:shrink-0 vkui:[&_svg]:shrink-0 vkui:self-start vkui:items-center vkui:border vkui:text-xs vkui:font-semibold vkui:justify-center",
@@ -31,7 +30,7 @@ const badgeVariants = cva(
         lg: "vkui:text-sm vkui:px-4 vkui:gap-2.5 vkui:py-2 vkui:[&_svg:not([class*='size-'])]:size-4",
       },
       uppercase: {
-        false: "vkui:uppercase-none",
+        false: "",
         true: "vkui:uppercase vkui:tracking-wider",
       },
       buttonSizing: {
@@ -231,54 +230,44 @@ const badgeVariants = cva(
 );
 
 export interface BadgeProps
-  extends Omit<VariantProps<typeof badgeVariants>, "color" | "uppercase">,
-    Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color">,
+    Omit<VariantProps<typeof badgeVariants>, "color" | "uppercase"> {
   buttonSizing?: boolean;
   asChild?: boolean;
   color?: VariantProps<typeof badgeVariants>["color"];
   uppercase?: VariantProps<typeof badgeVariants>["uppercase"];
 }
 
-const Badge = forwardRef<HTMLDivElement, BadgeProps>(
-  (
-    {
-      buttonSizing = false,
-      children,
-      className,
-      color,
-      uppercase = false,
-      rounded,
-      size,
-      variant,
-      asChild = false,
-      ...props
-    },
-    ref,
-  ) => {
-    const Comp = asChild ? "span" : "div";
+export function Badge({
+  buttonSizing = false,
+  children,
+  className,
+  color,
+  uppercase = false,
+  rounded,
+  size,
+  variant,
+  asChild = false,
+  ...props
+}: BadgeProps) {
+  const Comp = asChild ? "span" : "div";
 
-    return (
-      <Comp
-        ref={ref}
-        className={cn(
-          badgeVariants({
-            variant,
-            size,
-            uppercase,
-            color,
-            buttonSizing,
-            rounded,
-          }),
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </Comp>
-    );
-  },
-);
-
-Badge.displayName = "Badge";
-
-export { Badge };
+  return (
+    <Comp
+      className={cn(
+        badgeVariants({
+          variant,
+          size,
+          uppercase,
+          color,
+          buttonSizing,
+          rounded,
+        }),
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </Comp>
+  );
+}
