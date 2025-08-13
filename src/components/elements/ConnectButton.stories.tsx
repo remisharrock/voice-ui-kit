@@ -16,7 +16,7 @@ export default {
     size: {
       options: buttonSizeOptions,
       control: { type: "select" },
-      defaultValue: "default",
+      defaultValue: "md",
     },
   },
 } satisfies StoryDefault;

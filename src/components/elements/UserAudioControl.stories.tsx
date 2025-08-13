@@ -29,7 +29,7 @@ export default {
     size: {
       options: buttonSizeOptions,
       control: { type: "select" },
-      defaultValue: "default",
+      defaultValue: "md",
     },
     noAudioText: {
       control: { type: "text" },
@@ -47,34 +47,36 @@ export const NoAudio: Story<{
   noAudioText: string;
 }> = ({ variant, size, noAudioText }) => {
   return (
-    <UserAudioComponent
-      variant={variant}
-      size={size}
-      noAudio={true}
-      {...(noAudioText && { noAudioText })}
-    />
+    <Card className="vkui:w-full">
+      <CardContent>
+        <UserAudioComponent
+          variant={variant}
+          size={size}
+          noAudio={true}
+          {...(noAudioText && { noAudioText })}
+        />
+      </CardContent>
+    </Card>
   );
 };
 
 NoAudio.args = {
   variant: "secondary",
-  size: "default",
+  size: "md",
 };
 
 NoAudio.storyName = "No Audio";
 
 /**
- * Active
+ * Component
  */
 export const Default: Story<{
-  variant: ButtonVariant;
   size: ButtonSize;
   isMuted: boolean;
   noDevicePicker: boolean;
   noVisualizer: boolean;
   isLoading: boolean;
 }> = ({
-  variant,
   size,
   isMuted = false,
   noDevicePicker = false,
@@ -82,27 +84,63 @@ export const Default: Story<{
   isLoading = false,
 }) => (
   <Card className="vkui:w-full">
-    <CardContent className="vkui:flex vkui:flex-col vkui:gap-4 vkui:shrink-0">
-      <UserAudioComponent
-        variant={variant}
-        size={size}
-        isMicEnabled={!isMuted}
-        availableMics={[]}
-        selectedMic={undefined as unknown as OptionalMediaDeviceInfo}
-        updateMic={() => {}}
-        noVisualizer={noVisualizer}
-        noDevicePicker={noDevicePicker}
-        buttonProps={{
-          isLoading,
-        }}
-      />
+    <CardContent className="vkui:flex vkui:flex-col vkui:gap-4">
+      {["primary", "secondary", "outline", "ghost"].map((v) => (
+        <UserAudioComponent
+          key={v}
+          variant={v as ButtonVariant}
+          size={size}
+          isMicEnabled={!isMuted}
+          availableMics={[]}
+          selectedMic={undefined as unknown as OptionalMediaDeviceInfo}
+          updateMic={() => {}}
+          noVisualizer={noVisualizer}
+          noDevicePicker={noDevicePicker}
+          buttonProps={{
+            isLoading,
+          }}
+        />
+      ))}
+      {["primary", "secondary", "outline", "ghost"].map((v) => (
+        <UserAudioComponent
+          key={v}
+          variant={v as ButtonVariant}
+          size={size}
+          state="active"
+          isMicEnabled={!isMuted}
+          availableMics={[]}
+          selectedMic={undefined as unknown as OptionalMediaDeviceInfo}
+          updateMic={() => {}}
+          noVisualizer={noVisualizer}
+          noDevicePicker={noDevicePicker}
+          buttonProps={{
+            isLoading,
+          }}
+        />
+      ))}
+      {["primary", "secondary", "outline", "ghost"].map((v) => (
+        <UserAudioComponent
+          key={v}
+          variant={v as ButtonVariant}
+          size={size}
+          state="inactive"
+          isMicEnabled={!isMuted}
+          availableMics={[]}
+          selectedMic={undefined as unknown as OptionalMediaDeviceInfo}
+          updateMic={() => {}}
+          noVisualizer={noVisualizer}
+          noDevicePicker={noDevicePicker}
+          buttonProps={{
+            isLoading,
+          }}
+        />
+      ))}
     </CardContent>
   </Card>
 );
 
 Default.args = {
-  variant: "secondary",
-  size: "default",
+  size: "md",
   isMuted: false,
 };
 
@@ -126,7 +164,7 @@ Default.argTypes = {
   },
 };
 
-Default.storyName = "Default";
+Default.storyName = "Pure Component";
 
 /**
  * Connected
@@ -141,7 +179,7 @@ export const Connected: Story<{
 
 Connected.args = {
   variant: "secondary",
-  size: "default",
+  size: "md",
 };
 
 Connected.decorators = [

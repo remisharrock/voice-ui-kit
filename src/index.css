@@ -51,6 +51,15 @@
   --radius-3xl: calc(var(--vkui-radius-base) * 4); /* (24px) */
   --radius-4xl: calc(var(--vkui-radius-base) * 5.333333); /* (32px) */
 
+  /** Button Sizing  **/
+  --button-size-sm: calc(var(--vkui-spacing) * 7);
+  --button-size-md: calc(var(--vkui-spacing) * 8);
+  --button-size-lg: calc(var(--vkui-spacing) * 10);
+  --button-size-xl: calc(var(--vkui-spacing) * 12);
+  --button-px-mul: 0.5;
+  --button-px-icon-mul: 0.35;
+  --button-px-gap-mul: 0.25;
+
   /** Spacing  **/
   --spacing-element-md: calc(var(--vkui-spacing) * 4);
   --spacing-element-sm: calc(var(--vkui-spacing) * 3);
@@ -223,7 +232,9 @@
   }
 }
 @import "./css/components.css";
+@import "./css/utilities.css";
 
+/** Fix: Button Group **/
 .vkui\:button-group.vkui\:flex-row > *:not(:first-child):not(:last-child) {
   border-radius: 0;
 }

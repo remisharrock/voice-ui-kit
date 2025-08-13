@@ -1,0 +1,15 @@
+@utility button-* {
+  height: --value(--button-size-*);
+  padding-inline: calc(--value(--button-size-*) * var(--vkui-button-px-mul));
+  gap: calc(
+    --modifier(--button-size-*, [length], [*]) * var(--vkui-button-px-gap-mul)
+  );
+  padding-inline: calc(
+    --modifier(--button-size-*, [length], [*]) * var(--vkui-button-px-icon-mul)
+  );
+}
+
+@utility button-icon-* {
+  height: --value(--button-size-*);
+  width: --value(--button-size-*);
+}

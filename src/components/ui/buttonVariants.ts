@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 
 export const buttonVariants = cva(
-  "vkui:border vkui:inline-flex vkui:items-center vkui:justify-center vkui:gap-2 vkui:whitespace-nowrap vkui:text-sm vkui:font-medium vkui:transition-all vkui:disabled:pointer-events-none vkui:disabled:opacity-50 vkui:[&_svg]:pointer-events-none vkui:shrink-0 vkui:[&_svg]:shrink-0 vkui:outline-none vkui:focus-visible:ring-ring/50 vkui:focus-visible:ring-[3px] vkui:aria-invalid:ring-destructive/20 vkui:dark:aria-invalid:ring-destructive/40 vkui:aria-invalid:border-destructive",
+  "vkui:border vkui:inline-flex vkui:items-center vkui:justify-center vkui:whitespace-nowrap vkui:text-sm vkui:font-medium vkui:transition-all vkui:disabled:pointer-events-none vkui:disabled:opacity-50 vkui:[&_svg]:pointer-events-none vkui:shrink-0 vkui:[&_svg]:shrink-0 vkui:outline-none vkui:focus-visible:ring-ring/50 vkui:focus-visible:ring-[3px] vkui:aria-invalid:ring-destructive/20 vkui:dark:aria-invalid:ring-destructive/40 vkui:aria-invalid:border-destructive",
   {
     variants: {
       variant: {
@@ -22,15 +22,10 @@ export const buttonVariants = cva(
           "vkui:bg-inactive vkui:border vkui:border-transparent vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
       },
       size: {
-        md: "vkui:h-8 vkui:px-4 vkui:py-2 vkui:has-[>svg]:px-3 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:h-7 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
-        sm: "vkui:h-7 vkui:gap-1.5 vkui:px-3 vkui:has-[>svg]:px-2.5 vkui:[&_svg:not([class*='size-'])]:size-4 vkui:@max-xs/panel:h-6 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-3",
-        lg: "vkui:h-10 vkui:px-6 vkui:has-[>svg]:px-4 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:h-9 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
-        xl: "vkui:h-12 vkui:px-8 vkui:text-lg vkui:has-[>svg]:px-6 vkui:[&_svg:not([class*='size-'])]:size-6 vkui:gap-3 vkui:@max-xs/panel:h-10 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-5",
-        icon: "vkui:h-8 vkui:w-8 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-5",
-        "icon-sm":
-          "vkui:h-7 vkui:w-7 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-4",
-        "icon-xs":
-          "vkui:h-6 vkui:w-6 vkui:p-0 vkui:has-[>svg]:p-0 vkui:[&_svg:not([class*='size-'])]:size-3",
+        sm: "vkui:[&_svg:not([class*='size-'])]:size-4",
+        md: "vkui:[&_svg:not([class*='size-'])]:size-5",
+        lg: "vkui:[&_svg:not([class*='size-'])]:size-5",
+        xl: "vkui:text-lg vkui:[&_svg:not([class*='size-'])]:size-6",
       },
       rounded: {
         size: "",
@@ -87,28 +82,64 @@ export const buttonVariants = cva(
         className: "vkui:text-sm vkui:[&_svg:not([class*='size-'])]:size-5",
       },
       {
+        size: "sm",
+        isIcon: false,
+        className:
+          "vkui:button-sm vkui:has-[>svg]:button-sm/sm vkui:[&_svg:not([class*='size-'])]:size-4",
+      },
+      {
         size: "md",
+        isIcon: false,
+        className:
+          "vkui:button-md vkui:has-[>svg]:button-md/md vkui:[&_svg:not([class*='size-'])]:size-5",
+      },
+      {
+        size: "lg",
+        isIcon: false,
+        className:
+          "vkui:button-lg vkui:has-[>svg]:button-lg/lg vkui:[&_svg:not([class*='size-'])]:size-5",
+      },
+      {
+        size: "xl",
+        isIcon: false,
+        className:
+          "vkui:button-xl vkui:has-[>svg]:button-xl/xl vkui:[&_svg:not([class*='size-'])]:size-5",
+      },
+      {
+        size: ["sm", "md", "lg", "xl"],
+        isIcon: false,
+        className:
+          "vkui:@max-xs/panel:button-sm vkui:@max-xs/panel:has-[>svg]:button-sm/sm vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+      },
+      {
+        size: ["sm", "md", "lg", "xl"],
         isIcon: true,
         className:
-          "vkui:size-8 vkui:@max-xs/panel:size-7 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+          "vkui:@max-xs/panel:button-icon-sm vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
       },
       {
         size: "sm",
         isIcon: true,
         className:
-          "vkui:size-7 vkui:@max-xs/panel:size-6 vkui:[&_svg:not([class*='size-'])]:size-4 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-3",
+          "vkui:button-icon-sm vkui:[&_svg:not([class*='size-'])]:size-4",
+      },
+      {
+        size: "md",
+        isIcon: true,
+        className:
+          "vkui:button-icon-md vkui:[&_svg:not([class*='size-'])]:size-5",
       },
       {
         size: "lg",
         isIcon: true,
         className:
-          "vkui:size-10 vkui:@max-xs/panel:size-9 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+          "vkui:button-icon-lg vkui:[&_svg:not([class*='size-'])]:size-5",
       },
       {
         size: "xl",
         isIcon: true,
         className:
-          "vkui:size-12 vkui:[&_svg:not([class*='size-'])]:size-5 vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+          "vkui:button-icon-xl vkui:[&_svg:not([class*='size-'])]:size-5",
       },
       {
         variant: "primary",

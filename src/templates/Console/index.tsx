@@ -509,7 +509,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                             {!noStatusInfo && (
                               <Popover>
                                 <PopoverTrigger asChild>
-                                  <Button variant="ghost" size="icon">
+                                  <Button variant="ghost" isIcon>
                                     <ChevronsLeftRightEllipsisIcon size={16} />
                                   </Button>
                                 </PopoverTrigger>
@@ -521,7 +521,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                             {!noDevices && (
                               <Popover>
                                 <PopoverTrigger asChild>
-                                  <Button variant="ghost" size="icon">
+                                  <Button variant="ghost" isIcon>
                                     <MicIcon size={16} />
                                   </Button>
                                 </PopoverTrigger>
@@ -538,7 +538,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                             {!noSessionInfo && (
                               <Popover>
                                 <PopoverTrigger asChild>
-                                  <Button variant="ghost" size="icon">
+                                  <Button variant="ghost" isIcon>
                                     <InfoIcon size={16} />
                                   </Button>
                                 </PopoverTrigger>

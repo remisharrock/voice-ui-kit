@@ -4,6 +4,7 @@ import {
   SelectGuide,
   SelectItem,
   SelectTrigger,
+  type SelectTriggerProps,
   SelectValue,
 } from "@/components/ui/select";
 import type { Story, StoryDefault } from "@ladle/react";
@@ -12,31 +13,60 @@ export default {
   title: "Primitives",
 } satisfies StoryDefault;
 
-export const SelectDefault: Story<{
-  guide?: string;
-  size: "default" | "sm";
-}> = ({ guide, size }) => (
-  <Select>
-    <SelectTrigger size={size}>
-      {guide && <SelectGuide>{guide}</SelectGuide>}
-      <SelectValue placeholder="Please select" />
-    </SelectTrigger>
-    <SelectContent>
-      <SelectItem value="item-1">Select Item 1</SelectItem>
-      <SelectItem value="item-2">Select Item 2</SelectItem>
-      <SelectItem value="item-3">Select Item 3</SelectItem>
-    </SelectContent>
-  </Select>
+export const SelectDefault: Story<SelectTriggerProps> = ({ ...props }) => (
+  <div className="ladle-section-container">
+    <h2 className="ladle-section-header">Default</h2>
+    <section className="ladle-section">
+      <Select>
+        <SelectTrigger {...props}>
+          <SelectValue placeholder="Please select" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="item-1">Select Item 1</SelectItem>
+          <SelectItem value="item-2">Select Item 2</SelectItem>
+          <SelectItem value="item-3">Select Item 3</SelectItem>
+        </SelectContent>
+      </Select>
+    </section>
+
+    <h2 className="ladle-section-header">With Guide</h2>
+    <section className="ladle-section">
+      <Select>
+        <SelectTrigger {...props}>
+          <SelectGuide>Select</SelectGuide>
+          <SelectValue placeholder="Please select" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="item-1">Select Item 1</SelectItem>
+          <SelectItem value="item-2">Select Item 2</SelectItem>
+          <SelectItem value="item-3">Select Item 3</SelectItem>
+        </SelectContent>
+      </Select>
+    </section>
+  </div>
 );
 
 SelectDefault.args = {
-  guide: "",
+  size: "md",
+  variant: "primary",
+  rounded: "size",
 };
+
 SelectDefault.argTypes = {
   size: {
-    options: ["default", "sm", "lg"],
-    control: { type: "radio" },
-    defaultValue: "default",
+    options: ["md", "sm", "lg", "xl"],
+    control: { type: "select" },
+    defaultValue: "md",
+  },
+  variant: {
+    options: ["primary", "ghost"],
+    control: { type: "select" },
+    defaultValue: "primary",
+  },
+  rounded: {
+    options: ["size", "none", "sm", "md", "lg", "xl", "full"],
+    control: { type: "select" },
+    defaultValue: "size",
   },
 };
 

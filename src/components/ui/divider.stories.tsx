@@ -63,7 +63,7 @@ Default.argTypes = {
   size: {
     options: ["none", "sm", "md", "lg", "xl"],
     control: { type: "select" },
-    defaultValue: "md",
+    defaultValue: "none",
   },
 };
 

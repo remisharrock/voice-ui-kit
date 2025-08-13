@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ButtonGroup } from "@/components/ui/buttongroup";
 import {
   buttonAccentColorMap,
   type ButtonSize,
@@ -52,7 +51,7 @@ const btnClasses = "vkui:flex-1 vkui:w-full vkui:z-10 vkui:justify-start";
 
 export const UserAudioComponent: React.FC<ComponentProps> = ({
   variant = "secondary",
-  size = "default",
+  size = "md",
   classNames = {},
   buttonProps = {},
   dropdownButtonProps = {},
@@ -68,8 +67,11 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
   noAudioText = "Audio disabled",
   onClick,
 }) => {
+  let buttonComp;
+
+  /** NO AUDIO */
   if (noAudio || buttonProps?.isLoading) {
-    const button = (
+    buttonComp = (
       <Button
         variant={variant}
         size={size}
@@ -89,96 +91,80 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
         )}
       </Button>
     );
+  } else {
+    /** AUDIO ENABLED */
+    const buttonState = state || (isMicEnabled ? "default" : "inactive");
+    const accentColor =
+      buttonAccentColorMap[variant || "primary"]?.[buttonState];
 
-    if (noDevicePicker) {
-      return button;
-    }
-
-    return (
-      <ButtonGroup
-        className={cn(
-          "vkui:w-full vkui:gap-[2px] vkui:flex-1",
-          variant === "outline" && "vkui:gap-[1px]",
-          classNames.buttongroup,
+    buttonComp = (
+      <>
+        <Button
+          onClick={onClick}
+          variant={variant}
+          state={buttonState}
+          size={size}
+          {...buttonProps}
+          className={cn(
+            btnClasses,
+            !noDevicePicker && "vkui:rounded-e-none",
+            classNames.button,
+          )}
+        >
+          {isMicEnabled ? <MicIcon /> : <MicOffIcon />}
+          {!noVisualizer && (
+            <VoiceVisualizer
+              participantType="local"
+              backgroundColor="transparent"
+              barCount={10}
+              barGap={2}
+              barMaxHeight={size === "lg" ? 24 : size === "xl" ? 36 : 20}
+              barOrigin="center"
+              barWidth={3}
+              barColor={accentColor}
+              className="vkui:mx-auto"
+              {...visualizerProps}
+            />
+          )}
+        </Button>
+        {!noDevicePicker && (
+          <DeviceDropDown
+            menuLabel="Microphone device"
+            availableDevices={availableMics}
+            selectedDevice={selectedMic}
+            updateDevice={updateMic}
+            classNames={{
+              dropdownMenuContent: classNames.dropdownMenuContent,
+              dropdownMenuCheckboxItem: classNames.dropdownMenuCheckboxItem,
+            }}
+          >
+            <Button
+              className={cn(
+                "vkui:flex-none vkui:z-0 vkui:rounded-s-none vkui:border-l-0",
+                classNames.dropdownMenuTrigger,
+              )}
+              variant={variant}
+              size={size}
+              isIcon
+              {...dropdownButtonProps}
+            >
+              <ChevronDownIcon size={16} />
+            </Button>
+          </DeviceDropDown>
         )}
-      >
-        {button}
-      </ButtonGroup>
+      </>
     );
   }
 
-  const buttonState = state || (isMicEnabled ? "default" : "inactive");
-  const accentColor =
-    buttonAccentColorMap[variant || "default"]?.[buttonState] || "black";
-
-  const button = (
-    <>
-      <Button
-        onClick={onClick}
-        className={cn(btnClasses, classNames.button)}
-        variant={variant}
-        state={buttonState}
-        size={size}
-        {...buttonProps}
-      >
-        {isMicEnabled ? <MicIcon /> : <MicOffIcon />}
-        {!noVisualizer && (
-          <VoiceVisualizer
-            participantType="local"
-            backgroundColor="transparent"
-            barCount={10}
-            barGap={2}
-            barMaxHeight={size === "lg" ? 24 : size === "xl" ? 36 : 20}
-            barOrigin="center"
-            barWidth={3}
-            barColor={accentColor}
-            className="vkui:mx-auto"
-            {...visualizerProps}
-          />
-        )}
-      </Button>
-      {!noDevicePicker && (
-        <DeviceDropDown
-          menuLabel="Microphone device"
-          availableDevices={availableMics}
-          selectedDevice={selectedMic}
-          updateDevice={updateMic}
-          classNames={{
-            dropdownMenuContent: classNames.dropdownMenuContent,
-            dropdownMenuCheckboxItem: classNames.dropdownMenuCheckboxItem,
-          }}
-        >
-          <Button
-            className={cn(
-              "vkui:flex-none vkui:z-0 vkui:border-l-0",
-              classNames.dropdownMenuTrigger,
-            )}
-            variant={variant}
-            size={size}
-            isIcon
-            {...dropdownButtonProps}
-          >
-            <ChevronDownIcon size={16} />
-          </Button>
-        </DeviceDropDown>
-      )}
-    </>
-  );
-
-  if (noDevicePicker) {
-    return <div className="vkui:flex-1 vkui:w-full">{button}</div>;
-  }
-
   return (
-    <ButtonGroup
+    <div
       className={cn(
-        "vkui:w-full vkui:gap-[2px] vkui:flex-1",
-        variant === "outline" && "vkui:gap-[1px]",
-        classNames.buttongroup,
+        "vkui:grid vkui:grid-cols-[1fr_auto] vkui:gap-[1px]",
+        variant === "outline" && "vkui:gap-0",
       )}
     >
-      {button}
-    </ButtonGroup>
+      {buttonComp}
+    </div>
   );
 };
 

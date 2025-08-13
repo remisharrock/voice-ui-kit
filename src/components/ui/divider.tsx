@@ -41,7 +41,7 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
     thickness: "thin",
     variant: "solid",
     color: "secondary",
-    size: "md",
+    size: "none",
   },
   compoundVariants: [
     {
@@ -101,17 +101,7 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
       color: "warning",
       className: "vkui:text-warning",
     },
-    {
-      variant: ["dotted", "dashed"],
-      color: "active",
-      className: "vkui:text-active",
-    },
-    {
-      variant: ["dotted", "dashed"],
-      color: "inactive",
-      className: "vkui:text-inactive",
-    },
-    /* Size variants */
+    // Size variants
     {
       size: ["sm", "md", "lg", "xl"],
       orientation: "horizontal",
@@ -159,7 +149,7 @@ const dividerDecorationVariants = cva("vkui:flex", {
       secondary: "vkui:text-border",
       destructive: "vkui:text-destructive vkui:[&_svg]:text-destructive",
       active: "vkui:text-active vkui:[&_svg]:text-active",
-      inactive: "vkui:text-inactive vkui:[&_svg]:text-inactive ",
+      inactive: "vkui:text-inactive vkui:[&_svg]:text-inactive",
       warning: "vkui:text-warning vkui:[&_svg]:text-warning",
     },
   },
@@ -172,89 +162,81 @@ export interface DividerProps
   childrenClassName?: string;
   color?: VariantProps<typeof dividerVariants>["color"];
   decoration?: "none" | "plus";
-  size?: VariantProps<typeof dividerVariants>["size"];
 }
 
 export function Divider({
   children,
   color = "secondary",
-  decoration,
+  decoration = "none",
   thickness = "thin",
   orientation = "horizontal",
   variant = "solid",
+  size = "none",
   className,
   childrenClassName,
-  size = "md",
   ...props
 }: DividerProps) {
-  let innerContent;
-  if (children) {
-    innerContent = (
-      <div
-        className={cn(
-          orientation === "horizontal" &&
-            "vkui:flex vkui:flex-row vkui:items-center vkui:justify-center vkui:gap-4 vkui:w-full",
-          orientation === "vertical" &&
-            "vkui:flex vkui:flex-col vkui:items-center vkui:justify-center vkui:gap-4 vkui:h-full",
-          className,
-        )}
-      >
-        <span
-          className={cn(
-            dividerVariants({
-              color,
-              thickness,
-              variant,
-              size,
-              className,
-              orientation,
-            }),
-          )}
-          {...props}
-        />
-        <span
-          className={cn(dividerChildrenVariants({ color }), childrenClassName)}
-        >
-          {children}
-        </span>
-        <span
-          className={cn(
-            dividerVariants({
-              color,
-              thickness,
-              variant,
-              size,
-              className,
-              orientation,
-            }),
-          )}
-          {...props}
-        />
-      </div>
-    );
-  } else {
-    innerContent = (
-      <div
+  const innerContent = children ? (
+    <div
+      className={cn(
+        orientation === "horizontal" &&
+          "vkui:flex vkui:flex-row vkui:items-center vkui:justify-center vkui:gap-4 vkui:w-full",
+        orientation === "vertical" &&
+          "vkui:flex vkui:flex-col vkui:items-center vkui:justify-center vkui:gap-4 vkui:h-full",
+        className,
+      )}
+    >
+      <span
         className={cn(
           dividerVariants({
             color,
             thickness,
-            orientation,
             variant,
             size,
-            className,
+            orientation,
           }),
         )}
         {...props}
       />
-    );
-  }
+      <span
+        className={cn(dividerChildrenVariants({ color }), childrenClassName)}
+      >
+        {children}
+      </span>
+      <span
+        className={cn(
+          dividerVariants({
+            color,
+            thickness,
+            variant,
+            size,
+            orientation,
+          }),
+        )}
+        {...props}
+      />
+    </div>
+  ) : (
+    <div
+      className={cn(
+        dividerVariants({
+          color,
+          thickness,
+          orientation,
+          variant,
+          size,
+        }),
+        className,
+      )}
+      {...props}
+    />
+  );
 
   if (decoration === "none") {
     return innerContent;
   }
 
-  const outerContent = (
+  return (
     <div
       className={dividerDecorationVariants({
         color,
@@ -282,5 +264,4 @@ export function Divider({
       </span>
     </div>
   );
-  return outerContent;
 }

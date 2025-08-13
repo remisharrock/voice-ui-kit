@@ -25,8 +25,8 @@ const badgeVariants = cva(
         bracket: "vkui:elbow vkui:border-transparent",
       },
       size: {
-        md: "vkui:text-xs vkui:px-3 vkui:gap-1.5 vkui:py-1 vkui:[&_svg:not([class*='size-'])]:size-3.5",
         sm: "vkui:text-xs vkui:px-2 vkui:gap-1 vkui:py-0.5 vkui:[&_svg:not([class*='size-'])]:size-2.5",
+        md: "vkui:text-xs vkui:px-3 vkui:gap-1.5 vkui:py-1 vkui:[&_svg:not([class*='size-'])]:size-3.5",
         lg: "vkui:text-sm vkui:px-4 vkui:gap-2.5 vkui:py-2 vkui:[&_svg:not([class*='size-'])]:size-4",
       },
       uppercase: {
@@ -189,19 +189,19 @@ const badgeVariants = cva(
         buttonSizing: true,
         size: "md",
         className:
-          "vkui:h-8 vkui:px-4 vkui:py-2 vkui:has-[>svg]:px-3 vkui:[&_svg:not([class*='size-'])]:size-5",
+          "vkui:button-md/md vkui:[&_svg:not([class*='size-'])]:size-5",
       },
       {
         buttonSizing: true,
         size: "sm",
         className:
-          "vkui:h-7 vkui:gap-1.5 vkui:px-3 vkui:has-[>svg]:px-2.5 vkui:[&_svg:not([class*='size-'])]:size-4",
+          "vkui:button-sm/sm vkui:[&_svg:not([class*='size-'])]:size-4",
       },
       {
         buttonSizing: true,
         size: "lg",
         className:
-          "vkui:h-10 vkui:px-6 vkui:has-[>svg]:px-4 vkui:[&_svg:not([class*='size-'])]:size-5",
+          "vkui:button-lg/lg vkui:[&_svg:not([class*='size-'])]:size-5",
       },
       // Rounded size variants
       {

@@ -158,6 +158,26 @@ export const Default: Story<BadgeProps> = ({ ...props }) => (
         Badge with icon
       </Badge>
     </section>
+    <section className="ladle-section">
+      <Badge {...props} size="sm">
+        <Progress percent={50} className="vkui:h-[3px]" color={props.color} />
+        Badge with progress
+      </Badge>
+      <Badge {...props} size="sm">
+        <TriangleAlertIcon />
+        Badge with icon
+      </Badge>
+    </section>
+    <section className="ladle-section">
+      <Badge {...props} size="lg">
+        <Progress percent={50} className="vkui:h-[3px]" color={props.color} />
+        Badge with progress
+      </Badge>
+      <Badge {...props} size="lg">
+        <TriangleAlertIcon />
+        Badge with icon
+      </Badge>
+    </section>
     <h2 className="ladle-section-header">Button Sizing</h2>
     <section className="ladle-section">
       <Badge {...props} buttonSizing>
@@ -172,10 +192,34 @@ export const Default: Story<BadgeProps> = ({ ...props }) => (
       <Button variant="outline" size="sm">
         Button for reference
       </Button>
+    </section>
+    <section className="ladle-section">
+      <Badge {...props} buttonSizing size="md">
+        <TriangleAlertIcon />
+        Sized to button
+      </Badge>
+      <Button variant="outline" size="md">
+        <TriangleAlertIcon />
+        Button for reference
+      </Button>
+    </section>
+    <section className="ladle-section">
+      <Badge {...props} buttonSizing size="sm">
+        <TriangleAlertIcon />
+        Sized to button
+      </Badge>
+      <Button variant="outline" size="sm">
+        <TriangleAlertIcon />
+        Button for reference
+      </Button>
+    </section>
+    <section className="ladle-section">
       <Badge {...props} buttonSizing size="lg">
+        <TriangleAlertIcon />
         Sized to button
       </Badge>
       <Button variant="outline" size="lg">
+        <TriangleAlertIcon />
         Button for reference
       </Button>
     </section>

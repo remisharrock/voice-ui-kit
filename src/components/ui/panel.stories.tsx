@@ -18,7 +18,8 @@ export const PanelHeaderDefault: Story<{
     <PanelHeader variant={variant}>
       <PanelTitle>{label}</PanelTitle>
     </PanelHeader>
-    <PanelContent>My Panel</PanelContent>
+    <PanelContent>
+      My Panel
   </Panel>
 );
 

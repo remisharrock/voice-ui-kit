@@ -1,5 +1,5 @@
 import { Button, type ButtonProps } from "@/components/ui/button";
-import { TerminalIcon } from "@/icons";
+import { TerminalIcon, TriangleAlertIcon } from "@/icons";
 import type { Story, StoryDefault } from "@ladle/react";
 import {
   buttonRoundedOptions,
@@ -27,6 +27,24 @@ export const ButtonPrimary: Story<ButtonProps> = ({ ...props }) => (
       <Button size="lg">LG</Button>
       <Button size="xl">XL</Button>
     </section>
+    <section className="ladle-section">
+      <Button size="sm">
+        <TriangleAlertIcon />
+        SM With Icon
+      </Button>
+      <Button size="md">
+        <TriangleAlertIcon />
+        MD With Icon
+      </Button>
+      <Button size="lg">
+        <TriangleAlertIcon />
+        LG With Icon
+      </Button>
+      <Button size="xl">
+        <TriangleAlertIcon />
+        XL With Icon
+      </Button>
+    </section>
 
     <h2 className="ladle-section-header">With Icon</h2>
     <section className="ladle-section">
@@ -45,6 +63,22 @@ export const ButtonPrimary: Story<ButtonProps> = ({ ...props }) => (
       <Button size="xl" uppercase={props.uppercase}>
         <TerminalIcon />
         XL
+      </Button>
+    </section>
+
+    <h2 className="ladle-section-header">Icon Sizing</h2>
+    <section className="ladle-section">
+      <Button size="sm" isIcon>
+        <TerminalIcon />
+      </Button>
+      <Button size="md" isIcon>
+        <TerminalIcon />
+      </Button>
+      <Button size="lg" isIcon>
+        <TerminalIcon />
+      </Button>
+      <Button size="xl" isIcon>
+        <TerminalIcon />
       </Button>
     </section>
 
