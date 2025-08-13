@@ -60,6 +60,11 @@ Default.argTypes = {
     control: { type: "radio" },
     defaultValue: "horizontal",
   },
+  size: {
+    options: ["none", "sm", "md", "lg", "xl"],
+    control: { type: "select" },
+    defaultValue: "md",
+  },
 };
 
 Default.storyName = "Divider";

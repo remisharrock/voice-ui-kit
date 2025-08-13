@@ -6,9 +6,21 @@ export default {
 } satisfies StoryDefault;
 
 export const Default: Story = () => (
-  <div className="flex flex-col gap-4">
-    <SpinLoader />
-    <StripeLoader />
+  <div className="ladle-section-container">
+    <h3 className="ladle-section-header">Spin Loader</h3>
+    <div className="ladle-section">
+      <SpinLoader />
+    </div>
+    <h3 className="ladle-section-header">Stripe Loader</h3>
+    <div className="ladle-section">
+      <StripeLoader />
+    </div>
+    <p>
+      Can be colored with <code>vkui:text-*</code> currentColor directives:
+    </p>
+    <div className="ladle-section">
+      <StripeLoader className="vkui:text-destructive" />
+    </div>
   </div>
 );
 

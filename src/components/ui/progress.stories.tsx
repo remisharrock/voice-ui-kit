@@ -7,13 +7,25 @@ export default {
 } satisfies StoryDefault;
 
 export const Default: Story<typeof Progress> = ({ ...props }) => (
-  <div className="vkui:flex vkui:flex-col vkui:gap-4 vkui:w-fit">
-    <div className="vkui:flex vkui:flex-row vkui:gap-4 vkui:w-fit vkui:h-4">
-      <Progress {...props} />
-      <Progress {...props} percent={50} />
-      <Progress {...props} percent={100} />
+  <div className="ladle-section-container">
+    <h3 className="ladle-section-header">Progress</h3>
+    <div className="ladle-section">
+      <Progress {...props} className="vkui:h-4" />
+      <Progress {...props} percent={50} className="vkui:h-4" />
+      <Progress {...props} percent={100} className="vkui:h-4" />
     </div>
-    <div className="vkui:flex vkui:flex-col vkui:gap-4 vkui:w-fit">
+    <h3 className="ladle-section-header">Size</h3>
+    <p>
+      Convenience sizes. Can also be set with <code>className="vkui:w-*"</code>
+    </p>
+    <div className="ladle-section">
+      <Progress {...props} percent={50} size="sm" className="vkui:h-4" />
+      <Progress {...props} percent={50} size="lg" className="vkui:h-4" />
+      <Progress {...props} percent={50} size="xl" className="vkui:h-4" />
+      <Progress {...props} percent={50} size="half" className="vkui:h-4" />
+    </div>
+    <h3 className="ladle-section-header">Colors</h3>
+    <div className="ladle-section">
       <Progress {...props} percent={50} color="secondary" />
       <Progress {...props} percent={50} color="destructive" />
       <Progress {...props} percent={50} color="warning" />
@@ -22,11 +34,22 @@ export const Default: Story<typeof Progress> = ({ ...props }) => (
       <Progress {...props} percent={50} color="agent" />
       <Progress {...props} percent={50} color="client" />
     </div>
-
-    <Badge buttonSizing>
-      <Progress {...props} percent={50} size="lg" className="vkui:h-[2px]" />
-      Some Badge
-    </Badge>
+    <h3 className="ladle-section-header">Rounded</h3>
+    <div className="ladle-section">
+      <Progress
+        {...props}
+        percent={50}
+        rounded
+        className="vkui:h-4 vkui:w-full"
+      />
+    </div>
+    <h3 className="ladle-section-header">Badge</h3>
+    <div className="ladle-section">
+      <Badge buttonSizing>
+        <Progress {...props} percent={50} size="lg" className="vkui:h-[2px]" />
+        Some Badge
+      </Badge>
+    </div>
   </div>
 );
 

@@ -24,6 +24,10 @@ const progressVariants = cva(
         agent: "vkui:bg-agent/20 vkui:after:bg-agent",
         client: "vkui:bg-client/20 vkui:after:bg-client",
       },
+      rounded: {
+        true: "vkui:rounded-full",
+        false: "",
+      },
     },
     defaultVariants: {
       size: "default",
@@ -35,17 +39,19 @@ const progressVariants = cva(
 export interface ProgressProps extends VariantProps<typeof progressVariants> {
   percent?: number;
   className?: string;
+  rounded?: boolean;
 }
 
 export const Progress = ({
   size,
   className,
   color,
+  rounded,
   ...props
 }: ProgressProps) => {
   return (
     <div
-      className={cn(progressVariants({ size, color }), className)}
+      className={cn(progressVariants({ size, color, rounded, className }))}
       {...props}
       style={
         {

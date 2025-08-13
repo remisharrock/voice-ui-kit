@@ -28,12 +28,20 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
       dashed:
         "vkui:bg-transparent vkui:bg-[repeating-linear-gradient(to_right,currentColor,currentColor_20px,transparent_20px,transparent_40px)] vkui:bg-[length:40px_100%]",
     },
+    size: {
+      none: "vkui:my-0 vkui:mx-0",
+      sm: "vkui:my-2 vkui:mx-2",
+      md: "vkui:my-4 vkui:mx-4",
+      lg: "vkui:my-8 vkui:mx-8",
+      xl: "vkui:my-10 vkui:mx-10",
+    },
   },
   defaultVariants: {
     orientation: "horizontal",
     thickness: "thin",
     variant: "solid",
     color: "secondary",
+    size: "md",
   },
   compoundVariants: [
     {
@@ -103,6 +111,17 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
       color: "inactive",
       className: "vkui:text-inactive",
     },
+    /* Size variants */
+    {
+      size: ["sm", "md", "lg", "xl"],
+      orientation: "horizontal",
+      className: "vkui:mx-0",
+    },
+    {
+      size: ["sm", "md", "lg", "xl"],
+      orientation: "vertical",
+      className: "vkui:my-0",
+    },
   ],
 });
 
@@ -153,6 +172,7 @@ export interface DividerProps
   childrenClassName?: string;
   color?: VariantProps<typeof dividerVariants>["color"];
   decoration?: "none" | "plus";
+  size?: VariantProps<typeof dividerVariants>["size"];
 }
 
 export function Divider({
@@ -164,6 +184,7 @@ export function Divider({
   variant = "solid",
   className,
   childrenClassName,
+  size = "md",
   ...props
 }: DividerProps) {
   let innerContent;
@@ -184,6 +205,7 @@ export function Divider({
               color,
               thickness,
               variant,
+              size,
               className,
               orientation,
             }),
@@ -201,6 +223,7 @@ export function Divider({
               color,
               thickness,
               variant,
+              size,
               className,
               orientation,
             }),
@@ -218,6 +241,7 @@ export function Divider({
             thickness,
             orientation,
             variant,
+            size,
             className,
           }),
         )}
