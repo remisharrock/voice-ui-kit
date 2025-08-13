@@ -1,7 +1,5 @@
-import * as React from "react";
-
 import { cn } from "@/lib/utils";
-import { cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 const cardVariants = cva(
   "vkui:text-card-foreground vkui:flex vkui:flex-col vkui:bg-card vkui:border-(length:--vkui-border-width-element) vkui:border-border",
@@ -11,6 +9,8 @@ const cardVariants = cva(
         default: "",
         destructive:
           "vkui:shadow-destructive/10 vkui:dark:shadow-destructive/15 vkui:border-destructive vkui:text-destructive-foreground vkui:bg-destructive/[.05] vkui:[--vkui-color-elbow:var(--vkui-color-destructive-foreground)]",
+        success:
+          "vkui:shadow-active/10 vkui:dark:shadow-active/15 vkui:border-active vkui:text-active-foreground vkui:bg-active/[.05] vkui:[--vkui-color-elbow:var(--vkui-color-active-foreground)]",
       },
       background: {
         none: "",
@@ -26,10 +26,10 @@ const cardVariants = cva(
       },
       rounded: {
         none: "",
-        sm: "vkui:rounded-element-sm",
-        md: "vkui:rounded-element-md",
-        lg: "vkui:rounded-element-lg",
-        xl: "vkui:rounded-element-xl",
+        sm: "vkui:rounded-sm",
+        md: "vkui:rounded-md",
+        lg: "vkui:rounded-lg",
+        xl: "vkui:rounded-xl",
       },
       shadow: {
         none: "",
@@ -38,25 +38,25 @@ const cardVariants = cva(
         long: "vkui:shadow-long",
         xlong: "vkui:shadow-xlong",
       },
-      noElbows: {
-        true: "",
-        false: "vkui:elbow",
+      withElbows: {
+        false: "",
+        true: "vkui:elbow",
       },
     },
     compoundVariants: [
       {
         size: "sm",
-        noElbows: false,
+        withElbows: false,
         className: "vkui:[--vkui-elbow-size:var(--vkui-text-xs)]",
       },
       {
         size: "lg",
-        noElbows: false,
+        withElbows: false,
         className: "vkui:[--vkui-elbow-size:var(--vkui-text-lg)]",
       },
       {
         size: "xl",
-        noElbows: false,
+        withElbows: false,
         className: "vkui:[--vkui-elbow-size:var(--vkui-text-xl)]",
       },
       {
@@ -70,6 +70,16 @@ const cardVariants = cva(
         background: "stripes",
         className: "vkui:[--vkui-stripe-color:var(--vkui-color-destructive)]",
       },
+      {
+        variant: "success",
+        background: "stripes",
+        className: "vkui:[--vkui-stripe-color:var(--vkui-color-active)]",
+      },
+      {
+        rounded: ["sm", "md", "lg", "xl"],
+        withElbows: true,
+        className: "vkui:rounded-none",
+      },
     ],
 
     defaultVariants: {
@@ -77,28 +87,25 @@ const cardVariants = cva(
       shadow: "none",
       variant: "default",
       background: "none",
+      withElbows: false,
     },
   },
 );
 
-export interface CardProps extends React.ComponentProps<"div"> {
-  variant?: "default" | "destructive";
-  noGradientBorder?: boolean;
-  noElbows?: boolean;
-  className?: string;
-  background?: "none" | "scanlines" | "grid" | "stripes";
-  size?: "sm" | "md" | "lg" | "xl";
-  rounded?: "none" | "sm" | "md" | "lg" | "xl";
-  shadow?: "none" | "xshort" | "short" | "long" | "xlong";
+export interface CardProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    Omit<VariantProps<typeof cardVariants>, "rounded"> {
+  withGradientBorder?: boolean;
+  rounded?: VariantProps<typeof cardVariants>["rounded"];
 }
 
-function Card({
+export function Card({
   variant,
   className,
-  noGradientBorder = true,
-  noElbows = true,
+  withGradientBorder = false,
+  withElbows = false,
   size = "md",
-  rounded = "none",
+  rounded,
   shadow = "none",
   background = "none",
   ...props
@@ -115,10 +122,10 @@ function Card({
           shadow,
           background,
           rounded: roundedValue,
-          noElbows,
+          withElbows,
         }),
         variant === "default" &&
-          !noGradientBorder &&
+          withGradientBorder &&
           "vkui:border vkui:border-transparent vkui:bg-origin-border vkui:borderclip vkui:bg-cardGradientBorder",
         className,
       )}
@@ -127,7 +134,9 @@ function Card({
   );
 }
 
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+export type CardHeaderProps = React.HTMLAttributes<HTMLDivElement>;
+
+export function CardHeader({ className, ...props }: CardHeaderProps) {
   return (
     <div
       data-slot="card-header"
@@ -137,7 +146,9 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+export type CardTitleProps = React.HTMLAttributes<HTMLDivElement>;
+
+export function CardTitle({ className, ...props }: CardTitleProps) {
   return (
     <div
       data-slot="card-title"
@@ -147,7 +158,9 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
+export type CardDescriptionProps = React.HTMLAttributes<HTMLDivElement>;
+
+export function CardDescription({ className, ...props }: CardDescriptionProps) {
   return (
     <div
       data-slot="card-description"
@@ -157,7 +170,9 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
+export type CardActionProps = React.HTMLAttributes<HTMLDivElement>;
+
+export function CardAction({ className, ...props }: CardActionProps) {
   return (
     <div
       data-slot="card-action"
@@ -170,13 +185,17 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
   );
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+export type CardContentProps = React.HTMLAttributes<HTMLDivElement>;
+
+export function CardContent({ className, ...props }: CardContentProps) {
   return (
     <div data-slot="card-content" className={cn("", className)} {...props} />
   );
 }
 
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+export type CardFooterProps = React.HTMLAttributes<HTMLDivElement>;
+
+export function CardFooter({ className, ...props }: CardFooterProps) {
   return (
     <div
       data-slot="card-footer"
@@ -188,13 +207,3 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
     />
   );
 }
-
-export {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-};

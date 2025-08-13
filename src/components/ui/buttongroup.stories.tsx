@@ -31,7 +31,7 @@ export const ButtonGroupDefault: Story<{
 );
 
 ButtonGroupDefault.args = {
-  variant: "default",
+  variant: "primary",
   orientation: "horizontal",
 };
 
@@ -39,12 +39,12 @@ ButtonGroupDefault.argTypes = {
   variant: {
     options: buttonVariantOptions,
     control: { type: "select" },
-    defaultValue: "default",
+    defaultValue: "primary",
   },
   size: {
     options: buttonSizeOptions,
     control: { type: "select" },
-    defaultValue: "default",
+    defaultValue: "md",
   },
   orientation: {
     options: ["horizontal", "vertical"],

@@ -12,7 +12,7 @@ export default {
 } satisfies StoryDefault;
 
 export const Default: Story<CardProps> = (props) => (
-  <div className="vkui:flex vkui:flex-col vkui:gap-4">
+  <div className="ladle-section-container-full">
     <Card {...props}>
       <CardHeader>
         <CardTitle>Card Title</CardTitle>
@@ -21,28 +21,39 @@ export const Default: Story<CardProps> = (props) => (
       <CardContent>Card Content 2</CardContent>
     </Card>
 
-    <Card variant="destructive" rounded="none">
+    <h2 className="ladle-section-header">Variants</h2>
+
+    <Card {...props} variant="destructive">
       <CardHeader>
-        <CardTitle>Destructive Card</CardTitle>
+        <CardTitle>Destructive Variant</CardTitle>
       </CardHeader>
       <CardContent>Card Content</CardContent>
     </Card>
 
-    <Card background="grid" rounded="none">
+    <Card {...props} variant="success">
+      <CardHeader>
+        <CardTitle>Success Variant</CardTitle>
+      </CardHeader>
+      <CardContent>Card Content</CardContent>
+    </Card>
+
+    <h2 className="ladle-section-header">Backgrounds</h2>
+
+    <Card background="grid">
       <CardHeader>
         <CardTitle>Grid Background</CardTitle>
       </CardHeader>
       <CardContent>Card Content</CardContent>
     </Card>
 
-    <Card background="scanlines" rounded="none">
+    <Card background="scanlines">
       <CardHeader>
         <CardTitle>Scanlines Background</CardTitle>
       </CardHeader>
       <CardContent>Card Content</CardContent>
     </Card>
 
-    <Card background="stripes" rounded="none">
+    <Card background="stripes">
       <CardHeader>
         <CardTitle>Stripes!</CardTitle>
       </CardHeader>
@@ -54,6 +65,98 @@ export const Default: Story<CardProps> = (props) => (
         <CardTitle>Destructive Stripes!</CardTitle>
       </CardHeader>
       <CardContent>Oh no</CardContent>
+    </Card>
+
+    <Card background="stripes" variant="success">
+      <CardHeader>
+        <CardTitle>Success Stripes!</CardTitle>
+      </CardHeader>
+      <CardContent>Oh yey</CardContent>
+    </Card>
+
+    <h2 className="ladle-section-header">Rounded</h2>
+    <Card {...props}>
+      <CardHeader>
+        <CardTitle>Default (match size)</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} rounded="none">
+      <CardHeader>
+        <CardTitle>No Rounded Corners</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} rounded="sm">
+      <CardHeader>
+        <CardTitle>No Rounded Corners</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} rounded="md">
+      <CardHeader>
+        <CardTitle>No Rounded Corners</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} rounded="lg">
+      <CardHeader>
+        <CardTitle>No Rounded Corners</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} rounded="xl">
+      <CardHeader>
+        <CardTitle>No Rounded Corners</CardTitle>
+      </CardHeader>
+    </Card>
+
+    <h2 className="ladle-section-header">Shadows</h2>
+    <Card {...props} shadow="none">
+      <CardHeader>
+        <CardTitle>No Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} shadow="xshort">
+      <CardHeader>
+        <CardTitle>X-Short Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} shadow="short">
+      <CardHeader>
+        <CardTitle>Short Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} shadow="long">
+      <CardHeader>
+        <CardTitle>Long Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} shadow="xlong">
+      <CardHeader>
+        <CardTitle>X-Long Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} variant="destructive" shadow="short">
+      <CardHeader>
+        <CardTitle>Destructive Short Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card {...props} variant="success" shadow="short">
+      <CardHeader>
+        <CardTitle>Success Short Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+
+    <h2 className="ladle-section-header">With Elbows</h2>
+    <Card {...props} withElbows={true}>
+      <CardHeader>
+        <CardTitle>With Elbows</CardTitle>
+      </CardHeader>
+      <CardContent>Note: rounded is ignored</CardContent>
+    </Card>
+    <h2 className="ladle-section-header">With Gradient Border</h2>
+    <Card {...props} withGradientBorder={true} shadow="xlong">
+      <CardHeader>
+        <CardTitle>
+          With Gradient Border (makes shadow stand out more)
+        </CardTitle>
+      </CardHeader>
     </Card>
   </div>
 );
@@ -75,21 +178,21 @@ Default.argTypes = {
     defaultValue: "none",
   },
   rounded: {
-    options: ["none", "sm", "md", "lg", "xl"],
+    options: ["none", "size", "sm", "md", "lg", "xl"],
     control: { type: "select" },
   },
   variant: {
-    options: ["default", "destructive"],
-    control: { type: "radio" },
+    options: ["default", "destructive", "success"],
+    control: { type: "select" },
     defaultValue: "default",
   },
-  noGradientBorder: {
+  withGradientBorder: {
     control: { type: "boolean" },
-    defaultValue: true,
+    defaultValue: false,
   },
-  noElbows: {
+  withElbows: {
     control: { type: "boolean" },
-    defaultValue: true,
+    defaultValue: false,
   },
   className: {
     control: { type: "text" },

@@ -15,6 +15,10 @@ code {
   @apply vkui:flex vkui:flex-col vkui:gap-6 vkui:w-fit;
 }
 
+.ladle-section-container-full {
+  @apply vkui:flex vkui:flex-col vkui:gap-6 vkui:w-full;
+}
+
 .ladle-section-header {
   font-size: 0.875rem;
   font-weight: 800;
@@ -26,5 +30,5 @@ code {
 }
 
 .ladle-section {
-  @apply vkui:flex vkui:flex-row vkui:gap-4 vkui:w-fit vkui:pb-4;
+  @apply vkui:flex vkui:flex-row vkui:gap-4 vkui:pb-4 vkui:w-full;
 }
