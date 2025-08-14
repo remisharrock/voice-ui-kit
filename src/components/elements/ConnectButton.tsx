@@ -60,7 +60,7 @@ export const ConnectButtonComponent: React.FC<
   onConnect,
   onDisconnect,
   stateContent,
-  size = "default",
+  size = "md",
   transportState,
 }) => {
   /**

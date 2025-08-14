@@ -5,6 +5,9 @@ import {
   PanelTitle,
 } from "@/components/ui/panel";
 import type { Story, StoryDefault } from "@ladle/react";
+import { ChevronLeftIcon } from "lucide-react";
+import { Button } from "./button";
+import ButtonGroup from "./buttongroup";
 
 export default {
   title: "Primitives",
@@ -18,7 +21,26 @@ export const PanelHeaderDefault: Story<{
     <PanelHeader variant={variant}>
       <PanelTitle>{label}</PanelTitle>
     </PanelHeader>
-    <PanelContent>My Panel</PanelContent>
+    <PanelContent>
+      My Panel
+      <Button size="lg">I shrink</Button>
+      <Button size="xl" isIcon>
+        <ChevronLeftIcon />
+      </Button>
+    </PanelContent>
+    <PanelContent>
+      <ButtonGroup>
+        <Button size="lg" variant="outline">
+          A
+        </Button>
+        <Button size="lg" variant="outline">
+          B
+        </Button>
+        <Button size="lg" variant="outline">
+          C
+        </Button>
+      </ButtonGroup>
+    </PanelContent>
   </Panel>
 );
 

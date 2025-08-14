@@ -23,13 +23,13 @@ export type BannerProps = HTMLAttributes<HTMLDivElement> & {
   defaultVisible?: boolean;
   onClose?: () => void;
   inset?: boolean;
-  variant?: "default" | "destructive";
+  variant?: "primary" | "destructive";
 };
 export const Banner = ({
   children,
   visible,
   defaultVisible = true,
-  variant = "default",
+  variant = "primary",
   onClose,
   className,
   inset = false,
@@ -101,7 +101,7 @@ export const BannerAction = ({
 export type BannerCloseProps = ComponentProps<typeof Button>;
 export const BannerClose = ({
   variant = "ghost",
-  size = "icon",
+  size = "sm",
   onClick,
   className,
   ...props
@@ -117,6 +117,7 @@ export const BannerClose = ({
         "vkui:shrink-0 vkui:bg-transparent vkui:hover:bg-background/10 vkui:hover:text-background",
         className,
       )}
+      isIcon
       onClick={handleClick}
       size={size}
       variant={variant}

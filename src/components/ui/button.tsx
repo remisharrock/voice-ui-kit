@@ -2,24 +2,42 @@ import buttonVariants from "@/components/ui/buttonVariants";
 import { LoaderIcon } from "@/icons";
 import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps } from "class-variance-authority";
-import * as React from "react";
 
 import { cn } from "@/lib/utils";
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    Omit<
+      VariantProps<typeof buttonVariants>,
+      "variant" | "size" | "rounded" | "state"
+    > {
+  asChild?: boolean;
+  isLoading?: boolean;
+  isFullWidth?: boolean;
+  loader?: "icon" | "stripes";
+  variant?: VariantProps<typeof buttonVariants>["variant"];
+  size?: VariantProps<typeof buttonVariants>["size"];
+  rounded?: VariantProps<typeof buttonVariants>["rounded"];
+  state?: VariantProps<typeof buttonVariants>["state"];
+  noContainerQueries?: boolean;
+}
 
 export function Button({
   className,
   variant,
   size,
+  rounded,
   state,
   isIcon,
   isLoading = false,
+  isFullWidth = false,
+  uppercase = false,
+  noContainerQueries = false,
   asChild = false,
+  loader = "icon",
+  children,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-    isLoading?: boolean;
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button";
 
   if (isLoading) {
@@ -27,13 +45,24 @@ export function Button({
       <Comp
         data-slot="button"
         className={cn(
-          buttonVariants({ variant, size, state, isIcon, className }),
+          buttonVariants({
+            variant,
+            size,
+            rounded,
+            state,
+            isIcon,
+            isFullWidth,
+            loader,
+            uppercase,
+            noContainerQueries,
+          }),
+          className,
         )}
         {...props}
         disabled
       >
-        <LoaderIcon className="vkui:animate-spin" />
-        {props.children}
+        {loader === "icon" && <LoaderIcon className="vkui:animate-spin" />}
+        {children}
       </Comp>
     );
   }
@@ -42,11 +71,21 @@ export function Button({
     <Comp
       data-slot="button"
       className={cn(
-        buttonVariants({ variant, size, state, isIcon, className }),
+        buttonVariants({
+          variant,
+          size,
+          rounded,
+          state,
+          isIcon,
+          isFullWidth,
+          uppercase,
+          noContainerQueries,
+        }),
+        className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </Comp>
   );
 }
-
-export default Button;

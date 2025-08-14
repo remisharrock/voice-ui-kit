@@ -1,34 +1,54 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardProps,
+  CardTitle,
+} from "@/components/ui/card";
 import { InfoIcon } from "@/icons";
 import { cn } from "@/lib/utils";
 
 export const ErrorCard = ({
   title = "An Error Occurred",
-  error,
-  className,
-  noShadow = false,
+  noHeader = false,
+  classNames,
+  icon = <InfoIcon size={24} />,
+  children,
+  ...cardProps
 }: {
   title?: string;
-  error: string;
-  className?: string;
-  noShadow?: boolean;
-}) => {
+  noHeader?: boolean;
+  classNames?: {
+    header?: string;
+    title?: string;
+    content?: string;
+  };
+  icon?: React.ReactNode;
+  children?: React.ReactNode;
+} & CardProps) => {
   return (
     <Card
-      className={cn(
-        "vkui:shadow-long vkui:min-w-md vkui:gap-0",
-        noShadow && "vkui:shadow-none",
-        className,
-      )}
-      destructive
+      className={cn("vkui:min-w-md", cardProps.className)}
+      variant="destructive"
+      {...cardProps}
     >
-      <CardHeader className="vkui:font-semibold vkui:flex vkui:flex-row vkui:items-center">
-        <InfoIcon size={24} />
-        {title}
-      </CardHeader>
-      <CardContent>
-        <p className="vkui:text-sm vkui:text-balanced">{error}</p>
-      </CardContent>
+      {!noHeader && (
+        <CardHeader className={classNames?.header}>
+          <CardTitle
+            className={cn(
+              "vkui:font-semibold vkui:flex vkui:flex-row vkui:items-center vkui:gap-2",
+              classNames?.title,
+            )}
+          >
+            {icon} {title}
+          </CardTitle>
+        </CardHeader>
+      )}
+      {children && (
+        <CardContent className={cn("vkui:text-balanced", classNames?.content)}>
+          {children}
+        </CardContent>
+      )}
     </Card>
   );
 };

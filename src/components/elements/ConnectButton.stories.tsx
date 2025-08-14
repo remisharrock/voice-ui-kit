@@ -6,7 +6,7 @@ import { ConnectButtonComponent } from "./ConnectButton";
 const transportStateOptions = Object.values(TransportStateEnum);
 
 export default {
-  title: "Components / Connect Button",
+  title: "Components",
   argTypes: {
     transportState: {
       options: transportStateOptions,
@@ -16,7 +16,7 @@ export default {
     size: {
       options: buttonSizeOptions,
       control: { type: "select" },
-      defaultValue: "default",
+      defaultValue: "md",
     },
   },
 } satisfies StoryDefault;
@@ -27,4 +27,4 @@ export const ConnectButtonDefault: Story<{
 }> = ({ transportState, size }) => {
   return <ConnectButtonComponent transportState={transportState} size={size} />;
 };
-ConnectButtonDefault.storyName = "Default";
+ConnectButtonDefault.storyName = "Connect Button";

@@ -1,0 +1,68 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
+import type { PipecatBaseChildProps } from "@pipecat-ai/voice-ui-kit";
+import {
+  Card,
+  CardContent,
+  ConnectButton,
+  Divider,
+  ErrorCard,
+  FullScreenContainer,
+  PipecatAppBase,
+  SpinLoader,
+  UserAudioControl,
+  VoiceVisualizer,
+} from "@pipecat-ai/voice-ui-kit";
+
+import "./index.css";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <FullScreenContainer>
+      <PipecatAppBase
+        connectParams={{
+          webrtcUrl: "/api/offer",
+        }}
+        transportType="smallwebrtc"
+        noThemeProvider
+      >
+        {({
+          client,
+          handleConnect,
+          handleDisconnect,
+          error,
+        }: PipecatBaseChildProps) =>
+          !client ? (
+            <SpinLoader />
+          ) : error ? (
+            <ErrorCard>{error}</ErrorCard>
+          ) : (
+            <Card
+              size="lg"
+              shadow="xlong"
+              noGradientBorder={false}
+              rounded="xl"
+            >
+              <CardContent className="vkui:flex vkui:flex-col vkui:gap-4">
+                <VoiceVisualizer
+                  participantType="bot"
+                  className="vkui:bg-accent vkui:rounded-lg"
+                />
+                <Divider />
+                <div className="vkui:flex vkui:flex-col vkui:gap-4">
+                  <UserAudioControl size="lg" />
+                  <ConnectButton
+                    size="lg"
+                    onConnect={handleConnect}
+                    onDisconnect={handleDisconnect}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          )
+        }
+      </PipecatAppBase>
+    </FullScreenContainer>
+  </StrictMode>,
+);

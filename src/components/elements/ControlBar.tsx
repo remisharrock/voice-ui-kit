@@ -28,14 +28,17 @@ export const ControlBar = ({
 }: Props) => {
   return (
     <Card
+      withGradientBorder
+      shadow="xlong"
+      size="lg"
+      {...props}
       className={cn(
         !noAnimateIn &&
           "vkui:animate-in vkui:fade-in vkui:slide-in-from-bottom-10 vkui:duration-500",
         className,
       )}
-      {...props}
     >
-      <CardContent className="vkui:flex vkui:flex-row vkui:gap-4 vkui:p-4">
+      <CardContent className="vkui:flex vkui:flex-row vkui:gap-4">
         {children}
       </CardContent>
     </Card>

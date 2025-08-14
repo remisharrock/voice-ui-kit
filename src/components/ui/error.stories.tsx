@@ -7,9 +7,15 @@ export default {
 
 export const Default: Story<{
   error: string;
-}> = ({ error }) => <ErrorCard error={error} />;
+  size: "lg" | "sm" | "md" | "xl";
+}> = ({ error, size }) => (
+  <ErrorCard shadow="short" size={size}>
+    {error}
+  </ErrorCard>
+);
 
 Default.args = {
   error: "An error occurred",
+  size: "lg",
 };
 Default.storyName = "Error Card";

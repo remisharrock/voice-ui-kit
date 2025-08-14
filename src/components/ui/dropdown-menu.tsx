@@ -1,9 +1,41 @@
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
+import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "@/icons";
 import { getPipecatUIContainer } from "@/lib/dom";
 import { cn } from "@/lib/utils";
+
+const dropdownMenuContentVariants = cva(
+  "vkui:bg-popover vkui:text-popover-foreground vkui:data-[state=open]:animate-in vkui:data-[state=closed]:animate-out vkui:data-[state=closed]:fade-out-0 vkui:data-[state=open]:fade-in-0 vkui:data-[state=closed]:zoom-out-95 vkui:data-[state=open]:zoom-in-95 vkui:data-[side=bottom]:slide-in-from-top-2 vkui:data-[side=left]:slide-in-from-right-2 vkui:data-[side=right]:slide-in-from-left-2 vkui:data-[side=top]:slide-in-from-bottom-2 vkui:z-50 vkui:max-h-(--radix-dropdown-menu-content-available-height) vkui:min-w-[8rem] vkui:origin-(--radix-dropdown-menu-content-transform-origin) vkui:overflow-x-hidden vkui:overflow-y-auto vkui:border vkui:p-1",
+  {
+    variants: {
+      rounded: {
+        base: "vkui:rounded-base",
+        none: "vkui:rounded-none",
+        sm: "vkui:rounded-sm",
+        md: "vkui:rounded-md",
+        lg: "vkui:rounded-lg",
+        xl: "vkui:rounded-xl",
+      },
+      shadow: {
+        none: "vkui:shadow-none",
+        xshort: "vkui:shadow-xshort",
+        short: "vkui:shadow-short",
+        long: "vkui:shadow-long",
+        xlong: "vkui:shadow-xlong",
+      },
+    },
+    defaultVariants: {
+      rounded: "base",
+      shadow: "short",
+    },
+  },
+);
+
+export interface DropdownMenuContentProps
+  extends React.ComponentProps<typeof DropdownMenuPrimitive.Content>,
+    VariantProps<typeof dropdownMenuContentVariants> {}
 
 function DropdownMenu({
   ...props
@@ -37,15 +69,17 @@ function DropdownMenuTrigger({
 function DropdownMenuContent({
   className,
   sideOffset = 4,
+  rounded,
+  shadow,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.Content>) {
+}: DropdownMenuContentProps) {
   return (
     <DropdownMenuPortal>
       <DropdownMenuPrimitive.Content
         data-slot="dropdown-menu-content"
         sideOffset={sideOffset}
         className={cn(
-          "vkui:bg-popover vkui:text-popover-foreground vkui:data-[state=open]:animate-in vkui:data-[state=closed]:animate-out vkui:data-[state=closed]:fade-out-0 vkui:data-[state=open]:fade-in-0 vkui:data-[state=closed]:zoom-out-95 vkui:data-[state=open]:zoom-in-95 vkui:data-[side=bottom]:slide-in-from-top-2 vkui:data-[side=left]:slide-in-from-right-2 vkui:data-[side=right]:slide-in-from-left-2 vkui:data-[side=top]:slide-in-from-bottom-2 vkui:z-50 vkui:max-h-(--radix-dropdown-menu-content-available-height) vkui:min-w-[8rem] vkui:origin-(--radix-dropdown-menu-content-transform-origin) vkui:overflow-x-hidden vkui:overflow-y-auto vkui:rounded-element vkui:border vkui:p-1 vkui:shadow-short",
+          dropdownMenuContentVariants({ rounded, shadow }),
           className,
         )}
         {...props}
@@ -77,7 +111,7 @@ function DropdownMenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "vkui:focus:bg-accent vkui:focus:text-accent-foreground vkui:data-[variant=destructive]:text-destructive vkui:data-[variant=destructive]:focus:bg-destructive/10 vkui:dark:data-[variant=destructive]:focus:bg-destructive/20 vkui:data-[variant=destructive]:focus:text-destructive vkui:data-[variant=destructive]:*:[svg]:!text-destructive vkui:[&_svg:not([class*='text-'])]:text-muted-foreground vkui:relative vkui:flex vkui:cursor-default vkui:items-center vkui:gap-2 vkui:rounded-sm vkui:px-2 vkui:py-1.5 vkui:text-sm vkui:outline-hidden vkui:select-none vkui:data-[disabled]:pointer-events-none vkui:data-[disabled]:opacity-50 vkui:data-[inset]:pl-8 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 vkui:[&_svg:not([class*='size-'])]:size-4",
+        "vkui:focus:bg-accent vkui:focus:text-accent-foreground vkui:data-[variant=destructive]:text-destructive vkui:data-[variant=destructive]:focus:bg-destructive/10 vkui:dark:data-[variant=destructive]:focus:bg-destructive/20 vkui:data-[variant=destructive]:focus:text-destructive vkui:data-[variant=destructive]:*:[svg]:!text-destructive vkui:[&_svg:not([class*='text-'])]:text-muted-foreground vkui:relative vkui:flex vkui:cursor-default vkui:items-center vkui:gap-2 vkui:rounded-base vkui:px-2 vkui:py-1.5 vkui:text-sm vkui:outline-hidden vkui:select-none vkui:data-[disabled]:pointer-events-none vkui:data-[disabled]:opacity-50 vkui:data-[inset]:pl-8 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 vkui:[&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -228,13 +262,16 @@ function DropdownMenuSubTrigger({
 
 function DropdownMenuSubContent({
   className,
+  rounded,
   ...props
-}: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
+}: React.ComponentProps<typeof DropdownMenuPrimitive.SubContent> &
+  VariantProps<typeof dropdownMenuContentVariants>) {
   return (
     <DropdownMenuPrimitive.SubContent
       data-slot="dropdown-menu-sub-content"
       className={cn(
-        "vkui:bg-popover vkui:text-popover-foreground vkui:data-[state=open]:animate-in vkui:data-[state=closed]:animate-out vkui:data-[state=closed]:fade-out-0 vkui:data-[state=open]:fade-in-0 vkui:data-[state=closed]:zoom-out-95 vkui:data-[state=open]:zoom-in-95 vkui:data-[side=bottom]:slide-in-from-top-2 vkui:data-[side=left]:slide-in-from-right-2 vkui:data-[side=right]:slide-in-from-left-2 vkui:data-[side=top]:slide-in-from-bottom-2 vkui:z-50 vkui:min-w-[8rem] vkui:origin-(--radix-dropdown-menu-content-transform-origin) vkui:overflow-hidden vkui:rounded-md vkui:border vkui:p-1 vkui:shadow-lg",
+        dropdownMenuContentVariants({ rounded }),
+        "vkui:overflow-hidden vkui:shadow-lg",
         className,
       )}
       {...props}

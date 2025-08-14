@@ -1,5 +1,6 @@
 import {
   ArrowDown,
+  ArrowRight,
   Bot,
   Check,
   ChevronDown,
@@ -12,7 +13,9 @@ import {
   Ellipsis,
   EllipsisVertical,
   Funnel,
+  GripHorizontal,
   Info,
+  Keyboard,
   LineChart,
   Loader2,
   LogOut,
@@ -24,8 +27,11 @@ import {
   PanelRightClose,
   PhoneCall,
   PhoneOff,
+  Plus,
   Send,
   Sun,
+  Terminal,
+  TriangleAlert,
   Video,
   VideoOff,
   Volume2,
@@ -65,3 +71,9 @@ export const LogoutIcon = LogOut;
 export const CircleAlertIcon = CircleAlert;
 export const PanelRightCloseIcon = PanelRightClose;
 export const PanelLeftCloseIcon = PanelLeftClose;
+export const TriangleAlertIcon = TriangleAlert;
+export const GripIcon = GripHorizontal;
+export const TerminalIcon = Terminal;
+export const KeyboardIcon = Keyboard;
+export const ArrowRightIcon = ArrowRight;
+export const PlusIcon = Plus;
