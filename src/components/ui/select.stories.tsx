@@ -46,12 +46,6 @@ export const SelectDefault: Story<SelectTriggerProps> = ({ ...props }) => (
   </div>
 );
 
-SelectDefault.args = {
-  size: "md",
-  variant: "primary",
-  rounded: "size",
-};
-
 SelectDefault.argTypes = {
   size: {
     options: ["md", "sm", "lg", "xl"],
@@ -59,9 +53,8 @@ SelectDefault.argTypes = {
     defaultValue: "md",
   },
   variant: {
-    options: ["primary", "ghost"],
+    options: ["primary", "outline", "ghost"],
     control: { type: "select" },
-    defaultValue: "primary",
   },
   rounded: {
     options: ["size", "none", "sm", "md", "lg", "xl", "full"],

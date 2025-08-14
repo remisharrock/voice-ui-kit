@@ -42,7 +42,7 @@ _Optional - install recommended fonts for default theme_:
 npm i @fontsource-variable/geist @fontsource-variable/geist-mono
 ```
 
-# Browse the Storybook:
+# Launch and browse the Storybook:
 
 ```bash
 npm run dev

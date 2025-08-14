@@ -11,18 +11,20 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const selectTriggerVariants = cva(
-  "vkui:truncate vkui:border-input vkui:text-foreground vkui:data-[placeholder]:text-muted-foreground vkui:font-mono vkui:text-xs vkui:[&_svg:not([class*='text-'])]:text-muted-foreground vkui:focus-visible:border-ring vkui:focus-visible:ring-ring/50 vkui:aria-invalid:ring-destructive/20 vkui:dark:aria-invalid:ring-destructive/40 vkui:aria-invalid:border-destructive vkui:dark:bg-input/30 vkui:dark:hover:bg-input/50 vkui:flex w-fit vkui:items-center vkui:justify-between vkui:border vkui:bg-transparent vkui:whitespace-nowrap vkui:transition-[color,box-shadow] vkui:outline-none vkui:focus-visible:ring-[3px] vkui:disabled:cursor-not-allowed vkui:disabled:opacity-50 vkui:*:data-[slot=select-value]:line-clamp-1 vkui:*:data-[slot=select-value]:flex vkui:*:data-[slot=select-value]:items-center vkui:*:data-[slot=select-value]:gap-2 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0",
+  "vkui:truncate vkui:data-[placeholder]:text-muted-foreground vkui:font-mono vkui:text-xs vkui:[&_svg:not([class*='text-'])]:text-muted-foreground vkui:focus-visible:border-ring vkui:focus-visible:ring-ring/50 vkui:aria-invalid:ring-destructive/20 vkui:dark:aria-invalid:ring-destructive/40 vkui:aria-invalid:border-destructive vkui:dark:bg-input/30 vkui:dark:hover:bg-input/50 vkui:flex w-fit vkui:items-center vkui:justify-between vkui:border vkui:bg-transparent vkui:whitespace-nowrap vkui:transition-[color,box-shadow] vkui:outline-none vkui:focus-visible:ring-[3px] vkui:disabled:cursor-not-allowed vkui:disabled:opacity-50 vkui:*:data-[slot=select-value]:line-clamp-1 vkui:*:data-[slot=select-value]:flex vkui:*:data-[slot=select-value]:items-center vkui:*:data-[slot=select-value]:gap-2 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        primary: "",
-        ghost: "vkui:border-none vkui:hover:bg-accent",
+        primary:
+          "vkui:text-primary-foreground vkui:bg-primary vkui:hover:bg-primary/90 vkui:dark:hover:bg-primary/90 vkui:border-transparent vkui:data-[placeholder]:text-primary-foreground vkui:dark:bg-primary vkui:[&_svg:not([class*='text-'])]:text-brder",
+        outline: "vkui:text-foreground vkui:border-input vkui:hover:bg-accent",
+        ghost: "vkui:text-foreground vkui:border-none vkui:hover:bg-accent",
       },
       size: {
-        md: "vkui:button-md/md vkui:[&_svg]:size-3.5 vkui:[&_[data-slot^=select-guide]]:mr-2",
-        sm: "vkui:button-sm/sm vkui:[&_svg]:size-3.5 vkui:[&_[data-slot^=select-guide]]:mr-2",
-        lg: "vkui:button-lg/lg vkui:[&_svg]:size-4 vkui:[&_[data-slot^=select-guide]]:mr-3",
-        xl: "vkui:button-xl/xl vkui:[&_svg]:size-4 vkui:[&_[data-slot^=select-guide]]:mr-3",
+        md: "vkui:button-md vkui:[&_svg]:size-3.5 vkui:[&_[data-slot^=select-guide]]:mr-2",
+        sm: "vkui:button-sm vkui:[&_svg]:size-3.5 vkui:[&_[data-slot^=select-guide]]:mr-2",
+        lg: "vkui:button-lg vkui:[&_svg]:size-4 vkui:[&_[data-slot^=select-guide]]:mr-3",
+        xl: "vkui:button-xl vkui:[&_svg]:size-4 vkui:[&_[data-slot^=select-guide]]:mr-3",
       },
       rounded: {
         size: "",
@@ -36,7 +38,7 @@ const selectTriggerVariants = cva(
     },
     defaultVariants: {
       size: "md",
-      variant: "primary",
+      variant: "outline",
       rounded: "size",
     },
   },
@@ -71,7 +73,7 @@ export interface SelectTriggerProps
 export function SelectTrigger({
   className,
   size = "md",
-  variant = "primary",
+  variant,
   rounded = "size",
   children,
   ...props
