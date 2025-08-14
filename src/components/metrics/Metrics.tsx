@@ -77,13 +77,13 @@ export const Metrics: React.FC<Props> = ({
   noCompletionTokens = false,
   noTotalTokens = false,
 }) => {
-  const [metrics, setMetrics] = useState<MetricsState>({});
+  const [ttfbMetrics, setTtfbMetrics] = useState<MetricsState>({});
   const [tokenMetrics, setTokenMetrics] = useState<Partial<TokenMetrics>>({});
 
   const transportState = usePipecatClientTransportState();
 
   useRTVIClientEvent(RTVIEvent.Connected, () => {
-    setMetrics({});
+    setTtfbMetrics({});
     setTokenMetrics({
       completion_tokens: 0,
       prompt_tokens: 0,
@@ -93,13 +93,13 @@ export const Metrics: React.FC<Props> = ({
 
   useRTVIClientEvent(RTVIEvent.Metrics, (data) => {
     // Handle processing metrics
-    if (data?.processing && Array.isArray(data.processing)) {
+    if (data?.ttfb && Array.isArray(data.ttfb)) {
       const timestamp = new Date().toISOString();
 
-      setMetrics((prevMetrics) => {
+      setTtfbMetrics((prevMetrics) => {
         const newMetrics = { ...prevMetrics };
 
-        (data.processing ?? []).forEach((item: ProcessingMetric) => {
+        (data.ttfb ?? []).forEach((item: ProcessingMetric) => {
           const { processor, value } = item;
 
           if (ignoreProcessorNames.includes(processor)) {
@@ -210,7 +210,7 @@ export const Metrics: React.FC<Props> = ({
     transportState === "connected" || transportState === "ready";
 
   const hasTokenMetrics = Object.keys(tokenMetrics).length > 0;
-  const hasMetrics = Object.keys(metrics).length > 0;
+  const hasMetrics = Object.keys(ttfbMetrics).length > 0;
 
   const tokenCardClassName = cn(
     "vkui:bg-card vkui:rounded-md vkui:p-3 vkui:shadow-sm",
@@ -292,7 +292,7 @@ export const Metrics: React.FC<Props> = ({
                 classNames.metricsContainer,
               )}
             >
-              {Object.entries(metrics).map(([processorName, data]) => (
+              {Object.entries(ttfbMetrics).map(([processorName, data]) => (
                 <div
                   key={processorName}
                   className={cn(
