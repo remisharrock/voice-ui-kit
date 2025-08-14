@@ -125,21 +125,18 @@ export default function Home() {
       description:
         "Connection parameters for the transport, including the connection URL and any authentication details",
       type: "TransportConnectionParams",
-      default: "{}",
       required: true,
     },
     transportType: {
       description:
         "The type of transport to use for the connection (smallwebrtc or daily)",
       type: '"smallwebrtc" | "daily"',
-      default: "smallwebrtc",
       required: true,
     },
     clientOptions: {
       description:
         "Optional configuration options for the Pipecat Client instance",
       type: "PipecatClientOptions",
-      default: "{}",
       required: false,
     },
     noThemeProvider: {
@@ -153,7 +150,6 @@ export default function Home() {
       description:
         "Optional theme configuration props to pass to the ThemeProvider",
       type: "Partial<ThemeProviderProps>",
-      default: "{}",
       required: false,
     },
     children: {

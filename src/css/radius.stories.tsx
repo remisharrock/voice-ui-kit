@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import type { Story, StoryDefault } from "@ladle/react";
 
 export default {
-  title: "Theme",
+  title: "Documentation / Theme",
 } satisfies StoryDefault;
 
 const RadiusItem = ({

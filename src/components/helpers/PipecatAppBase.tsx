@@ -2,7 +2,6 @@
 
 import { createTransport } from "@/lib/transports";
 import {
-  type ConnectionEndpoint,
   PipecatClient,
   type PipecatClientOptions,
   type TransportConnectionParams,
@@ -19,7 +18,7 @@ import { ThemeProvider, type ThemeProviderProps } from "../ThemeProvider";
  */
 export interface PipecatBaseProps {
   /** Connection parameters for the Pipecat client */
-  connectParams: TransportConnectionParams | ConnectionEndpoint;
+  connectParams: TransportConnectionParams;
   /** Type of transport to use for the connection */
   transportType: "smallwebrtc" | "daily";
   /** Optional configuration options for the Pipecat client */
@@ -34,7 +33,7 @@ export interface PipecatBaseProps {
    * - A render prop function that receives helper props and returns React nodes
    * - Direct React nodes that will be wrapped with the necessary providers
    *
-   * @param props - PipecatBasePassedProps including connection handlers, loading, and error state
+   * @param props - PipecatBaseChildProps including connection handlers, loading, and error state
    * @returns React.ReactNode
    */
   children:
@@ -75,7 +74,7 @@ export interface PipecatBaseChildProps {
  * // Using as a render prop (function children)
  * <PipecatAppBase
  *   connectParams={...}
- *   transportType="daily"
+ *   transportType="smallwebrtc"
  * >
  *   {({ client, handleConnect, handleDisconnect, error }) => (
  *     <YourComponent
@@ -119,7 +118,6 @@ export const PipecatAppBase: React.FC<PipecatBaseProps> = ({
   /**
    * Initializes the Pipecat client with the specified transport type.
    * Creates a new client instance when transport type or connection params change.
-   * Uses a ref to prevent double initialization in Strict Mode.
    */
   useEffect(() => {
     let currentClient: PipecatClient | null = null;
@@ -183,7 +181,7 @@ export const PipecatAppBase: React.FC<PipecatBaseProps> = ({
 
   /**
    * Show loading state while client is being initialized.
-   * Don't render PipecatClientProvider until client is ready to prevent multiple instances.
+   * Don't render PipecatClientProvider until client is ready.
    */
   if (!client) {
     return typeof children === "function"
