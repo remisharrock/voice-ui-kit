@@ -8,9 +8,9 @@ export default function Home() {
     <ThemeProvider>
       <FullScreenContainer>
         <App
-          transportType="daily"
+          transportType="smallwebrtc"
           connectParams={{
-            endpoint: "/api/connect",
+            webrtcUrl: "/api/offer",
           }}
         />
       </FullScreenContainer>

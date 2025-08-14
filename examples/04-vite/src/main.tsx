@@ -6,10 +6,13 @@ import {
   Card,
   CardContent,
   ConnectButton,
+  Divider,
   ErrorCard,
   FullScreenContainer,
   PipecatAppBase,
   SpinLoader,
+  UserAudioControl,
+  VoiceVisualizer,
 } from "@pipecat-ai/voice-ui-kit";
 
 import "./index.css";
@@ -19,7 +22,7 @@ createRoot(document.getElementById("root")!).render(
     <FullScreenContainer>
       <PipecatAppBase
         connectParams={{
-          connectionUrl: "/api/offer",
+          webrtcUrl: "/api/offer",
         }}
         transportType="smallwebrtc"
         noThemeProvider
@@ -41,12 +44,20 @@ createRoot(document.getElementById("root")!).render(
               noGradientBorder={false}
               rounded="xl"
             >
-              <CardContent>
-                <ConnectButton
-                  size="lg"
-                  onConnect={handleConnect}
-                  onDisconnect={handleDisconnect}
+              <CardContent className="vkui:flex vkui:flex-col vkui:gap-4">
+                <VoiceVisualizer
+                  participantType="bot"
+                  className="vkui:bg-accent vkui:rounded-lg"
                 />
+                <Divider />
+                <div className="vkui:flex vkui:flex-col vkui:gap-4">
+                  <UserAudioControl size="lg" />
+                  <ConnectButton
+                    size="lg"
+                    onConnect={handleConnect}
+                    onDisconnect={handleDisconnect}
+                  />
+                </div>
               </CardContent>
             </Card>
           )

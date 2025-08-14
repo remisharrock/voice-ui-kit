@@ -151,7 +151,7 @@ export const Default: Story<CardProps> = (props) => (
       <CardContent>Note: rounded is ignored</CardContent>
     </Card>
     <h2 className="ladle-section-header">With Gradient Border</h2>
-    <Card {...props} withGradientBorder={true} shadow="xlong">
+    <Card {...props} withGradientBorder shadow="xlong">
       <CardHeader>
         <CardTitle>
           With Gradient Border (makes shadow stand out more)

@@ -72,7 +72,7 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
 
   /** NO AUDIO */
   if (noAudio || buttonProps?.isLoading) {
-    buttonComp = (
+    return (
       <Button
         variant={variant}
         size={size}

@@ -48,6 +48,22 @@ npm i @fontsource-variable/geist @fontsource-variable/geist-mono
 npm run dev
 ```
 
+# Run example apps
+
+Install workspace dependencies:
+
+```bash
+npm i
+```
+
+Navigate to example directory:
+
+```bash
+cd examples/01-console
+npm i
+npm run dev
+```
+
 ### Use the console template to chat with a Pipecat Bot:
 
 ```typescript
@@ -137,5 +153,5 @@ Examples:
 
 - [Console Template](./examples/01-console/)
 - [Custom UI with components](./examples/02-components/)
-- [Pipcat Base App](./examples/03-pipecat-base-app/)
+- [Tailwind](./examples/03-tailwind/)
 - [Vite](./examples/04-vite/)

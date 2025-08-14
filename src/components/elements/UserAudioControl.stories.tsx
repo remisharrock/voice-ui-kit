@@ -7,6 +7,7 @@ import {
   buttonSizeOptions,
   buttonVariantOptions,
 } from "@/components/ui/buttonVariants";
+import { Card, CardContent } from "@/components/ui/card";
 import type { Story, StoryDefault } from "@ladle/react";
 import { PipecatClient } from "@pipecat-ai/client-js";
 import {
@@ -15,7 +16,6 @@ import {
 } from "@pipecat-ai/client-react";
 import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "../ui/card";
 import UserAudioControl, { UserAudioComponent } from "./UserAudioControl";
 
 export default {

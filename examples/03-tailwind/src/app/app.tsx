@@ -26,7 +26,7 @@ export const App = ({
 
       {transportState === "ready" ? (
         <div className="relative z-10 h-1/2 flex flex-col w-full items-center justify-center">
-          <ControlBar size="lg">
+          <ControlBar size="xl" shadow="xlong" withGradientBorder rounded="xl">
             <UserAudioControl size="xl" variant="outline" />
             <ControlBarDivider />
             <Button

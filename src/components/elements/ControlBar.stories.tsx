@@ -6,10 +6,9 @@ import { UserAudioControl } from "./UserAudioControl";
 export default {
   title: "Components",
   args: {
-    noGradientBorder: false,
+    withGradientBorder: true,
     shadow: "xlong",
     size: "lg",
-    rounded: "lg",
   },
 } satisfies StoryDefault;
 

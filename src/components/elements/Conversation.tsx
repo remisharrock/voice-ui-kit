@@ -76,13 +76,12 @@ export const Conversation: React.FC<ConversationProps> = memo(
       return () => scrollElement.removeEventListener("scroll", handleScroll);
     }, [updateScrollState]);
 
-    const roleLabel = useCallback(
-      (role: "user" | "assistant" | "system") => {
-        if (role === "user") return clientLabel;
-        if (role === "assistant") return assistantLabel;
-        if (role === "system") return "system";
-        return role;
-      },
+    const roleLabelMap = useCallback(
+      () => ({
+        user: clientLabel,
+        assistant: assistantLabel,
+        system: "system",
+      }),
       [clientLabel, assistantLabel],
     );
 
@@ -115,7 +114,7 @@ export const Conversation: React.FC<ConversationProps> = memo(
                     classNames.role,
                   )}
                 >
-                  {roleLabel(message.role)}
+                  {roleLabelMap()[message.role] || message.role}
                 </div>
                 <div
                   className={cn(

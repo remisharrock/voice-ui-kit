@@ -10,7 +10,7 @@ const cardVariants = cva(
         destructive:
           "vkui:shadow-destructive/10 vkui:dark:shadow-destructive/15 vkui:border-destructive vkui:text-destructive-foreground vkui:bg-destructive/[.05] vkui:[--vkui-color-elbow:var(--vkui-color-destructive-foreground)]",
         success:
-          "vkui:shadow-active/10 vkui:dark:shadow-active/15 vkui:border-active vkui:text-active-foreground vkui:bg-active/[.05] vkui:[--vkui-color-elbow:var(--vkui-color-active-foreground)]",
+          "vkui:shadow-active/10 vkui:dark:shadow-active/15 vkui:border-active vkui:text-active vkui:bg-active-accent vkui:[--vkui-color-elbow:var(--vkui-color-active-foreground)]",
       },
       background: {
         none: "",
@@ -41,6 +41,10 @@ const cardVariants = cva(
       withElbows: {
         false: "",
         true: "vkui:elbow",
+      },
+      withGradientBorder: {
+        false: "",
+        true: "",
       },
     },
     compoundVariants: [
@@ -80,6 +84,12 @@ const cardVariants = cva(
         withElbows: true,
         className: "vkui:rounded-none",
       },
+      {
+        variant: "default",
+        withGradientBorder: true,
+        className:
+          "vkui:border vkui:border-transparent vkui:bg-origin-border vkui:borderclip vkui:bg-cardGradientBorder",
+      },
     ],
 
     defaultVariants: {
@@ -88,6 +98,7 @@ const cardVariants = cva(
       variant: "default",
       background: "none",
       withElbows: false,
+      withGradientBorder: false,
     },
   },
 );
@@ -111,7 +122,6 @@ export function Card({
   ...props
 }: CardProps) {
   const roundedValue = rounded ?? size;
-
   return (
     <div
       data-slot="card"
@@ -123,10 +133,8 @@ export function Card({
           background,
           rounded: roundedValue,
           withElbows,
+          withGradientBorder,
         }),
-        variant === "default" &&
-          withGradientBorder &&
-          "vkui:border vkui:border-transparent vkui:bg-origin-border vkui:borderclip vkui:bg-cardGradientBorder",
         className,
       )}
       {...props}

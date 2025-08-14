@@ -1,5 +1,4 @@
 import {
-  ConnectionEndpoint,
   PipecatClient,
   TransportConnectionParams,
   TransportState,
@@ -11,20 +10,22 @@ import {
 import { DailyTransport } from "@pipecat-ai/daily-transport";
 import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
 import {
-  Card,
-  CardContent,
+  Button,
   ConnectButton,
   ControlBar,
+  ErrorCard,
   LoaderIcon,
+  LogoutIcon,
   PipecatLogo,
   TranscriptOverlay,
+  UserAudioControl,
   XIcon,
 } from "@pipecat-ai/voice-ui-kit";
 import { PlasmaVisualizer } from "@pipecat-ai/voice-ui-kit/webgl";
 import { useEffect, useRef, useState } from "react";
 
 export interface AppProps {
-  connectParams: TransportConnectionParams | ConnectionEndpoint;
+  connectParams: TransportConnectionParams;
   transportType: "daily" | "smallwebrtc";
 }
 
@@ -89,7 +90,7 @@ export const App = ({ connectParams, transportType }: AppProps) => {
     }
 
     initClient();
-  }, [connectParams, transportType]);
+  }, [transportType]);
 
   const handleStartSession = async () => {
     if (
@@ -120,18 +121,7 @@ export const App = ({ connectParams, transportType }: AppProps) => {
 
   if (error) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <Card className="shadow-long">
-          <CardContent>
-            <div className="bg-destructive text-background font-semibold text-center p-3 rounded-lg flex flex-col gap-2">
-              An error occured connecting to agent.
-              <p className="text-sm font-medium text-balanced text-background/80">
-                It may be that the agent is at capacity. Please try again later.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <ErrorCard error={error} title="An error occured connecting to agent." />
     );
   }
 
@@ -141,7 +131,7 @@ export const App = ({ connectParams, transportType }: AppProps) => {
         <div className="flex flex-col h-full">
           <div className="relative bg-background overflow-hidden flex-1 shadow-long/[0.02]">
             <main className="flex flex-col gap-0 h-full relative justify-end items-center">
-              <PlasmaVisualizer state={state} />
+              <PlasmaVisualizer />
               {["idle", "connecting"].includes(state) && (
                 <div className="absolute w-full h-full flex items-center justify-center">
                   <ConnectButton size="xl" onConnect={handleStartSession} />
@@ -156,7 +146,17 @@ export const App = ({ connectParams, transportType }: AppProps) => {
                 </div>
               )}
               {state === "connected" && (
-                <ControlBar onEndSession={() => client?.disconnect()} />
+                <ControlBar>
+                  <UserAudioControl />
+                  <Button
+                    size="xl"
+                    isIcon={true}
+                    variant="outline"
+                    onClick={() => client?.disconnect()}
+                  >
+                    <LogoutIcon />
+                  </Button>
+                </ControlBar>
               )}
             </main>
           </div>
