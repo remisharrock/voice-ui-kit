@@ -10,6 +10,14 @@ const customTwMerge = extendTailwindMerge({
           shadow: ["xshort", "short", "long", "xlong"],
         },
       ],
+      button: [
+        {
+          button: ["sm", "md", "lg", "xl"],
+        },
+        {
+          "button-icon": ["sm", "md", "lg", "xl"],
+        },
+      ],
     },
     theme: {
       spacing: [
@@ -22,7 +30,7 @@ const customTwMerge = extendTailwindMerge({
       ],
     },
   },
-});
+} as Parameters<typeof extendTailwindMerge>[0]);
 
 export function cn(...inputs: ClassValue[]) {
   return customTwMerge(clsx(inputs));

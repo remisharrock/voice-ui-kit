@@ -193,6 +193,10 @@ ButtonPrimary.argTypes = {
     control: { type: "boolean" },
     defaultValue: false,
   },
+  noContainerQueries: {
+    control: { type: "boolean" },
+    defaultValue: false,
+  },
 };
 
 ButtonPrimary.storyName = "Button";

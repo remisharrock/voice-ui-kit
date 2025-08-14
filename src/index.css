@@ -233,11 +233,3 @@
 }
 @import "./css/components.css";
 @import "./css/utilities.css";
-
-/** Fix: Button Group **/
-.vkui\:button-group.vkui\:flex-row > *:not(:first-child):not(:last-child) {
-  border-radius: 0;
-}
-.vkui\:button-group.vkui\:flex-col > *:not(:first-child):not(:last-child) {
-  border-radius: 0;
-}

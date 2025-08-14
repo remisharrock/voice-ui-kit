@@ -19,6 +19,7 @@ export interface ButtonProps
   size?: VariantProps<typeof buttonVariants>["size"];
   rounded?: VariantProps<typeof buttonVariants>["rounded"];
   state?: VariantProps<typeof buttonVariants>["state"];
+  noContainerQueries?: boolean;
 }
 
 export function Button({
@@ -31,6 +32,7 @@ export function Button({
   isLoading = false,
   isFullWidth = false,
   uppercase = false,
+  noContainerQueries = false,
   asChild = false,
   loader = "icon",
   children,
@@ -52,6 +54,7 @@ export function Button({
             isFullWidth,
             loader,
             uppercase,
+            noContainerQueries,
           }),
           className,
         )}
@@ -76,6 +79,7 @@ export function Button({
           isIcon,
           isFullWidth,
           uppercase,
+          noContainerQueries,
         }),
         className,
       )}

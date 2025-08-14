@@ -22,10 +22,10 @@ export const buttonVariants = cva(
           "vkui:bg-inactive vkui:border vkui:border-transparent vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
       },
       size: {
-        sm: "vkui:[&_svg:not([class*='size-'])]:size-4",
-        md: "vkui:[&_svg:not([class*='size-'])]:size-5",
-        lg: "vkui:[&_svg:not([class*='size-'])]:size-5",
-        xl: "vkui:text-lg vkui:[&_svg:not([class*='size-'])]:size-6",
+        sm: "vkui:button-sm vkui:[&_svg:not([class*='size-'])]:size-4",
+        md: "vkui:button-md vkui:[&_svg:not([class*='size-'])]:size-5",
+        lg: "vkui:button-lg vkui:[&_svg:not([class*='size-'])]:size-5",
+        xl: "vkui:button-xl vkui:[&_svg:not([class*='size-'])]:size-6 vkui:text-lg",
       },
       rounded: {
         size: "",
@@ -58,9 +58,13 @@ export const buttonVariants = cva(
         true: "vkui:uppercase vkui:tracking-wider",
         false: "",
       },
+      noContainerQueries: {
+        true: "",
+        false: "",
+      },
     },
     compoundVariants: [
-      // Text size adjustments for uppercase variants
+      /* Uppercase variants */
       {
         uppercase: true,
         size: "md",
@@ -81,42 +85,27 @@ export const buttonVariants = cva(
         size: "xl",
         className: "vkui:text-sm vkui:[&_svg:not([class*='size-'])]:size-5",
       },
-      {
-        size: "sm",
-        isIcon: false,
-        className:
-          "vkui:button-sm vkui:has-[>svg]:button-sm/sm vkui:[&_svg:not([class*='size-'])]:size-4",
-      },
-      {
-        size: "md",
-        isIcon: false,
-        className:
-          "vkui:button-md vkui:has-[>svg]:button-md/md vkui:[&_svg:not([class*='size-'])]:size-5",
-      },
-      {
-        size: "lg",
-        isIcon: false,
-        className:
-          "vkui:button-lg vkui:has-[>svg]:button-lg/lg vkui:[&_svg:not([class*='size-'])]:size-5",
-      },
-      {
-        size: "xl",
-        isIcon: false,
-        className:
-          "vkui:button-xl vkui:has-[>svg]:button-xl/xl vkui:[&_svg:not([class*='size-'])]:size-5",
-      },
+      /* Container queries */
       {
         size: ["sm", "md", "lg", "xl"],
         isIcon: false,
+        noContainerQueries: false,
         className:
           "vkui:@max-xs/panel:button-sm vkui:@max-xs/panel:has-[>svg]:button-sm/sm vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
       },
       {
         size: ["sm", "md", "lg", "xl"],
         isIcon: true,
+        noContainerQueries: false,
         className:
           "vkui:@max-xs/panel:button-icon-sm vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
       },
+      {
+        rounded: "size",
+        noContainerQueries: false,
+        className: "vkui:@max-xs/panel:rounded-sm ",
+      },
+      /* Icon variants */
       {
         size: "sm",
         isIcon: true,
@@ -139,8 +128,9 @@ export const buttonVariants = cva(
         size: "xl",
         isIcon: true,
         className:
-          "vkui:button-icon-xl vkui:[&_svg:not([class*='size-'])]:size-5",
+          "vkui:button-icon-xl vkui:[&_svg:not([class*='size-'])]:size-6",
       },
+      /* State variants */
       {
         variant: "primary",
         state: "active",
@@ -177,7 +167,7 @@ export const buttonVariants = cva(
         className:
           "vkui:bg-inactive-accent vkui:text-inactive vkui:border-inactive vkui:hover:bg-inactive-accent/60 vkui:dark:bg-inactive-accent vkui:dark:hover:bg-inactive-accent/60 vkui:dark:border-inactive vkui:focus-visible:border-inactive vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
       },
-      // Rounded size variants
+      /* Rounded size variants */
       {
         rounded: "size",
         size: "md",
@@ -207,6 +197,7 @@ export const buttonVariants = cva(
       isIcon: false,
       isFullWidth: false,
       uppercase: false,
+      noContainerQueries: false,
     },
   },
 );

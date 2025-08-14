@@ -17,6 +17,7 @@ import {
   usePipecatClientMediaDevices,
 } from "@pipecat-ai/client-react";
 import { useEffect } from "react";
+import { ButtonGroup } from "../ui";
 import { DeviceDropDown } from "./DeviceDropDown";
 
 interface Props {
@@ -157,14 +158,9 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
   }
 
   return (
-    <div
-      className={cn(
-        "vkui:grid vkui:grid-cols-[1fr_auto] vkui:gap-[1px]",
-        variant === "outline" && "vkui:gap-0",
-      )}
-    >
+    <ButtonGroup className={cn(variant !== "outline" && "vkui:gap-[1px]")}>
       {buttonComp}
-    </div>
+    </ButtonGroup>
   );
 };
 
