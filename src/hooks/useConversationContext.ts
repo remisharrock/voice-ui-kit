@@ -1,4 +1,4 @@
-import { ConversationContext } from "@/contexts/ConversationContext";
+import { ConversationContext } from "@/components/ConversationContext";
 import { useContext } from "react";
 
 export const useConversationContext = () => {

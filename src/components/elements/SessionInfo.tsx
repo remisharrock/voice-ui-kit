@@ -40,18 +40,14 @@ export const SessionInfo: React.FC<Props> = ({
   }
   if (!noSessionId) {
     data["Session ID"] = sessionId ? (
-      <CopyText className="vkui:justify-end" iconSize={12} text={sessionId} />
+      <CopyText className="justify-end" iconSize={12} text={sessionId} />
     ) : (
       <TextDashBlankslate />
     );
   }
   if (!noParticipantId) {
     data["Participant ID"] = participantId ? (
-      <CopyText
-        className="vkui:justify-end"
-        iconSize={12}
-        text={participantId}
-      />
+      <CopyText className="justify-end" iconSize={12} text={participantId} />
     ) : (
       <TextDashBlankslate />
     );
@@ -62,7 +58,7 @@ export const SessionInfo: React.FC<Props> = ({
 
   return (
     <DataList
-      classNames={{ container: "vkui:w-full vkui:overflow-hidden" }}
+      classNames={{ container: "w-full overflow-hidden" }}
       data={data}
     />
   );

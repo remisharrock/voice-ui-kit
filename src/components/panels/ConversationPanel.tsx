@@ -16,9 +16,9 @@ export const ConversationPanel: React.FC<ConversationPanelProps> = memo(
   ({ noConversation = false, noMetrics = false, conversationElementProps }) => {
     const defaultValue = noConversation ? "metrics" : "conversation";
     return (
-      <Tabs className="vkui:h-full" defaultValue={defaultValue}>
-        <Panel className="vkui:h-full vkui:max-sm:border-none">
-          <PanelHeader variant="noPadding" className="vkui:py-1.5">
+      <Tabs className="h-full" defaultValue={defaultValue}>
+        <Panel className="h-full max-sm:border-none">
+          <PanelHeader variant="noPadding" className="py-1.5">
             <TabsList>
               {!noConversation && (
                 <TabsTrigger value="conversation">
@@ -34,17 +34,17 @@ export const ConversationPanel: React.FC<ConversationPanelProps> = memo(
               )}
             </TabsList>
           </PanelHeader>
-          <PanelContent className="vkui:p-0! vkui:overflow-hidden vkui:h-full">
+          <PanelContent className="p-0! overflow-hidden h-full">
             {!noConversation && (
               <TabsContent
                 value="conversation"
-                className="vkui:overflow-hidden vkui:h-full"
+                className="overflow-hidden h-full"
               >
                 <Conversation {...conversationElementProps} />
               </TabsContent>
             )}
             {!noMetrics && (
-              <TabsContent value="metrics" className="vkui:h-full">
+              <TabsContent value="metrics" className="h-full">
                 <Metrics />
               </TabsContent>
             )}

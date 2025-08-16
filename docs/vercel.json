@@ -1,5 +1,0 @@
-{
-    "buildCommand": "cd .. && pnpm install --include=dev -w && pnpm run build && cd docs && pnpm run build",
-    "installCommand": "cd .. && pnpm install --include=dev -w",
-    "outputDirectory": ".next"
-}

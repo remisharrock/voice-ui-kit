@@ -47,7 +47,7 @@ export const NoAudio: Story<{
   noAudioText: string;
 }> = ({ variant, size, noAudioText }) => {
   return (
-    <Card className="vkui:w-full">
+    <Card className="w-full">
       <CardContent>
         <UserAudioComponent
           variant={variant}
@@ -83,8 +83,8 @@ export const Default: Story<{
   noVisualizer = false,
   isLoading = false,
 }) => (
-  <Card className="vkui:w-full">
-    <CardContent className="vkui:flex vkui:flex-col vkui:gap-4">
+  <Card className="w-full">
+    <CardContent className="flex flex-col gap-4">
       {["primary", "secondary", "outline", "ghost"].map((v) => (
         <UserAudioComponent
           key={v}

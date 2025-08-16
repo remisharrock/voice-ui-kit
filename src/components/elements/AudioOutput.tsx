@@ -23,10 +23,10 @@ export const AudioOutput: React.FC<AudioOutputProps> = ({ className }) => {
   const id = useId();
 
   return (
-    <div className="vkui:flex vkui:items-center vkui:gap-4">
+    <div className="flex items-center gap-4">
       <label
         htmlFor={id}
-        className="vkui:text-sm vkui:font-medium vkui:text-muted-foreground vkui:whitespace-nowrap vkui:flex-1"
+        className="text-sm font-medium text-muted-foreground whitespace-nowrap flex-1"
       >
         Audio Output
       </label>

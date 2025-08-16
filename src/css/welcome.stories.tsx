@@ -5,7 +5,7 @@ export default {
 } satisfies StoryDefault;
 
 export const Welcome: Story = () => (
-  <div className="vkui:flex vkui:flex-col vkui:gap-6">
+  <div className="flex flex-col gap-6">
     <p>Welcome to the VKUI storybook.</p>
   </div>
 );

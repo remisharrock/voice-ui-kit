@@ -11,8 +11,8 @@ export const Default: Story<DividerProps> = ({ ...props }) => {
     <div
       className={
         props.orientation === "horizontal"
-          ? "vkui:flex vkui:flex-col vkui:gap-8 vkui:w-full"
-          : "vkui:flex vkui:flex-row vkui:gap-8 vkui:h-full"
+          ? "flex flex-col gap-8 w-full"
+          : "flex flex-row gap-8 h-full"
       }
     >
       <Divider {...props} />
@@ -20,7 +20,7 @@ export const Default: Story<DividerProps> = ({ ...props }) => {
       <Divider {...props}>Hello</Divider>
 
       <Card>
-        <CardContent className="vkui:h-full">
+        <CardContent className="h-full">
           <Divider {...props} />
         </CardContent>
       </Card>

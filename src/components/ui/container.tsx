@@ -8,8 +8,8 @@ export function FullScreenContainer({
   return (
     <div
       className={cn(
-        "vkui:w-full vkui:h-dvh vkui:bg-background vkui:flex vkui:items-center vkui:justify-center vkui:flex-col",
-        horizontal && "vkui:flex-row",
+        "w-full h-dvh bg-background flex items-center justify-center flex-col",
+        horizontal && "flex-row",
         className,
       )}
       {...props}

@@ -2,10 +2,7 @@
     "title": "Voice UI Kit",
     "pages": [
         "index",
-        "installation",
         "styling",
-        "pipecat",
-        "stories",
         "---Components---",
         "...components",
         "primitives",

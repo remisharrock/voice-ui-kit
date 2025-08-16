@@ -7,7 +7,7 @@ export default {
 } satisfies StoryDefault;
 
 export const Default: Story<typeof Input> = ({ ...props }) => (
-  <Card className="vkui:flex vkui:flex-col vkui:gap-8 vkui:w-full vkui:h-full">
+  <Card className="flex flex-col gap-8 w-full h-full">
     <CardContent>
       <Input {...props} placeholder="Placeholder" />
     </CardContent>

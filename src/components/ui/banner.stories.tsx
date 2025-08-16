@@ -13,10 +13,7 @@ export default {
 } satisfies StoryDefault;
 
 export const Default: Story<BannerProps> = ({ variant }) => (
-  <Banner
-    variant={variant}
-    className="vkui:animate-in vkui:fade-in vkui:duration-300"
-  >
+  <Banner variant={variant} className="animate-in fade-in duration-300">
     <BannerIcon icon={CircleAlertIcon} />
     <BannerTitle>
       Unable to connect. Please check web console for errors.

@@ -10,19 +10,19 @@ export const Default: Story<typeof Progress> = ({ ...props }) => (
   <div className="ladle-section-container">
     <h3 className="ladle-section-header">Progress</h3>
     <div className="ladle-section">
-      <Progress {...props} className="vkui:h-4" />
-      <Progress {...props} percent={50} className="vkui:h-4" />
-      <Progress {...props} percent={100} className="vkui:h-4" />
+      <Progress {...props} className="h-4" />
+      <Progress {...props} percent={50} className="h-4" />
+      <Progress {...props} percent={100} className="h-4" />
     </div>
     <h3 className="ladle-section-header">Size</h3>
     <p>
-      Convenience sizes. Can also be set with <code>className="vkui:w-*"</code>
+      Convenience sizes. Can also be set with <code>className="w-*"</code>
     </p>
     <div className="ladle-section">
-      <Progress {...props} percent={50} size="sm" className="vkui:h-4" />
-      <Progress {...props} percent={50} size="lg" className="vkui:h-4" />
-      <Progress {...props} percent={50} size="xl" className="vkui:h-4" />
-      <Progress {...props} percent={50} size="half" className="vkui:h-4" />
+      <Progress {...props} percent={50} size="sm" className="h-4" />
+      <Progress {...props} percent={50} size="lg" className="h-4" />
+      <Progress {...props} percent={50} size="xl" className="h-4" />
+      <Progress {...props} percent={50} size="half" className="h-4" />
     </div>
     <h3 className="ladle-section-header">Colors</h3>
     <div className="ladle-section">
@@ -36,17 +36,12 @@ export const Default: Story<typeof Progress> = ({ ...props }) => (
     </div>
     <h3 className="ladle-section-header">Rounded</h3>
     <div className="ladle-section">
-      <Progress
-        {...props}
-        percent={50}
-        rounded
-        className="vkui:h-4 vkui:w-full"
-      />
+      <Progress {...props} percent={50} rounded className="h-4 w-full" />
     </div>
     <h3 className="ladle-section-header">Badge</h3>
     <div className="ladle-section">
       <Badge buttonSizing>
-        <Progress {...props} percent={50} size="lg" className="vkui:h-[2px]" />
+        <Progress {...props} percent={50} size="lg" className="h-[2px]" />
         Some Badge
       </Badge>
     </div>

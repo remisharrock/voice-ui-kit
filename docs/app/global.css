@@ -21,12 +21,10 @@
 }
 
 .shiki code {
-  font-size: 14px;
   tab-size: 4;
 }
 .shiki {
   line-height: 1.75;
 }
 .shiki[data-line-numbers] code .line {
-  padding-left: calc(var(--spacing) * 4) !important;
 }

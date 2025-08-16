@@ -47,9 +47,9 @@ export const Banner = ({
     <BannerContext.Provider value={{ show, setShow }}>
       <div
         className={cn(
-          "vkui:flex vkui:w-full vkui:font-semibold vkui:items-center vkui:justify-between vkui:gap-2 vkui:bg-primary vkui:px-2 vkui:py-1 vkui:text-primary-foreground",
-          inset && "vkui:rounded-lg",
-          variant === "destructive" && "vkui:bg-destructive vkui:text-white",
+          "flex w-full font-semibold items-center justify-between gap-2 bg-primary px-2 py-1 text-primary-foreground",
+          inset && "rounded-lg",
+          variant === "destructive" && "bg-destructive text-white",
           className,
         )}
         {...props}
@@ -69,7 +69,7 @@ export const BannerIcon = ({
 }: BannerIconProps) => (
   <div
     className={cn(
-      "vkui:rounded-full vkui:bg-foreground/10 vkui:dark:bg-foreground/30 vkui:p-1",
+      "rounded-full bg-foreground/10 dark:bg-foreground/30 p-1",
       className,
     )}
     {...props}
@@ -79,7 +79,7 @@ export const BannerIcon = ({
 );
 export type BannerTitleProps = HTMLAttributes<HTMLParagraphElement>;
 export const BannerTitle = ({ className, ...props }: BannerTitleProps) => (
-  <p className={cn("vkui:flex-1 vkui:text-sm", className)} {...props} />
+  <p className={cn("flex-1 text-sm", className)} {...props} />
 );
 export type BannerActionProps = ComponentProps<typeof Button>;
 export const BannerAction = ({
@@ -90,7 +90,7 @@ export const BannerAction = ({
 }: BannerActionProps) => (
   <Button
     className={cn(
-      "vkui:shrink-0 vkui:bg-transparent vkui:hover:bg-background/10 vkui:hover:text-background",
+      "shrink-0 bg-transparent hover:bg-background/10 hover:text-background",
       className,
     )}
     size={size}
@@ -114,7 +114,7 @@ export const BannerClose = ({
   return (
     <Button
       className={cn(
-        "vkui:shrink-0 vkui:bg-transparent vkui:hover:bg-background/10 vkui:hover:text-background",
+        "shrink-0 bg-transparent hover:bg-background/10 hover:text-background",
         className,
       )}
       isIcon

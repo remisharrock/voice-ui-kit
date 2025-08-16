@@ -1,12 +1,12 @@
 // Components
 export * from "@/components/elements";
-export * from "@/components/helpers";
 export * from "@/components/panels";
+export * from "@/components/PipecatAppBase";
 export * from "@/components/ThemeModeToggle";
 export * from "@/components/ThemeProvider";
 export * from "@/components/ui";
 
-// Hooks & Utilityies
+// Hooks & Utilities
 export * from "@/hooks";
 export * from "@/icons";
 
@@ -17,4 +17,8 @@ export * from "@/visualizers";
 export { ConsoleTemplate } from "@/templates/Console";
 
 // Types
+export type {
+  PipecatBaseChildProps,
+  PipecatBaseProps,
+} from "@/components/PipecatAppBase";
 export * from "@/types/conversation";

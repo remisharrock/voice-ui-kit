@@ -1,3 +1,4 @@
+import * as AccordionComponents from "fumadocs-ui/components/accordion";
 import * as TabsComponents from "fumadocs-ui/components/tabs";
 import * as TypeTableComponents from "fumadocs-ui/components/type-table";
 import defaultMdxComponents from "fumadocs-ui/mdx";
@@ -10,6 +11,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
     ...(icons as unknown as MDXComponents),
     ...defaultMdxComponents,
+    ...AccordionComponents,
     ...TabsComponents,
     ...TypeTableComponents,
     LiveComponent,

@@ -61,9 +61,9 @@ export const BotAudioPanel: React.FC<BotAudioPanelProps> = ({
   return (
     <Panel
       className={cn(
-        "vkui:flex-1 vkui:mt-auto",
+        "flex-1 mt-auto",
         {
-          "vkui:flex-0 vkui:border-none": collapsed,
+          "flex-0 border-none": collapsed,
         },
         className,
       )}
@@ -74,20 +74,20 @@ export const BotAudioPanel: React.FC<BotAudioPanelProps> = ({
         </PanelHeader>
       )}
       <PanelContent
-        className={cn("vkui:overflow-hidden vkui:flex-1", {
-          "vkui:aspect-video": collapsed,
+        className={cn("overflow-hidden flex-1", {
+          "aspect-video": collapsed,
         })}
       >
         <div
           ref={containerRef}
-          className="vkui:relative vkui:flex vkui:h-full vkui:overflow-hidden"
+          className="relative flex h-full overflow-hidden"
         >
           {track ? (
-            <div className="vkui:m-auto">
+            <div className="m-auto">
               <VoiceVisualizer
                 participantType="bot"
                 backgroundColor="transparent"
-                barColor="--vkui-color-agent"
+                barColor="--color-agent"
                 barCount={barCount}
                 barGap={width}
                 barLineCap="square"
@@ -97,12 +97,10 @@ export const BotAudioPanel: React.FC<BotAudioPanelProps> = ({
               />
             </div>
           ) : (
-            <div className="vkui:text-subtle vkui:flex vkui:w-full vkui:gap-2 vkui:items-center vkui:justify-center">
+            <div className="text-subtle flex w-full gap-2 items-center justify-center">
               <MicOffIcon size={16} />
               {!collapsed && (
-                <span className="vkui:font-semibold vkui:text-sm">
-                  No audio
-                </span>
+                <span className="font-semibold text-sm">No audio</span>
               )}
             </div>
           )}

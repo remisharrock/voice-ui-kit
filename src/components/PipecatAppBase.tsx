@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  ThemeProvider,
+  type ThemeProviderProps,
+} from "@/components/ThemeProvider";
 import { createTransport } from "@/lib/transports";
 import {
   PipecatClient,
@@ -11,7 +15,6 @@ import {
   PipecatClientProvider,
 } from "@pipecat-ai/client-react";
 import React, { useEffect, useState } from "react";
-import { ThemeProvider, type ThemeProviderProps } from "../ThemeProvider";
 
 /**
  * Props for the PipecatAppBase component.
@@ -210,8 +213,3 @@ export const PipecatAppBase: React.FC<PipecatBaseProps> = ({
     <ThemeProvider {...themeProps}>{clientProvider}</ThemeProvider>
   );
 };
-
-/**
- * @deprecated Use PipecatAppBase instead. This component will be removed in a future version.
- */
-export const AudioAppHelper = PipecatAppBase;

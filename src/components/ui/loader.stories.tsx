@@ -16,10 +16,10 @@ export const Default: Story = () => (
       <StripeLoader />
     </div>
     <p>
-      Can be colored with <code>vkui:text-*</code> currentColor directives:
+      Can be colored with <code>text-*</code> currentColor directives:
     </p>
     <div className="ladle-section">
-      <StripeLoader className="vkui:text-destructive" />
+      <StripeLoader className="text-destructive" />
     </div>
   </div>
 );

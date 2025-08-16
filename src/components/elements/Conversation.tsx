@@ -90,14 +90,11 @@ export const Conversation: React.FC<ConversationProps> = memo(
       return (
         <div
           ref={scrollRef}
-          className={cn(
-            "vkui:h-full vkui:overflow-y-auto vkui:p-4",
-            classNames.container,
-          )}
+          className={cn("h-full overflow-y-auto p-4", classNames.container)}
         >
           <div
             className={cn(
-              "vkui:grid vkui:grid-cols-[min-content_1fr] vkui:gap-x-4 vkui:gap-y-2",
+              "grid grid-cols-[min-content_1fr] gap-x-4 gap-y-2",
               classNames.message,
             )}
           >
@@ -105,11 +102,11 @@ export const Conversation: React.FC<ConversationProps> = memo(
               <Fragment key={index}>
                 <div
                   className={cn(
-                    "vkui:font-semibold vkui:font-mono vkui:text-xs vkui:leading-6 vkui:w-max",
+                    "font-semibold font-mono text-xs leading-6 w-max",
                     {
-                      "vkui:text-client": message.role === "user",
-                      "vkui:text-agent": message.role === "assistant",
-                      "vkui:text-subtle": message.role === "system",
+                      "text-client": message.role === "user",
+                      "text-agent": message.role === "assistant",
+                      "text-subtle": message.role === "system",
                     },
                     classNames.role,
                   )}
@@ -118,7 +115,7 @@ export const Conversation: React.FC<ConversationProps> = memo(
                 </div>
                 <div
                   className={cn(
-                    "vkui:flex vkui:flex-col vkui:gap-2",
+                    "flex flex-col gap-2",
                     classNames.messageContent,
                   )}
                 >
@@ -129,7 +126,7 @@ export const Conversation: React.FC<ConversationProps> = memo(
                     : message.content}
                   <div
                     className={cn(
-                      "vkui:self-end vkui:text-xs vkui:text-gray-500 vkui:mb-1",
+                      "self-end text-xs text-gray-500 mb-1",
                       classNames.time,
                     )}
                   >
@@ -148,11 +145,11 @@ export const Conversation: React.FC<ConversationProps> = memo(
       return (
         <div
           className={cn(
-            "vkui:flex vkui:items-center vkui:justify-center vkui:h-full",
+            "flex items-center justify-center h-full",
             classNames.container,
           )}
         >
-          <div className="vkui:text-muted-foreground vkui:text-sm">
+          <div className="text-muted-foreground text-sm">
             Connecting to agent...
           </div>
         </div>
@@ -163,15 +160,15 @@ export const Conversation: React.FC<ConversationProps> = memo(
       return (
         <div
           className={cn(
-            "vkui:flex vkui:items-center vkui:justify-center vkui:h-full",
+            "flex items-center justify-center h-full",
             classNames.container,
           )}
         >
-          <div className="vkui:text-center vkui:p-4">
-            <div className="vkui:text-muted-foreground vkui:mb-2">
+          <div className="text-center p-4">
+            <div className="text-muted-foreground mb-2">
               Not connected to agent
             </div>
-            <p className="vkui:text-sm vkui:text-muted-foreground vkui:max-w-md">
+            <p className="text-sm text-muted-foreground max-w-md">
               Connect to an agent to see conversation messages in real-time.
             </p>
           </div>
@@ -182,11 +179,11 @@ export const Conversation: React.FC<ConversationProps> = memo(
     return (
       <div
         className={cn(
-          "vkui:flex vkui:items-center vkui:justify-center vkui:h-full",
+          "flex items-center justify-center h-full",
           classNames.container,
         )}
       >
-        <div className="vkui:text-muted-foreground vkui:text-sm">
+        <div className="text-muted-foreground text-sm">
           Waiting for messages...
         </div>
       </div>

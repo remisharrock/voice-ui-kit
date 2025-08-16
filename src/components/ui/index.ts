@@ -1,4 +1,5 @@
 export * from "./badge";
+export * from "./banner";
 export * from "./blankslates";
 export * from "./button";
 export * from "./buttongroup";

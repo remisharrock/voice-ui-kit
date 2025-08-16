@@ -16,17 +16,17 @@ interface Props {
 }
 
 const transcriptOverlayVariants = cva(
-  `vkui:mx-auto vkui:items-center vkui:justify-end vkui:text-center 
-  vkui:*:box-decoration-clone vkui:*:text-balance vkui:*:animate-in vkui:*:fade-in vkui:*:duration-300 vkui:*:mx-auto
-  vkui:*:**:bg-foreground vkui:*:**:text-background vkui:*:**:box-decoration-clone vkui:*:**:text-balance
+  `mx-auto items-center justify-end text-center 
+  *:box-decoration-clone *:text-balance *:animate-in *:fade-in *:duration-300 *:mx-auto
+  *:**:bg-foreground *:**:text-background *:**:box-decoration-clone *:**:text-balance
   `,
   {
     variants: {
       size: {
         default:
-          "vkui:*:leading-6 vkui:*:**:px-3 vkui:*:**:py-1.5 vkui:*:**:text-sm vkui:*:**:font-medium vkui:*:**:rounded-lg",
-        sm: "vkui:*:leading-4 vkui:*:**:px-2 vkui:*:**:py-1 vkui:*:**:text-xs vkui:*:**:font-medium vkui:*:**:rounded-md",
-        lg: "vkui:*:leading-7 vkui:*:**:px-4 vkui:*:**:py-2 vkui:*:**:text-base vkui:*:**:font-medium vkui:*:**:rounded-xl",
+          "*:leading-6 *:**:px-3 *:**:py-1.5 *:**:text-sm *:**:font-medium *:**:rounded-lg",
+        sm: "*:leading-4 *:**:px-2 *:**:py-1 *:**:text-xs *:**:font-medium *:**:rounded-md",
+        lg: "*:leading-7 *:**:px-4 *:**:py-2 *:**:text-base *:**:font-medium *:**:rounded-xl",
       },
     },
   },
@@ -51,9 +51,7 @@ export const TranscriptOverlayComponent = ({
     <div
       className={cn(
         transcriptOverlayVariants({ size }),
-        turnEnd
-          ? "vkui:animate-out vkui:fade-out vkui:duration-1000 vkui:fill-mode-forwards"
-          : "",
+        turnEnd ? "animate-out fade-out duration-1000 fill-mode-forwards" : "",
         className,
       )}
     >

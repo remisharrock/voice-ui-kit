@@ -214,39 +214,31 @@ export const Metrics: React.FC<Props> = ({
   const hasMetrics = Object.keys(ttfbMetrics).length > 0;
 
   const tokenCardClassName = cn(
-    "vkui:bg-card vkui:rounded-md vkui:p-3 vkui:shadow-sm",
+    "bg-card rounded-md p-3 shadow-sm",
     classNames.tokenCard,
   );
   const tokenTypeClassName = cn(
-    "vkui:text-sm vkui:text-muted-foreground",
+    "text-sm text-muted-foreground",
     classNames.tokenType,
   );
-  const tokenValueClassName = cn(
-    "vkui:text-2xl vkui:font-medium",
-    classNames.tokenValue,
-  );
+  const tokenValueClassName = cn("text-2xl font-medium", classNames.tokenValue);
 
   if (hasMetrics || hasTokenMetrics) {
     return (
       <div
         className={cn(
-          "vkui:@container/metrics vkui:grid vkui:gap-6 vkui:items-start vkui:p-4 vkui:max-h-full vkui:overflow-auto",
+          "@container/metrics grid gap-6 items-start p-4 max-h-full overflow-auto",
           classNames.container,
         )}
       >
         {hasTokenMetrics && (
           <>
-            <h2
-              className={cn(
-                "vkui:text-xl vkui:font-semibold",
-                classNames.heading,
-              )}
-            >
+            <h2 className={cn("text-xl font-semibold", classNames.heading)}>
               Token Usage
             </h2>
             <div
               className={cn(
-                "vkui:grid vkui:grid-cols-1 vkui:@xl/metrics:grid-cols-2 vkui:@3xl/metrics:grid-cols-3 vkui:gap-4",
+                "grid grid-cols-1 @xl/metrics:grid-cols-2 @3xl/metrics:grid-cols-3 gap-4",
                 classNames.tokenContainer,
               )}
             >
@@ -279,17 +271,12 @@ export const Metrics: React.FC<Props> = ({
         )}
         {hasMetrics && (
           <>
-            <h2
-              className={cn(
-                "vkui:text-xl vkui:font-semibold",
-                classNames.heading,
-              )}
-            >
+            <h2 className={cn("text-xl font-semibold", classNames.heading)}>
               TTFB Metrics
             </h2>
             <div
               className={cn(
-                "vkui:grid vkui:grid-cols-1 vkui:@xl/metrics:grid-cols-2 vkui:@3xl/metrics:grid-cols-3 vkui:gap-4",
+                "grid grid-cols-1 @xl/metrics:grid-cols-2 @3xl/metrics:grid-cols-3 gap-4",
                 classNames.metricsContainer,
               )}
             >
@@ -297,14 +284,14 @@ export const Metrics: React.FC<Props> = ({
                 <div
                   key={processorName}
                   className={cn(
-                    "vkui:bg-card vkui:border vkui:rounded-lg vkui:shadow-sm vkui:p-3 vkui:h-60",
+                    "bg-card border rounded-lg shadow-sm p-3 h-60",
                     classNames.metricsCard,
                   )}
                 >
-                  <h3 className={cn("vkui:mb-2", classNames.metricsTitle)}>
+                  <h3 className={cn("mb-2", classNames.metricsTitle)}>
                     {processorName}
                   </h3>
-                  <div className={cn("vkui:h-44", classNames.metricsChart)}>
+                  <div className={cn("h-44", classNames.metricsChart)}>
                     <Line
                       data={generateChartData(processorName, data)}
                       options={lineChartOptions}
@@ -323,7 +310,7 @@ export const Metrics: React.FC<Props> = ({
     return (
       <div
         className={cn(
-          "vkui:flex vkui:items-center vkui:justify-center vkui:h-full vkui:text-muted-foreground vkui:text-sm",
+          "flex items-center justify-center h-full text-muted-foreground text-sm",
           classNames.container,
         )}
       >
@@ -336,13 +323,13 @@ export const Metrics: React.FC<Props> = ({
     return (
       <div
         className={cn(
-          "vkui:flex vkui:items-center vkui:justify-center vkui:h-full vkui:text-muted-foreground vkui:text-center",
+          "flex items-center justify-center h-full text-muted-foreground text-center",
           classNames.container,
         )}
       >
-        <div className="vkui:p-4">
-          <div className="vkui:mb-2">Not connected to agent</div>
-          <p className="vkui:text-sm vkui:max-w-md">
+        <div className="p-4">
+          <div className="mb-2">Not connected to agent</div>
+          <p className="text-sm max-w-md">
             Connect to an agent to view metrics in real-time.
           </p>
         </div>
@@ -353,7 +340,7 @@ export const Metrics: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        "vkui:flex vkui:items-center vkui:justify-center vkui:h-full vkui:text-muted-foreground vkui:text-sm",
+        "flex items-center justify-center h-full text-muted-foreground text-sm",
         classNames.container,
       )}
     >

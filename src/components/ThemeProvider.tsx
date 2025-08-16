@@ -44,19 +44,19 @@ export function ThemeProvider({
     if (!mounted) return;
 
     const root = window.document.documentElement;
-    root.classList.remove("vkui:light", "vkui:dark");
+    root.classList.remove("light", "dark");
 
     if (theme === "system") {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
         .matches
-        ? "vkui:dark"
-        : "vkui:light";
+        ? "dark"
+        : "light";
 
       root.classList.add(systemTheme);
       return;
     }
 
-    root.classList.add(`vkui:${theme}`);
+    root.classList.add(`${theme}`);
   }, [theme, mounted]);
 
   // Update theme when defaultTheme changes (if needed)

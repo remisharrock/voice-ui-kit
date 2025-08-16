@@ -28,7 +28,7 @@ export const ErrorCard = ({
 } & CardProps) => {
   return (
     <Card
-      className={cn("vkui:min-w-md", cardProps.className)}
+      className={cn("min-w-md", cardProps.className)}
       variant="destructive"
       {...cardProps}
     >
@@ -36,7 +36,7 @@ export const ErrorCard = ({
         <CardHeader className={classNames?.header}>
           <CardTitle
             className={cn(
-              "vkui:font-semibold vkui:flex vkui:flex-row vkui:items-center vkui:gap-2",
+              "font-semibold flex flex-row items-center gap-2",
               classNames?.title,
             )}
           >
@@ -45,7 +45,7 @@ export const ErrorCard = ({
         </CardHeader>
       )}
       {children && (
-        <CardContent className={cn("vkui:text-balanced", classNames?.content)}>
+        <CardContent className={cn("text-balanced", classNames?.content)}>
           {children}
         </CardContent>
       )}

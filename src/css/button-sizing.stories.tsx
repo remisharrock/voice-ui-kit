@@ -15,7 +15,7 @@ const SizingItem = ({
 }) => (
   <div
     className={cn(
-      "vkui:bg-accent vkui:border-2 vkui:text-accent-foreground vkui:flex vkui:justify-center vkui:items-center vkui:mono-upper",
+      "bg-accent border-2 text-accent-foreground flex justify-center items-center mono-upper",
       className,
     )}
   >
@@ -36,14 +36,14 @@ export const ButtonSizing: Story = () => (
 
     <section className="ladle-section">
       <SizingItem>Normal element e.g. a div</SizingItem>
-      <SizingItem className="vkui:button-md ">Button Sized</SizingItem>
+      <SizingItem className="button-md ">Button Sized</SizingItem>
     </section>
 
     <section className="ladle-section">
-      <SizingItem className="vkui:button-sm ">SM</SizingItem>
-      <SizingItem className="vkui:button-md ">MD</SizingItem>
-      <SizingItem className="vkui:button-lg ">LG</SizingItem>
-      <SizingItem className="vkui:button-xl ">XL</SizingItem>
+      <SizingItem className="button-sm ">SM</SizingItem>
+      <SizingItem className="button-md ">MD</SizingItem>
+      <SizingItem className="button-lg ">LG</SizingItem>
+      <SizingItem className="button-xl ">XL</SizingItem>
     </section>
 
     <h2 className="ladle-section-header">Button Icon sizing</h2>
@@ -52,10 +52,10 @@ export const ButtonSizing: Story = () => (
       sized using the <code>button-icon-*</code> utility.
     </p>
     <section className="ladle-section">
-      <SizingItem className="vkui:button-icon-sm">SM</SizingItem>
-      <SizingItem className="vkui:button-icon-md">MD</SizingItem>
-      <SizingItem className="vkui:button-icon-lg">LG</SizingItem>
-      <SizingItem className="vkui:button-icon-xl">XL</SizingItem>
+      <SizingItem className="button-icon-sm">SM</SizingItem>
+      <SizingItem className="button-icon-md">MD</SizingItem>
+      <SizingItem className="button-icon-lg">LG</SizingItem>
+      <SizingItem className="button-icon-xl">XL</SizingItem>
     </section>
 
     <h2 className="ladle-section-header">SVG Icons</h2>
@@ -64,11 +64,11 @@ export const ButtonSizing: Story = () => (
       gap and padding to center the icon more aesthetically.
     </p>
     <section className="ladle-section">
-      <SizingItem className="vkui:button-xl">
+      <SizingItem className="button-xl">
         <TerminalIcon />
         With
       </SizingItem>
-      <SizingItem className="vkui:button-xl">
+      <SizingItem className="button-xl">
         <div>
           <TerminalIcon />
         </div>
