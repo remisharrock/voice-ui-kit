@@ -1,6 +1,6 @@
 # Pipecat Voice UI Kit
 ![NPM Version](https://img.shields.io/npm/v/@pipecat-ai/voice-ui-kit)
-[![Docs](https://img.shields.io/badge/documentation-blue)](https://docs.pipecat.ai/client/introduction)
+[![Docs](https://img.shields.io/badge/documentation-blue)](https://voiceuikit.pipecat.ai)
 
 <img width="100%" src="image.png" />
 
