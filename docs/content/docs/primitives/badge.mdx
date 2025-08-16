@@ -11,6 +11,61 @@ description: Displays a badge or a component that looks like a badge.
 `}
 </LiveComponent>
 
+
+<TypeTable
+  className="text-sm"
+  type={{
+    color: {
+      description: "The color scheme of the badge",
+      type: '"primary" | "secondary" | "destructive" | "active" | "inactive" | "warning" | "agent" | "client"',
+      required: false,
+      default: '"primary"',
+    },
+    variant: {
+      description: "The visual style variant of the badge",
+      type: '"default" | "outline" | "filled" | "elbow" | "bracket"',
+      required: false,
+      default: '"default"',
+    },
+    size: {
+      description: "The size of the badge",
+      type: '"sm" | "md" | "lg"',
+      required: false,
+      default: '"md"',
+    },
+    uppercase: {
+      description: "Whether to display text in uppercase",
+      type: "boolean",
+      required: false,
+      default: "false",
+    },
+    buttonSizing: {
+      description: "Whether to use button sizing utilities",
+      type: "boolean",
+      required: false,
+      default: "false",
+    },
+    rounded: {
+      description: "The border radius of the badge",
+      type: '"size" | "none" | "sm" | "md" | "lg" | "full"',
+      required: false,
+      default: '"size"',
+    },
+    asChild: {
+      description: "Whether to render as a different element",
+      type: "boolean",
+      required: false,
+      default: "false",
+    },
+    className: {
+      description: "Additional CSS classes to apply",
+      type: "string",
+      required: false,
+      default: "undefined",
+    },
+  }}
+/>
+
 ---
 
 ## Usage
@@ -147,6 +202,38 @@ Make the badge size like a button by setting the `buttonSizing` prop to `true`.
         <Badge color="secondary" rounded="none">
             None
         </Badge>
+    </div>
+`}
+</LiveComponent>
+
+
+### Progress and Icon Badges
+
+<LiveComponent language="tsx">
+{`
+    import { Badge, Progress, TriangleAlertIcon } from "@pipecat-ai/voice-ui-kit";
+
+    <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-row gap-2 w-full justify-center">
+            <Badge>
+                <Progress percent={50} className="h-[3px]" />
+                Badge with progress
+            </Badge>
+            <Badge>
+                <TriangleAlertIcon />
+                Badge with icon
+            </Badge>
+        </div>
+        <div className="flex flex-row gap-2 w-full justify-center">
+            <Badge size="lg">
+                <Progress percent={50} className="h-[3px]" size="lg"/>
+                Badge with progress
+            </Badge>
+            <Badge size="lg">
+                <TriangleAlertIcon />
+                Badge with icon
+            </Badge>
+        </div>
     </div>
 `}
 </LiveComponent>

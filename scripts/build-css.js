@@ -7,14 +7,12 @@ import tailwindcss from "@tailwindcss/postcss";
 async function buildCSS() {
   try {
     // Read the source CSS file
-    const sourceCssPath = path.resolve(process.cwd(), "src/index.css");
+    const sourceCssPath = path.resolve(process.cwd(), "src/css/index.css");
     const sourceCss = fs.readFileSync(sourceCssPath, "utf-8");
 
-    // Process with Tailwind CSS
     const result = await postcss([
       tailwindcss({
         content: ["./src/**/*.{js,ts,jsx,tsx}"],
-        prefix: "vkui",
       }),
     ]).process(sourceCss, { from: sourceCssPath });
 

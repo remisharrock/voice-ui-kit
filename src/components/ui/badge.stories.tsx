@@ -11,7 +11,7 @@ export default {
 export const Default: Story<BadgeProps> = ({ ...props }) => (
   <div className="ladle-section-container">
     <Badge {...props}>Badge</Badge>
-    <Badge {...props} className="vkui:w-full">
+    <Badge {...props} className="w-full">
       full width
     </Badge>
     <h2 className="ladle-section-header">Sizes</h2>
@@ -150,7 +150,7 @@ export const Default: Story<BadgeProps> = ({ ...props }) => (
     <h2 className="ladle-section-header">With Progress and Icon</h2>
     <section className="ladle-section">
       <Badge {...props}>
-        <Progress percent={50} className="vkui:h-[3px]" color={props.color} />
+        <Progress percent={50} className="h-[3px]" color={props.color} />
         Badge with progress
       </Badge>
       <Badge {...props}>
@@ -160,7 +160,7 @@ export const Default: Story<BadgeProps> = ({ ...props }) => (
     </section>
     <section className="ladle-section">
       <Badge {...props} size="sm">
-        <Progress percent={50} className="vkui:h-[3px]" color={props.color} />
+        <Progress percent={50} className="h-[3px]" color={props.color} />
         Badge with progress
       </Badge>
       <Badge {...props} size="sm">
@@ -170,7 +170,7 @@ export const Default: Story<BadgeProps> = ({ ...props }) => (
     </section>
     <section className="ladle-section">
       <Badge {...props} size="lg">
-        <Progress percent={50} className="vkui:h-[3px]" color={props.color} />
+        <Progress percent={50} className="h-[3px]" color={props.color} />
         Badge with progress
       </Badge>
       <Badge {...props} size="lg">

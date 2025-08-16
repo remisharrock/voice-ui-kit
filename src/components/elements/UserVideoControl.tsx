@@ -53,10 +53,10 @@ export const UserVideoComponent: React.FC<ComponentProps> = ({
   return (
     <div
       className={cn(
-        "vkui:bg-muted vkui:rounded-xl vkui:relative",
+        "bg-muted rounded-xl relative",
         {
-          "vkui:aspect-video": isCamEnabled && !noVideo,
-          "vkui:h-12": !isCamEnabled || noVideo,
+          "aspect-video": isCamEnabled && !noVideo,
+          "h-12": !isCamEnabled || noVideo,
         },
         classNames.container,
       )}
@@ -64,9 +64,9 @@ export const UserVideoComponent: React.FC<ComponentProps> = ({
       {!noVideo && (
         <PipecatClientVideo
           className={cn(
-            "vkui:rounded-xl",
+            "rounded-xl",
             {
-              "vkui:hidden": !isCamEnabled,
+              hidden: !isCamEnabled,
             },
             classNames.video,
           )}
@@ -77,16 +77,16 @@ export const UserVideoComponent: React.FC<ComponentProps> = ({
       {(!isCamEnabled || noVideo) && (
         <div
           className={cn(
-            "vkui:absolute vkui:h-full vkui:left-28 vkui:flex vkui:items-center vkui:justify-start vkui:rounded-xl",
+            "absolute h-full left-28 flex items-center justify-start rounded-xl",
             {
-              "vkui:left-16": noDevicePicker,
+              "left-16": noDevicePicker,
             },
             classNames.videoOffContainer,
           )}
         >
           <div
             className={cn(
-              "vkui:text-muted-foreground vkui:font-mono vkui:text-sm",
+              "text-muted-foreground font-mono text-sm",
               classNames.videoOffText,
             )}
           >
@@ -94,7 +94,7 @@ export const UserVideoComponent: React.FC<ComponentProps> = ({
           </div>
         </div>
       )}
-      <div className="vkui:absolute vkui:bottom-2 vkui:left-2">
+      <div className="absolute bottom-2 left-2">
         <ButtonGroup className={cn(classNames.buttongroup)}>
           <Button
             className={cn(classNames.button)}

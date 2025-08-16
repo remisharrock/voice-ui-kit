@@ -21,7 +21,7 @@ export default {
 export const TextPart: Story<{ size: "default" | "sm" | "lg" }> = ({
   size,
 }) => (
-  <TranscriptOverlayComponent size={size} className="vkui:max-w-md">
+  <TranscriptOverlayComponent size={size} className="max-w-md">
     <TranscriptOverlayPartComponent text="Hello my name is ChatBot. How are you today? Would you like to talk about the weather?" />
   </TranscriptOverlayComponent>
 );

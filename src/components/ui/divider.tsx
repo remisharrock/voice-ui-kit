@@ -2,38 +2,38 @@ import { PlusIcon } from "@/icons";
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const dividerVariants = cva("vkui:relative vkui:items-center", {
+const dividerVariants = cva("relative items-center", {
   variants: {
     orientation: {
-      horizontal: "vkui:h-px vkui:w-full",
-      vertical: "vkui:w-px vkui:h-full",
+      horizontal: "h-px w-full",
+      vertical: "w-px h-full",
     },
     color: {
-      primary: "vkui:bg-primary",
-      secondary: "vkui:bg-border",
-      destructive: "vkui:bg-destructive",
-      active: "vkui:bg-active",
-      inactive: "vkui:bg-inactive",
-      warning: "vkui:bg-warning",
+      primary: "bg-primary",
+      secondary: "bg-border",
+      destructive: "bg-destructive",
+      active: "bg-active",
+      inactive: "bg-inactive",
+      warning: "bg-warning",
     },
     thickness: {
-      thin: "vkui:h-[1px]",
-      medium: "vkui:h-[2px]",
-      thick: "vkui:h-[3px]",
+      thin: "h-[1px]",
+      medium: "h-[2px]",
+      thick: "h-[3px]",
     },
     variant: {
       solid: "",
       dotted:
-        "vkui:bg-transparent vkui:bg-[repeating-linear-gradient(to_right,currentColor,currentColor_2px,transparent_2px,transparent_6px)] vkui:bg-[length:6px_100%]",
+        "bg-transparent bg-[repeating-linear-gradient(to_right,currentColor,currentColor_2px,transparent_2px,transparent_6px)] bg-[length:6px_100%]",
       dashed:
-        "vkui:bg-transparent vkui:bg-[repeating-linear-gradient(to_right,currentColor,currentColor_20px,transparent_20px,transparent_40px)] vkui:bg-[length:40px_100%]",
+        "bg-transparent bg-[repeating-linear-gradient(to_right,currentColor,currentColor_20px,transparent_20px,transparent_40px)] bg-[length:40px_100%]",
     },
     size: {
-      none: "vkui:my-0 vkui:mx-0",
-      sm: "vkui:my-2 vkui:mx-2",
-      md: "vkui:my-4 vkui:mx-4",
-      lg: "vkui:my-8 vkui:mx-8",
-      xl: "vkui:my-10 vkui:mx-10",
+      none: "my-0 mx-0",
+      sm: "my-2 mx-2",
+      md: "my-4 mx-4",
+      lg: "my-8 mx-8",
+      xl: "my-10 mx-10",
     },
   },
   defaultVariants: {
@@ -47,70 +47,70 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
     {
       orientation: "vertical",
       thickness: "thin",
-      className: "vkui:h-full vkui:w-[1px]",
+      className: "h-full w-[1px]",
     },
     {
       orientation: "vertical",
       thickness: "medium",
-      className: "vkui:h-full vkui:w-[2px]",
+      className: "h-full w-[2px]",
     },
     {
       orientation: "vertical",
       thickness: "thick",
-      className: "vkui:h-full vkui:w-[3px]",
+      className: "h-full w-[3px]",
     },
     {
       orientation: "vertical",
       variant: "dashed",
       className:
-        "vkui:bg-[repeating-linear-gradient(to_bottom,currentColor,currentColor_20px,transparent_20px,transparent_40px)] vkui:bg-[length:100%_40px]",
+        "bg-[repeating-linear-gradient(to_bottom,currentColor,currentColor_20px,transparent_20px,transparent_40px)] bg-[length:100%_40px]",
     },
     {
       orientation: "vertical",
       variant: "dotted",
       className:
-        "vkui:bg-[repeating-linear-gradient(to_bottom,currentColor,currentColor_2px,transparent_2px,transparent_6px)] vkui:bg-[length:6px_100%]",
+        "bg-[repeating-linear-gradient(to_bottom,currentColor,currentColor_2px,transparent_2px,transparent_6px)] bg-[length:6px_100%]",
     },
     {
       variant: ["dotted", "dashed"],
       color: "primary",
-      className: "vkui:text-primary",
+      className: "text-primary",
     },
     {
       variant: ["dotted", "dashed"],
       color: "secondary",
-      className: "vkui:text-border",
+      className: "text-border",
     },
     {
       variant: ["dotted", "dashed"],
       color: "destructive",
-      className: "vkui:text-destructive",
+      className: "text-destructive",
     },
     {
       variant: ["dotted", "dashed"],
       color: "active",
-      className: "vkui:text-active",
+      className: "text-active",
     },
     {
       variant: ["dotted", "dashed"],
       color: "inactive",
-      className: "vkui:text-inactive",
+      className: "text-inactive",
     },
     {
       variant: ["dotted", "dashed"],
       color: "warning",
-      className: "vkui:text-warning",
+      className: "text-warning",
     },
     // Size variants
     {
       size: ["sm", "md", "lg", "xl"],
       orientation: "horizontal",
-      className: "vkui:mx-0",
+      className: "mx-0",
     },
     {
       size: ["sm", "md", "lg", "xl"],
       orientation: "vertical",
-      className: "vkui:my-0",
+      className: "my-0",
     },
   ],
 });
@@ -118,39 +118,37 @@ const dividerVariants = cva("vkui:relative vkui:items-center", {
 const dividerChildrenVariants = cva("", {
   variants: {
     color: {
-      primary: "vkui:text-foreground",
-      secondary: "vkui:text-foreground",
-      destructive: "vkui:text-destructive",
-      active: "vkui:text-active",
-      inactive: "vkui:text-inactive",
-      warning: "vkui:text-warning",
+      primary: "text-foreground",
+      secondary: "text-foreground",
+      destructive: "text-destructive",
+      active: "text-active",
+      inactive: "text-inactive",
+      warning: "text-warning",
     },
   },
 });
 
-const dividerDecorationVariants = cva("vkui:flex", {
+const dividerDecorationVariants = cva("flex", {
   variants: {
     decoration: {
-      plus: "vkui:text-foreground",
+      plus: "text-foreground",
     },
     thickness: {
-      thin: "vkui:[&_svg]:size-2.5 vkui:gap-1.5",
-      medium: "vkui:[&_svg]:size-3 vkui:gap-2",
-      thick: "vkui:[&_svg]:size-3.5 vkui:gap-2.5",
+      thin: "[&_svg]:size-2.5 gap-1.5",
+      medium: "[&_svg]:size-3 gap-2",
+      thick: "[&_svg]:size-3.5 gap-2.5",
     },
     orientation: {
-      horizontal:
-        "vkui:flex vkui:flex-row vkui:items-center vkui:justify-center vkui:w-full",
-      vertical:
-        "vkui:flex vkui:flex-col vkui:items-center vkui:justify-center vkui:h-full",
+      horizontal: "flex flex-row items-center justify-center w-full",
+      vertical: "flex flex-col items-center justify-center h-full",
     },
     color: {
-      primary: "vkui:text-primary",
-      secondary: "vkui:text-border",
-      destructive: "vkui:text-destructive vkui:[&_svg]:text-destructive",
-      active: "vkui:text-active vkui:[&_svg]:text-active",
-      inactive: "vkui:text-inactive vkui:[&_svg]:text-inactive",
-      warning: "vkui:text-warning vkui:[&_svg]:text-warning",
+      primary: "text-primary",
+      secondary: "text-border",
+      destructive: "text-destructive [&_svg]:text-destructive",
+      active: "text-active [&_svg]:text-active",
+      inactive: "text-inactive [&_svg]:text-inactive",
+      warning: "text-warning [&_svg]:text-warning",
     },
   },
 });
@@ -180,9 +178,9 @@ export function Divider({
     <div
       className={cn(
         orientation === "horizontal" &&
-          "vkui:flex vkui:flex-row vkui:items-center vkui:justify-center vkui:gap-4 vkui:w-full",
+          "flex flex-row items-center justify-center gap-4 w-full",
         orientation === "vertical" &&
-          "vkui:flex vkui:flex-col vkui:items-center vkui:justify-center vkui:gap-4 vkui:h-full",
+          "flex flex-col items-center justify-center gap-4 h-full",
         className,
       )}
     >

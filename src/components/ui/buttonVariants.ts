@@ -1,40 +1,40 @@
 import { cva } from "class-variance-authority";
 
 export const buttonVariants = cva(
-  "vkui:border vkui:inline-flex vkui:items-center vkui:justify-center vkui:whitespace-nowrap vkui:text-sm vkui:font-medium vkui:transition-all vkui:disabled:pointer-events-none vkui:disabled:opacity-50 vkui:[&_svg]:pointer-events-none vkui:shrink-0 vkui:[&_svg]:shrink-0 vkui:outline-none vkui:focus-visible:ring-ring/50 vkui:focus-visible:ring-[3px] vkui:aria-invalid:ring-destructive/20 vkui:dark:aria-invalid:ring-destructive/40 vkui:aria-invalid:border-destructive",
+  "border inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
         primary:
-          "vkui:bg-primary vkui:text-primary-foreground vkui:hover:bg-primary/90 vkui:border-transparent vkui:[--vkui-loader-stripe-color:var(--vkui-color-primary)]",
+          "bg-primary text-primary-foreground hover:bg-primary/90 border-transparent [--loader-stripe-color:var(--color-primary)]",
         secondary:
-          "vkui:bg-secondary vkui:border-transparent vkui:text-secondary-foreground vkui:hover:bg-secondary/60 vkui:focus-visible:border-secondary vkui:[--vkui-loader-stripe-color:var(--vkui-color-secondary)]",
+          "bg-secondary border-transparent text-secondary-foreground hover:bg-secondary/60 focus-visible:border-secondary [--loader-stripe-color:var(--color-secondary)]",
         outline:
-          "vkui:text-foreground vkui:border vkui:bg-background vkui:hover:bg-accent vkui:dark:bg-input/30 vkui:dark:border-input vkui:dark:hover:bg-input/50 vkui:focus-visible:border-ring vkui:[--vkui-loader-stripe-color:var(--vkui-color-accent-foreground)]",
+          "text-foreground border bg-background hover:bg-accent dark:bg-input/30 dark:border-input dark:hover:bg-input/50 focus-visible:border-ring [--loader-stripe-color:var(--color-accent-foreground)]",
         destructive:
-          "vkui:bg-destructive vkui:border-transparent vkui:text-white vkui:hover:bg-destructive/90 vkui:focus-visible:ring-destructive/20 vkui:dark:focus-visible:ring-destructive/40 vkui:dark:bg-destructive/60 vkui:[--vkui-loader-stripe-color:var(--vkui-color-destructive)]",
+          "bg-destructive border-transparent text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 [--loader-stripe-color:var(--color-destructive)]",
         ghost:
-          "vkui:text-foreground vkui:border vkui:border-transparent vkui:hover:bg-accent vkui:hover:text-accent-foreground vkui:dark:hover:bg-accent/50 vkui:[--vkui-loader-stripe-color:var(--vkui-color-accent-foreground)]",
-        link: "vkui:text-primary vkui:underline-offset-4 vkui:hover:underline vkui:border vkui:border-transparent vkui:[--vkui-loader-stripe-color:var(--vkui-color-primary)]",
+          "text-foreground border border-transparent hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 [--loader-stripe-color:var(--color-accent-foreground)]",
+        link: "text-primary underline-offset-4 hover:underline border border-transparent [--loader-stripe-color:var(--color-primary)]",
         active:
-          "vkui:bg-active vkui:border vkui:border-transparent vkui:text-active-foreground vkui:hover:bg-active/90 vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40",
+          "bg-active border border-transparent text-active-foreground hover:bg-active/90 focus-visible:ring-active/20 dark:focus-visible:ring-active/40",
         inactive:
-          "vkui:bg-inactive vkui:border vkui:border-transparent vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
+          "bg-inactive border border-transparent text-inactive-foreground hover:bg-inactive/90 focus-visible:ring-inactive/20 dark:focus-visible:ring-inactive/40",
       },
       size: {
-        sm: "vkui:button-sm vkui:[&_svg:not([class*='size-'])]:size-4",
-        md: "vkui:button-md vkui:[&_svg:not([class*='size-'])]:size-5",
-        lg: "vkui:button-lg vkui:[&_svg:not([class*='size-'])]:size-5",
-        xl: "vkui:button-xl vkui:[&_svg:not([class*='size-'])]:size-6 vkui:text-lg",
+        sm: "button-sm [&_svg:not([class*='size-'])]:size-4",
+        md: "button-md [&_svg:not([class*='size-'])]:size-5",
+        lg: "button-lg [&_svg:not([class*='size-'])]:size-5",
+        xl: "button-xl [&_svg:not([class*='size-'])]:size-6 text-lg",
       },
       rounded: {
         size: "",
-        none: "vkui:rounded-none",
-        sm: "vkui:rounded-sm",
-        md: "vkui:rounded-md",
-        lg: "vkui:rounded-lg",
-        xl: "vkui:rounded-xl",
-        full: "vkui:rounded-full",
+        none: "rounded-none",
+        sm: "rounded-sm",
+        md: "rounded-md",
+        lg: "rounded-lg",
+        xl: "rounded-xl",
+        full: "rounded-full",
       },
       state: {
         default: "",
@@ -46,16 +46,16 @@ export const buttonVariants = cva(
         false: "",
       },
       isFullWidth: {
-        true: "vkui:w-full",
+        true: "w-full",
         false: "",
       },
       loader: {
         icon: "",
         stripes:
-          "vkui:loader-stripes vkui:disabled:opacity-100 vkui:dark:disabled:opacity-100 vkui:text-white/0",
+          "loader-stripes disabled:opacity-100 dark:disabled:opacity-100 text-white/0",
       },
       uppercase: {
-        true: "vkui:uppercase vkui:tracking-wider",
+        true: "uppercase tracking-wider",
         false: "",
       },
       noContainerQueries: {
@@ -68,22 +68,22 @@ export const buttonVariants = cva(
       {
         uppercase: true,
         size: "md",
-        className: "vkui:text-[11px] vkui:[&_svg:not([class*='size-'])]:size-4",
+        className: "text-[11px] [&_svg:not([class*='size-'])]:size-4",
       },
       {
         uppercase: true,
         size: "sm",
-        className: "vkui:text-[10px]",
+        className: "text-[10px]",
       },
       {
         uppercase: true,
         size: "lg",
-        className: "vkui:text-xs vkui:[&_svg:not([class*='size-'])]:size-5",
+        className: "text-xs [&_svg:not([class*='size-'])]:size-5",
       },
       {
         uppercase: true,
         size: "xl",
-        className: "vkui:text-sm vkui:[&_svg:not([class*='size-'])]:size-5",
+        className: "text-sm [&_svg:not([class*='size-'])]:size-5",
       },
       /* Container queries */
       {
@@ -91,102 +91,98 @@ export const buttonVariants = cva(
         isIcon: false,
         noContainerQueries: false,
         className:
-          "vkui:@max-xs/panel:button-sm vkui:@max-xs/panel:has-[>svg]:button-sm/sm vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+          "@max-xs/panel:button-sm @max-xs/panel:has-[>svg]:button-sm @max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
       },
       {
         size: ["sm", "md", "lg", "xl"],
         isIcon: true,
         noContainerQueries: false,
         className:
-          "vkui:@max-xs/panel:button-icon-sm vkui:@max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
+          "@max-xs/panel:button-icon-sm @max-xs/panel:[&_svg:not([class*='size-'])]:size-4",
       },
       {
         rounded: "size",
         noContainerQueries: false,
-        className: "vkui:@max-xs/panel:rounded-sm ",
+        className: "@max-xs/panel:rounded-sm ",
       },
       /* Icon variants */
       {
         size: "sm",
         isIcon: true,
-        className:
-          "vkui:button-icon-sm vkui:[&_svg:not([class*='size-'])]:size-4",
+        className: "button-icon-sm [&_svg:not([class*='size-'])]:size-4",
       },
       {
         size: "md",
         isIcon: true,
-        className:
-          "vkui:button-icon-md vkui:[&_svg:not([class*='size-'])]:size-5",
+        className: "button-icon-md [&_svg:not([class*='size-'])]:size-5",
       },
       {
         size: "lg",
         isIcon: true,
-        className:
-          "vkui:button-icon-lg vkui:[&_svg:not([class*='size-'])]:size-5",
+        className: "button-icon-lg [&_svg:not([class*='size-'])]:size-5",
       },
       {
         size: "xl",
         isIcon: true,
-        className:
-          "vkui:button-icon-xl vkui:[&_svg:not([class*='size-'])]:size-6",
+        className: "button-icon-xl [&_svg:not([class*='size-'])]:size-6",
       },
       /* State variants */
       {
         variant: "primary",
         state: "active",
         className:
-          "vkui:bg-active vkui:text-active-foreground vkui:hover:bg-active/90 vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40",
+          "bg-active text-active-foreground hover:bg-active/90 focus-visible:ring-active/20 dark:focus-visible:ring-active/40",
       },
       {
         variant: "primary",
         state: "inactive",
         className:
-          "vkui:bg-inactive vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
+          "bg-inactive text-inactive-foreground hover:bg-inactive/90 focus-visible:ring-inactive/20 dark:focus-visible:ring-inactive/40",
       },
       {
         variant: "secondary",
         state: "active",
         className:
-          "vkui:bg-active vkui:text-active-foreground vkui:hover:bg-active/90 vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40 vkui:focus-visible:border-active",
+          "bg-active text-active-foreground hover:bg-active/90 focus-visible:ring-active/20 dark:focus-visible:ring-active/40 focus-visible:border-active",
       },
       {
         variant: "secondary",
         state: "inactive",
         className:
-          "vkui:bg-inactive vkui:text-inactive-foreground vkui:hover:bg-inactive/90 vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40 vkui:focus-visible:border-inactive",
+          "bg-inactive text-inactive-foreground hover:bg-inactive/90 focus-visible:ring-inactive/20 dark:focus-visible:ring-inactive/40 focus-visible:border-inactive",
       },
       {
         variant: "outline",
         state: "active",
         className:
-          "vkui:bg-active-accent vkui:text-active vkui:border-active vkui:hover:bg-active-accent/60 vkui:dark:bg-active-accent vkui:dark:hover:bg-active-accent/60 vkui:dark:border-active vkui:focus-visible:border-active vkui:focus-visible:ring-active/20 vkui:dark:focus-visible:ring-active/40",
+          "bg-active-accent text-active border-active hover:bg-active-accent/60 dark:bg-active-accent dark:hover:bg-active-accent/60 dark:border-active focus-visible:border-active focus-visible:ring-active/20 dark:focus-visible:ring-active/40",
       },
       {
         variant: "outline",
         state: "inactive",
         className:
-          "vkui:bg-inactive-accent vkui:text-inactive vkui:border-inactive vkui:hover:bg-inactive-accent/60 vkui:dark:bg-inactive-accent vkui:dark:hover:bg-inactive-accent/60 vkui:dark:border-inactive vkui:focus-visible:border-inactive vkui:focus-visible:ring-inactive/20 vkui:dark:focus-visible:ring-inactive/40",
+          "bg-inactive-accent text-inactive border-inactive hover:bg-inactive-accent/60 dark:bg-inactive-accent dark:hover:bg-inactive-accent/60 dark:border-inactive focus-visible:border-inactive focus-visible:ring-inactive/20 dark:focus-visible:ring-inactive/40",
       },
       /* Rounded size variants */
       {
         rounded: "size",
         size: "md",
-        className: "vkui:rounded-md",
+        className: "rounded-md",
       },
       {
         rounded: "size",
         size: "sm",
-        className: "vkui:rounded-sm",
+        className: "rounded-sm",
       },
       {
         rounded: "size",
         size: "lg",
-        className: "vkui:rounded-lg",
+        className: "rounded-lg",
       },
       {
         rounded: "size",
         size: "xl",
-        className: "vkui:rounded-xl",
+        className: "rounded-xl",
       },
     ],
     defaultVariants: {
@@ -242,44 +238,44 @@ export const buttonAccentColorMap: Record<
   Record<(typeof buttonStateOptions)[number], string>
 > = {
   primary: {
-    default: "--vkui-color-active",
-    inactive: "--vkui-color-inactive-foreground",
-    active: "--vkui-color-active",
+    default: "--color-active",
+    inactive: "--color-inactive-foreground",
+    active: "--color-active",
   },
   secondary: {
-    default: "--vkui-color-active",
-    inactive: "--vkui-color-inactive-foreground",
-    active: "--vkui-color-active",
+    default: "--color-active",
+    inactive: "--color-inactive-foreground",
+    active: "--color-active",
   },
   outline: {
-    default: "--vkui-color-active",
-    inactive: "--vkui-color-inactive",
-    active: "--vkui-color-active",
+    default: "--color-active",
+    inactive: "--color-inactive",
+    active: "--color-active",
   },
   destructive: {
-    default: "--vkui-color-background",
-    inactive: "--vkui-color-background",
-    active: "--vkui-color-background",
+    default: "--color-background",
+    inactive: "--color-background",
+    active: "--color-background",
   },
   ghost: {
-    default: "--vkui-color-active",
-    inactive: "--vkui-color-border",
-    active: "--vkui-color-active",
+    default: "--color-active",
+    inactive: "--color-border",
+    active: "--color-active",
   },
   link: {
-    default: "--vkui-color-active",
-    inactive: "--vkui-color-inactive",
-    active: "--vkui-color-active",
+    default: "--color-active",
+    inactive: "--color-inactive",
+    active: "--color-active",
   },
   active: {
-    default: "--vkui-color-active",
-    inactive: "--vkui-color-inactive-foreground",
-    active: "--vkui-color-active",
+    default: "--color-active",
+    inactive: "--color-inactive-foreground",
+    active: "--color-active",
   },
   inactive: {
-    default: "--vkui-color-inactive",
-    inactive: "--vkui-color-inactive-foreground",
-    active: "--vkui-color-inactive",
+    default: "--color-inactive",
+    inactive: "--color-inactive-foreground",
+    active: "--color-inactive",
   },
 };
 export default buttonVariants;

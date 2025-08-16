@@ -61,7 +61,7 @@ export function Button({
         {...props}
         disabled
       >
-        {loader === "icon" && <LoaderIcon className="vkui:animate-spin" />}
+        {loader === "icon" && <LoaderIcon className="animate-spin" />}
         {children}
       </Comp>
     );

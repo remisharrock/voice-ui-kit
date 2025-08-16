@@ -35,7 +35,7 @@ export const InfoPanel: React.FC<Props> = ({
   if (noInfoPanel) return null;
 
   return (
-    <Panel className="vkui:h-full vkui:overflow-y-auto vkui:overflow-x-hidden">
+    <Panel className="h-full overflow-y-auto overflow-x-hidden">
       {!noStatusInfo && (
         <>
           <PanelHeader variant="inline">
@@ -48,10 +48,7 @@ export const InfoPanel: React.FC<Props> = ({
       )}
       {!noDevices && (
         <>
-          <PanelHeader
-            className="vkui:border-t vkui:border-t-border"
-            variant="inline"
-          >
+          <PanelHeader className="border-t border-t-border" variant="inline">
             <PanelTitle>Devices</PanelTitle>
           </PanelHeader>
           <PanelContent>
@@ -63,10 +60,7 @@ export const InfoPanel: React.FC<Props> = ({
       )}
       {!noSessionInfo && (
         <>
-          <PanelHeader
-            className="vkui:border-t vkui:border-t-border"
-            variant="inline"
-          >
+          <PanelHeader className="border-t border-t-border" variant="inline">
             <PanelTitle>Session</PanelTitle>
           </PanelHeader>
           <PanelContent>

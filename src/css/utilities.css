@@ -1,20 +1,16 @@
 @utility button-* {
   height: --value(--button-size-*);
-  padding-inline: calc(--value(--button-size-*) * var(--vkui-button-px-mul));
-  gap: calc(--value(--button-size-*) * var(--vkui-button-px-gap-mul));
+  padding-inline: calc(--value(--button-size-*) * var(--button-px-mul));
+  gap: calc(--value(--button-size-*) * var(--button-px-gap-mul));
 
   /* Resize spacing when button contains SVG icon */
   &:has(> svg) {
-    padding-inline: calc(
-      --value(--button-size-*) * var(--vkui-button-px-icon-mul)
-    );
+    padding-inline: calc(--value(--button-size-*) * var(--button-px-icon-mul));
   }
 }
 
 @utility button-icon-* {
   height: --value(--button-size-*);
   width: --value(--button-size-*);
-  padding-inline: calc(
-    --value(--button-size-*) * var(--vkui-button-px-icon-mul)
-  );
+  padding-inline: calc(--value(--button-size-*) * var(--button-px-icon-mul));
 }

@@ -17,18 +17,16 @@ export const DataList: React.FC<DataListProps> = ({
   return (
     <dl
       className={cn(
-        "vkui:text-sm vkui:grid vkui:grid-cols-[1fr_2fr] vkui:gap-2 vkui:items-center",
+        "text-sm grid grid-cols-[1fr_2fr] gap-2 items-center",
         classNames.container,
       )}
     >
       {Object.entries(data).map(([key, value]) => (
         <React.Fragment key={key}>
-          <dt className={cn("vkui:text-muted-foreground", classNames.key)}>
-            {key}
-          </dt>
+          <dt className={cn("text-muted-foreground", classNames.key)}>{key}</dt>
           <dd
             className={cn(
-              "vkui:text-right vkui:font-mono vkui:text-xs vkui:min-w-0 vkui:truncate",
+              "text-right font-mono text-xs min-w-0 truncate",
               classNames.value,
             )}
           >

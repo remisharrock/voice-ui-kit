@@ -68,7 +68,7 @@ export const PlasmaVisualizer = () => {
     <Plasma
       ref={shaderRef}
       initialConfig={defaultConfig}
-      className="vkui:absolute vkui:inset-0 vkui:pointer-events-none vkui:animate-fade-in vkui:z-0"
+      className="absolute inset-0 pointer-events-none animate-fade-in z-0"
       audioTrack={audioTrack}
     />
   );

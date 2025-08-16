@@ -33,13 +33,8 @@ export const CopyText: React.FC<CopyTextProps> = ({
   };
 
   return (
-    <div
-      className={cn(
-        "vkui:flex vkui:items-center vkui:overflow-hidden vkui:w-full",
-        className,
-      )}
-    >
-      <span className="vkui:truncate vkui:min-w-0">{text}</span>
+    <div className={cn("flex items-center overflow-hidden w-full", className)}>
+      <span className="truncate min-w-0">{text}</span>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -47,7 +42,7 @@ export const CopyText: React.FC<CopyTextProps> = ({
               variant="ghost"
               isIcon
               size="sm"
-              className="vkui:flex-none vkui:text-muted-foreground"
+              className="flex-none text-muted-foreground"
               onClick={copyToClipboard}
               aria-label="Copy to clipboard"
             >

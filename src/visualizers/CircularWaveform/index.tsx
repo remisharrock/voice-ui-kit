@@ -204,7 +204,7 @@ const CircularWaveform = ({
     <div
       ref={containerRef}
       className={cn(
-        "circular-waveform-container vkui:w-full vkui:h-full vkui:flex vkui:items-center vkui:justify-center",
+        "circular-waveform-container w-full h-full flex items-center justify-center",
         className,
       )}
       style={{ position: "relative" }}

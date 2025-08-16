@@ -28,15 +28,15 @@ export const ClientStatusComponent = ({
   return (
     <span
       className={cn(
-        "vkui:mono-upper vkui:text-muted-foreground vkui:font-medium vkui:flex vkui:items-center vkui:gap-1.5 vkui:leading-none vkui:justify-end",
+        "mono-upper text-muted-foreground font-medium flex items-center gap-1.5 leading-none justify-end",
         {
-          "vkui:text-active":
+          "text-active":
             transportState === "connected" || transportState === "ready",
-          "vkui:text-destructive": transportState === "error",
-          "vkui:text-subtle/50 vkui:dark:text-subtle/80":
+          "text-destructive": transportState === "error",
+          "text-subtle/50 dark:text-subtle/80":
             transportState === "disconnected",
-          "vkui:text-subtle": !transportState,
-          "vkui:animate-pulse": [
+          "text-subtle": !transportState,
+          "animate-pulse": [
             "initializing",
             "authenticating",
             "authenticated",
@@ -50,7 +50,7 @@ export const ClientStatusComponent = ({
       {transportState &&
         ["authenticating", "authenticated", "connecting"].includes(
           transportState,
-        ) && <LoaderIcon size={12} className="vkui:animate-spin" />}
+        ) && <LoaderIcon size={12} className="animate-spin" />}
     </span>
   );
 };

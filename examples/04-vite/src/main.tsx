@@ -44,13 +44,13 @@ createRoot(document.getElementById("root")!).render(
               noGradientBorder={false}
               rounded="xl"
             >
-              <CardContent className="vkui:flex vkui:flex-col vkui:gap-4">
+              <CardContent className="flex flex-col gap-4">
                 <VoiceVisualizer
                   participantType="bot"
-                  className="vkui:bg-accent vkui:rounded-lg"
+                  className="bg-accent rounded-lg"
                 />
                 <Divider />
-                <div className="vkui:flex vkui:flex-col vkui:gap-4">
+                <div className="flex flex-col gap-4">
                   <UserAudioControl size="lg" />
                   <ConnectButton
                     size="lg"

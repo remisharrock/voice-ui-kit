@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  ConversationProvider,
+  type ConversationProviderRef,
+} from "@/components/ConversationContext";
 import AudioOutput from "@/components/elements/AudioOutput";
 import { ClientStatus } from "@/components/elements/ClientStatus";
 import ConnectButton from "@/components/elements/ConnectButton";
@@ -33,10 +37,6 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  ConversationProvider,
-  type ConversationProviderRef,
-} from "@/contexts/ConversationContext";
 import {
   BotIcon,
   ChevronsLeftRightEllipsisIcon,
@@ -372,7 +372,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
     // Return loading state until client is ready (prevents hydration mismatch)
     if (!isClientReady || !client) {
       return (
-        <div className="vkui:flex vkui:items-center vkui:justify-center vkui:h-full vkui:w-full">
+        <div className="flex items-center justify-center h-full w-full">
           <SpinLoader />
         </div>
       );
@@ -389,7 +389,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
           {error && (
             <Banner
               variant="destructive"
-              className="vkui:animate-in vkui:fade-in vkui:duration-300"
+              className="animate-in fade-in duration-300"
             >
               <BannerIcon icon={CircleAlertIcon} />
               <BannerTitle>
@@ -398,23 +398,21 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
               <BannerClose variant="destructive" />
             </Banner>
           )}
-          <div className="vkui:grid vkui:grid-cols-1 vkui:grid-rows-[min-content_1fr] vkui:sm:grid-rows-[min-content_1fr_auto] vkui:h-full vkui:w-full vkui:overflow-auto">
-            <div className="vkui:grid vkui:grid-cols-2 vkui:sm:grid-cols-[150px_1fr_150px] vkui:gap-2 vkui:items-center vkui:justify-center vkui:p-2 vkui:bg-background vkui:sm:relative vkui:top-0 vkui:w-full vkui:z-10">
+          <div className="grid grid-cols-1 grid-rows-[min-content_1fr] sm:grid-rows-[min-content_1fr_auto] h-full w-full overflow-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-[150px_1fr_150px] gap-2 items-center justify-center p-2 bg-background sm:relative top-0 w-full z-10">
               {noLogo ? (
-                <span className="vkui:h-6" />
+                <span className="h-6" />
               ) : (
                 (logoComponent ?? (
-                  <PipecatLogo className="vkui:h-6 vkui:w-auto vkui:text-foreground" />
+                  <PipecatLogo className="h-6 w-auto text-foreground" />
                 ))
               )}
-              <strong className="vkui:hidden vkui:sm:block vkui:text-center">
-                {title}
-              </strong>
-              <div className="vkui:flex vkui:items-center vkui:justify-end vkui:gap-2 vkui:sm:gap-3 vkui:xl:gap-6">
-                <div className="vkui:flex vkui:items-center vkui:gap-1">
+              <strong className="hidden sm:block text-center">{title}</strong>
+              <div className="flex items-center justify-end gap-2 sm:gap-3 xl:gap-6">
+                <div className="flex items-center gap-1">
                   {!noThemeSwitch && <ThemeModeToggle />}
                   <Button
-                    className="vkui:hidden vkui:sm:flex"
+                    className="hidden sm:flex"
                     variant={"ghost"}
                     isIcon
                     onClick={() => {
@@ -438,14 +436,14 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                 />
               </div>
             </div>
-            <div className="vkui:hidden vkui:sm:block">
-              <ResizablePanelGroup direction="vertical" className="vkui:h-full">
+            <div className="hidden sm:block">
+              <ResizablePanelGroup direction="vertical" className="h-full">
                 <ResizablePanel defaultSize={70} minSize={50}>
                   <ResizablePanelGroup direction="horizontal">
                     {!noBotArea && (
                       <>
                         <ResizablePanel
-                          className="vkui:flex vkui:flex-col vkui:gap-2 vkui:p-2 vkui:xl:gap-4"
+                          className="flex flex-col gap-2 p-2 xl:gap-4"
                           defaultSize={26}
                           maxSize={30}
                           minSize={10}
@@ -457,7 +455,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                           {!noBotAudio && (
                             <BotAudioPanel
                               className={cn({
-                                "vkui:mb-auto": noBotVideo,
+                                "mb-auto": noBotVideo,
                               })}
                               collapsed={isBotAreaCollapsed}
                             />
@@ -465,7 +463,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                           {!noBotVideo && (
                             <BotVideoPanel
                               className={cn({
-                                "vkui:mt-auto": noBotAudio,
+                                "mt-auto": noBotAudio,
                               })}
                               collapsed={isBotAreaCollapsed}
                             />
@@ -479,7 +477,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                     {!noConversationPanel && (
                       <>
                         <ResizablePanel
-                          className="vkui:h-full vkui:p-2"
+                          className="h-full p-2"
                           defaultSize={collapseInfoPanel ? 70 : 47}
                           minSize={30}
                         >
@@ -502,10 +500,10 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                         minSize={15}
                         onCollapse={() => setIsInfoPanelCollapsed(true)}
                         onExpand={() => setIsInfoPanelCollapsed(false)}
-                        className="vkui:p-2"
+                        className="p-2"
                       >
                         {isInfoPanelCollapsed ? (
-                          <div className="vkui:flex vkui:flex-col vkui:items-center vkui:justify-center vkui:gap-4 vkui:h-full">
+                          <div className="flex flex-col items-center justify-center gap-4 h-full">
                             {!noStatusInfo && (
                               <Popover>
                                 <PopoverTrigger asChild>
@@ -526,7 +524,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                                   </Button>
                                 </PopoverTrigger>
                                 <PopoverContent
-                                  className="vkui:flex vkui:flex-col vkui:gap-2"
+                                  className="flex flex-col gap-2"
                                   side="left"
                                 >
                                   {!noUserAudio && <UserAudioControl />}
@@ -586,13 +584,13 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                     : "conversation"
                   : "bot"
               }
-              className="vkui:flex vkui:flex-col vkui:gap-0 vkui:sm:hidden vkui:overflow-hidden"
+              className="flex flex-col gap-0 sm:hidden overflow-hidden"
             >
-              <div className="vkui:flex vkui:flex-col vkui:overflow-hidden vkui:flex-1">
+              <div className="flex flex-col overflow-hidden flex-1">
                 {!noBotArea && (
                   <TabsContent
                     value="bot"
-                    className="vkui:flex-1 vkui:overflow-auto vkui:flex vkui:flex-col vkui:gap-4 vkui:p-2"
+                    className="flex-1 overflow-auto flex flex-col gap-4 p-2"
                   >
                     {!noBotAudio && <BotAudioPanel />}
                     {!noBotVideo && <BotVideoPanel />}
@@ -601,7 +599,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                 {!noConversationPanel && (
                   <TabsContent
                     value="conversation"
-                    className="vkui:flex-1 vkui:overflow-auto"
+                    className="flex-1 overflow-auto"
                   >
                     <ConversationPanel
                       noConversation={noConversation}
@@ -609,10 +607,7 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                     />
                   </TabsContent>
                 )}
-                <TabsContent
-                  value="info"
-                  className="vkui:flex-1 vkui:overflow-auto vkui:p-2"
-                >
+                <TabsContent value="info" className="flex-1 overflow-auto p-2">
                   <InfoPanel
                     noAudioOutput={noAudioOutput}
                     noUserAudio={noUserAudio}
@@ -621,14 +616,11 @@ export const ConsoleTemplate: React.FC<ConsoleTemplateProps> = memo(
                     sessionId={sessionId}
                   />
                 </TabsContent>
-                <TabsContent
-                  value="events"
-                  className="vkui:flex-1 vkui:overflow-auto"
-                >
+                <TabsContent value="events" className="flex-1 overflow-auto">
                   <EventsPanel />
                 </TabsContent>
               </div>
-              <TabsList className="vkui:w-full vkui:h-12 vkui:rounded-none vkui:z-10 vkui:mt-auto vkui:shrink-0">
+              <TabsList className="w-full h-12 rounded-none z-10 mt-auto shrink-0">
                 {!noBotArea && (
                   <TabsTrigger value="bot">
                     <BotIcon />

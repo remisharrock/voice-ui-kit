@@ -1,6 +1,6 @@
 ---
 title: Styling and Theming
-description: Using, customizing and extending the Voice UI Kit styles
+description: Using, customizing, and extending the Voice UI Kit styles
 icon: "SwatchBook"
 ---
 
@@ -8,24 +8,24 @@ The Voice UI Kit ships with a default theme that can be used as-is or modified t
 
 It is implemented using [Tailwind CSS](https://tailwindcss.com/) V4 and built to be compatible with a developer's own styling or Tailwind implementation.
 
-- `@pipecat-ai/voice-ui-kit/styles.css` - The default theme, prefixed with `vkui:`
+- `@pipecat-ai/voice-ui-kit/styles.css` - The default theme
 - `@pipecat-ai/voice-ui-kit/styles.scoped.css` - The default theme, scoped to a `.vkui-root` class
-- Dark mode support (via `:root.vkui:dark`)
-- ShadUI compatibility (via `@theme static`)
+- Dark mode support
+- ShadUI compatibility (components registry coming soon!)
 
-## Adding styles
+## Setup
 
 The Voice UI Kit CSS can be imported from the `@pipecat-ai/voice-ui-kit/styles` package.
-
-The CSS file can be imported in your application CSS file (e.g., `global.css`) or directly in your JavaScript code (e.g., `layout.tsx`).
 
 ```css title="global.css"
 @import "@pipecat-ai/voice-ui-kit/styles";
 
-/* ... */
+:root {
+  /* etc */
+}
 ```
 
-If you're using Tailwind, you can import it alongside your own custom styles:
+If you're using Tailwind in your project, you can import it alongside your own custom styles:
 
 ```css title="global.css"
 @import "tailwindcss";
@@ -33,14 +33,14 @@ If you're using Tailwind, you can import it alongside your own custom styles:
 
 @import "@pipecat-ai/voice-ui-kit/styles";
 
-/* ... */
+:root {
+  /* etc */
+}
 ```
 
-You can also include the styles in your application code:
+Alternatively, you can include the styles in your application code:
 
 ```tsx title="layout.tsx"
-import "./globals.css";
-
 import "@pipecat-ai/voice-ui-kit/styles";
 
 export default function RootLayout({
@@ -56,23 +56,118 @@ export default function RootLayout({
 }
 ```
 
-### Production-ready builds
+## Customization
 
-Bundled styles are left unoptimized, with all utility classes left inlined. This allows developers to choose a build and optimization strategy that works best for them.
+Developers can approach customization in a few different ways:
 
-For example, in production, it's recommended to apply minification and other post-processing to the styles at build time. Most modern frameworks (such as Vite, Next.js, etc.) have out-of-the-box support for this.
+- Passing custom styles or class names through to the components.
+- Overriding CSS variables, such as colors, fonts, etc.
+- Installing individual components from the registry and extending them (ejecting.)
 
-## Prefixing and scoping
+<Accordions type="single">
+  <Accordion title="Passing custom className">
+    <p>
+      You can pass a custom className to the component to override the default styles.
+    </p>
+    
+    ```tsx
+    import { Button } from "@pipecat-ai/voice-ui-kit";
+    
+    // Override with Tailwind classes
+    <Button 
+      className="bg-blue-500 hover:bg-blue-600 text-white border-0" 
+      variant="primary"
+    >
+      Custom Button
+    </Button>
+    ```
+  </Accordion>
+  
+  <Accordion title="Overriding CSS variables">
+    <p>
+      You can override the CSS variables to customize the component's appearance globally or locally.
+    </p>
+    
+    ```css
+    /* Global overrides in your CSS */
+    :root {
+      --color-primary: #3b82f6;
+      --color-primary-foreground: #ffffff;
+      --button-size-lg: 3rem;
+      --shadow-short: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Dark mode specific overrides */
+    .dark {
+      --color-primary: #60a5fa;
+      --color-background: #0f172a;
+    }
+    
+    /* Component-specific overrides */
+    .my-theme {
+      --color-active: #10b981;
+      --color-active-foreground: #ffffff;
+    }
+    ```
+    
+    ```tsx
+    // Apply theme to specific components
+    <div className="my-theme">
+      <Button variant="active">Success Action</Button>
+    </div>
+    ```
+  </Accordion>
+  
+  <Accordion title="Installing components from the registry">
+    <p>
+      Work in progress. This will allow you to install individual components and extend them directly in your codebase.
+    </p>
+    
+    ```bash
+    # Future command (not yet available)
+    npx @pipecat-ai/voice-ui-kit add button
+    ```
+    
+    ```tsx
+    // Future usage - direct component extension
+    // import { Button } from "./components/ui/button";
+    // 
+    // export function CustomButton({ className, ...props }) {
+    //   return (
+    //     <Button 
+    //       className={cn("my-custom-styles", className)} 
+    //       {...props} 
+    //     />
+    //   );
+    // }
+    ```
+  </Accordion>
+</Accordions>
 
-Voice UI Kit variables and utilities are prefixed with a `vkui` namespace. This means you can use them without worrying about conflicts with your own styles.
+### Variable list
 
-```html
-<div class="vkui:flex">...</div>
+See available variables in the [here](https://github.com/pipecat-ai/voice-ui-kit/blob/main/src/index.css) section.
+
+## Themes
+
+We assume the Voice UI Kit will be used alongside a developer's own visual design system and ships with a fairly minimal theme out-of-the-box.
+
+However, we've also included a few themes that can be used as-is or modified to your liking.
+
+```css title="global.css"
+@import "@pipecat-ai/voice-ui-kit/styles"; 
+@import "@pipecat-ai/voice-ui-kit/themes/terminal";
 ```
 
-By design, the styles export is left unscoped. This means using the CSS import alongside your own project's Tailwind theme will apply to Voice UI Kit components as well.
+<Callout>Note: You must import the Voice UI Kit styles before importing a theme.</Callout>
 
-While this can be preferable in some cases, sometimes it's not ideal. The Voice UI Kit bundle includes a fully scoped CSS file that can be used instead:
+Theme files are typically no more than CSS variable overrides.
+
+## Scoping
+
+The Voice UI Kit components are intended to be placed in a developer's own application, inheriting from their own styles or Tailwind theme.
+
+Sometimes, however, it's preferable to isolate styles from your own. The Voice UI Kit bundle includes a fully scoped CSS file that can be used instead:
 
 ```css title="global.css"
 @import "@pipecat-ai/voice-ui-kit/styles.scoped";
@@ -101,103 +196,68 @@ The Voice UI Kit theme is fully customizable and can be aligned with your applic
 
 :root {
   /* Light mode overrides */
-  --vkui-color-background: oklch(1 0 0);
-  --vkui-color-primary: var(--color-blue-500);
-}
-
-.vkui\:dark {
-  /* Dark mode overrides */
-  --vkui-color-background: oklch(20.5% 0.004 285.885);
-  --vkui-color-primary: var(--color-blue-400);
-}
-```
-
-### Variable list
-
-Alongside the primary [Tailwind variable list](https://tailwindcss.com/docs/theme#default-theme-variable-reference), the Voice UI Kit theme includes the following variables:
-
-```css
-:root {
-  --font-sans: "Geist", "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Geist Mono", "SF Mono", Consolas, "Roboto Mono", monospace;
-
-  --shadow-long:
-    0px 89px 36px rgba(0, 0, 0, 0.01), 0px 50px 30px rgba(0, 0, 0, 0.03),
-    0px 22px 22px rgba(0, 0, 0, 0.04), 0px 6px 12px rgba(0, 0, 0, 0.05);
-  --shadow-short:
-    0px 10px 15px -3px rgba(0, 0, 0, 0.05), 0px 4px 6px -2px rgba(0, 0, 0, 0.02);
-  --shadow-xshort:
-    0px 7px 3px rgba(0, 0, 0, 0.01), 0px 4px 2px rgba(0, 0, 0, 0.03),
-    0px 2px 2px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.05);
-
-  --radius-panel: var(--vkui-radius-sm);
-  --radius-element: var(--vkui-radius-lg);
-
-  /* ShadUI colors */
   --color-background: oklch(1 0 0);
-  --color-foreground: oklch(0.141 0.005 285.823);
-  --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(55.2% 0.016 285.938);
-  --color-popover: oklch(1 0 0);
-  --color-popover-foreground: oklch(0.141 0.005 285.823);
-  --color-primary: oklch(0.21 0.006 285.885);
-  --color-primary-foreground: oklch(0.985 0 0);
-  --color-secondary: oklch(0.967 0.001 286.375);
-  --color-secondary-foreground: oklch(0.21 0.006 285.885);
-  --color-muted: oklch(0.967 0.001 286.375);
-  --color-muted-foreground: oklch(0.552 0.016 285.938);
-  --color-accent: oklch(0.967 0.001 286.375);
-  --color-accent-foreground: oklch(0.21 0.006 285.885);
-  --color-destructive: oklch(63.7% 0.237 25.331);
-  --color-border: oklch(0.92 0.004 286.32);
-  --color-input: oklch(0.92 0.004 286.32);
-  --color-ring: oklch(0.705 0.015 286.067);
-  --color-subtle: oklch(0.705 0.015 286.067);
-  --color-mute: oklch(63.7% 0.237 25.331);
-  --color-mute-foreground: oklch(97% 0.05 25.331);
+  --color-primary: var(--color-blue-500);
+}
 
-  /* Voice UI Kit colors */
-  --color-active: oklch(69.6% 0.17 162.48);
-  --color-active-foreground: oklch(97.9% 0.021 166.113);
-  --color-active-ring: oklch(69.6% 0.17 162.48 / 20%);
-  --color-active-accent: oklch(69.6% 0.17 162.48 / 10%);
-  --color-inactive: oklch(0.7022 0.1892 22.23);
-  --color-inactive-foreground: oklch(97.1% 0.013 17.38);
-  --color-inactive-ring: oklch(57.7% 0.245 27.325 / 20%);
-  --color-inactive-accent: oklch(57.7% 0.245 27.325 / 10%);
-  --color-agent: oklch(58.5% 0.233 277.117);
-  --color-client: oklch(62.3% 0.214 259.815);
-  --color-chart-1: oklch(0.646 0.222 41.116);
-  --color-chart-2: oklch(0.6 0.118 184.704);
-  --color-chart-3: oklch(0.398 0.07 227.392);
-  --color-chart-4: oklch(0.828 0.189 84.429);
-  --color-chart-5: oklch(0.769 0.188 70.08);
+.dark {
+  /* Dark mode overrides */
+  --color-background: oklch(20.5% 0.004 285.885);
+  --color-primary: var(--color-blue-400);
 }
 ```
 
 ## Dark mode
 
-The Voice UI Kit theme supports dark mode, using a `:root.vkui:dark` selector:
+The Voice UI Kit theme supports dark mode using a `:root.dark` selector:
 
 ```html
-<html class="vkui:dark">
+<html class="dark">
   <body>
     ...
   </body>
 </html>
 ```
 
-### Programmatic dark mode
+### Theme Context
 
-You can also toggle dark mode programmatically by adding or removing the `vkui:dark` class from your HTML element:
+A `ThemeProvider` is available to wrap your application, useful for programmatic toggling and local storage persistence.
 
-```javascript
-// Enable dark mode
-document.documentElement.classList.add("vkui:dark");
+```tsx title="layout.tsx"
+import { ThemeProvider } from "@pipecat-ai/voice-ui-kit";
 
-// Disable dark mode
-document.documentElement.classList.remove("vkui:dark");
-
-// Toggle dark mode
-document.documentElement.classList.toggle("vkui:dark");
+return (
+  <ThemeProvider defaultTheme="dark">
+    {children}
+  </ThemeProvider>
+);
 ```
+
+## Class merging
+
+The Voice UI Kit uses custom design tokens and utilities that aren't part of standard Tailwind CSS:
+
+- **Custom shadow classes**: `shadow-xshort`, `shadow-short`, `shadow-long`, `shadow-xlong`
+- **Custom button sizing**: `button-sm`, `button-md`, `button-lg`, `button-xl` and their icon variants
+- **Custom spacing tokens**: `element-xs`, `element-sm`, `element-md`, `element-lg`, `element-xl`, `element-2xl`
+
+These utilities support consistency across components and primitives, as well as reduce the amount of inline classes required.
+
+Without proper merge handling, these custom classes would conflict with each other or not merge correctly when combined with standard Tailwind classes.
+ 
+
+### Usage
+
+The `cn` utility function is used throughout the Voice UI Kit components to merge class names intelligently:
+
+```tsx
+import { cn } from "@pipecat-ai/voice-ui-kit";
+
+// This will properly merge shadow classes
+<Card className={cn("shadow-short", className)} />
+
+// This will properly merge button sizing
+<Button className={cn("button-lg", customClasses)} />
+```
+
+This ensures that when developers pass custom classes to components, they merge correctly with the Voice UI Kit's design system without conflicts.

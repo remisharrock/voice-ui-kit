@@ -7,23 +7,23 @@ import { getPipecatUIContainer } from "@/lib/dom";
 import { cn } from "@/lib/utils";
 
 const dropdownMenuContentVariants = cva(
-  "vkui:bg-popover vkui:text-popover-foreground vkui:data-[state=open]:animate-in vkui:data-[state=closed]:animate-out vkui:data-[state=closed]:fade-out-0 vkui:data-[state=open]:fade-in-0 vkui:data-[state=closed]:zoom-out-95 vkui:data-[state=open]:zoom-in-95 vkui:data-[side=bottom]:slide-in-from-top-2 vkui:data-[side=left]:slide-in-from-right-2 vkui:data-[side=right]:slide-in-from-left-2 vkui:data-[side=top]:slide-in-from-bottom-2 vkui:z-50 vkui:max-h-(--radix-dropdown-menu-content-available-height) vkui:min-w-[8rem] vkui:origin-(--radix-dropdown-menu-content-transform-origin) vkui:overflow-x-hidden vkui:overflow-y-auto vkui:border vkui:p-1",
+  "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto border p-1",
   {
     variants: {
       rounded: {
-        base: "vkui:rounded-base",
-        none: "vkui:rounded-none",
-        sm: "vkui:rounded-sm",
-        md: "vkui:rounded-md",
-        lg: "vkui:rounded-lg",
-        xl: "vkui:rounded-xl",
+        base: "rounded-base",
+        none: "rounded-none",
+        sm: "rounded-sm",
+        md: "rounded-md",
+        lg: "rounded-lg",
+        xl: "rounded-xl",
       },
       shadow: {
-        none: "vkui:shadow-none",
-        xshort: "vkui:shadow-xshort",
-        short: "vkui:shadow-short",
-        long: "vkui:shadow-long",
-        xlong: "vkui:shadow-xlong",
+        none: "shadow-none",
+        xshort: "shadow-xshort",
+        short: "shadow-short",
+        long: "shadow-long",
+        xlong: "shadow-xlong",
       },
     },
     defaultVariants: {
@@ -111,7 +111,7 @@ function DropdownMenuItem({
       data-inset={inset}
       data-variant={variant}
       className={cn(
-        "vkui:focus:bg-accent vkui:focus:text-accent-foreground vkui:data-[variant=destructive]:text-destructive vkui:data-[variant=destructive]:focus:bg-destructive/10 vkui:dark:data-[variant=destructive]:focus:bg-destructive/20 vkui:data-[variant=destructive]:focus:text-destructive vkui:data-[variant=destructive]:*:[svg]:!text-destructive vkui:[&_svg:not([class*='text-'])]:text-muted-foreground vkui:relative vkui:flex vkui:cursor-default vkui:items-center vkui:gap-2 vkui:rounded-base vkui:px-2 vkui:py-1.5 vkui:text-sm vkui:outline-hidden vkui:select-none vkui:data-[disabled]:pointer-events-none vkui:data-[disabled]:opacity-50 vkui:data-[inset]:pl-8 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 vkui:[&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-base px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
@@ -129,14 +129,14 @@ function DropdownMenuCheckboxItem({
     <DropdownMenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
       className={cn(
-        "vkui:focus:bg-accent vkui:focus:text-accent-foreground vkui:relative vkui:flex vkui:cursor-default vkui:items-center vkui:gap-2 vkui:rounded-sm vkui:py-1.5 vkui:pr-2 vkui:pl-8 vkui:text-sm vkui:outline-hidden vkui:select-none vkui:data-[disabled]:pointer-events-none vkui:data-[disabled]:opacity-50 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 vkui:[&_svg:not([class*='size-'])]:size-4",
-        checked && "vkui:font-medium vkui:bg-accent",
+        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        checked && "font-medium bg-accent",
         className,
       )}
       checked={checked}
       {...props}
     >
-      <span className="vkui:pointer-events-none vkui:absolute vkui:left-2 vkui:flex size-3.5 vkui:items-center vkui:justify-center">
+      <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
           <CheckIcon />
         </DropdownMenuPrimitive.ItemIndicator>
@@ -166,14 +166,14 @@ function DropdownMenuRadioItem({
     <DropdownMenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
       className={cn(
-        "vkui:focus:bg-accent vkui:focus:text-accent-foreground vkui:relative vkui:flex vkui:cursor-default vkui:items-center vkui:gap-2 vkui:rounded-panel vkui:py-1.5 vkui:pr-2 vkui:pl-8 vkui:text-sm vkui:outline-hidden vkui:select-none vkui:data-[disabled]:pointer-events-none vkui:data-[disabled]:opacity-50 vkui:[&_svg]:pointer-events-none vkui:[&_svg]:shrink-0 vkui:[&_svg:not([class*='size-'])]:size-4",
+        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-panel py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}
     >
-      <span className="vkui:pointer-events-none vkui:absolute vkui:left-2 vkui:flex vkui:size-3.5 vkui:items-center vkui:justify-center">
+      <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
-          <CircleIcon className="size-2 vkui:fill-current" />
+          <CircleIcon className="size-2 fill-current" />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -193,7 +193,7 @@ function DropdownMenuLabel({
       data-slot="dropdown-menu-label"
       data-inset={inset}
       className={cn(
-        "vkui:px-2 vkui:py-1.5 vkui:text-sm vkui:font-medium vkui:data-[inset]:pl-8",
+        "px-2 py-1.5 text-sm font-medium data-[inset]:pl-8",
         className,
       )}
       {...props}
@@ -208,7 +208,7 @@ function DropdownMenuSeparator({
   return (
     <DropdownMenuPrimitive.Separator
       data-slot="dropdown-menu-separator"
-      className={cn("vkui:bg-border vkui:-mx-1 vkui:my-1 vkui:h-px", className)}
+      className={cn("bg-border -mx-1 my-1 h-px", className)}
       {...props}
     />
   );
@@ -222,7 +222,7 @@ function DropdownMenuShortcut({
     <span
       data-slot="dropdown-menu-shortcut"
       className={cn(
-        "vkui:text-muted-foreground vkui:ml-auto vkui:text-xs vkui:tracking-widest",
+        "text-muted-foreground ml-auto text-xs tracking-widest",
         className,
       )}
       {...props}
@@ -249,13 +249,13 @@ function DropdownMenuSubTrigger({
       data-slot="dropdown-menu-sub-trigger"
       data-inset={inset}
       className={cn(
-        "vkui:focus:bg-accent vkui:focus:text-accent-foreground vkui:data-[state=open]:bg-accent vkui:data-[state=open]:text-accent-foreground vkui:flex vkui:cursor-default vkui:items-center vkui:rounded-sm vkui:px-2 vkui:py-1.5 vkui:text-sm vkui:outline-hidden vkui:select-none vkui:data-[inset]:pl-8",
+        "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[inset]:pl-8",
         className,
       )}
       {...props}
     >
       {children}
-      <ChevronRightIcon className="vkui:ml-auto vkui:size-4" />
+      <ChevronRightIcon className="ml-auto size-4" />
     </DropdownMenuPrimitive.SubTrigger>
   );
 }
@@ -271,7 +271,7 @@ function DropdownMenuSubContent({
       data-slot="dropdown-menu-sub-content"
       className={cn(
         dropdownMenuContentVariants({ rounded }),
-        "vkui:overflow-hidden vkui:shadow-lg",
+        "overflow-hidden shadow-lg",
         className,
       )}
       {...props}

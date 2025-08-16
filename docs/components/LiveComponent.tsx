@@ -67,7 +67,7 @@ function stripImportsExportsRequires(snippet: string): string {
   return kept.join("\n");
 }
 
-const defaultPreviewClassName = `vkui-root flex items-center justify-center gap-4 text-base @max-lg:flex-col`;
+const defaultPreviewClassName = `flex items-center justify-center gap-4 text-base @max-lg:flex-col text-foreground`;
 
 export function LiveComponent({
   code,
@@ -82,7 +82,7 @@ export function LiveComponent({
   initialTab = "preview",
   height = "h-fit",
 }: LiveComponentProps) {
-  const { theme: themeFromProvider } = useTheme();
+  const { theme: themeFromProvider, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -120,16 +120,21 @@ export function LiveComponent({
         enableTypeScript={true}
       >
         <Tabs defaultValue={initialTab} items={["Preview", "Code"]}>
-          <Tab value="Preview" className={`@container ${previewClassName}`}>
-            {mounted ? (
-              <LivePreview
-                className={`${defaultPreviewClassName} ${h} ${previewOrientationClass} ${themeFromProvider === "dark" ? "vkui:dark" : ""}`}
-              />
-            ) : (
-              <div className="h-full w-full flex items-center justify-center">
-                <Loader2 className="animate-spin" size={24} />
-              </div>
-            )}
+          <Tab value="Preview" className="@container">
+            <div className={`${previewClassName} relative w-full`}>
+              {mounted ? (
+                <LivePreview
+                  className={`${defaultPreviewClassName} ${h} ${previewOrientationClass} ${themeFromProvider === "dark" ? "dark" : ""}`}
+                />
+              ) : (
+                <div className="h-full w-full flex items-center justify-center">
+                  <Loader2
+                    className="animate-spin text-muted-foreground"
+                    size={24}
+                  />
+                </div>
+              )}
+            </div>
           </Tab>
           <Tab value="Code" className={`${h} ${editorClassName}`}>
             <DynamicCodeBlock
@@ -159,6 +164,10 @@ export function LiveComponent({
           <LiveError />
         </div>
       </LiveProvider>
+      {/* Hardcoded portal structure that matches .vkui-root .dark CSS selector */}
+      <div className="vkui-root">
+        <div className="voice-ui-kit dark" />
+      </div>
     </div>
   );
 }

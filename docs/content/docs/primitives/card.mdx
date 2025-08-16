@@ -1,6 +1,6 @@
 ---
 title: Card
-description: Displays a card with a header and a content.
+description: Displays a card with optional header, content and footer.
 ---
 
 <LiveComponent language="tsx">
@@ -237,16 +237,84 @@ description: Displays a card with a header and a content.
     CardContent,
   } from "@pipecat-ai/voice-ui-kit";
 
-  <>
-    <Card className="w-full" rounded="xl" background="stripes">
+  <div className="flex flex-col gap-4 w-full">
+    <Card rounded="none">
       <CardHeader>
-        <CardTitle>Card with Rounded Corners (xl)</CardTitle>
+        <CardTitle>No Rounded Corners</CardTitle>
       </CardHeader>
-      <CardContent>
-        <pre>rounded="xl"</pre>
-      </CardContent>
     </Card>
-  </>
+    <Card rounded="sm">
+      <CardHeader>
+        <CardTitle>Small Rounded Corners</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card rounded="md">
+      <CardHeader>
+        <CardTitle>Medium Rounded Corners</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card rounded="lg">
+      <CardHeader>
+        <CardTitle>Large Rounded Corners</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card rounded="xl">
+      <CardHeader>
+        <CardTitle>Extra Large Rounded Corners</CardTitle>
+      </CardHeader>
+    </Card>
+  </div>
+`}
+</LiveComponent>
+
+### Shadows
+
+<LiveComponent language="tsx">
+{`
+  import {
+    Card,
+    CardHeader,
+    CardTitle,
+    CardContent,
+  } from "@pipecat-ai/voice-ui-kit";
+
+  <div className="flex flex-col gap-4 w-full">
+    <Card shadow="none">
+      <CardHeader>
+        <CardTitle>No Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card shadow="xshort">
+      <CardHeader>
+        <CardTitle>X-Short Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card shadow="short">
+      <CardHeader>
+        <CardTitle>Short Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card shadow="long">
+      <CardHeader>
+        <CardTitle>Long Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card shadow="xlong">
+      <CardHeader>
+        <CardTitle>X-Long Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card variant="destructive" shadow="short">
+      <CardHeader>
+        <CardTitle>Destructive Short Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+    <Card variant="success" shadow="short">
+      <CardHeader>
+        <CardTitle>Success Short Shadow</CardTitle>
+      </CardHeader>
+    </Card>
+  </div>
 `}
 </LiveComponent>
 
@@ -271,6 +339,27 @@ Note: will not work with rounded corners.
       <CardContent>
         <pre>withElbows={true}</pre>
       </CardContent>
+    </Card>
+  </>
+`}
+</LiveComponent>
+
+### Gradient Border
+
+<LiveComponent language="tsx">
+{`
+  import {
+    Card,
+    CardHeader,
+    CardTitle,
+    CardContent,
+  } from "@pipecat-ai/voice-ui-kit";
+
+  <>
+    <Card className="w-full" withGradientBorder shadow="xlong">
+      <CardHeader>
+        <CardTitle>With Gradient Border (makes shadow stand out more)</CardTitle>
+      </CardHeader>
     </Card>
   </>
 `}

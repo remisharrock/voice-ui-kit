@@ -25,9 +25,9 @@ export const BotVideoPanel: React.FC<BotVideoPanelProps> = ({
   return (
     <Panel
       className={cn(
-        "vkui:flex-1 vkui:mb-auto",
+        "flex-1 mb-auto",
         {
-          "vkui:flex-0 vkui:border-none": collapsed,
+          "flex-0 border-none": collapsed,
         },
         className,
       )}
@@ -38,30 +38,27 @@ export const BotVideoPanel: React.FC<BotVideoPanelProps> = ({
         </PanelHeader>
       )}
       <PanelContent
-        className={cn("vkui:overflow-hidden vkui:flex-1", {
-          "vkui:aspect-video": collapsed,
+        className={cn("overflow-hidden flex-1", {
+          "aspect-video": collapsed,
         })}
       >
         {track ? (
           <div
-            className={cn(
-              "vkui:relative vkui:flex vkui:h-full vkui:bg-muted vkui:rounded-sm",
-              {
-                "vkui:aspect-video": collapsed,
-              },
-            )}
+            className={cn("relative flex h-full bg-muted rounded-sm", {
+              "aspect-video": collapsed,
+            })}
           >
             <PipecatClientVideo
               participant="bot"
-              className="vkui:aspect-video vkui:max-h-full"
+              className="aspect-video max-h-full"
               fit="contain"
             />
           </div>
         ) : (
-          <div className="vkui:text-subtle vkui:flex vkui:w-full vkui:h-full vkui:gap-2 vkui:items-center vkui:justify-center">
+          <div className="text-subtle flex w-full h-full gap-2 items-center justify-center">
             <VideoOffIcon size={16} />
             {!collapsed && (
-              <span className="vkui:font-semibold vkui:text-sm">No video</span>
+              <span className="font-semibold text-sm">No video</span>
             )}
           </div>
         )}

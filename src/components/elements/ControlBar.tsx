@@ -10,14 +10,7 @@ interface Props extends CardProps {
 export const ControlBarDivider = ({
   className,
 }: React.ComponentProps<"div">) => {
-  return (
-    <div
-      className={cn(
-        "vkui:w-px vkui:bg-border vkui:self-stretch vkui:mx-2 ",
-        className,
-      )}
-    />
-  );
+  return <div className={cn("w-px bg-border self-stretch mx-2 ", className)} />;
 };
 
 export const ControlBar = ({
@@ -34,13 +27,11 @@ export const ControlBar = ({
       {...props}
       className={cn(
         !noAnimateIn &&
-          "vkui:animate-in vkui:fade-in vkui:slide-in-from-bottom-10 vkui:duration-500",
+          "animate-in fade-in slide-in-from-bottom-10 duration-500",
         className,
       )}
     >
-      <CardContent className="vkui:flex vkui:flex-row vkui:gap-4">
-        {children}
-      </CardContent>
+      <CardContent className="flex flex-row gap-4">{children}</CardContent>
     </Card>
   );
 };

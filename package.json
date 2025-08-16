@@ -88,7 +88,7 @@
     "build:css": "node scripts/build-css.js",
     "build:themes": "echo 'Themes are now built automatically with build:css'",
     "dev": "npx ladle serve",
-    "lint": "eslint ."
+    "lint": "eslint ./src"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.15",

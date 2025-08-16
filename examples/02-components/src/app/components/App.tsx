@@ -141,7 +141,7 @@ export const App = ({ connectParams, transportType }: AppProps) => {
                 <div className="absolute w-full h-full flex items-center justify-center">
                   <TranscriptOverlay
                     participant="remote"
-                    className="vkui:max-w-md"
+                    className="max-w-md"
                   />
                 </div>
               )}

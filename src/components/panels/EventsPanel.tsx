@@ -217,30 +217,30 @@ export const EventsPanel: React.FC<Props> = ({ collapsed = false }) => {
   return (
     <Panel
       className={cn(
-        "vkui:bg-accent vkui:dark:bg-accent/50 vkui:h-full vkui:rounded-none! vkui:max-sm:border-none vkui:sm:border-x-0 vkui:sm:mt-2",
+        "bg-accent dark:bg-accent/50 h-full rounded-none! max-sm:border-none sm:border-x-0 sm:mt-2",
         {
-          "vkui:bg-accent vkui:opacity-50": collapsed,
+          "bg-accent opacity-50": collapsed,
         },
       )}
     >
       <PanelHeader
         className={cn(
-          "vkui:gap-4 vkui:justify-start vkui:items-center vkui:@md:py-2 vkui:bg-background",
+          "gap-4 justify-start items-center @md:py-2 bg-background",
           {
-            "vkui:py-2!": collapsed,
+            "py-2!": collapsed,
           },
         )}
       >
         <PanelTitle>Events</PanelTitle>
         {!collapsed && (
-          <div className="vkui:relative">
-            <div className="vkui:absolute vkui:inset-y-0 vkui:left-0 vkui:flex vkui:items-center vkui:pl-2 vkui:pointer-events-none">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
               <FunnelIcon size={16} />
             </div>
             <Input
               type="text"
               placeholder="Filter"
-              className="vkui:bg-secondary vkui:max-w-48 vkui:ps-8"
+              className="bg-secondary max-w-48 ps-8"
               onChange={(e) => {
                 setFilter(e.target.value.toLowerCase());
               }}
@@ -249,14 +249,14 @@ export const EventsPanel: React.FC<Props> = ({ collapsed = false }) => {
         )}
       </PanelHeader>
       {!collapsed && (
-        <PanelContent ref={scrollRef} className="vkui:overflow-y-auto">
-          <div className="vkui:grid vkui:grid-cols-[min-content_min-content_1fr] vkui:gap-x-4 vkui:gap-y-2 vkui:items-center vkui:font-mono vkui:text-xs">
+        <PanelContent ref={scrollRef} className="overflow-y-auto">
+          <div className="grid grid-cols-[min-content_min-content_1fr] gap-x-4 gap-y-2 items-center font-mono text-xs">
             {filteredEvents.map((eventData, index) => (
               <Fragment key={index}>
-                <div className="vkui:text-xs vkui:text-muted-foreground vkui:text-nowrap">
+                <div className="text-xs text-muted-foreground text-nowrap">
                   {eventData.time}
                 </div>
-                <div className="vkui:font-semibold">{eventData.event}</div>
+                <div className="font-semibold">{eventData.event}</div>
                 <div>{eventData.message}</div>
               </Fragment>
             ))}

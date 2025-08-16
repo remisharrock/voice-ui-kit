@@ -48,7 +48,7 @@ interface ComponentProps extends Props {
   updateMic?: (deviceId: string) => void;
 }
 
-const btnClasses = "vkui:flex-1 vkui:w-full vkui:z-10 vkui:justify-start";
+const btnClasses = "flex-1 w-full z-10 justify-start";
 
 export const UserAudioComponent: React.FC<ComponentProps> = ({
   variant = "secondary",
@@ -72,7 +72,7 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
 
   /** NO AUDIO */
   if (noAudio || buttonProps?.isLoading) {
-    return (
+    buttonComp = (
       <Button
         variant={variant}
         size={size}
@@ -80,14 +80,14 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
         disabled
         className={cn(
           btnClasses,
-          buttonProps?.isLoading && "vkui:justify-center",
+          buttonProps?.isLoading && "justify-center",
           classNames.button,
         )}
       >
         {!buttonProps?.isLoading && (
           <>
             <MicOffIcon />
-            <span className="vkui:flex-1">{noAudioText}</span>
+            <span className="flex-1">{noAudioText}</span>
           </>
         )}
       </Button>
@@ -108,7 +108,7 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
           {...buttonProps}
           className={cn(
             btnClasses,
-            !noDevicePicker && "vkui:rounded-e-none",
+            !noDevicePicker && "rounded-e-none",
             classNames.button,
           )}
         >
@@ -123,7 +123,7 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
               barOrigin="center"
               barWidth={3}
               barColor={accentColor}
-              className="vkui:mx-auto"
+              className="mx-auto"
               {...visualizerProps}
             />
           )}
@@ -141,7 +141,7 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
           >
             <Button
               className={cn(
-                "vkui:flex-none vkui:z-0 vkui:rounded-s-none vkui:border-l-0",
+                "flex-none z-0 rounded-s-none border-l-0",
                 classNames.dropdownMenuTrigger,
               )}
               variant={variant}
@@ -158,7 +158,7 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
   }
 
   return (
-    <ButtonGroup className={cn(variant !== "outline" && "vkui:gap-[1px]")}>
+    <ButtonGroup className={cn(variant !== "outline" && "gap-[1px]")}>
       {buttonComp}
     </ButtonGroup>
   );
