@@ -16,7 +16,6 @@ type LiveComponentProps = {
   scope?: Record<string, unknown>;
   noInline?: boolean;
   language?: string;
-  theme?: string;
   className?: string;
   editorClassName?: string;
   previewClassName?: string;
@@ -49,7 +48,7 @@ function stripImportsExportsRequires(snippet: string): string {
   const lines = snippet.split("\n");
   const kept: string[] = [];
   let skippingImport = false;
-  for (let line of lines) {
+  for (const line of lines) {
     const trimmed = line.trim();
     // Start skipping on import line (handles multi-line named imports)
     if (!skippingImport && /^import\s/.test(trimmed)) {
@@ -76,7 +75,6 @@ export function LiveComponent({
   scope,
   noInline,
   language = "tsx",
-  theme,
   className,
   editorClassName,
   previewClassName = "vkui-root",
