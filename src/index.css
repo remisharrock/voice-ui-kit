@@ -221,7 +221,7 @@
 @layer base {
   * {
     border-color: var(--vkui-color-border);
-    outline-color: color-mix(in oklab, var(--vkui-color-ring));
+    outline-color: color-mix(in oklch, var(--vkui-color-ring));
   }
 
   :root {

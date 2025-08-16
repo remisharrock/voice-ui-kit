@@ -1,0 +1,152 @@
+---
+title: Badge
+description: Displays a badge or a component that looks like a badge.
+---
+
+<LiveComponent language="tsx">
+{`
+  import { Badge } from "@pipecat-ai/voice-ui-kit";
+
+  <Badge>Badge</Badge>
+`}
+</LiveComponent>
+
+---
+
+## Usage
+
+### Colors
+
+<LiveComponent language="tsx">
+{`
+    import { Badge } from "@pipecat-ai/voice-ui-kit";
+
+    <div className="flex flex-row gap-2 w-full justify-center">
+        <Badge color="primary">Primary</Badge>
+        <Badge color="secondary">Secondary</Badge>
+        <Badge color="destructive">Destructive</Badge>
+        <Badge color="warning">Warning</Badge>
+        <Badge color="active">Active</Badge>
+        <Badge color="inactive">Inactive</Badge>
+        <Badge color="agent">Agent</Badge>
+        <Badge color="client">Client</Badge>
+    </div>
+`}
+</LiveComponent>
+
+### Variant
+
+<LiveComponent language="tsx">
+{`
+    import { Badge } from "@pipecat-ai/voice-ui-kit";
+
+    <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-row gap-2 w-full justify-center">
+            <Badge variant="outline">Outline</Badge>
+            <Badge variant="filled">Filled</Badge>
+            <Badge variant="elbow">Elbow</Badge>
+            <Badge variant="bracket">Bracket</Badge>
+        </div>
+        <div className="flex flex-row gap-2 w-full justify-center">
+            <Badge variant="outline" color="secondary">Outline</Badge>
+            <Badge variant="filled" color="secondary">Filled</Badge>
+            <Badge variant="elbow" color="secondary">Elbow</Badge>
+            <Badge variant="bracket" color="secondary">Bracket</Badge>
+        </div>
+        <div className="flex flex-row gap-2 w-full justify-center">
+            <Badge variant="outline" color="destructive">Outline</Badge>
+            <Badge variant="filled" color="destructive">Filled</Badge>
+            <Badge variant="elbow" color="destructive">Elbow</Badge>
+            <Badge variant="bracket" color="destructive">Bracket</Badge>
+        </div>
+        <div className="flex flex-row gap-2 w-full justify-center">
+            <Badge variant="outline" color="warning">Outline</Badge>
+            <Badge variant="filled" color="warning">Filled</Badge>
+            <Badge variant="elbow" color="warning">Elbow</Badge>
+            <Badge variant="bracket" color="warning">Bracket</Badge>
+        </div>
+        <div className="flex flex-row gap-2 w-full justify-center">
+            <Badge variant="outline" color="active">Outline</Badge>
+            <Badge variant="filled" color="active">Filled</Badge>
+            <Badge variant="elbow" color="active">Elbow</Badge>
+            <Badge variant="bracket" color="active">Bracket</Badge>
+        </div>
+        <div className="flex flex-row gap-2 w-full justify-center">
+            <Badge variant="outline" color="inactive">Outline</Badge>
+            <Badge variant="filled" color="inactive">Filled</Badge>
+            <Badge variant="elbow" color="inactive">Elbow</Badge>
+            <Badge variant="bracket" color="inactive">Bracket</Badge>
+        </div>
+        <div className="flex flex-row gap-2 w-full justify-center">
+            <Badge variant="outline" color="agent">Outline</Badge>
+            <Badge variant="filled" color="agent">Filled</Badge>
+            <Badge variant="elbow" color="agent">Elbow</Badge>
+            <Badge variant="bracket" color="agent">Bracket</Badge>
+        </div>
+        <div className="flex flex-row gap-2 w-full justify-center">
+            <Badge variant="outline" color="client">Outline</Badge>
+            <Badge variant="filled" color="client">Filled</Badge>
+            <Badge variant="elbow" color="client">Elbow</Badge>
+            <Badge variant="bracket" color="client">Bracket</Badge>
+        </div>
+    </div>
+`}
+</LiveComponent>
+
+### Sizes
+
+<LiveComponent language="tsx">
+{`
+    import { Badge } from "@pipecat-ai/voice-ui-kit";
+
+    <div className="flex flex-row gap-2 w-full justify-center">
+        <Badge size="sm">SM</Badge>
+        <Badge size="md">MD</Badge>
+        <Badge size="lg">LG</Badge>
+    </div>
+`}
+</LiveComponent>
+
+#### Button Sizing
+
+Make the badge size like a button by setting the `buttonSizing` prop to `true`.
+
+<LiveComponent language="tsx">
+{`
+    import { Badge, Button } from "@pipecat-ai/voice-ui-kit";
+
+    <div className="flex flex-row gap-2 w-full justify-center">
+        <Badge buttonSizing size="md">Button sizing</Badge>
+        <Button variant="outline" size="md">Button for reference</Button>
+    </div>
+`}
+</LiveComponent>
+
+### Rounded
+
+<LiveComponent language="tsx">
+{`
+    import { Badge } from "@pipecat-ai/voice-ui-kit";
+
+    <div className="flex flex-row gap-2 w-full justify-center">
+        <Badge color="secondary" rounded="size">
+            Size (matches size prop)
+        </Badge>
+        <Badge color="secondary" rounded="sm">
+            SM
+        </Badge>
+        <Badge color="secondary" rounded="md">
+            MD
+        </Badge>
+        <Badge color="secondary" rounded="lg">
+            LG
+        </Badge>
+        <Badge color="secondary" rounded="full">
+            Full
+        </Badge>
+        <Badge color="secondary" rounded="none">
+            None
+        </Badge>
+    </div>
+`}
+</LiveComponent>

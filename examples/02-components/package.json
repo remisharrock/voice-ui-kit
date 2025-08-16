@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@pipecat-ai/voice-ui-kit": "file:../../",
+    "@pipecat-ai/voice-ui-kit": "workspace:*",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Various visual enhancements, primitve additions and CSS variables in support of more flexible theming.
 
+- Change: switched to pnpm for better workspace management
+- Added: out of the box themes e.g. [05-theme](examples/05-theme)
 - Added: Badge primitive
 - Added: Progress primitive
 - Added: Divider

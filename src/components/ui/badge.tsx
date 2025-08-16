@@ -188,20 +188,17 @@ const badgeVariants = cva(
       {
         buttonSizing: true,
         size: "md",
-        className:
-          "vkui:button-md/md vkui:[&_svg:not([class*='size-'])]:size-5",
+        className: "vkui:button-md vkui:[&_svg:not([class*='size-'])]:size-5",
       },
       {
         buttonSizing: true,
         size: "sm",
-        className:
-          "vkui:button-sm/sm vkui:[&_svg:not([class*='size-'])]:size-4",
+        className: "vkui:button-sm vkui:[&_svg:not([class*='size-'])]:size-4",
       },
       {
         buttonSizing: true,
         size: "lg",
-        className:
-          "vkui:button-lg/lg vkui:[&_svg:not([class*='size-'])]:size-5",
+        className: "vkui:button-lg vkui:[&_svg:not([class*='size-'])]:size-5",
       },
       // Rounded size variants
       {

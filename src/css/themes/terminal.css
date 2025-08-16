@@ -1,0 +1,43 @@
+:root,
+.vkui\:dark {
+  --vkui-color-background: #0a0a0a;
+  --vkui-color-foreground: #00ff00;
+  --vkui-color-card: #1a1a1a;
+  --vkui-color-card-foreground: #00ff00;
+  --vkui-color-popover: #1a1a1a;
+  --vkui-color-popover-foreground: #00ff00;
+  --vkui-color-primary: #00ff00;
+  --vkui-color-primary-foreground: #000000;
+  --vkui-color-secondary: #2a2a2a;
+  --vkui-color-secondary-foreground: #00ff00;
+  --vkui-color-muted: #333333;
+  --vkui-color-muted-foreground: #888888;
+  --vkui-color-accent: #00ff00;
+  --vkui-color-accent-foreground: #000000;
+  --vkui-color-destructive: #ff0000;
+  --vkui-color-destructive-foreground: #ffffff;
+  --vkui-color-warning: #ffff00;
+  --vkui-color-warning-foreground: #000000;
+  --vkui-color-border: #444444;
+  --vkui-color-input: #2a2a2a;
+  --vkui-color-ring: #00ff00;
+  --vkui-color-subtle: #555555;
+  --vkui-color-active: #00ff00;
+  --vkui-color-active-foreground: #000000;
+  --vkui-color-active-ring: #00ff00;
+  --vkui-color-active-accent: #00ff00;
+  --vkui-color-inactive: #666666;
+  --vkui-color-inactive-foreground: #cccccc;
+  --vkui-color-inactive-ring: #666666;
+  --vkui-color-inactive-accent: #666666;
+  --vkui-color-agent: #00ffff;
+  --vkui-color-agent-foreground: #000000;
+  --vkui-color-client: #ff00ff;
+  --vkui-color-client-foreground: #000000;
+  --vkui-color-chart-1: #00ff00;
+  --vkui-color-chart-2: #00ffff;
+  --vkui-color-chart-3: #ff00ff;
+  --vkui-color-chart-4: #ffff00;
+  --vkui-color-chart-5: #ff8800;
+  --vkui-color-elbow: #00ff00;
+}

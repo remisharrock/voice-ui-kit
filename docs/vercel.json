@@ -1,5 +1,5 @@
 {
-    "buildCommand": "cd .. && npm install --include=dev && npm run build && cd docs && npm run build",
-    "installCommand": "cd .. && npm install --include=dev",
+    "buildCommand": "cd .. && pnpm install --include=dev && pnpm run build && cd docs && pnpm run build",
+    "installCommand": "cd .. && pnpm install --include=dev",
     "outputDirectory": ".next"
 }
