@@ -19,7 +19,9 @@ Tailwind prefix (`vkui`). A scoped export still exists in the package for instan
 - Added: Divider
 - Added: Additional card variants and decorations
 - Added: `StripeLoader`
-- Added: TW4 utilities to shadow classes to allow overrides in external themes.
+- Added: Component - `HighlightOverlay` that draws user attention to a particular UI element
+- Added: TW4 utilities for shadow classes to allow overrides in external themes.
+- Added: TW4 utilities for button sizing
 - Change: `AudioClientHelper` renamed to `PipecatAppBase`.
     - Now accepts both React Node children as well as a functional list for prop injection. If passing renderables, client methods can be accessed directly on the context's client via Pipecat React hooks (e.g. `usePipecatClient`).
     - Added `noThemeProvider` prop to optionally disable theme provider wrapping.

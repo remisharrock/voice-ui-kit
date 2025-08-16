@@ -134,6 +134,37 @@
     }
   }
 
+  @keyframes highlight-focus {
+    0% {
+      transform: scale(1.5);
+      opacity: 0.3;
+    }
+    40% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 0.3;
+    }
+    70% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 0.3;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: var(--highlight-final-opacity, 1);
+    }
+  }
+
+  --animate-highlight: highlight-focus 1.2s ease-out forwards;
+
   /* DEPRECATED */
   --radius-panel: var(--radius-sm);
 }

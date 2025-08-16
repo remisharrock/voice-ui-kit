@@ -103,12 +103,11 @@ const cardVariants = cva(
   },
 );
 
-export interface CardProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    Omit<VariantProps<typeof cardVariants>, "rounded"> {
-  withGradientBorder?: boolean;
-  rounded?: VariantProps<typeof cardVariants>["rounded"];
-}
+export type CardProps = React.ComponentProps<"div"> &
+  Omit<VariantProps<typeof cardVariants>, "rounded"> & {
+    withGradientBorder?: boolean;
+    rounded?: VariantProps<typeof cardVariants>["rounded"];
+  };
 
 export function Card({
   variant,
