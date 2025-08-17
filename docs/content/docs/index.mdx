@@ -84,19 +84,7 @@ They're built and composed from the core components and primitives, and are desi
 
 
 ```tsx title="Console template" lineNumbers
-import {
-  Card,
-  CardContent,
-  ConnectButton,
-  Divider,
-  ErrorCard,
-  FullScreenContainer,
-  PipecatAppBase,
-  type PipecatBaseChildProps,
-  SpinLoader,
-  UserAudioControl,
-  VoiceVisualizer,
-} from "@pipecat-ai/voice-ui-kit";
+import { ThemeProvider, ConsoleTemplate } from "@pipecat-ai/voice-ui-kit";
 
 export default function Home() {
     return (
@@ -122,9 +110,16 @@ Components are the building blocks of the Voice UI Kit. They exist in both conne
 
 ```tsx title="App.tsx" lineNumbers
 import {
-    PipecatAppBase,
-    ErrorCard,
-    SpinLoader,
+  PipecatAppBase,
+  ErrorCard,
+  SpinLoader,
+  Card,
+  CardContent,
+  Divider,
+  UserAudioControl,
+  ConnectButton,
+  VoiceVisualizer,
+  type PipecatBaseChildProps,
 } from "@pipecat-ai/voice-ui-kit";
 
 <PipecatAppBase
