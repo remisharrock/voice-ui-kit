@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ThemeProviderContext } from "./ThemeProviderContext";
 
-export type Theme = "dark" | "light" | "system";
+// Allow arbitrary theme names while keeping a special "system" value
+export type Theme = "system" | (string & {});
 
 export type ThemeProviderProps = {
   children: React.ReactNode;
@@ -44,19 +45,21 @@ export function ThemeProvider({
     if (!mounted) return;
 
     const root = window.document.documentElement;
-    root.classList.remove("light", "dark");
-
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-
-      root.classList.add(systemTheme);
-      return;
+    // Track and remove previously applied theme class to avoid buildup
+    const previousThemeClass = previousThemeRef.current;
+    if (previousThemeClass) {
+      root.classList.remove(previousThemeClass);
     }
 
-    root.classList.add(`${theme}`);
+    const appliedThemeClass =
+      theme === "system"
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light"
+        : String(theme);
+
+    root.classList.add(appliedThemeClass);
+    previousThemeRef.current = appliedThemeClass;
   }, [theme, mounted]);
 
   // Update theme when defaultTheme changes (if needed)
@@ -68,6 +71,8 @@ export function ThemeProvider({
       setTheme(defaultTheme);
     }
   }, [defaultTheme, mounted, storageKey]);
+
+  const previousThemeRef = useRef<string | null>(null);
 
   const value = {
     theme,

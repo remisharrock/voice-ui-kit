@@ -163,8 +163,6 @@
     }
   }
 
-  --animate-highlight: highlight-focus 1.2s ease-out forwards;
-
   /* DEPRECATED */
   --radius-panel: var(--radius-sm);
 }

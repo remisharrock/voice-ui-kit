@@ -31,6 +31,8 @@ interface Props {
     dropdownMenuTrigger?: string;
     dropdownMenuContent?: string;
     dropdownMenuCheckboxItem?: string;
+    activeText?: string;
+    inactiveText?: string;
   };
   dropdownButtonProps?: Partial<React.ComponentProps<typeof Button>>;
   noDevicePicker?: boolean;
@@ -38,6 +40,10 @@ interface Props {
   visualizerProps?: Partial<React.ComponentProps<typeof VoiceVisualizer>>;
   noAudio?: boolean;
   noAudioText?: string | null;
+  noIcon?: boolean;
+  activeText?: string;
+  inactiveText?: string;
+  children?: React.ReactNode;
 }
 
 interface ComponentProps extends Props {
@@ -66,6 +72,10 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
   updateMic,
   noAudio,
   noAudioText = "Audio disabled",
+  noIcon = false,
+  activeText,
+  inactiveText,
+  children,
   onClick,
 }) => {
   let buttonComp;
@@ -86,8 +96,9 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
       >
         {!buttonProps?.isLoading && (
           <>
-            <MicOffIcon />
-            <span className="flex-1">{noAudioText}</span>
+            {!noIcon && <MicOffIcon />}
+            {noAudioText && <span className="flex-1">{noAudioText}</span>}
+            {children}
           </>
         )}
       </Button>
@@ -112,7 +123,18 @@ export const UserAudioComponent: React.FC<ComponentProps> = ({
             classNames.button,
           )}
         >
-          {isMicEnabled ? <MicIcon /> : <MicOffIcon />}
+          {!noIcon && (isMicEnabled ? <MicIcon /> : <MicOffIcon />)}
+          {buttonState === "inactive" && inactiveText ? (
+            <span className={cn("flex-1", classNames.inactiveText)}>
+              {inactiveText}
+            </span>
+          ) : null}
+          {buttonState !== "inactive" && activeText ? (
+            <span className={cn("flex-1", classNames.activeText)}>
+              {activeText}
+            </span>
+          ) : null}
+          {children}
           {!noVisualizer && (
             <VoiceVisualizer
               participantType="local"

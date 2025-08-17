@@ -10,6 +10,7 @@ export * from "./dropdown-menu";
 export * from "./error";
 export * from "./input";
 export * from "./layout";
+export * from "./led";
 export * from "./loader";
 export * from "./panel";
 export * from "./popover";

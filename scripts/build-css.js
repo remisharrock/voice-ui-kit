@@ -20,6 +20,15 @@ async function buildCSS() {
     const cssPath = path.resolve(process.cwd(), "dist/voice-ui-kit.css");
     fs.writeFileSync(cssPath, result.css);
 
+    const rawUtilitiesSrc = path.resolve(
+      process.cwd(),
+      "src/css/utilities.css",
+    );
+    const rawUtilitiesDist = path.resolve(process.cwd(), "dist/utilities.css");
+    if (fs.existsSync(rawUtilitiesSrc)) {
+      fs.copyFileSync(rawUtilitiesSrc, rawUtilitiesDist);
+    }
+
     // Process with prefixer for scoped version
     const scopedResult = await postcss([
       prefixer({

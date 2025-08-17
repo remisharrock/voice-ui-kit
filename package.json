@@ -39,7 +39,8 @@
     "./styles.css": "./dist/voice-ui-kit.css",
     "./styles.scoped": "./dist/voice-ui-kit-scoped.css",
     "./styles.scoped.css": "./dist/voice-ui-kit-scoped.css",
-    "./themes/*": "./dist/themes/*.css"
+    "./themes/*": "./dist/themes/*.css",
+    "./utilities": "./dist/utilities.css"
   },
   "files": [
     "dist",

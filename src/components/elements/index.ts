@@ -6,6 +6,8 @@ export * from "./Conversation";
 export * from "./CopyText";
 export * from "./DataList";
 export * from "./DeviceDropDown";
+export * from "./DeviceSelect";
+export * from "./HighlightOverlay";
 export * from "./PipecatLogo";
 export * from "./SessionInfo";
 export * from "./Thinking";

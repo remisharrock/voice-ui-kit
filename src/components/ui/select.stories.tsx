@@ -14,11 +14,11 @@ export default {
 } satisfies StoryDefault;
 
 export const SelectDefault: Story<SelectTriggerProps> = ({ ...props }) => (
-  <div className="ladle-section-container">
+  <div className="ladle-section-container w-full!">
     <h2 className="ladle-section-header">Default</h2>
     <section className="ladle-section">
       <Select>
-        <SelectTrigger {...props}>
+        <SelectTrigger {...props} className="w-full" align="left">
           <SelectValue placeholder="Please select" />
         </SelectTrigger>
         <SelectContent>
@@ -32,7 +32,7 @@ export const SelectDefault: Story<SelectTriggerProps> = ({ ...props }) => (
     <h2 className="ladle-section-header">With Guide</h2>
     <section className="ladle-section">
       <Select>
-        <SelectTrigger {...props}>
+        <SelectTrigger {...props} className="w-full">
           <SelectGuide>Select</SelectGuide>
           <SelectValue placeholder="Please select" />
         </SelectTrigger>
