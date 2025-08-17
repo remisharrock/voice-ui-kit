@@ -5,7 +5,7 @@ import * as React from "react";
  * LED indicator primitive.
  *
  * - Visual states: on, off, and optional blinking (binary toggle, no fades)
- * - Defaults to size-8 and rounded-full; merge additional classes via `className`
+ * - Defaults to size-4 and rounded-full; merge additional classes via `className`
  * - Colors/styles for on/off are customizable via `classNames.on` / `classNames.off`
  * - Supports a transient flash when `watch` changes
  */
@@ -42,7 +42,7 @@ export type LEDProps = React.HTMLAttributes<HTMLDivElement> & {
  * A simple LED-like indicator that supports on/off, blinking, and change-driven flashes.
  *
  * - Uses a hard state toggle (no opacity fades) when blinking
- * - Defaults to `size-8` circle and merges classes with `cn`
+ * - Defaults to `size-4` circle and merges classes with `cn`
  * - Provide `classNames.on` / `classNames.off` to control the visual styling for states
  */
 export function LED({

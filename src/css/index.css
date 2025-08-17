@@ -162,6 +162,7 @@
       opacity: var(--highlight-final-opacity, 1);
     }
   }
+  --animate-highlight: highlight-focus 1.2s ease-in-out forwards;
 
   /* DEPRECATED */
   --radius-panel: var(--radius-sm);

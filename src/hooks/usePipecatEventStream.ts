@@ -5,13 +5,19 @@ import {
 } from "@pipecat-ai/client-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+type ClientInstance = NonNullable<ReturnType<typeof usePipecatClient>>;
+type ClientEventName = Parameters<ClientInstance["on"]>[0];
+
 export interface PipecatEventLog {
   id: string;
   type: string;
-  data: any;
+  data: unknown;
   timestamp: Date;
 }
 
+/**
+ * Optional configuration for `usePipecatEventStream`.
+ */
 export interface UsePipecatEventStreamOptions {
   maxEvents?: number;
   ignoreEvents?: string[];
@@ -38,8 +44,15 @@ export interface PipecatEventGroup {
 }
 
 /**
- * Subscribes to all RTVI events and returns a throttled, memoized list of recent events.
- * Designed to minimize re-renders when events are very frequent.
+ * Subscribes to all RTVI events and returns a throttled snapshot of recent events.
+ * - Uses requestAnimationFrame batching by default; set `throttleMs > 0` to time-slice updates
+ * - Prefers `includeEvents` over `ignoreEvents` when filtering
+ * - Can compute contiguous groups when `groupConsecutive` is true
+ *
+ * Returns a stable object `{ events, groups, clear }` where:
+ * - `events`: frozen array snapshot that updates on the configured throttle cadence
+ * - `groups`: grouped consecutive events (empty unless `groupConsecutive` is enabled)
+ * - `clear()`: clears the current event list
  */
 export function usePipecatEventStream(options?: UsePipecatEventStreamOptions) {
   const client = usePipecatClient();
@@ -68,17 +81,24 @@ export function usePipecatEventStream(options?: UsePipecatEventStreamOptions) {
     pausedRef.current = !!options?.paused;
   }, [options?.paused]);
 
+  // Extract scalar option values to avoid depending on the whole options object
+  const throttleMs = options?.throttleMs ?? 0;
+  const mapEventData = options?.mapEventData;
+  const onEvent = options?.onEvent;
+  const groupConsecutive = options?.groupConsecutive;
+  const groupKey = options?.groupKey;
+
   // Keep the actual event list in a ref to avoid forcing re-renders on every push
   const eventsRef = useRef<PipecatEventLog[]>([]);
   const versionRef = useRef(0);
-  const [version, setVersion] = useState(0);
+  const [, setVersion] = useState(0);
   const rafIdRef = useRef<number | null>(null);
   const timeoutIdRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const idCounterRef = useRef(0);
   const previousTransportState = useRef(transportState);
 
   const scheduleNotify = useCallback(() => {
-    const throttle = options?.throttleMs ?? 0;
+    const throttle = throttleMs;
     if (throttle > 0) {
       if (timeoutIdRef.current != null) return;
       timeoutIdRef.current = setTimeout(() => {
@@ -94,7 +114,7 @@ export function usePipecatEventStream(options?: UsePipecatEventStreamOptions) {
       setVersion(versionRef.current);
       rafIdRef.current = null;
     });
-  }, [options?.throttleMs]);
+  }, [throttleMs]);
 
   const clearEvents = useCallback(() => {
     eventsRef.current = [];
@@ -114,7 +134,7 @@ export function usePipecatEventStream(options?: UsePipecatEventStreamOptions) {
 
   // Single event handler reused for all event names
   const handleRTVIEvent = useCallback(
-    (eventType: string, data: any) => {
+    (eventType: string, data: unknown) => {
       if (pausedRef.current) return;
       if (includedEventsSet) {
         if (!includedEventsSet.has(eventType)) return;
@@ -126,9 +146,7 @@ export function usePipecatEventStream(options?: UsePipecatEventStreamOptions) {
       const newEvent: PipecatEventLog = {
         id: `${Date.now()}-${idCounterRef.current}`,
         type: eventType,
-        data: options?.mapEventData
-          ? options.mapEventData(data, eventType)
-          : data,
+        data: mapEventData ? mapEventData(data, eventType) : data,
         timestamp: new Date(),
       };
 
@@ -139,15 +157,15 @@ export function usePipecatEventStream(options?: UsePipecatEventStreamOptions) {
       // Freeze to preserve immutability guarantees without copying on read
       eventsRef.current = Object.freeze(next) as unknown as PipecatEventLog[];
       scheduleNotify();
-      if (options?.onEvent) options.onEvent(newEvent);
+      if (onEvent) onEvent(newEvent);
     },
     [
       ignoredEventsSet,
       includedEventsSet,
       maxEvents,
       scheduleNotify,
-      options?.mapEventData,
-      options?.onEvent,
+      mapEventData,
+      onEvent,
     ],
   );
 
@@ -155,13 +173,16 @@ export function usePipecatEventStream(options?: UsePipecatEventStreamOptions) {
   useEffect(() => {
     if (!client) return;
 
-    const handlers: Record<string, (data: any) => void> = {};
+    const handlers: Record<string, (data: unknown) => void> = {};
     for (const eventName of allEventNames) {
       if (includedEventsSet && !includedEventsSet.has(eventName)) continue;
       if (!includedEventsSet && ignoredEventsSet.has(eventName)) continue;
-      handlers[eventName] = (data: any) => handleRTVIEvent(eventName, data);
+      handlers[eventName] = (data: unknown) => handleRTVIEvent(eventName, data);
       try {
-        client.on(eventName as any, handlers[eventName]);
+        client.on(
+          eventName as ClientEventName,
+          handlers[eventName] as Parameters<ClientInstance["on"]>[1],
+        );
       } catch {
         // Some events may not be supported; ignore
       }
@@ -170,7 +191,10 @@ export function usePipecatEventStream(options?: UsePipecatEventStreamOptions) {
     return () => {
       for (const [eventName, handler] of Object.entries(handlers)) {
         try {
-          client.off(eventName as any, handler);
+          client.off(
+            eventName as ClientEventName,
+            handler as Parameters<ClientInstance["off"]>[1],
+          );
         } catch {
           // ignore
         }
@@ -184,15 +208,12 @@ export function usePipecatEventStream(options?: UsePipecatEventStreamOptions) {
     includedEventsSet,
   ]);
 
-  // Expose a stable, memoized snapshot that only changes when version increments
-  const events = useMemo(() => {
-    // Return frozen snapshot reference to avoid allocations on read
-    return eventsRef.current;
-  }, [version]);
+  // Expose a snapshot; re-render is already gated by `version`, so memo is unnecessary
+  const events = eventsRef.current as ReadonlyArray<PipecatEventLog>;
 
   const groups: ReadonlyArray<PipecatEventGroup> = useMemo(() => {
-    if (!options?.groupConsecutive) return [];
-    const keySelector = options.groupKey ?? ((e: PipecatEventLog) => e.type);
+    if (!groupConsecutive) return [];
+    const keySelector = groupKey ?? ((e: PipecatEventLog) => e.type);
     const grouped: PipecatEventGroup[] = [] as PipecatEventGroup[];
     let current: {
       id: string;
@@ -213,9 +234,9 @@ export function usePipecatEventStream(options?: UsePipecatEventStreamOptions) {
       }
     }
     return grouped;
-  }, [events, options?.groupConsecutive, options?.groupKey]);
+  }, [events, groupConsecutive, groupKey]);
 
-  // Cleanup any scheduled rAF on unmount
+  // Cleanup unknown scheduled rAF on unmount
   useEffect(() => {
     return () => {
       if (rafIdRef.current != null) {

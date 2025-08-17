@@ -49,7 +49,6 @@ export const Default: Story<LEDProps> = ({ ...props }) => {
       <h2 className="ladle-section-header">Watch demo</h2>
       <section className="ladle-section items-center gap-6">
         <LED {...props} watch={watchedCount} />
-        <LED {...props} watch={watchedCount} flashDurationMs={100} />
         <LED
           {...props}
           watch={watchedCount}
@@ -83,10 +82,6 @@ Default.argTypes = {
   blinking: {
     control: { type: "boolean" },
     defaultValue: false,
-  },
-  flashDurationMs: {
-    control: { type: "number" },
-    defaultValue: 150,
   },
 };
 

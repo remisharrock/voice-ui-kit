@@ -1,3 +1,4 @@
+import { getPipecatUIContainer } from "@/lib/dom";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -56,8 +57,9 @@ export const HighlightOverlay = ({
 
     const rect = targetElement.getBoundingClientRect();
     setPosition({
-      top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX,
+      // Use viewport coordinates because overlay is position: fixed
+      top: rect.top,
+      left: rect.left,
       width: rect.width,
       height: rect.height,
     });
@@ -174,6 +176,6 @@ export const HighlightOverlay = ({
         } as React.CSSProperties & { "--highlight-final-opacity": string }
       }
     />,
-    document.body,
+    getPipecatUIContainer(),
   );
 };

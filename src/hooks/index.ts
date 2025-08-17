@@ -1,4 +1,7 @@
-export { useConversation } from "./useConversation";
+export {
+  useConversation,
+  usePipecatConversation,
+} from "./usePipecatConversation";
 export { usePipecatEventStream } from "./usePipecatEventStream";
 export type {
   PipecatEventGroup,

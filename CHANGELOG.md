@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change: `UserAudioControl` now accepts `noIcon` prop that hides the mic icon
 - Change: `UserAudioControl` now accepts `children` for further flexibility
 - Added: `utilities.css` included as raw css in distribution so developers can use in app code
+- Added: export custom tailwind merge `cn` function for use in custom themes
 
 [0.2.0]
 

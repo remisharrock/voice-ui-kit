@@ -166,7 +166,9 @@ export function LiveComponent({
       </LiveProvider>
       {/* Hardcoded portal structure that matches .vkui-root .dark CSS selector */}
       <div className="vkui-root">
-        <div className="voice-ui-kit dark" />
+        <div
+          className={`voice-ui-kit ${themeFromProvider === "dark" ? "dark" : ""}`}
+        />
       </div>
     </div>
   );

@@ -3,11 +3,25 @@ import { RTVIEvent } from "@pipecat-ai/client-js";
 import { useRTVIClientEvent } from "@pipecat-ai/client-react";
 import { useCallback, useMemo, useRef, useState } from "react";
 
+/**
+ * Options for `useConversation`.
+ */
 interface Props {
+  /** Optional callback invoked whenever a new message is added or finalized. */
   onMessageAdded?: (message: ConversationMessage) => void;
 }
 
-export const useConversation = ({ onMessageAdded }: Props = {}) => {
+/**
+ * React hook that derives a clean, ordered conversation stream from RTVI events.
+ *
+ * Behavior:
+ * - Listens to Pipecat client events for user and assistant messages
+ * - Creates in-progress placeholder messages for streaming text, finalizes on stop
+ * - Filters empty placeholder messages when later replaced by real content
+ * - Merges consecutive messages of the same role when close in time
+ * - Exposes `injectMessage` to programmatically add messages
+ */
+export const usePipecatConversation = ({ onMessageAdded }: Props = {}) => {
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
 
   const sortByCreatedAt = useCallback(
@@ -323,4 +337,9 @@ export const useConversation = ({ onMessageAdded }: Props = {}) => {
     injectMessage,
   };
 };
-export default useConversation;
+
+/**
+ * @deprecated Use `usePipecatConversation` instead. This alias will be removed in a future major release.
+ */
+export const useConversation = usePipecatConversation;
+export default usePipecatConversation;

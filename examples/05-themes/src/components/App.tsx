@@ -3,11 +3,9 @@ import {
   Button,
   Divider,
   FullScreenContainer,
-  HighlightOverlay,
   useTheme,
   type PipecatBaseChildProps,
 } from "@pipecat-ai/voice-ui-kit";
-import { useState } from "react";
 import { Controls } from "./Controls";
 import { EventStreamPanel } from "./EventStreamPanel";
 
@@ -15,8 +13,7 @@ export function App({
   handleConnect,
   handleDisconnect,
 }: Partial<PipecatBaseChildProps>) {
-  const [highlightedElement, setHighlightedElement] = useState<string | null>();
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   const transportState = usePipecatClientTransportState();
   return (
     <FullScreenContainer className="max-w-5xl">
@@ -48,25 +45,6 @@ export function App({
               : "Establishing link..."}
         </Button>
       </Controls>
-
-      <Button
-        onClick={() => {
-          setTheme(theme === "terminal" ? "system" : "terminal");
-        }}
-      >
-        Toggle theme
-      </Button>
-      <Button
-        onClick={() => {
-          setHighlightedElement("controls");
-        }}
-      >
-        Test highlight
-      </Button>
-      <HighlightOverlay
-        highlightedElement={highlightedElement}
-        onHighlightElement={setHighlightedElement}
-      />
     </FullScreenContainer>
   );
 }

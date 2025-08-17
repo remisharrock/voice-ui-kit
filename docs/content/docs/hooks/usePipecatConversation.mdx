@@ -1,0 +1,166 @@
+---
+title: usePipecatConversation
+description: Hook that derives a clean, ordered conversation stream from RTVI events.
+---
+
+## Overview
+
+`usePipecatConversation` listens to Pipecat RTVI events and produces a clean message list suitable for rendering a chat transcript. It handles streaming text, placeholder messages, finalization, and merging of consecutive messages from the same role.
+
+## Usage
+
+### Basic
+
+```tsx
+import { usePipecatConversation } from "@pipecat-ai/voice-ui-kit";
+
+export function ConversationList() {
+  const { messages } = usePipecatConversation();
+  return (
+    <ul>
+      {messages.map((m, i) => (
+        <li key={i}>
+          <strong>{m.role}:</strong> {typeof m.content === "string" ? m.content : "[component]"}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### With callback
+
+```tsx
+const { messages } = usePipecatConversation({
+  onMessageAdded: (m) => console.log("message", m),
+});
+```
+
+### Full example
+
+```tsx
+import React, { useEffect, useRef } from "react";
+import { usePipecatConversation } from "@pipecat-ai/voice-ui-kit";
+
+export function ConversationExample() {
+  const { messages } = usePipecatConversation();
+  const endRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  return (
+    <div style={{ height: 300, overflow: "auto", fontFamily: "monospace", fontSize: 12 }}>
+      {messages.map((m, i) => (
+        <div key={i}>
+          <strong>[{m.role}]</strong> {typeof m.content === "string" ? m.content : "[component]"}
+          <span style={{ opacity: 0.6, marginLeft: 8 }}>
+            {new Date(m.createdAt).toLocaleTimeString()}
+          </span>
+        </div>
+      ))}
+      <div ref={endRef} />
+    </div>
+  );
+}
+```
+
+### Injecting messages
+
+You can inject messages directly via the hook, or by using `ConsoleTemplate` callbacks.
+
+```tsx
+import React from "react";
+import { usePipecatConversation } from "@pipecat-ai/voice-ui-kit";
+
+export function InjectViaHook() {
+  const { injectMessage } = usePipecatConversation();
+  return (
+    <button
+      onClick={() =>
+        injectMessage({ role: "system", content: "Hello from the system" })
+      }
+    >
+      Inject message
+    </button>
+  );
+}
+```
+
+```tsx
+import React, { useCallback, useRef } from "react";
+import {
+  ConsoleTemplate,
+  FullScreenContainer,
+  type ConversationMessage,
+} from "@pipecat-ai/voice-ui-kit";
+
+export default function ConsoleInjectExample() {
+  const injectMessageRef = useRef<
+    ((message: Pick<ConversationMessage, "role" | "content">) => void) | null
+  >(null);
+
+  const handleOnInjectMessage = useCallback(
+    (injectFn: (message: Pick<ConversationMessage, "role" | "content">) => void) => {
+      injectMessageRef.current = injectFn;
+    },
+    [],
+  );
+
+  const handleOnServerMessage = useCallback((data: { type: string; payload?: unknown }) => {
+    if (!injectMessageRef.current || !data?.payload) return;
+    if (data.type === "notice") {
+      injectMessageRef.current({ role: "system", content: "Server notice received" });
+    }
+  }, []);
+
+  return (
+    <FullScreenContainer>
+      <ConsoleTemplate
+        transportType="smallwebrtc"
+        connectParams={{ webrtcUrl: "/api/offer" }}
+        onInjectMessage={handleOnInjectMessage}
+        onServerMessage={handleOnServerMessage}
+      />
+    </FullScreenContainer>
+  );
+}
+```
+
+---
+
+## API
+
+### Options
+
+<TypeTable
+  className="text-sm"
+  type={{
+    onMessageAdded: {
+      description: "Callback invoked whenever a new message is added or finalized",
+      type: "(message: ConversationMessage) => void",
+      required: false,
+      default: "undefined",
+    },
+  }}
+/>
+
+### Return
+
+<TypeTable
+  className="text-sm"
+  type={{
+    messages: {
+      description: "Ordered, filtered conversation messages ready to render",
+      type: "ConversationMessage[]",
+      required: true,
+    },
+    injectMessage: {
+      description: "Programmatically inject a message into the conversation stream",
+      type: '{ role: "user" | "assistant" | "system"; content: string | React.ReactNode } => void',
+      required: true,
+    },
+  }}
+/>
+

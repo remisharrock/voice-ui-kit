@@ -103,7 +103,7 @@ export function EventStreamPanel() {
   };
 
   return (
-    <Panel className="h-[300px]">
+    <Panel className="h-[500px]">
       <PanelHeader>
         <PanelTitle>
           System Event Monitor

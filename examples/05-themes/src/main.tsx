@@ -19,8 +19,8 @@ import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider>
-      <FullScreenContainer>
+    <ThemeProvider defaultTheme="terminal" disableStorage>
+      <FullScreenContainer className="px-4">
         <PipecatAppBase
           connectParams={{
             webrtcUrl: "/api/offer",
