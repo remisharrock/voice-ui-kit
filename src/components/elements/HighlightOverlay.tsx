@@ -1,5 +1,6 @@
+import { getPipecatUIContainer } from "@/lib/dom";
 import { cn } from "@/lib/utils";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface HighlightOverlayProps {
@@ -30,7 +31,20 @@ export const HighlightOverlay = ({
   const timeoutRef = useRef<number | null>(null);
 
   const targetElementId = highlightedElement;
-  const targetElement = targetElementId ? elementRefs[targetElementId] : null;
+  const targetElement = useMemo(() => {
+    if (!targetElementId) return null;
+
+    // Prefer provided refs map
+    const refMatch = elementRefs[targetElementId] ?? null;
+    if (refMatch) return refMatch;
+
+    // Fallback to DOM lookup by id (supports optional leading '#')
+    if (typeof document === "undefined") return null;
+    const domId = targetElementId.startsWith("#")
+      ? targetElementId.slice(1)
+      : targetElementId;
+    return document.getElementById(domId);
+  }, [elementRefs, targetElementId]);
   const [isReady, setIsReady] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
   const isActive = !!targetElementId && !!targetElement && isReady;
@@ -43,8 +57,9 @@ export const HighlightOverlay = ({
 
     const rect = targetElement.getBoundingClientRect();
     setPosition({
-      top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX,
+      // Use viewport coordinates because overlay is position: fixed
+      top: rect.top,
+      left: rect.left,
       width: rect.width,
       height: rect.height,
     });
@@ -161,6 +176,6 @@ export const HighlightOverlay = ({
         } as React.CSSProperties & { "--highlight-final-opacity": string }
       }
     />,
-    document.body,
+    getPipecatUIContainer(),
   );
 };

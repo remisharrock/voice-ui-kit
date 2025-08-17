@@ -26,6 +26,11 @@ const selectTriggerVariants = cva(
         lg: "button-lg [&_svg]:size-4 [&_[data-slot^=select-guide]]:mr-3",
         xl: "button-xl [&_svg]:size-4 [&_[data-slot^=select-guide]]:mr-3",
       },
+      align: {
+        left: "text-left",
+        center: "text-center",
+        right: "text-right",
+      },
       rounded: {
         size: "",
         none: "rounded-none",
@@ -40,6 +45,7 @@ const selectTriggerVariants = cva(
       size: "md",
       variant: "outline",
       rounded: "size",
+      align: "left",
     },
   },
 );
@@ -75,6 +81,7 @@ export function SelectTrigger({
   size = "md",
   variant,
   rounded = "size",
+  align,
   children,
   ...props
 }: SelectTriggerProps) {
@@ -88,6 +95,7 @@ export function SelectTrigger({
         selectTriggerVariants({
           size,
           variant,
+          align,
           rounded: roundedValue,
           className,
         }),

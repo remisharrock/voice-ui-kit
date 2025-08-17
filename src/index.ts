@@ -9,6 +9,7 @@ export * from "@/components/ui";
 // Hooks & Utilities
 export * from "@/hooks";
 export * from "@/icons";
+export { cn } from "@/lib/utils";
 
 // Visualizers
 export * from "@/visualizers";

@@ -2,7 +2,7 @@ import { createContext } from "react";
 import type { Theme } from "./ThemeProvider";
 
 type ThemeProviderState = {
-  resolvedTheme: "dark" | "light";
+  resolvedTheme: string;
   theme: Theme;
   setTheme: (theme: Theme) => void;
 };

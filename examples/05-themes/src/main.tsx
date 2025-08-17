@@ -1,68 +1,52 @@
+// @ts-expect-error - fontsource types are not published
+import "@fontsource/vt323";
+
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import type { PipecatBaseChildProps } from "@pipecat-ai/voice-ui-kit";
 import {
-  Card,
-  CardContent,
-  ConnectButton,
-  Divider,
   ErrorCard,
   FullScreenContainer,
   PipecatAppBase,
   SpinLoader,
-  UserAudioControl,
-  VoiceVisualizer,
+  ThemeProvider,
 } from "@pipecat-ai/voice-ui-kit";
+
+import { App } from "./components/App";
 
 import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <FullScreenContainer>
-      <PipecatAppBase
-        connectParams={{
-          webrtcUrl: "/api/offer",
-        }}
-        transportType="smallwebrtc"
-        noThemeProvider
-      >
-        {({
-          client,
-          handleConnect,
-          handleDisconnect,
-          error,
-        }: PipecatBaseChildProps) =>
-          !client ? (
-            <SpinLoader />
-          ) : error ? (
-            <ErrorCard>{error}</ErrorCard>
-          ) : (
-            <Card
-              size="lg"
-              shadow="xlong"
-              noGradientBorder={false}
-              rounded="xl"
-            >
-              <CardContent className="flex flex-col gap-4">
-                <VoiceVisualizer
-                  participantType="bot"
-                  className="bg-accent rounded-lg"
-                />
-                <Divider />
-                <div className="flex flex-col gap-4">
-                  <UserAudioControl size="lg" />
-                  <ConnectButton
-                    size="lg"
-                    onConnect={handleConnect}
-                    onDisconnect={handleDisconnect}
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          )
-        }
-      </PipecatAppBase>
-    </FullScreenContainer>
+    <ThemeProvider defaultTheme="terminal" disableStorage>
+      <FullScreenContainer className="px-4">
+        <PipecatAppBase
+          connectParams={{
+            webrtcUrl: "/api/offer",
+          }}
+          transportType="smallwebrtc"
+          noThemeProvider
+        >
+          {({
+            client,
+            handleConnect,
+            handleDisconnect,
+            error,
+          }: PipecatBaseChildProps) =>
+            !client ? (
+              <SpinLoader />
+            ) : error ? (
+              <ErrorCard>{error}</ErrorCard>
+            ) : (
+              <App
+                handleConnect={handleConnect}
+                handleDisconnect={handleDisconnect}
+              />
+            )
+          }
+        </PipecatAppBase>
+      </FullScreenContainer>
+    </ThemeProvider>
   </StrictMode>,
 );

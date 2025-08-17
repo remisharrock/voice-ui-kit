@@ -6,6 +6,8 @@
         "---Components---",
         "...components",
         "primitives",
+        "---Hooks & Utilities---",
+        "...hooks",
         "---Templates---",
         "templates/console",
         "---Audio Visualizers---",

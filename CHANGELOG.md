@@ -5,6 +5,21 @@ All notable changes to **Voice UI Kit** will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[Unreleased]
+
+- Added: `SelectTrigger` now supports alignment variant prop
+- Added: `LED` primitive for binary user feedback on watched property
+- Added: `useTheme` hook for getting and setting theme when using `ThemeProvider`
+- Change: `ThemeProvider` context now supports arbitrary theme names
+- Added: `05-themes` example that demonstrates a custom theme implementation
+- Added: `hooks/usePipecatEventStream.ts` for obtaining firehouse of events from Pipecat Client
+- Added: `DeviceSelect` component that renders available devices in a select control
+- Change: `UserAudioControl` now accepts `activeText` and `inactiveText` for simpler mute buttons
+- Change: `UserAudioControl` now accepts `noIcon` prop that hides the mic icon
+- Change: `UserAudioControl` now accepts `children` for further flexibility
+- Added: `utilities.css` included as raw css in distribution so developers can use in app code
+- Added: export custom tailwind merge `cn` function for use in custom themes
+
 [0.2.0]
 
 Various visual enhancements, primitve additions and CSS variables in support of more flexible theming.

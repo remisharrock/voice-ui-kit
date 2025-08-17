@@ -167,6 +167,50 @@ Default.argTypes = {
 Default.storyName = "Pure Component";
 
 /**
+ * Text-only variations (no icon, no visualizer) with state-based text
+ */
+export const TextOnly: Story<{
+  size: ButtonSize;
+}> = ({ size }) => (
+  <Card className="w-full">
+    <CardContent className="flex flex-col gap-4">
+      {["primary", "secondary", "outline", "ghost"].map((v) => (
+        <div key={`row-${v}`} className="flex items-center gap-3">
+          <UserAudioComponent
+            variant={v as ButtonVariant}
+            size={size}
+            state="active"
+            isMicEnabled
+            noDevicePicker
+            noVisualizer
+            noIcon
+            activeText="Listening"
+            classNames={{ activeText: "text-foreground" }}
+          />
+          <UserAudioComponent
+            variant={v as ButtonVariant}
+            size={size}
+            state="inactive"
+            isMicEnabled={false}
+            noDevicePicker
+            noVisualizer
+            noIcon
+            inactiveText="Muted"
+            classNames={{ inactiveText: "text-muted-foreground" }}
+          />
+        </div>
+      ))}
+    </CardContent>
+  </Card>
+);
+
+TextOnly.args = {
+  size: "md",
+};
+
+TextOnly.storyName = "Text Only";
+
+/**
  * Connected
  */
 export const Connected: Story<{

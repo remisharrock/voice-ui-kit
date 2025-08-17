@@ -1,4 +1,4 @@
-import useConversation from "@/hooks/useConversation";
+import usePipecatConversation from "@/hooks/usePipecatConversation";
 import {
   type ConversationContextType,
   type ConversationMessage,
@@ -22,7 +22,7 @@ export interface ConversationProviderRef {
 export const ConversationProvider = memo(
   forwardRef<ConversationProviderRef, { children: ReactNode }>(
     ({ children }, ref) => {
-      const conversation = useConversation();
+      const conversation = usePipecatConversation();
 
       useImperativeHandle(ref, () => {
         return {

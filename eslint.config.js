@@ -1,44 +1,47 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import prettier from 'eslint-plugin-prettier'
-import eslintConfigPrettier from 'eslint-config-prettier'
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import tseslint from "typescript-eslint";
+import prettier from "eslint-plugin-prettier";
+import eslintConfigPrettier from "eslint-config-prettier";
 
 export default tseslint.config(
-  { ignores: ['dist', 'examples'] },
+  { ignores: ["dist", "examples"] },
   {
     extends: [
-      js.configs.recommended, 
+      js.configs.recommended,
       ...tseslint.configs.recommended,
-      eslintConfigPrettier
+      eslintConfigPrettier,
     ],
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      'prettier': prettier
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh,
+      prettier: prettier,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'sort-imports': [
-        'warn',
+      "sort-imports": [
+        "warn",
         {
           ignoreDeclarationSort: true,
           ignoreCase: true,
           allowSeparatedGroups: true,
         },
       ],
-      'react-refresh/only-export-components': [
-        'warn',
+      "react-refresh/only-export-components": [
+        "warn",
         { allowConstantExport: true },
       ],
-      'prettier/prettier': 'error'
+      "prettier/prettier": "error",
     },
   },
-)
+);
