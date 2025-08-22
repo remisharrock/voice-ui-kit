@@ -55,7 +55,6 @@ import { createTransport } from "@/lib/transports";
 import { cn } from "@/lib/utils";
 import { type ConversationMessage } from "@/types/conversation";
 import {
-  type ConnectionEndpoint,
   PipecatClient,
   type PipecatClientOptions,
   type TransportConnectionParams,
@@ -105,7 +104,7 @@ export interface ConsoleTemplateProps {
   /**
    * Parameters for connecting to the transport.
    */
-  connectParams?: TransportConnectionParams | ConnectionEndpoint;
+  connectParams?: TransportConnectionParams;
   /**
    * Disables audio output for the bot. The bot may still send audio, but it won't be played.
    */

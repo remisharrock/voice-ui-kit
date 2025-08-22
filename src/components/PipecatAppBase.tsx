@@ -25,7 +25,7 @@ export interface PipecatBaseProps {
   /** Type of transport to use for the connection */
   transportType: "smallwebrtc" | "daily";
   /** Optional configuration options for the Pipecat client */
-  clientOptions?: PipecatClientOptions;
+  clientOptions?: Partial<PipecatClientOptions>;
   /** Whether to disable the theme provider */
   noThemeProvider?: boolean;
   /** Default theme to use for the app */
